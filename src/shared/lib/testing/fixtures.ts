@@ -1,6 +1,8 @@
-import { HealthLive200Response } from '@/shared/api/generated-zod/health/health.zod'
-import { OPENAPI_CONTRACT_SOURCE } from '@/shared/api/generated-zod/contract-source'
-import type { HealthLive200 } from '@/shared/api/generated/model'
+import {
+  HealthLive200Response,
+  OPENAPI_CONTRACT_SOURCE,
+  type HealthLive200,
+} from '@/shared/api'
 
 const healthLiveResponse = {
   status: 'ok',

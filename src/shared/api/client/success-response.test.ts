@@ -42,20 +42,20 @@ function apiResponse({
 }
 
 describe('parseSuccessfulApiResponse', () => {
-  it('returns an operation-specific parsed auth response', () => {
+  it('returns an operation-specific parsed auth response', async () => {
     const data = {
       sessionId: 'AbCdEfGhIjKlMnOpQrStUv',
       userId: '8dc70a15-d91f-4c67-b5a6-479faa42433c',
     }
 
-    expect(
+    await expect(
       parseSuccessfulApiResponse(
         apiResponse({ data, url: '/auth/me?fresh=true' }),
       ),
-    ).toEqual(data)
+    ).resolves.toEqual(data)
   })
 
-  it('matches dynamic OpenAPI paths and parses their exact response variant', () => {
+  it('matches dynamic OpenAPI paths and parses their exact response variant', async () => {
     const data = {
       queryLocalDate: '2026-08-30',
       schemaVersion: 'tracking.month.v1',
@@ -63,18 +63,18 @@ describe('parseSuccessfulApiResponse', () => {
       targetMonth: '2026-08',
     }
 
-    expect(
+    await expect(
       parseSuccessfulApiResponse(
         apiResponse({
           data,
           url: '/tracking/months/2026-08?viewer=current',
         }),
       ),
-    ).toEqual(data)
+    ).resolves.toEqual(data)
   })
 
-  it('accepts an exact empty-body success contract', () => {
-    expect(
+  it('accepts an exact empty-body success contract without loading a schema', async () => {
+    await expect(
       parseSuccessfulApiResponse(
         apiResponse({
           contentType: null,
@@ -84,18 +84,18 @@ describe('parseSuccessfulApiResponse', () => {
           url: '/auth/logout',
         }),
       ),
-    ).toBeUndefined()
+    ).resolves.toBeUndefined()
   })
 
-  it('accepts a strict empty collection for the catalog list operation', () => {
-    expect(
+  it('accepts a strict empty collection for the catalog list operation', async () => {
+    await expect(
       parseSuccessfulApiResponse(
         apiResponse({
           data: [],
           url: '/planning/catalog/goal-definitions',
         }),
       ),
-    ).toEqual([])
+    ).resolves.toEqual([])
   })
 
   it.each([
@@ -156,12 +156,14 @@ describe('parseSuccessfulApiResponse', () => {
         url: '/auth/logout',
       }),
     ],
-  ])('rejects %s before data can enter cache', (_label, response) => {
-    expect(() => parseSuccessfulApiResponse(response)).toThrow(ApiProtocolError)
+  ])('rejects %s before data can enter cache', async (_label, response) => {
+    await expect(parseSuccessfulApiResponse(response)).rejects.toBeInstanceOf(
+      ApiProtocolError,
+    )
   })
 
-  it('preserves only the diagnostic requestId on protocol failure', () => {
-    expect(() =>
+  it('preserves only the diagnostic requestId on protocol failure', async () => {
+    await expect(
       parseSuccessfulApiResponse(
         apiResponse({
           contentType: 'text/html',
@@ -170,6 +172,6 @@ describe('parseSuccessfulApiResponse', () => {
           url: '/auth/me',
         }),
       ),
-    ).toThrow(expect.objectContaining({ requestId: 'request-protocol-1' }))
+    ).rejects.toMatchObject({ requestId: 'request-protocol-1' })
   })
 })

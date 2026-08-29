@@ -46,7 +46,7 @@ export async function apiMutator<T>(
       url: config.url,
       validateStatus: (status) => status >= 200 && status < 300,
     })
-    return parseSuccessfulApiResponse<T>(response)
+    return await parseSuccessfulApiResponse<T>(response)
   } catch (error) {
     throw normalizeApiError(error)
   }

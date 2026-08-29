@@ -27,6 +27,24 @@ export default defineConfig([
     },
   },
   {
+    files: ['src/**/*.{ts,tsx}'],
+    ignores: ['src/shared/api/**/*'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              regex:
+                '(^@/shared/api|(?:^|/)api)/(?:generated|generated-zod)(?:/|$)',
+              message: 'Import generated contracts through @/shared/api.',
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
     files: [
       'scripts/**/*.{js,mjs,ts}',
       'orval.config.ts',

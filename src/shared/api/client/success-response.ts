@@ -40,9 +40,9 @@ function requestPath(url: string) {
   }
 }
 
-export function parseSuccessfulApiResponse<T>(
+export async function parseSuccessfulApiResponse<T>(
   response: AxiosResponse<unknown>,
-): T {
+): Promise<T> {
   const method = response.config.method?.toUpperCase() ?? 'GET'
   const path = requestPath(response.config.url ?? '')
   const contract = contracts.find(
@@ -74,7 +74,8 @@ export function parseSuccessfulApiResponse<T>(
   if (mediaType(response) !== expected.mediaType) {
     throw new ApiProtocolError(requestId(response))
   }
-  const parsed = expected.schema.safeParse(response.data)
+  const schema = await expected.loadSchema()
+  const parsed = schema.safeParse(response.data)
   if (!parsed.success) throw new ApiProtocolError(requestId(response))
   return parsed.data as T
 }

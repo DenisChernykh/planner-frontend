@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { HealthLive200Response } from '@/shared/api/generated-zod/health/health.zod'
+import { HealthLive200Response } from '@/shared/api'
 
 import { healthLiveFixture } from './fixtures'
 

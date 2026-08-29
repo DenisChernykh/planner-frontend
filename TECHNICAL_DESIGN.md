@@ -2,8 +2,8 @@
 
 - **Версия:** 1.1
 - **Дата:** 24 августа 2026 года
-- **Статус:** `M1` foundation реализован и локально проверен; frontend OpenAPI
-  consumer закреплён на published backend handoff `F10`
+- **Статус:** `M1` foundation находится в review; frontend OpenAPI consumer
+  закреплён на published backend handoff `F10`
 
 ## 1. Назначение и граница
 
@@ -56,7 +56,7 @@ Frontend не пересчитывает эти правила, не вывод�
 
 | Репозиторий                 | Проверенное состояние                                                                                | Роль                                                     |
 | --------------------------- | ---------------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
-| `planner-frontend`          | branch `feat/m1-frontend-foundation`; foundation commit `48c4de56d34cc2cc5a9aab204346a00756df72af` | Локально проверенный M1 и owning consumer pipeline       |
+| `planner-frontend`          | branch `feat/m1-frontend-foundation`; commits `48c4de5`, `e31b927` плюс текущие review fixes       | M1 implementation в review и owning consumer pipeline   |
 | `react-starter`             | clean `stage=origin/stage=258b4e0a21022fc0894701e52885fd39b40469ee`                                  | Read-only foundation source                              |
 | `planner-backend` published | `origin/main=e5f9667a12e3a8274eff261b7a016f3816bd93fb`                                               | Published `F01…F09` и canonical OpenAPI для F10 handoff |
 
@@ -318,9 +318,9 @@ errors остаются отдельными состояниями.
 `/auth/telegram/start`. Frontend не вызывает start через Axios и не читает
 OIDC `state`, `code`, nonce, PKCE verifier, provider token или session cookie.
 
-Успех callback возвращает browser на `/`. После F08 любой terminal failure,
-включая cancel, denied identity, invalid/expired ceremony и временную
-недоступность dependency, получает фиксированный redirect
+После F08 любой распознанный terminal callback, включая success, cancel,
+denied identity, invalid/expired ceremony и временную недоступность dependency,
+получает фиксированный redirect
 `/auth/telegram/result?result=<finite-code>`. Raw Problem response не является
 конечным UX document navigation. Finite enum является частью published OpenAPI
 contract и генерируется вместе с frontend schemas. Result page:
@@ -850,16 +850,16 @@ published pinned artifact и соответствующие surfaces прошл�
 
 | Gate                     | Frontend use                                   | Текущее наблюдение                                    |
 | ------------------------ | ---------------------------------------------- | ----------------------------------------------------- |
-| F01 workspace context    | AppShell labels, owner choice, report sections | Реализован в local commits до `0ef4f0d`; не published |
-| F02 month discovery      | Plans/month/statistics navigation              | Pending                                               |
-| F03 empty draft          | W-08                                           | Pending                                               |
-| F04 publication copy     | W-08/next month                                | Pending                                               |
-| F05 focus update         | W-09                                           | Pending                                               |
-| F06 cancel/republish     | W-07/W-11                                      | Pending                                               |
-| F07 fact/month histories | W-06/W-07/W-13/W-15                            | Pending                                               |
-| F08 OIDC result redirect | W-01                                           | Pending                                               |
-| F09 bot navigation       | W-01/W-14                                      | Pending                                               |
-| F10 pinned handoff       | Reproducible consumer contract                 | Pending; final integration gate                       |
+| F01 workspace context    | AppShell labels, owner choice, report sections | Published в pinned backend `e5f9667`                  |
+| F02 month discovery      | Plans/month/statistics navigation              | Published в pinned backend `e5f9667`                  |
+| F03 empty draft          | W-08                                           | Published в pinned backend `e5f9667`                  |
+| F04 publication copy     | W-08/next month                                | Published в pinned backend `e5f9667`                  |
+| F05 focus update         | W-09                                           | Published в pinned backend `e5f9667`                  |
+| F06 cancel/republish     | W-07/W-11                                      | Published в pinned backend `e5f9667`                  |
+| F07 fact/month histories | W-06/W-07/W-13/W-15                            | Published в pinned backend `e5f9667`                  |
+| F08 OIDC result redirect | W-01                                           | Published в pinned backend `e5f9667`                  |
+| F09 bot navigation       | W-01/W-14                                      | Published в pinned backend `e5f9667`                  |
+| F10 pinned handoff       | Reproducible consumer contract                 | Pinned frontend commit `e31b927`; CI/review pending   |
 
 Foundation и независимые UI primitives могут разрабатываться раньше F10, но
 никакая GAP-dependent feature не получает статус ready на основе локального

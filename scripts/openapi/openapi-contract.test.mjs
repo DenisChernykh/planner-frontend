@@ -10,7 +10,7 @@ import {
   syncOpenApi,
 } from './openapi-contract.mjs'
 
-const revision = 'cf76080b2a1972377eb1e4fa4da5ccd8aaa02331'
+const revision = 'e5f9667a12e3a8274eff261b7a016f3816bd93fb'
 
 async function createContractRoot() {
   const root = await mkdtemp(join(tmpdir(), 'planner-openapi-test-'))

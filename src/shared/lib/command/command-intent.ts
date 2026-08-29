@@ -1,4 +1,6 @@
 export type CommandIntentState =
+  | 'unreconciled'
+  | 'reconciling'
   | 'ready'
   | 'pending'
   | 'unknown'
@@ -15,7 +17,8 @@ type CommandSender<TPayload extends object, TResult> = (
   payload: CommandEnvelope<TPayload>,
 ) => Promise<TResult>
 
-type UnknownOutcomeClassifier = (error: unknown) => boolean
+type OutcomeClassifier = (error: unknown) => boolean
+type AuthoritativeReconciliation = () => Promise<void>
 
 function freezeRecursively<T>(value: T): T {
   if (typeof value !== 'object' || value === null || Object.isFrozen(value)) {
@@ -65,17 +68,18 @@ export class OfflineSubmissionError extends Error {
  * Одновременные submit разделяют один Promise и не создают второй HTTP request.
  */
 export class CommandIntentController<TPayload extends object, TResult> {
-  private readonly isUnknownOutcome: UnknownOutcomeClassifier
-  private readonly isStaleOutcome: UnknownOutcomeClassifier
+  private readonly isUnknownOutcome: OutcomeClassifier
+  private readonly isStaleOutcome: OutcomeClassifier
   private readonly createCommandId: () => string
   private envelope: CommandEnvelope<TPayload> | null = null
   private inFlight: Promise<TResult> | null = null
-  private intentState: CommandIntentState = 'abandoned'
+  private reconciliationInFlight: Promise<void> | null = null
+  private intentState: CommandIntentState = 'unreconciled'
 
   public constructor(
-    isUnknownOutcome: UnknownOutcomeClassifier,
+    isUnknownOutcome: OutcomeClassifier,
     createCommandId: () => string = () => crypto.randomUUID(),
-    isStaleOutcome: UnknownOutcomeClassifier = () => false,
+    isStaleOutcome: OutcomeClassifier = () => false,
   ) {
     this.isUnknownOutcome = isUnknownOutcome
     this.createCommandId = createCommandId
@@ -88,6 +92,39 @@ export class CommandIntentController<TPayload extends object, TResult> {
 
   public get payload() {
     return this.envelope
+  }
+
+  /** Выполняет обязательную authoritative reconciliation перед новым intent. */
+  public reconcile(
+    reconcileAuthoritatively: AuthoritativeReconciliation,
+  ): Promise<void> {
+    if (this.reconciliationInFlight !== null) {
+      return this.reconciliationInFlight
+    }
+    if (!['unreconciled', 'unknown', 'stale'].includes(this.intentState)) {
+      throw new CommandIntentStateError(this.intentState)
+    }
+
+    const previousState = this.intentState
+    this.intentState = 'reconciling'
+    const request = Promise.resolve().then(reconcileAuthoritatively)
+    const tracked = request
+      .then(() => {
+        this.envelope = null
+        this.intentState = 'abandoned'
+      })
+      .catch((error: unknown) => {
+        this.intentState = previousState
+        throw error
+      })
+      .finally(() => {
+        if (this.reconciliationInFlight === tracked) {
+          this.reconciliationInFlight = null
+        }
+      })
+
+    this.reconciliationInFlight = tracked
+    return tracked
   }
 
   /** Создаёт новый intent до первого request. */
@@ -146,22 +183,18 @@ export class CommandIntentController<TPayload extends object, TResult> {
       : Promise.reject<TResult>(new OfflineSubmissionError())
   }
 
-  /** Создаёт новый intent после authoritative refetch известного stale исхода. */
-  public replaceAfterStale(payload: TPayload) {
-    if (this.inFlight !== null) throw new CommandIntentStateError('pending')
-    if (this.intentState !== 'stale' || this.envelope === null) {
-      throw new CommandIntentStateError(this.intentState)
-    }
-
-    this.envelope = createEnvelope(payload, this.createCommandId())
-    this.intentState = 'ready'
-    return this.envelope
-  }
-
   /** Отменяет дальнейшую отправку при уходе с surface. */
   public abandon() {
     if (this.inFlight !== null) throw new CommandIntentStateError('pending')
-    this.intentState = 'abandoned'
+    if (this.reconciliationInFlight !== null) {
+      throw new CommandIntentStateError('reconciling')
+    }
+
+    this.intentState = ['unreconciled', 'unknown', 'stale'].includes(
+      this.intentState,
+    )
+      ? 'unreconciled'
+      : 'abandoned'
     this.envelope = null
   }
 }

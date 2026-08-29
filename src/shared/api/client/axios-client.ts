@@ -14,7 +14,8 @@ const csrfAxios = axios.create(clientDefaults)
 
 async function fetchCsrfToken() {
   const response = await csrfAxios.get<unknown>('/auth/csrf')
-  return parseSuccessfulApiResponse<{ csrfToken: string }>(response).csrfToken
+  return (await parseSuccessfulApiResponse<{ csrfToken: string }>(response))
+    .csrfToken
 }
 
 API_AXIOS_INSTANCE.interceptors.request.use(async (config) => {

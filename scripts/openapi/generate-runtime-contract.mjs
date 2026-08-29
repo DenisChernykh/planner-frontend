@@ -14,6 +14,8 @@ const HTTP_METHODS = new Set([
 ])
 const PROBLEM_MEDIA_TYPE = 'application/problem+json'
 const JSON_MEDIA_TYPE = 'application/json'
+const TELEGRAM_OIDC_CALLBACK_PATH = '/auth/telegram/callback'
+const TELEGRAM_OIDC_RESULT_LOCATION_PREFIX = '/auth/telegram/result?result='
 
 function isRecord(value) {
   return value !== null && typeof value === 'object' && !Array.isArray(value)
@@ -165,6 +167,47 @@ function collectSuccessContracts(entries) {
   return contracts
 }
 
+function collectTelegramOidcResultCodes(document) {
+  const operation = document.paths?.[TELEGRAM_OIDC_CALLBACK_PATH]?.get
+  if (
+    !isRecord(operation) ||
+    operation.operationId !== 'completeTelegramOidcLogin'
+  ) {
+    throw new Error('Telegram OIDC callback operation is missing')
+  }
+
+  const response = operation.responses?.['303']
+  const locationHeader = isRecord(response)
+    ? response.headers?.Location
+    : undefined
+  const locationSchema = isRecord(locationHeader)
+    ? locationHeader.schema
+    : undefined
+  const locations = isRecord(locationSchema) ? locationSchema.enum : undefined
+  if (!Array.isArray(locations) || locations.length === 0) {
+    throw new Error('Telegram OIDC result Location enum is missing')
+  }
+
+  const codes = locations.map((location) => {
+    if (
+      typeof location !== 'string' ||
+      !location.startsWith(TELEGRAM_OIDC_RESULT_LOCATION_PREFIX)
+    ) {
+      throw new Error('Telegram OIDC result Location is not a fixed safe route')
+    }
+    const code = location.slice(TELEGRAM_OIDC_RESULT_LOCATION_PREFIX.length)
+    if (!/^[a-z][a-z0-9_]*$/u.test(code)) {
+      throw new Error('Telegram OIDC result code is invalid')
+    }
+    return code
+  })
+
+  if (new Set(codes).size !== codes.length) {
+    throw new Error('Telegram OIDC result codes must be unique')
+  }
+  return codes
+}
+
 async function assertGeneratedSchemas(root, contracts) {
   const imports = new Map()
   for (const contract of contracts) {
@@ -230,22 +273,42 @@ function renderContractSource(manifest) {
   ].join('\n')
 }
 
+function renderTelegramOidcResultCodes(codes) {
+  return [
+    ...generatedHeader(),
+    "import { z } from 'zod'",
+    '',
+    `export const TELEGRAM_OIDC_RESULT_CODES = ${JSON.stringify(codes, null, 2)} as const`,
+    '',
+    'export type TelegramOidcResultCode =',
+    '  (typeof TELEGRAM_OIDC_RESULT_CODES)[number]',
+    '',
+    'export const TelegramOidcResultCodeSchema = z.enum(',
+    '  TELEGRAM_OIDC_RESULT_CODES,',
+    ')',
+    '',
+  ].join('\n')
+}
+
 function renderSuccessContracts(contracts, imports) {
   const lines = [...generatedHeader(), "import type { ZodType } from 'zod'", '']
 
-  for (const [importPath, symbols] of [...imports].sort(([left], [right]) =>
+  const sortedImports = [...imports].sort(([left], [right]) =>
     left.localeCompare(right),
-  )) {
-    lines.push(
-      `import { ${[...symbols].sort().join(', ')} } from '${importPath}'`,
-    )
+  )
+  const loaderNames = new Map()
+  for (const [importPath] of sortedImports) {
+    const tag = importPath.split('/').at(-2) ?? importPath
+    const loaderName = `load${pascal(tag)}Schemas`
+    loaderNames.set(importPath, loaderName)
+    lines.push(`const ${loaderName} = () => import('${importPath}')`)
   }
 
   lines.push(
     '',
     'export type GeneratedSuccessResponse =',
-    "  | { readonly status: number; readonly mediaType: 'application/json'; readonly schema: ZodType<unknown> }",
-    '  | { readonly status: number; readonly mediaType: null; readonly schema: null }',
+    "  | { readonly status: number; readonly mediaType: 'application/json'; readonly loadSchema: () => Promise<ZodType<unknown>> }",
+    '  | { readonly status: number; readonly mediaType: null; readonly loadSchema: null }',
     '',
     'export type GeneratedSuccessResponseContract = Readonly<{',
     '  method: string',
@@ -268,7 +331,9 @@ function renderSuccessContracts(contracts, imports) {
       lines.push(`        status: ${response.status},`)
       lines.push(`        mediaType: ${JSON.stringify(response.mediaType)},`)
       lines.push(
-        `        schema: ${response.schema === null ? 'null' : response.schema},`,
+        response.schema === null
+          ? '        loadSchema: null,'
+          : `        loadSchema: async () => (await ${loaderNames.get(contract.importPath)}()).${response.schema},`,
       )
       lines.push('      },')
     }
@@ -288,6 +353,7 @@ export async function generateRuntimeContract(root = process.cwd()) {
   const entries = operationEntries(document)
   const problemCodes = collectProblemCodes(document, entries)
   const contracts = collectSuccessContracts(entries)
+  const telegramOidcResultCodes = collectTelegramOidcResultCodes(document)
   const imports = await assertGeneratedSchemas(root, contracts)
   const problemCodesDestination = resolve(
     root,
@@ -301,10 +367,18 @@ export async function generateRuntimeContract(root = process.cwd()) {
     root,
     'src/shared/api/generated-zod/contract-source.ts',
   )
+  const telegramOidcResultCodesDestination = resolve(
+    root,
+    'src/shared/api/generated-zod/telegram-oidc-result.ts',
+  )
   await mkdir(dirname(problemCodesDestination), { recursive: true })
   await Promise.all([
     writeFile(contractSourceDestination, renderContractSource(manifest)),
     writeFile(problemCodesDestination, renderProblemCodes(problemCodes)),
+    writeFile(
+      telegramOidcResultCodesDestination,
+      renderTelegramOidcResultCodes(telegramOidcResultCodes),
+    ),
     writeFile(
       successContractsDestination,
       renderSuccessContracts(contracts, imports),
@@ -316,12 +390,14 @@ export async function generateRuntimeContract(root = process.cwd()) {
       contractSourceDestination,
       problemCodesDestination,
       successContractsDestination,
+      telegramOidcResultCodesDestination,
     ],
     problemCodes,
+    telegramOidcResultCodes,
   }
 }
 
 const result = await generateRuntimeContract()
 process.stdout.write(
-  `Generated ${result.contracts.length} success contracts and ${result.problemCodes.length} Problem codes\n`,
+  `Generated ${result.contracts.length} success contracts, ${result.problemCodes.length} Problem codes and ${result.telegramOidcResultCodes.length} Telegram OIDC result codes\n`,
 )

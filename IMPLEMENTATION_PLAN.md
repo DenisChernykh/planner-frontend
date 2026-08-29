@@ -2,7 +2,7 @@
 
 **Версия:** 1.1
 **Дата:** 24 августа 2026 года
-**Статус:** `G0` принят; `M1` foundation локально завершён; published backend
+**Статус:** `G0` принят; `M1` foundation находится в review; published backend
 handoff `F10` закреплён consumer manifest/generated output
 **Гранулярность:** девять крупных задач `M1…M9`
 
@@ -24,10 +24,11 @@ scope и acceptance gate не должны размываться.
 План не является разрешением на push, PR, merge, deployment или изменение
 инфраструктуры. Эти действия получают отдельную авторизацию.
 
-## 2. Наблюдаемое исходное состояние
+## 2. Наблюдаемое исходное состояние на 24 августа 2026 года
 
-Состояние проверено перед созданием этого плана и должно перепроверяться перед
-каждой реализационной задачей.
+Состояние ниже — исторический baseline до начала реализации, а не текущая
+readiness-сводка. Оно проверено перед созданием этого плана; актуальный handoff
+зафиксирован в `openapi/source.json` и разделе 2 технического дизайна.
 
 | Репозиторий                 | Наблюдение                                                                                                                               | Следствие                                                                                                        |
 | --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
@@ -90,6 +91,9 @@ resolved версии перепроверяются; dirty backend artifact н�
 
 ### B0 — Вести backend contract runway параллельно frontend
 
+**Статус:** `IN REVIEW`; published backend `e5f9667` закреплён frontend commit
+`e31b927`, remote CI и итоговый review остаются отдельными evidence.
+
 `B0` исполняется в `planner-backend` по существующим cards `F01…F10` и не
 считается frontend milestone.
 
@@ -133,8 +137,9 @@ M9 RC ─→ D0 hosted delivery plan ─→ P0 month pilot evaluation
 
 ### M1 — Перенести frontend foundation и transport platform
 
-**Статус:** `LOCAL COMPLETE`; foundation commit `48c4de5`, local `pnpm check`
-пройден; remote CI является отдельным evidence.
+**Статус:** `IN REVIEW`; foundation commit `48c4de5`, contract pin `e31b927`;
+review fixes входят в текущую ветку, remote CI и hosted runtime являются
+отдельным evidence.
 **Зависимости:** `react-starter@258b4e0`, staged contract policy из `G0/B0`.
 
 **В scope:**

@@ -4,78 +4,26 @@
  */
 import type { ZodType } from 'zod'
 
-import {
-  AuthControllerCsrfToken200Response,
-  AuthControllerMe200Response,
-} from './auth/auth.zod'
-import {
-  HealthLive200Response,
-  HealthReady200Response,
-  HealthStartup200Response,
-} from './health/health.zod'
-import {
-  PlanningControllerArchive200Response,
-  PlanningControllerCopy201Response,
-  PlanningControllerCreate201Response,
-  PlanningControllerGet200Response,
-  PlanningControllerList200Response,
-  PlanningControllerRestore200Response,
-  PlanningControllerVersion201Response,
-  PlanningDraftControllerAdd201Response,
-  PlanningDraftControllerCreateEmpty201Response,
-  PlanningDraftControllerCreateFromPublication201Response,
-  PlanningDraftControllerCreateFromSeed201Response,
-  PlanningDraftControllerEditor200Response,
-  PlanningDraftControllerPublicationPreview200Response,
-  PlanningDraftControllerPublish201Response,
-  PlanningDraftControllerRemove200Response,
-  PlanningDraftControllerReorder200Response,
-  PlanningDraftControllerRepublish201Response,
-  PlanningDraftControllerUpdate200Response,
-  PlanningDraftControllerUpdateMonthFocus200Response,
-  PlanningMonthControllerActive200Response,
-  PlanningMonthControllerHistory200Response,
-  PlanningMonthControllerList200Response,
-  PlanningMonthControllerReclose200Response,
-  PlanningMonthControllerReopen200Response,
-  PlanningPublicationControllerCancel200Response,
-  PlanningPublicationControllerGet200Response,
-} from './planning/planning.zod'
-import {
-  ReminderSettingsControllerDeliveryStatus200Response,
-  ReminderSettingsControllerSaveSettings201Response,
-  ReminderSettingsControllerSettings200Response,
-} from './reminders/reminders.zod'
-import { ReportingControllerMonth200Response } from './reporting/reporting.zod'
-import { GetTelegramNavigation200Response } from './telegram/telegram.zod'
-import {
-  CompositeFactControllerRecordChecklistItem201Response,
-  CompositeFactControllerRecordCompositeOccurrence201Response,
-  CompositeFactControllerRecordOrVariant201Response,
-  CompositeFactControllerRecordText201Response,
-  FactMaintenanceControllerCloseDay201Response,
-  FactMaintenanceControllerCloseDayPreview200Response,
-  FactMaintenanceControllerCorrect200Response,
-  FactMaintenanceControllerDelete200Response,
-  FactMaintenanceControllerGetHistory200Response,
-  FactMaintenanceControllerRecordWeeklyTaskResult201Response,
-  FactMaintenanceControllerUndo200Response,
-  ScalarFactControllerRecordCheckpoint201Response,
-  ScalarFactControllerRecordFact201Response,
-  ScalarFactControllerRecordRating201Response,
-  ScalarFactControllerRecordTime201Response,
-  TrackingQueryControllerMonth200Response,
-  TrackingQueryControllerToday200Response,
-} from './tracking/tracking.zod'
-import { WorkspaceControllerCurrent200Response } from './workspace/workspace.zod'
+const loadAuthSchemas = () => import('./auth/auth.zod')
+const loadHealthSchemas = () => import('./health/health.zod')
+const loadPlanningSchemas = () => import('./planning/planning.zod')
+const loadRemindersSchemas = () => import('./reminders/reminders.zod')
+const loadReportingSchemas = () => import('./reporting/reporting.zod')
+const loadTelegramSchemas = () => import('./telegram/telegram.zod')
+const loadTrackingSchemas = () => import('./tracking/tracking.zod')
+const loadWorkspaceSchemas = () => import('./workspace/workspace.zod')
 
 export type GeneratedSuccessResponse =
   | {
       readonly status: number
       readonly mediaType: 'application/json'
-      readonly schema: ZodType<unknown>
+      readonly loadSchema: () => Promise<ZodType<unknown>>
     }
-  | { readonly status: number; readonly mediaType: null; readonly schema: null }
+  | {
+      readonly status: number
+      readonly mediaType: null
+      readonly loadSchema: null
+    }
 
 export type GeneratedSuccessResponseContract = Readonly<{
   method: string
@@ -93,7 +41,8 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 200,
         mediaType: 'application/json',
-        schema: AuthControllerCsrfToken200Response,
+        loadSchema: async () =>
+          (await loadAuthSchemas()).AuthControllerCsrfToken200Response,
       },
     ],
   },
@@ -105,7 +54,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 204,
         mediaType: null,
-        schema: null,
+        loadSchema: null,
       },
     ],
   },
@@ -117,7 +66,8 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 200,
         mediaType: 'application/json',
-        schema: AuthControllerMe200Response,
+        loadSchema: async () =>
+          (await loadAuthSchemas()).AuthControllerMe200Response,
       },
     ],
   },
@@ -129,7 +79,8 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 200,
         mediaType: 'application/json',
-        schema: HealthLive200Response,
+        loadSchema: async () =>
+          (await loadHealthSchemas()).HealthLive200Response,
       },
     ],
   },
@@ -141,7 +92,8 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 200,
         mediaType: 'application/json',
-        schema: HealthReady200Response,
+        loadSchema: async () =>
+          (await loadHealthSchemas()).HealthReady200Response,
       },
     ],
   },
@@ -153,7 +105,8 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 200,
         mediaType: 'application/json',
-        schema: HealthStartup200Response,
+        loadSchema: async () =>
+          (await loadHealthSchemas()).HealthStartup200Response,
       },
     ],
   },
@@ -165,7 +118,8 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 200,
         mediaType: 'application/json',
-        schema: PlanningControllerList200Response,
+        loadSchema: async () =>
+          (await loadPlanningSchemas()).PlanningControllerList200Response,
       },
     ],
   },
@@ -177,7 +131,8 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 201,
         mediaType: 'application/json',
-        schema: PlanningControllerCreate201Response,
+        loadSchema: async () =>
+          (await loadPlanningSchemas()).PlanningControllerCreate201Response,
       },
     ],
   },
@@ -189,7 +144,8 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 200,
         mediaType: 'application/json',
-        schema: PlanningControllerGet200Response,
+        loadSchema: async () =>
+          (await loadPlanningSchemas()).PlanningControllerGet200Response,
       },
     ],
   },
@@ -201,7 +157,8 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 200,
         mediaType: 'application/json',
-        schema: PlanningControllerArchive200Response,
+        loadSchema: async () =>
+          (await loadPlanningSchemas()).PlanningControllerArchive200Response,
       },
     ],
   },
@@ -213,7 +170,8 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 201,
         mediaType: 'application/json',
-        schema: PlanningControllerCopy201Response,
+        loadSchema: async () =>
+          (await loadPlanningSchemas()).PlanningControllerCopy201Response,
       },
     ],
   },
@@ -225,7 +183,8 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 200,
         mediaType: 'application/json',
-        schema: PlanningControllerRestore200Response,
+        loadSchema: async () =>
+          (await loadPlanningSchemas()).PlanningControllerRestore200Response,
       },
     ],
   },
@@ -237,7 +196,8 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 201,
         mediaType: 'application/json',
-        schema: PlanningControllerVersion201Response,
+        loadSchema: async () =>
+          (await loadPlanningSchemas()).PlanningControllerVersion201Response,
       },
     ],
   },
@@ -249,7 +209,9 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 200,
         mediaType: 'application/json',
-        schema: PlanningDraftControllerEditor200Response,
+        loadSchema: async () =>
+          (await loadPlanningSchemas())
+            .PlanningDraftControllerEditor200Response,
       },
     ],
   },
@@ -261,7 +223,9 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 200,
         mediaType: 'application/json',
-        schema: PlanningDraftControllerUpdateMonthFocus200Response,
+        loadSchema: async () =>
+          (await loadPlanningSchemas())
+            .PlanningDraftControllerUpdateMonthFocus200Response,
       },
     ],
   },
@@ -273,7 +237,8 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 201,
         mediaType: 'application/json',
-        schema: PlanningDraftControllerAdd201Response,
+        loadSchema: async () =>
+          (await loadPlanningSchemas()).PlanningDraftControllerAdd201Response,
       },
     ],
   },
@@ -285,7 +250,9 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 200,
         mediaType: 'application/json',
-        schema: PlanningDraftControllerRemove200Response,
+        loadSchema: async () =>
+          (await loadPlanningSchemas())
+            .PlanningDraftControllerRemove200Response,
       },
     ],
   },
@@ -297,7 +264,9 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 200,
         mediaType: 'application/json',
-        schema: PlanningDraftControllerUpdate200Response,
+        loadSchema: async () =>
+          (await loadPlanningSchemas())
+            .PlanningDraftControllerUpdate200Response,
       },
     ],
   },
@@ -309,7 +278,9 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 200,
         mediaType: 'application/json',
-        schema: PlanningDraftControllerReorder200Response,
+        loadSchema: async () =>
+          (await loadPlanningSchemas())
+            .PlanningDraftControllerReorder200Response,
       },
     ],
   },
@@ -321,7 +292,9 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 201,
         mediaType: 'application/json',
-        schema: PlanningDraftControllerPublish201Response,
+        loadSchema: async () =>
+          (await loadPlanningSchemas())
+            .PlanningDraftControllerPublish201Response,
       },
     ],
   },
@@ -333,7 +306,9 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 201,
         mediaType: 'application/json',
-        schema: PlanningDraftControllerRepublish201Response,
+        loadSchema: async () =>
+          (await loadPlanningSchemas())
+            .PlanningDraftControllerRepublish201Response,
       },
     ],
   },
@@ -345,7 +320,9 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 201,
         mediaType: 'application/json',
-        schema: PlanningDraftControllerCreateEmpty201Response,
+        loadSchema: async () =>
+          (await loadPlanningSchemas())
+            .PlanningDraftControllerCreateEmpty201Response,
       },
     ],
   },
@@ -357,7 +334,9 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 201,
         mediaType: 'application/json',
-        schema: PlanningDraftControllerCreateFromPublication201Response,
+        loadSchema: async () =>
+          (await loadPlanningSchemas())
+            .PlanningDraftControllerCreateFromPublication201Response,
       },
     ],
   },
@@ -369,7 +348,9 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 201,
         mediaType: 'application/json',
-        schema: PlanningDraftControllerCreateFromSeed201Response,
+        loadSchema: async () =>
+          (await loadPlanningSchemas())
+            .PlanningDraftControllerCreateFromSeed201Response,
       },
     ],
   },
@@ -381,7 +362,9 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 200,
         mediaType: 'application/json',
-        schema: PlanningDraftControllerPublicationPreview200Response,
+        loadSchema: async () =>
+          (await loadPlanningSchemas())
+            .PlanningDraftControllerPublicationPreview200Response,
       },
     ],
   },
@@ -393,7 +376,8 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 200,
         mediaType: 'application/json',
-        schema: PlanningMonthControllerList200Response,
+        loadSchema: async () =>
+          (await loadPlanningSchemas()).PlanningMonthControllerList200Response,
       },
     ],
   },
@@ -405,7 +389,9 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 200,
         mediaType: 'application/json',
-        schema: PlanningMonthControllerHistory200Response,
+        loadSchema: async () =>
+          (await loadPlanningSchemas())
+            .PlanningMonthControllerHistory200Response,
       },
     ],
   },
@@ -417,7 +403,9 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 200,
         mediaType: 'application/json',
-        schema: PlanningMonthControllerReclose200Response,
+        loadSchema: async () =>
+          (await loadPlanningSchemas())
+            .PlanningMonthControllerReclose200Response,
       },
     ],
   },
@@ -429,7 +417,9 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 200,
         mediaType: 'application/json',
-        schema: PlanningMonthControllerReopen200Response,
+        loadSchema: async () =>
+          (await loadPlanningSchemas())
+            .PlanningMonthControllerReopen200Response,
       },
     ],
   },
@@ -441,7 +431,9 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 200,
         mediaType: 'application/json',
-        schema: PlanningMonthControllerActive200Response,
+        loadSchema: async () =>
+          (await loadPlanningSchemas())
+            .PlanningMonthControllerActive200Response,
       },
     ],
   },
@@ -453,7 +445,9 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 200,
         mediaType: 'application/json',
-        schema: PlanningPublicationControllerGet200Response,
+        loadSchema: async () =>
+          (await loadPlanningSchemas())
+            .PlanningPublicationControllerGet200Response,
       },
     ],
   },
@@ -465,7 +459,9 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 200,
         mediaType: 'application/json',
-        schema: PlanningPublicationControllerCancel200Response,
+        loadSchema: async () =>
+          (await loadPlanningSchemas())
+            .PlanningPublicationControllerCancel200Response,
       },
     ],
   },
@@ -477,7 +473,9 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 200,
         mediaType: 'application/json',
-        schema: ReminderSettingsControllerDeliveryStatus200Response,
+        loadSchema: async () =>
+          (await loadRemindersSchemas())
+            .ReminderSettingsControllerDeliveryStatus200Response,
       },
     ],
   },
@@ -489,7 +487,9 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 200,
         mediaType: 'application/json',
-        schema: ReminderSettingsControllerSettings200Response,
+        loadSchema: async () =>
+          (await loadRemindersSchemas())
+            .ReminderSettingsControllerSettings200Response,
       },
     ],
   },
@@ -501,7 +501,9 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 201,
         mediaType: 'application/json',
-        schema: ReminderSettingsControllerSaveSettings201Response,
+        loadSchema: async () =>
+          (await loadRemindersSchemas())
+            .ReminderSettingsControllerSaveSettings201Response,
       },
     ],
   },
@@ -513,7 +515,8 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 200,
         mediaType: 'application/json',
-        schema: ReportingControllerMonth200Response,
+        loadSchema: async () =>
+          (await loadReportingSchemas()).ReportingControllerMonth200Response,
       },
     ],
   },
@@ -525,7 +528,8 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 200,
         mediaType: 'application/json',
-        schema: GetTelegramNavigation200Response,
+        loadSchema: async () =>
+          (await loadTelegramSchemas()).GetTelegramNavigation200Response,
       },
     ],
   },
@@ -537,7 +541,9 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 201,
         mediaType: 'application/json',
-        schema: ScalarFactControllerRecordFact201Response,
+        loadSchema: async () =>
+          (await loadTrackingSchemas())
+            .ScalarFactControllerRecordFact201Response,
       },
     ],
   },
@@ -549,7 +555,9 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 200,
         mediaType: 'application/json',
-        schema: FactMaintenanceControllerCorrect200Response,
+        loadSchema: async () =>
+          (await loadTrackingSchemas())
+            .FactMaintenanceControllerCorrect200Response,
       },
     ],
   },
@@ -561,7 +569,9 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 200,
         mediaType: 'application/json',
-        schema: FactMaintenanceControllerDelete200Response,
+        loadSchema: async () =>
+          (await loadTrackingSchemas())
+            .FactMaintenanceControllerDelete200Response,
       },
     ],
   },
@@ -573,7 +583,9 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 200,
         mediaType: 'application/json',
-        schema: FactMaintenanceControllerGetHistory200Response,
+        loadSchema: async () =>
+          (await loadTrackingSchemas())
+            .FactMaintenanceControllerGetHistory200Response,
       },
     ],
   },
@@ -585,7 +597,9 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 200,
         mediaType: 'application/json',
-        schema: FactMaintenanceControllerUndo200Response,
+        loadSchema: async () =>
+          (await loadTrackingSchemas())
+            .FactMaintenanceControllerUndo200Response,
       },
     ],
   },
@@ -597,7 +611,9 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 201,
         mediaType: 'application/json',
-        schema: CompositeFactControllerRecordChecklistItem201Response,
+        loadSchema: async () =>
+          (await loadTrackingSchemas())
+            .CompositeFactControllerRecordChecklistItem201Response,
       },
     ],
   },
@@ -609,7 +625,9 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 201,
         mediaType: 'application/json',
-        schema: ScalarFactControllerRecordCheckpoint201Response,
+        loadSchema: async () =>
+          (await loadTrackingSchemas())
+            .ScalarFactControllerRecordCheckpoint201Response,
       },
     ],
   },
@@ -621,7 +639,9 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 201,
         mediaType: 'application/json',
-        schema: CompositeFactControllerRecordCompositeOccurrence201Response,
+        loadSchema: async () =>
+          (await loadTrackingSchemas())
+            .CompositeFactControllerRecordCompositeOccurrence201Response,
       },
     ],
   },
@@ -633,7 +653,9 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 201,
         mediaType: 'application/json',
-        schema: CompositeFactControllerRecordOrVariant201Response,
+        loadSchema: async () =>
+          (await loadTrackingSchemas())
+            .CompositeFactControllerRecordOrVariant201Response,
       },
     ],
   },
@@ -645,7 +667,9 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 201,
         mediaType: 'application/json',
-        schema: ScalarFactControllerRecordRating201Response,
+        loadSchema: async () =>
+          (await loadTrackingSchemas())
+            .ScalarFactControllerRecordRating201Response,
       },
     ],
   },
@@ -657,7 +681,9 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 201,
         mediaType: 'application/json',
-        schema: CompositeFactControllerRecordText201Response,
+        loadSchema: async () =>
+          (await loadTrackingSchemas())
+            .CompositeFactControllerRecordText201Response,
       },
     ],
   },
@@ -669,7 +695,9 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 201,
         mediaType: 'application/json',
-        schema: ScalarFactControllerRecordTime201Response,
+        loadSchema: async () =>
+          (await loadTrackingSchemas())
+            .ScalarFactControllerRecordTime201Response,
       },
     ],
   },
@@ -681,7 +709,8 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 200,
         mediaType: 'application/json',
-        schema: TrackingQueryControllerMonth200Response,
+        loadSchema: async () =>
+          (await loadTrackingSchemas()).TrackingQueryControllerMonth200Response,
       },
     ],
   },
@@ -693,7 +722,9 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 201,
         mediaType: 'application/json',
-        schema: FactMaintenanceControllerCloseDay201Response,
+        loadSchema: async () =>
+          (await loadTrackingSchemas())
+            .FactMaintenanceControllerCloseDay201Response,
       },
     ],
   },
@@ -705,7 +736,9 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 200,
         mediaType: 'application/json',
-        schema: FactMaintenanceControllerCloseDayPreview200Response,
+        loadSchema: async () =>
+          (await loadTrackingSchemas())
+            .FactMaintenanceControllerCloseDayPreview200Response,
       },
     ],
   },
@@ -717,7 +750,9 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 201,
         mediaType: 'application/json',
-        schema: FactMaintenanceControllerRecordWeeklyTaskResult201Response,
+        loadSchema: async () =>
+          (await loadTrackingSchemas())
+            .FactMaintenanceControllerRecordWeeklyTaskResult201Response,
       },
     ],
   },
@@ -729,7 +764,8 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 200,
         mediaType: 'application/json',
-        schema: TrackingQueryControllerToday200Response,
+        loadSchema: async () =>
+          (await loadTrackingSchemas()).TrackingQueryControllerToday200Response,
       },
     ],
   },
@@ -741,7 +777,8 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
       {
         status: 200,
         mediaType: 'application/json',
-        schema: WorkspaceControllerCurrent200Response,
+        loadSchema: async () =>
+          (await loadWorkspaceSchemas()).WorkspaceControllerCurrent200Response,
       },
     ],
   },
