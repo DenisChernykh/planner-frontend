@@ -2,8 +2,8 @@
 
 - **Версия:** 1.1
 - **Дата:** 24 августа 2026 года
-- **Статус:** approved implementation baseline; `G0` принят, frontend-код не
-  начат, backend consumer handoff `F10` не завершён
+- **Статус:** `M1` foundation реализован и локально проверен; frontend OpenAPI
+  consumer закреплён на published backend handoff `F10`
 
 ## 1. Назначение и граница
 
@@ -54,24 +54,17 @@ Frontend не пересчитывает эти правила, не вывод�
 
 ### 2.1. Проверенный baseline
 
-| Репозиторий                 | Проверенное состояние                                                                                                   | Роль                                                                    |
-| --------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| `planner-frontend`          | `main=origin/main=9eb6e299bb9c36191fbf735004a3a78a1fd78d2f`; `TECHNICAL_DESIGN.md` и `IMPLEMENTATION_PLAN.md` untracked | Согласованный, но ещё не зафиксированный Git baseline                   |
-| `react-starter`             | clean `stage=origin/stage=258b4e0a21022fc0894701e52885fd39b40469ee`                                                     | Read-only foundation source                                             |
-| `planner-backend` published | `origin/main=cf76080b2a1972377eb1e4fa4da5ccd8aaa02331`                                                                  | Опубликованный backend baseline и cards `F01…F10`                       |
-| `planner-backend` local     | `main=0ef4f0da8d006fedb92f953cd53fbbfac01e7e58`, ahead by 2; working tree содержит незавершённый `F02` WIP              | Локальные `F01` commits и исследовательский `F02`, не consumer contract |
+| Репозиторий                 | Проверенное состояние                                                                                | Роль                                                     |
+| --------------------------- | ---------------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
+| `planner-frontend`          | branch `feat/m1-frontend-foundation`; foundation commit `48c4de56d34cc2cc5a9aab204346a00756df72af` | Локально проверенный M1 и owning consumer pipeline       |
+| `react-starter`             | clean `stage=origin/stage=258b4e0a21022fc0894701e52885fd39b40469ee`                                  | Read-only foundation source                              |
+| `planner-backend` published | `origin/main=e5f9667a12e3a8274eff261b7a016f3816bd93fb`                                               | Published `F01…F09` и canonical OpenAPI для F10 handoff |
 
-На локальном backend `0ef4f0d` операция
-`GET /workspace/current` (`WorkspaceController_current`) присутствует, но её
-commits ещё не находятся в `origin/main`. Dirty `F02` working tree уже меняет
-локальный OpenAPI: 47 paths, 49 operations, SHA-256
-`cf6618400b7660701d2c95104181639b184ad6ea5502824ac95d8deb8f023320`.
-Этот checksum является только point-in-time наблюдением незавершённого WIP и не
-может использоваться как frontend pin.
-
-Перед первым OpenAPI sync implementer повторно проверяет exact refs, clean/dirty
-state и live `F01…F10`. Значения выше не разрешают молча потребить более новый
-локальный backend artifact.
+`openapi/source.json` закрепляет backend revision
+`e5f9667a12e3a8274eff261b7a016f3816bd93fb` и exact SHA-256
+`55ace461a3282c4bbf4a8d3df7c242176ec930cb147c566fb7dbd094b3b60d79`.
+Default `api:sync` получил artifact по immutable GitHub raw URL; локальный
+sibling checkout не является альтернативным источником pin.
 
 ### 2.2. Уровни доказательств
 

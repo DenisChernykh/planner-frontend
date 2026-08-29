@@ -5,10 +5,12 @@
  * Closed monthly planner backend contract.
  * OpenAPI spec version: 0.1.0-alpha.0
  */
+import type { DraftProblemConflictResponseDtoNextAction } from './draftProblemConflictResponseDtoNextAction'
 
 export type DraftProblemConflictResponseDto = {
   /** @pattern ^[1-9][0-9]*$ */
   currentRevision: string
   /** @pattern ^[1-9][0-9]*$ */
   expectedRevision: string
+  nextAction: DraftProblemConflictResponseDtoNextAction
 }

@@ -2,8 +2,8 @@
 
 **Версия:** 1.1
 **Дата:** 24 августа 2026 года
-**Статус:** approved implementation baseline; `G0` принят, `M1` подготовлен к
-review
+**Статус:** `G0` принят; `M1` foundation локально завершён; published backend
+handoff `F10` закреплён consumer manifest/generated output
 **Гранулярность:** девять крупных задач `M1…M9`
 
 ## 1. Назначение и источники
@@ -133,7 +133,8 @@ M9 RC ─→ D0 hosted delivery plan ─→ P0 month pilot evaluation
 
 ### M1 — Перенести frontend foundation и transport platform
 
-**Статус:** `IN REVIEW`; `G0` принят, полный `F10` не нужен.
+**Статус:** `LOCAL COMPLETE`; foundation commit `48c4de5`, local `pnpm check`
+пройден; remote CI является отдельным evidence.
 **Зависимости:** `react-starter@258b4e0`, staged contract policy из `G0/B0`.
 
 **В scope:**

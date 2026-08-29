@@ -22,16 +22,23 @@ import {
   PlanningControllerRestore200Response,
   PlanningControllerVersion201Response,
   PlanningDraftControllerAdd201Response,
+  PlanningDraftControllerCreateEmpty201Response,
+  PlanningDraftControllerCreateFromPublication201Response,
   PlanningDraftControllerCreateFromSeed201Response,
   PlanningDraftControllerEditor200Response,
   PlanningDraftControllerPublicationPreview200Response,
   PlanningDraftControllerPublish201Response,
   PlanningDraftControllerRemove200Response,
   PlanningDraftControllerReorder200Response,
+  PlanningDraftControllerRepublish201Response,
   PlanningDraftControllerUpdate200Response,
+  PlanningDraftControllerUpdateMonthFocus200Response,
   PlanningMonthControllerActive200Response,
+  PlanningMonthControllerHistory200Response,
+  PlanningMonthControllerList200Response,
   PlanningMonthControllerReclose200Response,
   PlanningMonthControllerReopen200Response,
+  PlanningPublicationControllerCancel200Response,
   PlanningPublicationControllerGet200Response,
 } from './planning/planning.zod'
 import {
@@ -40,6 +47,7 @@ import {
   ReminderSettingsControllerSettings200Response,
 } from './reminders/reminders.zod'
 import { ReportingControllerMonth200Response } from './reporting/reporting.zod'
+import { GetTelegramNavigation200Response } from './telegram/telegram.zod'
 import {
   CompositeFactControllerRecordChecklistItem201Response,
   CompositeFactControllerRecordCompositeOccurrence201Response,
@@ -49,6 +57,7 @@ import {
   FactMaintenanceControllerCloseDayPreview200Response,
   FactMaintenanceControllerCorrect200Response,
   FactMaintenanceControllerDelete200Response,
+  FactMaintenanceControllerGetHistory200Response,
   FactMaintenanceControllerRecordWeeklyTaskResult201Response,
   FactMaintenanceControllerUndo200Response,
   ScalarFactControllerRecordCheckpoint201Response,
@@ -58,6 +67,7 @@ import {
   TrackingQueryControllerMonth200Response,
   TrackingQueryControllerToday200Response,
 } from './tracking/tracking.zod'
+import { WorkspaceControllerCurrent200Response } from './workspace/workspace.zod'
 
 export type GeneratedSuccessResponse =
   | {
@@ -245,6 +255,18 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
   },
   {
     method: 'POST',
+    operationId: 'PlanningDraftController_updateMonthFocus',
+    path: '/planning/drafts/{planMonthId}/focus',
+    responses: [
+      {
+        status: 200,
+        mediaType: 'application/json',
+        schema: PlanningDraftControllerUpdateMonthFocus200Response,
+      },
+    ],
+  },
+  {
+    method: 'POST',
     operationId: 'PlanningDraftController_add',
     path: '/planning/drafts/{planMonthId}/goals',
     responses: [
@@ -305,6 +327,42 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
   },
   {
     method: 'POST',
+    operationId: 'PlanningDraftController_republish',
+    path: '/planning/drafts/{planMonthId}/republish',
+    responses: [
+      {
+        status: 201,
+        mediaType: 'application/json',
+        schema: PlanningDraftControllerRepublish201Response,
+      },
+    ],
+  },
+  {
+    method: 'POST',
+    operationId: 'PlanningDraftController_createEmpty',
+    path: '/planning/drafts/empty',
+    responses: [
+      {
+        status: 201,
+        mediaType: 'application/json',
+        schema: PlanningDraftControllerCreateEmpty201Response,
+      },
+    ],
+  },
+  {
+    method: 'POST',
+    operationId: 'PlanningDraftController_createFromPublication',
+    path: '/planning/drafts/from-publication',
+    responses: [
+      {
+        status: 201,
+        mediaType: 'application/json',
+        schema: PlanningDraftControllerCreateFromPublication201Response,
+      },
+    ],
+  },
+  {
+    method: 'POST',
     operationId: 'PlanningDraftController_createFromSeed',
     path: '/planning/drafts/from-seed',
     responses: [
@@ -324,6 +382,30 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
         status: 200,
         mediaType: 'application/json',
         schema: PlanningDraftControllerPublicationPreview200Response,
+      },
+    ],
+  },
+  {
+    method: 'GET',
+    operationId: 'PlanningMonthController_list',
+    path: '/planning/months',
+    responses: [
+      {
+        status: 200,
+        mediaType: 'application/json',
+        schema: PlanningMonthControllerList200Response,
+      },
+    ],
+  },
+  {
+    method: 'GET',
+    operationId: 'PlanningMonthController_history',
+    path: '/planning/months/{planMonthId}/history',
+    responses: [
+      {
+        status: 200,
+        mediaType: 'application/json',
+        schema: PlanningMonthControllerHistory200Response,
       },
     ],
   },
@@ -376,6 +458,18 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     ],
   },
   {
+    method: 'POST',
+    operationId: 'PlanningPublicationController_cancel',
+    path: '/planning/publications/{publicationId}/cancel',
+    responses: [
+      {
+        status: 200,
+        mediaType: 'application/json',
+        schema: PlanningPublicationControllerCancel200Response,
+      },
+    ],
+  },
+  {
     method: 'GET',
     operationId: 'ReminderSettingsController_deliveryStatus',
     path: '/reminders/delivery-status',
@@ -424,6 +518,18 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     ],
   },
   {
+    method: 'GET',
+    operationId: 'getTelegramNavigation',
+    path: '/telegram/navigation',
+    responses: [
+      {
+        status: 200,
+        mediaType: 'application/json',
+        schema: GetTelegramNavigation200Response,
+      },
+    ],
+  },
+  {
     method: 'POST',
     operationId: 'ScalarFactController_recordFact',
     path: '/tracking/facts',
@@ -456,6 +562,18 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
         status: 200,
         mediaType: 'application/json',
         schema: FactMaintenanceControllerDelete200Response,
+      },
+    ],
+  },
+  {
+    method: 'GET',
+    operationId: 'FactMaintenanceController_getHistory',
+    path: '/tracking/facts/{factRecordId}/history',
+    responses: [
+      {
+        status: 200,
+        mediaType: 'application/json',
+        schema: FactMaintenanceControllerGetHistory200Response,
       },
     ],
   },
@@ -612,6 +730,18 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
         status: 200,
         mediaType: 'application/json',
         schema: TrackingQueryControllerToday200Response,
+      },
+    ],
+  },
+  {
+    method: 'GET',
+    operationId: 'WorkspaceController_current',
+    path: '/workspace/current',
+    responses: [
+      {
+        status: 200,
+        mediaType: 'application/json',
+        schema: WorkspaceControllerCurrent200Response,
       },
     ],
   },

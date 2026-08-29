@@ -83,6 +83,16 @@
     },
     {
       "method": "POST",
+      "path": "/planning/drafts/empty",
+      "operationId": "PlanningDraftController_createEmpty"
+    },
+    {
+      "method": "POST",
+      "path": "/planning/drafts/from-publication",
+      "operationId": "PlanningDraftController_createFromPublication"
+    },
+    {
+      "method": "POST",
       "path": "/planning/drafts/from-seed",
       "operationId": "PlanningDraftController_createFromSeed"
     },
@@ -90,6 +100,11 @@
       "method": "GET",
       "path": "/planning/drafts/publication-preview",
       "operationId": "PlanningDraftController_publicationPreview"
+    },
+    {
+      "method": "POST",
+      "path": "/planning/drafts/{planMonthId}/focus",
+      "operationId": "PlanningDraftController_updateMonthFocus"
     },
     {
       "method": "POST",
@@ -117,9 +132,24 @@
       "operationId": "PlanningDraftController_publish"
     },
     {
+      "method": "POST",
+      "path": "/planning/drafts/{planMonthId}/republish",
+      "operationId": "PlanningDraftController_republish"
+    },
+    {
+      "method": "GET",
+      "path": "/planning/months",
+      "operationId": "PlanningMonthController_list"
+    },
+    {
       "method": "GET",
       "path": "/planning/months/active",
       "operationId": "PlanningMonthController_active"
+    },
+    {
+      "method": "GET",
+      "path": "/planning/months/{planMonthId}/history",
+      "operationId": "PlanningMonthController_history"
     },
     {
       "method": "POST",
@@ -135,6 +165,11 @@
       "method": "GET",
       "path": "/planning/publications/{publicationId}",
       "operationId": "PlanningPublicationController_get"
+    },
+    {
+      "method": "POST",
+      "path": "/planning/publications/{publicationId}/cancel",
+      "operationId": "PlanningPublicationController_cancel"
     },
     {
       "method": "GET",
@@ -155,6 +190,11 @@
       "method": "GET",
       "path": "/reporting/months/{targetMonth}",
       "operationId": "ReportingController_month"
+    },
+    {
+      "method": "GET",
+      "path": "/telegram/navigation",
+      "operationId": "getTelegramNavigation"
     },
     {
       "method": "POST",
@@ -207,6 +247,11 @@
       "operationId": "FactMaintenanceController_delete"
     },
     {
+      "method": "GET",
+      "path": "/tracking/facts/{factRecordId}/history",
+      "operationId": "FactMaintenanceController_getHistory"
+    },
+    {
       "method": "POST",
       "path": "/tracking/facts/{factRecordId}/undo",
       "operationId": "FactMaintenanceController_undo"
@@ -235,6 +280,11 @@
       "method": "GET",
       "path": "/tracking/today",
       "operationId": "TrackingQueryController_today"
+    },
+    {
+      "method": "GET",
+      "path": "/workspace/current",
+      "operationId": "WorkspaceController_current"
     }
   ]
 }

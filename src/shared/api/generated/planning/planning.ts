@@ -29,12 +29,15 @@ import type {
   GoalDefinitionDetailResponseDto,
   GoalDefinitionResultResponseDto,
   GoalDefinitionSummaryResponseDto,
+  PlanMonthAlreadyExistsProblemResponseDto,
   PlanMonthAlreadyPublishedProblemResponseDto,
   PlanMonthMutationResponseV1,
   PlanMonthRecloseConflictProblemResponseDto,
   PlanMonthReopenConflictProblemResponseDto,
   PlanMonthRevisionConflictProblemResponseDto,
   PlanPublicationBlockedProblemResponseDto,
+  PlanPublicationCancellationConflictProblemResponseDto,
+  PlanPublicationModeConflictProblemResponseDto,
   PlanPublicationResultResponseV1,
   PlanningControllerArchiveBody,
   PlanningControllerArchivePathParameters,
@@ -49,6 +52,8 @@ import type {
   PlanningControllerVersionPathParameters,
   PlanningDraftControllerAddBody,
   PlanningDraftControllerAddPathParameters,
+  PlanningDraftControllerCreateEmptyBody,
+  PlanningDraftControllerCreateFromPublicationBody,
   PlanningDraftControllerCreateFromSeedBody,
   PlanningDraftControllerEditorParams,
   PlanningDraftControllerPublicationPreviewParams,
@@ -58,10 +63,21 @@ import type {
   PlanningDraftControllerRemovePathParameters,
   PlanningDraftControllerReorderBody,
   PlanningDraftControllerReorderPathParameters,
+  PlanningDraftControllerRepublishBody,
+  PlanningDraftControllerRepublishPathParameters,
   PlanningDraftControllerUpdateBody,
+  PlanningDraftControllerUpdateMonthFocusBody,
+  PlanningDraftControllerUpdateMonthFocusPathParameters,
   PlanningDraftControllerUpdatePathParameters,
+  PlanningMonthControllerHistoryParams,
+  PlanningMonthControllerHistoryPathParameters,
+  PlanningMonthControllerListParams,
   PlanningMonthControllerReclosePathParameters,
   PlanningMonthControllerReopenPathParameters,
+  PlanningMonthHistoryResponseV1,
+  PlanningMonthIndexResponseV1,
+  PlanningPublicationControllerCancelBody,
+  PlanningPublicationControllerCancelPathParameters,
   PlanningPublicationControllerGetPathParameters,
   ProblemResponseDto,
   PublicationPreviewConflictProblemResponseDto,
@@ -1197,6 +1213,218 @@ export function usePlanningDraftControllerEditor<
 }
 
 /**
+ * @summary Create an empty editable monthly draft.
+ */
+export const planningDraftControllerCreateEmpty = (
+  planningDraftControllerCreateEmptyBody: BodyType<PlanningDraftControllerCreateEmptyBody>,
+  options?: SecondParameter<typeof apiMutator>,
+  signal?: AbortSignal,
+) => {
+  return apiMutator<DraftMutationResponseV1>(
+    {
+      url: `/planning/drafts/empty`,
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      data: planningDraftControllerCreateEmptyBody,
+      signal,
+    },
+    options,
+  )
+}
+
+export const getPlanningDraftControllerCreateEmptyMutationOptions = <
+  TError = ErrorType<
+    | ProblemResponseDto
+    | PlanMonthAlreadyExistsProblemResponseDto
+    | ValidationProblemResponseDto
+  >,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof planningDraftControllerCreateEmpty>>,
+    TError,
+    { data: BodyType<PlanningDraftControllerCreateEmptyBody> },
+    TContext
+  >
+  request?: SecondParameter<typeof apiMutator>
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof planningDraftControllerCreateEmpty>>,
+  TError,
+  { data: BodyType<PlanningDraftControllerCreateEmptyBody> },
+  TContext
+> => {
+  const mutationKey = ['planningDraftControllerCreateEmpty']
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      'mutationKey' in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined }
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof planningDraftControllerCreateEmpty>>,
+    { data: BodyType<PlanningDraftControllerCreateEmptyBody> }
+  > = (props) => {
+    const { data } = props ?? {}
+
+    return planningDraftControllerCreateEmpty(data, requestOptions)
+  }
+
+  return { mutationFn, ...mutationOptions }
+}
+
+export type PlanningDraftControllerCreateEmptyMutationResult = NonNullable<
+  Awaited<ReturnType<typeof planningDraftControllerCreateEmpty>>
+>
+export type PlanningDraftControllerCreateEmptyMutationBody =
+  BodyType<PlanningDraftControllerCreateEmptyBody>
+export type PlanningDraftControllerCreateEmptyMutationError = ErrorType<
+  | ProblemResponseDto
+  | PlanMonthAlreadyExistsProblemResponseDto
+  | ValidationProblemResponseDto
+>
+
+/**
+ * @summary Create an empty editable monthly draft.
+ */
+export const usePlanningDraftControllerCreateEmpty = <
+  TError = ErrorType<
+    | ProblemResponseDto
+    | PlanMonthAlreadyExistsProblemResponseDto
+    | ValidationProblemResponseDto
+  >,
+  TContext = unknown,
+>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<typeof planningDraftControllerCreateEmpty>>,
+      TError,
+      { data: BodyType<PlanningDraftControllerCreateEmptyBody> },
+      TContext
+    >
+    request?: SecondParameter<typeof apiMutator>
+  },
+  queryClient?: QueryClient,
+): UseMutationResult<
+  Awaited<ReturnType<typeof planningDraftControllerCreateEmpty>>,
+  TError,
+  { data: BodyType<PlanningDraftControllerCreateEmptyBody> },
+  TContext
+> => {
+  return useMutation(
+    getPlanningDraftControllerCreateEmptyMutationOptions(options),
+    queryClient,
+  )
+}
+/**
+ * @summary Create an editable draft from an immutable publication.
+ */
+export const planningDraftControllerCreateFromPublication = (
+  planningDraftControllerCreateFromPublicationBody: BodyType<PlanningDraftControllerCreateFromPublicationBody>,
+  options?: SecondParameter<typeof apiMutator>,
+  signal?: AbortSignal,
+) => {
+  return apiMutator<DraftMutationResponseV1>(
+    {
+      url: `/planning/drafts/from-publication`,
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      data: planningDraftControllerCreateFromPublicationBody,
+      signal,
+    },
+    options,
+  )
+}
+
+export const getPlanningDraftControllerCreateFromPublicationMutationOptions = <
+  TError = ErrorType<
+    | ProblemResponseDto
+    | PlanMonthAlreadyExistsProblemResponseDto
+    | ValidationProblemResponseDto
+  >,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof planningDraftControllerCreateFromPublication>>,
+    TError,
+    { data: BodyType<PlanningDraftControllerCreateFromPublicationBody> },
+    TContext
+  >
+  request?: SecondParameter<typeof apiMutator>
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof planningDraftControllerCreateFromPublication>>,
+  TError,
+  { data: BodyType<PlanningDraftControllerCreateFromPublicationBody> },
+  TContext
+> => {
+  const mutationKey = ['planningDraftControllerCreateFromPublication']
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      'mutationKey' in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined }
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof planningDraftControllerCreateFromPublication>>,
+    { data: BodyType<PlanningDraftControllerCreateFromPublicationBody> }
+  > = (props) => {
+    const { data } = props ?? {}
+
+    return planningDraftControllerCreateFromPublication(data, requestOptions)
+  }
+
+  return { mutationFn, ...mutationOptions }
+}
+
+export type PlanningDraftControllerCreateFromPublicationMutationResult =
+  NonNullable<
+    Awaited<ReturnType<typeof planningDraftControllerCreateFromPublication>>
+  >
+export type PlanningDraftControllerCreateFromPublicationMutationBody =
+  BodyType<PlanningDraftControllerCreateFromPublicationBody>
+export type PlanningDraftControllerCreateFromPublicationMutationError =
+  ErrorType<
+    | ProblemResponseDto
+    | PlanMonthAlreadyExistsProblemResponseDto
+    | ValidationProblemResponseDto
+  >
+
+/**
+ * @summary Create an editable draft from an immutable publication.
+ */
+export const usePlanningDraftControllerCreateFromPublication = <
+  TError = ErrorType<
+    | ProblemResponseDto
+    | PlanMonthAlreadyExistsProblemResponseDto
+    | ValidationProblemResponseDto
+  >,
+  TContext = unknown,
+>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<typeof planningDraftControllerCreateFromPublication>>,
+      TError,
+      { data: BodyType<PlanningDraftControllerCreateFromPublicationBody> },
+      TContext
+    >
+    request?: SecondParameter<typeof apiMutator>
+  },
+  queryClient?: QueryClient,
+): UseMutationResult<
+  Awaited<ReturnType<typeof planningDraftControllerCreateFromPublication>>,
+  TError,
+  { data: BodyType<PlanningDraftControllerCreateFromPublicationBody> },
+  TContext
+> => {
+  return useMutation(
+    getPlanningDraftControllerCreateFromPublicationMutationOptions(options),
+    queryClient,
+  )
+}
+/**
  * @summary Create a complete editable draft from the one-time April seed.
  */
 export const planningDraftControllerCreateFromSeed = (
@@ -1217,7 +1445,11 @@ export const planningDraftControllerCreateFromSeed = (
 }
 
 export const getPlanningDraftControllerCreateFromSeedMutationOptions = <
-  TError = ErrorType<ProblemResponseDto | ValidationProblemResponseDto>,
+  TError = ErrorType<
+    | ProblemResponseDto
+    | PlanMonthAlreadyExistsProblemResponseDto
+    | ValidationProblemResponseDto
+  >,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
@@ -1260,14 +1492,20 @@ export type PlanningDraftControllerCreateFromSeedMutationResult = NonNullable<
 export type PlanningDraftControllerCreateFromSeedMutationBody =
   BodyType<PlanningDraftControllerCreateFromSeedBody>
 export type PlanningDraftControllerCreateFromSeedMutationError = ErrorType<
-  ProblemResponseDto | ValidationProblemResponseDto
+  | ProblemResponseDto
+  | PlanMonthAlreadyExistsProblemResponseDto
+  | ValidationProblemResponseDto
 >
 
 /**
  * @summary Create a complete editable draft from the one-time April seed.
  */
 export const usePlanningDraftControllerCreateFromSeed = <
-  TError = ErrorType<ProblemResponseDto | ValidationProblemResponseDto>,
+  TError = ErrorType<
+    | ProblemResponseDto
+    | PlanMonthAlreadyExistsProblemResponseDto
+    | ValidationProblemResponseDto
+  >,
   TContext = unknown,
 >(
   options?: {
@@ -1469,6 +1707,131 @@ export function usePlanningDraftControllerPublicationPreview<
   return withQueryKey(query, queryOptions.queryKey)
 }
 
+/**
+ * @summary Replace the editable monthly draft focus.
+ */
+export const planningDraftControllerUpdateMonthFocus = (
+  { planMonthId }: PlanningDraftControllerUpdateMonthFocusPathParameters,
+  planningDraftControllerUpdateMonthFocusBody: BodyType<PlanningDraftControllerUpdateMonthFocusBody>,
+  options?: SecondParameter<typeof apiMutator>,
+  signal?: AbortSignal,
+) => {
+  return apiMutator<DraftMutationResponseV1>(
+    {
+      url: `/planning/drafts/${encodeURIComponent(String(planMonthId))}/focus`,
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      data: planningDraftControllerUpdateMonthFocusBody,
+      signal,
+    },
+    options,
+  )
+}
+
+export const getPlanningDraftControllerUpdateMonthFocusMutationOptions = <
+  TError = ErrorType<
+    | ProblemResponseDto
+    | DraftConflictProblemResponseDto
+    | ValidationProblemResponseDto
+  >,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof planningDraftControllerUpdateMonthFocus>>,
+    TError,
+    {
+      pathParams: PlanningDraftControllerUpdateMonthFocusPathParameters
+      data: BodyType<PlanningDraftControllerUpdateMonthFocusBody>
+    },
+    TContext
+  >
+  request?: SecondParameter<typeof apiMutator>
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof planningDraftControllerUpdateMonthFocus>>,
+  TError,
+  {
+    pathParams: PlanningDraftControllerUpdateMonthFocusPathParameters
+    data: BodyType<PlanningDraftControllerUpdateMonthFocusBody>
+  },
+  TContext
+> => {
+  const mutationKey = ['planningDraftControllerUpdateMonthFocus']
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      'mutationKey' in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined }
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof planningDraftControllerUpdateMonthFocus>>,
+    {
+      pathParams: PlanningDraftControllerUpdateMonthFocusPathParameters
+      data: BodyType<PlanningDraftControllerUpdateMonthFocusBody>
+    }
+  > = (props) => {
+    const { pathParams, data } = props ?? {}
+
+    return planningDraftControllerUpdateMonthFocus(
+      pathParams,
+      data,
+      requestOptions,
+    )
+  }
+
+  return { mutationFn, ...mutationOptions }
+}
+
+export type PlanningDraftControllerUpdateMonthFocusMutationResult = NonNullable<
+  Awaited<ReturnType<typeof planningDraftControllerUpdateMonthFocus>>
+>
+export type PlanningDraftControllerUpdateMonthFocusMutationBody =
+  BodyType<PlanningDraftControllerUpdateMonthFocusBody>
+export type PlanningDraftControllerUpdateMonthFocusMutationError = ErrorType<
+  | ProblemResponseDto
+  | DraftConflictProblemResponseDto
+  | ValidationProblemResponseDto
+>
+
+/**
+ * @summary Replace the editable monthly draft focus.
+ */
+export const usePlanningDraftControllerUpdateMonthFocus = <
+  TError = ErrorType<
+    | ProblemResponseDto
+    | DraftConflictProblemResponseDto
+    | ValidationProblemResponseDto
+  >,
+  TContext = unknown,
+>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<typeof planningDraftControllerUpdateMonthFocus>>,
+      TError,
+      {
+        pathParams: PlanningDraftControllerUpdateMonthFocusPathParameters
+        data: BodyType<PlanningDraftControllerUpdateMonthFocusBody>
+      },
+      TContext
+    >
+    request?: SecondParameter<typeof apiMutator>
+  },
+  queryClient?: QueryClient,
+): UseMutationResult<
+  Awaited<ReturnType<typeof planningDraftControllerUpdateMonthFocus>>,
+  TError,
+  {
+    pathParams: PlanningDraftControllerUpdateMonthFocusPathParameters
+    data: BodyType<PlanningDraftControllerUpdateMonthFocusBody>
+  },
+  TContext
+> => {
+  return useMutation(
+    getPlanningDraftControllerUpdateMonthFocusMutationOptions(options),
+    queryClient,
+  )
+}
 /**
  * @summary Attach a typed goal to the draft.
  */
@@ -1980,6 +2343,7 @@ export const getPlanningDraftControllerPublishMutationOptions = <
     | PublicationPreviewConflictProblemResponseDto
     | PlanPublicationBlockedProblemResponseDto
     | PlanMonthAlreadyPublishedProblemResponseDto
+    | PlanPublicationModeConflictProblemResponseDto
     | ValidationProblemResponseDto
   >,
   TContext = unknown,
@@ -2037,6 +2401,7 @@ export type PlanningDraftControllerPublishMutationError = ErrorType<
   | PublicationPreviewConflictProblemResponseDto
   | PlanPublicationBlockedProblemResponseDto
   | PlanMonthAlreadyPublishedProblemResponseDto
+  | PlanPublicationModeConflictProblemResponseDto
   | ValidationProblemResponseDto
 >
 
@@ -2049,6 +2414,7 @@ export const usePlanningDraftControllerPublish = <
     | PublicationPreviewConflictProblemResponseDto
     | PlanPublicationBlockedProblemResponseDto
     | PlanMonthAlreadyPublishedProblemResponseDto
+    | PlanPublicationModeConflictProblemResponseDto
     | ValidationProblemResponseDto
   >,
   TContext = unknown,
@@ -2080,6 +2446,305 @@ export const usePlanningDraftControllerPublish = <
     queryClient,
   )
 }
+/**
+ * @summary Republish a cancelled future monthly plan.
+ */
+export const planningDraftControllerRepublish = (
+  { planMonthId }: PlanningDraftControllerRepublishPathParameters,
+  planningDraftControllerRepublishBody: BodyType<PlanningDraftControllerRepublishBody>,
+  options?: SecondParameter<typeof apiMutator>,
+  signal?: AbortSignal,
+) => {
+  return apiMutator<PlanPublicationResultResponseV1>(
+    {
+      url: `/planning/drafts/${encodeURIComponent(String(planMonthId))}/republish`,
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      data: planningDraftControllerRepublishBody,
+      signal,
+    },
+    options,
+  )
+}
+
+export const getPlanningDraftControllerRepublishMutationOptions = <
+  TError = ErrorType<
+    | ProblemResponseDto
+    | PublicationPreviewConflictProblemResponseDto
+    | PlanPublicationBlockedProblemResponseDto
+    | PlanMonthAlreadyPublishedProblemResponseDto
+    | PlanPublicationModeConflictProblemResponseDto
+    | ValidationProblemResponseDto
+  >,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof planningDraftControllerRepublish>>,
+    TError,
+    {
+      pathParams: PlanningDraftControllerRepublishPathParameters
+      data: BodyType<PlanningDraftControllerRepublishBody>
+    },
+    TContext
+  >
+  request?: SecondParameter<typeof apiMutator>
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof planningDraftControllerRepublish>>,
+  TError,
+  {
+    pathParams: PlanningDraftControllerRepublishPathParameters
+    data: BodyType<PlanningDraftControllerRepublishBody>
+  },
+  TContext
+> => {
+  const mutationKey = ['planningDraftControllerRepublish']
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      'mutationKey' in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined }
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof planningDraftControllerRepublish>>,
+    {
+      pathParams: PlanningDraftControllerRepublishPathParameters
+      data: BodyType<PlanningDraftControllerRepublishBody>
+    }
+  > = (props) => {
+    const { pathParams, data } = props ?? {}
+
+    return planningDraftControllerRepublish(pathParams, data, requestOptions)
+  }
+
+  return { mutationFn, ...mutationOptions }
+}
+
+export type PlanningDraftControllerRepublishMutationResult = NonNullable<
+  Awaited<ReturnType<typeof planningDraftControllerRepublish>>
+>
+export type PlanningDraftControllerRepublishMutationBody =
+  BodyType<PlanningDraftControllerRepublishBody>
+export type PlanningDraftControllerRepublishMutationError = ErrorType<
+  | ProblemResponseDto
+  | PublicationPreviewConflictProblemResponseDto
+  | PlanPublicationBlockedProblemResponseDto
+  | PlanMonthAlreadyPublishedProblemResponseDto
+  | PlanPublicationModeConflictProblemResponseDto
+  | ValidationProblemResponseDto
+>
+
+/**
+ * @summary Republish a cancelled future monthly plan.
+ */
+export const usePlanningDraftControllerRepublish = <
+  TError = ErrorType<
+    | ProblemResponseDto
+    | PublicationPreviewConflictProblemResponseDto
+    | PlanPublicationBlockedProblemResponseDto
+    | PlanMonthAlreadyPublishedProblemResponseDto
+    | PlanPublicationModeConflictProblemResponseDto
+    | ValidationProblemResponseDto
+  >,
+  TContext = unknown,
+>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<typeof planningDraftControllerRepublish>>,
+      TError,
+      {
+        pathParams: PlanningDraftControllerRepublishPathParameters
+        data: BodyType<PlanningDraftControllerRepublishBody>
+      },
+      TContext
+    >
+    request?: SecondParameter<typeof apiMutator>
+  },
+  queryClient?: QueryClient,
+): UseMutationResult<
+  Awaited<ReturnType<typeof planningDraftControllerRepublish>>,
+  TError,
+  {
+    pathParams: PlanningDraftControllerRepublishPathParameters
+    data: BodyType<PlanningDraftControllerRepublishBody>
+  },
+  TContext
+> => {
+  return useMutation(
+    getPlanningDraftControllerRepublishMutationOptions(options),
+    queryClient,
+  )
+}
+/**
+ * @summary List monthly planning states for the workspace.
+ */
+export const planningMonthControllerList = (
+  params?: PlanningMonthControllerListParams,
+  options?: SecondParameter<typeof apiMutator>,
+  signal?: AbortSignal,
+) => {
+  return apiMutator<PlanningMonthIndexResponseV1>(
+    { url: `/planning/months`, method: 'GET', params, signal },
+    options,
+  )
+}
+
+export const getPlanningMonthControllerListQueryKey = (
+  params?: PlanningMonthControllerListParams,
+) => {
+  return [`/planning/months`, ...(params ? [params] : [])] as const
+}
+
+export const getPlanningMonthControllerListQueryOptions = <
+  TData = Awaited<ReturnType<typeof planningMonthControllerList>>,
+  TError = ErrorType<ProblemResponseDto | ValidationProblemResponseDto>,
+>(
+  params?: PlanningMonthControllerListParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof planningMonthControllerList>>,
+        TError,
+        TData
+      >
+    >
+    request?: SecondParameter<typeof apiMutator>
+  },
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {}
+
+  const queryKey =
+    queryOptions?.queryKey ?? getPlanningMonthControllerListQueryKey(params)
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof planningMonthControllerList>>
+  > = ({ signal }) =>
+    planningMonthControllerList(params, requestOptions, signal)
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof planningMonthControllerList>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type PlanningMonthControllerListQueryResult = NonNullable<
+  Awaited<ReturnType<typeof planningMonthControllerList>>
+>
+export type PlanningMonthControllerListQueryError = ErrorType<
+  ProblemResponseDto | ValidationProblemResponseDto
+>
+
+export function usePlanningMonthControllerList<
+  TData = Awaited<ReturnType<typeof planningMonthControllerList>>,
+  TError = ErrorType<ProblemResponseDto | ValidationProblemResponseDto>,
+>(
+  params: undefined | PlanningMonthControllerListParams,
+  options: {
+    query: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof planningMonthControllerList>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof planningMonthControllerList>>,
+          TError,
+          Awaited<ReturnType<typeof planningMonthControllerList>>
+        >,
+        'initialData'
+      >
+    request?: SecondParameter<typeof apiMutator>
+  },
+  queryClient?: QueryClient,
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+}
+export function usePlanningMonthControllerList<
+  TData = Awaited<ReturnType<typeof planningMonthControllerList>>,
+  TError = ErrorType<ProblemResponseDto | ValidationProblemResponseDto>,
+>(
+  params?: PlanningMonthControllerListParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof planningMonthControllerList>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof planningMonthControllerList>>,
+          TError,
+          Awaited<ReturnType<typeof planningMonthControllerList>>
+        >,
+        'initialData'
+      >
+    request?: SecondParameter<typeof apiMutator>
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+}
+export function usePlanningMonthControllerList<
+  TData = Awaited<ReturnType<typeof planningMonthControllerList>>,
+  TError = ErrorType<ProblemResponseDto | ValidationProblemResponseDto>,
+>(
+  params?: PlanningMonthControllerListParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof planningMonthControllerList>>,
+        TError,
+        TData
+      >
+    >
+    request?: SecondParameter<typeof apiMutator>
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+}
+/**
+ * @summary List monthly planning states for the workspace.
+ */
+
+export function usePlanningMonthControllerList<
+  TData = Awaited<ReturnType<typeof planningMonthControllerList>>,
+  TError = ErrorType<ProblemResponseDto | ValidationProblemResponseDto>,
+>(
+  params?: PlanningMonthControllerListParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof planningMonthControllerList>>,
+        TError,
+        TData
+      >
+    >
+    request?: SecondParameter<typeof apiMutator>
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+} {
+  const queryOptions = getPlanningMonthControllerListQueryOptions(
+    params,
+    options,
+  )
+
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> }
+
+  return withQueryKey(query, queryOptions.queryKey)
+}
+
 /**
  * @summary Read the active published plan for today.
  */
@@ -2226,6 +2891,202 @@ export function usePlanningMonthControllerActive<
   queryKey: DataTag<QueryKey, TData, TError>
 } {
   const queryOptions = getPlanningMonthControllerActiveQueryOptions(options)
+
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> }
+
+  return withQueryKey(query, queryOptions.queryKey)
+}
+
+/**
+ * @summary Read the bounded immutable month lifecycle history.
+ */
+export const planningMonthControllerHistory = (
+  { planMonthId }: PlanningMonthControllerHistoryPathParameters,
+  params?: PlanningMonthControllerHistoryParams,
+  options?: SecondParameter<typeof apiMutator>,
+  signal?: AbortSignal,
+) => {
+  return apiMutator<PlanningMonthHistoryResponseV1>(
+    {
+      url: `/planning/months/${encodeURIComponent(String(planMonthId))}/history`,
+      method: 'GET',
+      params,
+      signal,
+    },
+    options,
+  )
+}
+
+export const getPlanningMonthControllerHistoryQueryKey = (
+  { planMonthId }: PlanningMonthControllerHistoryPathParameters,
+  params?: PlanningMonthControllerHistoryParams,
+) => {
+  return [
+    `/planning/months/${planMonthId}/history`,
+    ...(params ? [params] : []),
+  ] as const
+}
+
+export const getPlanningMonthControllerHistoryQueryOptions = <
+  TData = Awaited<ReturnType<typeof planningMonthControllerHistory>>,
+  TError = ErrorType<ProblemResponseDto | ValidationProblemResponseDto>,
+>(
+  { planMonthId }: PlanningMonthControllerHistoryPathParameters,
+  params?: PlanningMonthControllerHistoryParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof planningMonthControllerHistory>>,
+        TError,
+        TData
+      >
+    >
+    request?: SecondParameter<typeof apiMutator>
+  },
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {}
+
+  const queryKey =
+    queryOptions?.queryKey ??
+    getPlanningMonthControllerHistoryQueryKey({ planMonthId }, params)
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof planningMonthControllerHistory>>
+  > = ({ signal }) =>
+    planningMonthControllerHistory(
+      { planMonthId },
+      params,
+      requestOptions,
+      signal,
+    )
+
+  return {
+    queryKey,
+    queryFn,
+    enabled: planMonthId !== null && planMonthId !== undefined,
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof planningMonthControllerHistory>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type PlanningMonthControllerHistoryQueryResult = NonNullable<
+  Awaited<ReturnType<typeof planningMonthControllerHistory>>
+>
+export type PlanningMonthControllerHistoryQueryError = ErrorType<
+  ProblemResponseDto | ValidationProblemResponseDto
+>
+
+export function usePlanningMonthControllerHistory<
+  TData = Awaited<ReturnType<typeof planningMonthControllerHistory>>,
+  TError = ErrorType<ProblemResponseDto | ValidationProblemResponseDto>,
+>(
+  pathParams: PlanningMonthControllerHistoryPathParameters,
+  params: undefined | PlanningMonthControllerHistoryParams,
+  options: {
+    query: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof planningMonthControllerHistory>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof planningMonthControllerHistory>>,
+          TError,
+          Awaited<ReturnType<typeof planningMonthControllerHistory>>
+        >,
+        'initialData'
+      >
+    request?: SecondParameter<typeof apiMutator>
+  },
+  queryClient?: QueryClient,
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+}
+export function usePlanningMonthControllerHistory<
+  TData = Awaited<ReturnType<typeof planningMonthControllerHistory>>,
+  TError = ErrorType<ProblemResponseDto | ValidationProblemResponseDto>,
+>(
+  pathParams: PlanningMonthControllerHistoryPathParameters,
+  params?: PlanningMonthControllerHistoryParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof planningMonthControllerHistory>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof planningMonthControllerHistory>>,
+          TError,
+          Awaited<ReturnType<typeof planningMonthControllerHistory>>
+        >,
+        'initialData'
+      >
+    request?: SecondParameter<typeof apiMutator>
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+}
+export function usePlanningMonthControllerHistory<
+  TData = Awaited<ReturnType<typeof planningMonthControllerHistory>>,
+  TError = ErrorType<ProblemResponseDto | ValidationProblemResponseDto>,
+>(
+  pathParams: PlanningMonthControllerHistoryPathParameters,
+  params?: PlanningMonthControllerHistoryParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof planningMonthControllerHistory>>,
+        TError,
+        TData
+      >
+    >
+    request?: SecondParameter<typeof apiMutator>
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+}
+/**
+ * @summary Read the bounded immutable month lifecycle history.
+ */
+
+export function usePlanningMonthControllerHistory<
+  TData = Awaited<ReturnType<typeof planningMonthControllerHistory>>,
+  TError = ErrorType<ProblemResponseDto | ValidationProblemResponseDto>,
+>(
+  { planMonthId }: PlanningMonthControllerHistoryPathParameters,
+  params?: PlanningMonthControllerHistoryParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof planningMonthControllerHistory>>,
+        TError,
+        TData
+      >
+    >
+    request?: SecondParameter<typeof apiMutator>
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+} {
+  const queryOptions = getPlanningMonthControllerHistoryQueryOptions(
+    { planMonthId },
+    params,
+    options,
+  )
 
   const query = useQuery(queryOptions, queryClient) as UseQueryResult<
     TData,
@@ -2660,4 +3521,129 @@ export function usePlanningPublicationControllerGet<
   > & { queryKey: DataTag<QueryKey, TData, TError> }
 
   return withQueryKey(query, queryOptions.queryKey)
+}
+
+/**
+ * @summary Cancel an unstarted fact-free publication.
+ */
+export const planningPublicationControllerCancel = (
+  { publicationId }: PlanningPublicationControllerCancelPathParameters,
+  planningPublicationControllerCancelBody: BodyType<PlanningPublicationControllerCancelBody>,
+  options?: SecondParameter<typeof apiMutator>,
+  signal?: AbortSignal,
+) => {
+  return apiMutator<PlanMonthMutationResponseV1>(
+    {
+      url: `/planning/publications/${encodeURIComponent(String(publicationId))}/cancel`,
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      data: planningPublicationControllerCancelBody,
+      signal,
+    },
+    options,
+  )
+}
+
+export const getPlanningPublicationControllerCancelMutationOptions = <
+  TError = ErrorType<
+    | ProblemResponseDto
+    | PlanMonthRevisionConflictProblemResponseDto
+    | PlanPublicationCancellationConflictProblemResponseDto
+    | ValidationProblemResponseDto
+  >,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof planningPublicationControllerCancel>>,
+    TError,
+    {
+      pathParams: PlanningPublicationControllerCancelPathParameters
+      data: BodyType<PlanningPublicationControllerCancelBody>
+    },
+    TContext
+  >
+  request?: SecondParameter<typeof apiMutator>
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof planningPublicationControllerCancel>>,
+  TError,
+  {
+    pathParams: PlanningPublicationControllerCancelPathParameters
+    data: BodyType<PlanningPublicationControllerCancelBody>
+  },
+  TContext
+> => {
+  const mutationKey = ['planningPublicationControllerCancel']
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      'mutationKey' in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined }
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof planningPublicationControllerCancel>>,
+    {
+      pathParams: PlanningPublicationControllerCancelPathParameters
+      data: BodyType<PlanningPublicationControllerCancelBody>
+    }
+  > = (props) => {
+    const { pathParams, data } = props ?? {}
+
+    return planningPublicationControllerCancel(pathParams, data, requestOptions)
+  }
+
+  return { mutationFn, ...mutationOptions }
+}
+
+export type PlanningPublicationControllerCancelMutationResult = NonNullable<
+  Awaited<ReturnType<typeof planningPublicationControllerCancel>>
+>
+export type PlanningPublicationControllerCancelMutationBody =
+  BodyType<PlanningPublicationControllerCancelBody>
+export type PlanningPublicationControllerCancelMutationError = ErrorType<
+  | ProblemResponseDto
+  | PlanMonthRevisionConflictProblemResponseDto
+  | PlanPublicationCancellationConflictProblemResponseDto
+  | ValidationProblemResponseDto
+>
+
+/**
+ * @summary Cancel an unstarted fact-free publication.
+ */
+export const usePlanningPublicationControllerCancel = <
+  TError = ErrorType<
+    | ProblemResponseDto
+    | PlanMonthRevisionConflictProblemResponseDto
+    | PlanPublicationCancellationConflictProblemResponseDto
+    | ValidationProblemResponseDto
+  >,
+  TContext = unknown,
+>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<typeof planningPublicationControllerCancel>>,
+      TError,
+      {
+        pathParams: PlanningPublicationControllerCancelPathParameters
+        data: BodyType<PlanningPublicationControllerCancelBody>
+      },
+      TContext
+    >
+    request?: SecondParameter<typeof apiMutator>
+  },
+  queryClient?: QueryClient,
+): UseMutationResult<
+  Awaited<ReturnType<typeof planningPublicationControllerCancel>>,
+  TError,
+  {
+    pathParams: PlanningPublicationControllerCancelPathParameters
+    data: BodyType<PlanningPublicationControllerCancelBody>
+  },
+  TContext
+> => {
+  return useMutation(
+    getPlanningPublicationControllerCancelMutationOptions(options),
+    queryClient,
+  )
 }

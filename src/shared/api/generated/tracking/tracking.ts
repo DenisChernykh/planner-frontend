@@ -33,6 +33,8 @@ import type {
   FactMaintenanceControllerCorrectPathParameters,
   FactMaintenanceControllerDeleteBody,
   FactMaintenanceControllerDeletePathParameters,
+  FactMaintenanceControllerGetHistoryParams,
+  FactMaintenanceControllerGetHistoryPathParameters,
   FactMaintenanceControllerRecordWeeklyTaskResultBody,
   FactMaintenanceControllerRecordWeeklyTaskResultPathParameters,
   FactMaintenanceControllerUndoBody,
@@ -48,6 +50,7 @@ import type {
   TrackingDayCloseMutationResponseV1,
   TrackingExistingDayCloseProblemResponseDto,
   TrackingExistingFactProblemResponseDto,
+  TrackingFactHistoryResponseV1,
   TrackingFactMutationResponseV1Dto,
   TrackingFactRevisionProblemResponseDto,
   TrackingFactTargetUnavailableProblemResponseDto,
@@ -1209,6 +1212,202 @@ export const useFactMaintenanceControllerDelete = <
     queryClient,
   )
 }
+/**
+ * @summary Read the bounded immutable fact revision history.
+ */
+export const factMaintenanceControllerGetHistory = (
+  { factRecordId }: FactMaintenanceControllerGetHistoryPathParameters,
+  params?: FactMaintenanceControllerGetHistoryParams,
+  options?: SecondParameter<typeof apiMutator>,
+  signal?: AbortSignal,
+) => {
+  return apiMutator<TrackingFactHistoryResponseV1>(
+    {
+      url: `/tracking/facts/${encodeURIComponent(String(factRecordId))}/history`,
+      method: 'GET',
+      params,
+      signal,
+    },
+    options,
+  )
+}
+
+export const getFactMaintenanceControllerGetHistoryQueryKey = (
+  { factRecordId }: FactMaintenanceControllerGetHistoryPathParameters,
+  params?: FactMaintenanceControllerGetHistoryParams,
+) => {
+  return [
+    `/tracking/facts/${factRecordId}/history`,
+    ...(params ? [params] : []),
+  ] as const
+}
+
+export const getFactMaintenanceControllerGetHistoryQueryOptions = <
+  TData = Awaited<ReturnType<typeof factMaintenanceControllerGetHistory>>,
+  TError = ErrorType<ProblemResponseDto | ValidationProblemResponseDto>,
+>(
+  { factRecordId }: FactMaintenanceControllerGetHistoryPathParameters,
+  params?: FactMaintenanceControllerGetHistoryParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof factMaintenanceControllerGetHistory>>,
+        TError,
+        TData
+      >
+    >
+    request?: SecondParameter<typeof apiMutator>
+  },
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {}
+
+  const queryKey =
+    queryOptions?.queryKey ??
+    getFactMaintenanceControllerGetHistoryQueryKey({ factRecordId }, params)
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof factMaintenanceControllerGetHistory>>
+  > = ({ signal }) =>
+    factMaintenanceControllerGetHistory(
+      { factRecordId },
+      params,
+      requestOptions,
+      signal,
+    )
+
+  return {
+    queryKey,
+    queryFn,
+    enabled: factRecordId !== null && factRecordId !== undefined,
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof factMaintenanceControllerGetHistory>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type FactMaintenanceControllerGetHistoryQueryResult = NonNullable<
+  Awaited<ReturnType<typeof factMaintenanceControllerGetHistory>>
+>
+export type FactMaintenanceControllerGetHistoryQueryError = ErrorType<
+  ProblemResponseDto | ValidationProblemResponseDto
+>
+
+export function useFactMaintenanceControllerGetHistory<
+  TData = Awaited<ReturnType<typeof factMaintenanceControllerGetHistory>>,
+  TError = ErrorType<ProblemResponseDto | ValidationProblemResponseDto>,
+>(
+  pathParams: FactMaintenanceControllerGetHistoryPathParameters,
+  params: undefined | FactMaintenanceControllerGetHistoryParams,
+  options: {
+    query: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof factMaintenanceControllerGetHistory>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof factMaintenanceControllerGetHistory>>,
+          TError,
+          Awaited<ReturnType<typeof factMaintenanceControllerGetHistory>>
+        >,
+        'initialData'
+      >
+    request?: SecondParameter<typeof apiMutator>
+  },
+  queryClient?: QueryClient,
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+}
+export function useFactMaintenanceControllerGetHistory<
+  TData = Awaited<ReturnType<typeof factMaintenanceControllerGetHistory>>,
+  TError = ErrorType<ProblemResponseDto | ValidationProblemResponseDto>,
+>(
+  pathParams: FactMaintenanceControllerGetHistoryPathParameters,
+  params?: FactMaintenanceControllerGetHistoryParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof factMaintenanceControllerGetHistory>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof factMaintenanceControllerGetHistory>>,
+          TError,
+          Awaited<ReturnType<typeof factMaintenanceControllerGetHistory>>
+        >,
+        'initialData'
+      >
+    request?: SecondParameter<typeof apiMutator>
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+}
+export function useFactMaintenanceControllerGetHistory<
+  TData = Awaited<ReturnType<typeof factMaintenanceControllerGetHistory>>,
+  TError = ErrorType<ProblemResponseDto | ValidationProblemResponseDto>,
+>(
+  pathParams: FactMaintenanceControllerGetHistoryPathParameters,
+  params?: FactMaintenanceControllerGetHistoryParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof factMaintenanceControllerGetHistory>>,
+        TError,
+        TData
+      >
+    >
+    request?: SecondParameter<typeof apiMutator>
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+}
+/**
+ * @summary Read the bounded immutable fact revision history.
+ */
+
+export function useFactMaintenanceControllerGetHistory<
+  TData = Awaited<ReturnType<typeof factMaintenanceControllerGetHistory>>,
+  TError = ErrorType<ProblemResponseDto | ValidationProblemResponseDto>,
+>(
+  { factRecordId }: FactMaintenanceControllerGetHistoryPathParameters,
+  params?: FactMaintenanceControllerGetHistoryParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof factMaintenanceControllerGetHistory>>,
+        TError,
+        TData
+      >
+    >
+    request?: SecondParameter<typeof apiMutator>
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+} {
+  const queryOptions = getFactMaintenanceControllerGetHistoryQueryOptions(
+    { factRecordId },
+    params,
+    options,
+  )
+
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> }
+
+  return withQueryKey(query, queryOptions.queryKey)
+}
+
 /**
  * @summary Undo the latest uncompensated own action.
  */

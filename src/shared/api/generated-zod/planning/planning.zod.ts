@@ -100,7 +100,6 @@ export const PlanningControllerList401Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -120,6 +119,8 @@ export const PlanningControllerList401Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -155,7 +156,6 @@ export const PlanningControllerList403Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -175,6 +175,8 @@ export const PlanningControllerList403Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -242,7 +244,6 @@ export const PlanningControllerList503Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -262,6 +263,8 @@ export const PlanningControllerList503Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -348,7 +351,6 @@ export const PlanningControllerCreate400Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -368,6 +370,8 @@ export const PlanningControllerCreate400Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -403,7 +407,6 @@ export const PlanningControllerCreate401Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -423,6 +426,8 @@ export const PlanningControllerCreate401Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -458,7 +463,6 @@ export const PlanningControllerCreate403Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -478,6 +482,8 @@ export const PlanningControllerCreate403Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -513,7 +519,6 @@ export const PlanningControllerCreate409Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -533,6 +538,8 @@ export const PlanningControllerCreate409Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -568,7 +575,6 @@ export const PlanningControllerCreate413Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -588,6 +594,8 @@ export const PlanningControllerCreate413Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -623,7 +631,6 @@ export const PlanningControllerCreate415Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -643,6 +650,8 @@ export const PlanningControllerCreate415Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -709,7 +718,6 @@ export const PlanningControllerCreate503Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -729,6 +737,8 @@ export const PlanningControllerCreate503Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -878,7 +888,6 @@ export const PlanningControllerGet401Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -898,6 +907,8 @@ export const PlanningControllerGet401Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -933,7 +944,6 @@ export const PlanningControllerGet403Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -953,6 +963,8 @@ export const PlanningControllerGet403Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -988,7 +1000,6 @@ export const PlanningControllerGet404Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -1008,6 +1019,8 @@ export const PlanningControllerGet404Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -1075,7 +1088,6 @@ export const PlanningControllerGet503Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -1095,6 +1107,8 @@ export const PlanningControllerGet503Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -1173,7 +1187,6 @@ export const PlanningControllerArchive400Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -1193,6 +1206,8 @@ export const PlanningControllerArchive400Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -1228,7 +1243,6 @@ export const PlanningControllerArchive401Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -1248,6 +1262,8 @@ export const PlanningControllerArchive401Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -1283,7 +1299,6 @@ export const PlanningControllerArchive403Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -1303,6 +1318,8 @@ export const PlanningControllerArchive403Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -1338,7 +1355,6 @@ export const PlanningControllerArchive404Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -1358,6 +1374,8 @@ export const PlanningControllerArchive404Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -1399,7 +1417,6 @@ export const PlanningControllerArchive409Response = zod.union([
       'PLANNING_AUTHORIZATION_DENIED',
       'PLAN_DRAFT_NOT_EDITABLE',
       'PLAN_DRAFT_NOT_FOUND',
-      'PLAN_MONTH_ALREADY_EXISTS',
       'PLAN_MONTH_NOT_FOUND',
       'PLAN_MONTH_RECLOSE_CONFLICT',
       'PLAN_MONTH_REOPEN_CONFLICT',
@@ -1419,6 +1436,8 @@ export const PlanningControllerArchive409Response = zod.union([
       'TRACKING_QUERY_INVALID',
       'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
       'UNSUPPORTED_MEDIA_TYPE',
+      'WORKSPACE_AUTHORIZATION_DENIED',
+      'WORKSPACE_STATE_CONFLICT',
     ]),
     detail: zod.string(),
     instance: zod.string(),
@@ -1479,7 +1498,6 @@ export const PlanningControllerArchive413Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -1499,6 +1517,8 @@ export const PlanningControllerArchive413Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -1534,7 +1554,6 @@ export const PlanningControllerArchive415Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -1554,6 +1573,8 @@ export const PlanningControllerArchive415Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -1620,7 +1641,6 @@ export const PlanningControllerArchive503Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -1640,6 +1660,8 @@ export const PlanningControllerArchive503Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -1718,7 +1740,6 @@ export const PlanningControllerCopy400Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -1738,6 +1759,8 @@ export const PlanningControllerCopy400Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -1773,7 +1796,6 @@ export const PlanningControllerCopy401Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -1793,6 +1815,8 @@ export const PlanningControllerCopy401Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -1828,7 +1852,6 @@ export const PlanningControllerCopy403Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -1848,6 +1871,8 @@ export const PlanningControllerCopy403Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -1883,7 +1908,6 @@ export const PlanningControllerCopy404Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -1903,6 +1927,8 @@ export const PlanningControllerCopy404Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -1944,7 +1970,6 @@ export const PlanningControllerCopy409Response = zod.union([
       'PLANNING_AUTHORIZATION_DENIED',
       'PLAN_DRAFT_NOT_EDITABLE',
       'PLAN_DRAFT_NOT_FOUND',
-      'PLAN_MONTH_ALREADY_EXISTS',
       'PLAN_MONTH_NOT_FOUND',
       'PLAN_MONTH_RECLOSE_CONFLICT',
       'PLAN_MONTH_REOPEN_CONFLICT',
@@ -1964,6 +1989,8 @@ export const PlanningControllerCopy409Response = zod.union([
       'TRACKING_QUERY_INVALID',
       'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
       'UNSUPPORTED_MEDIA_TYPE',
+      'WORKSPACE_AUTHORIZATION_DENIED',
+      'WORKSPACE_STATE_CONFLICT',
     ]),
     detail: zod.string(),
     instance: zod.string(),
@@ -2024,7 +2051,6 @@ export const PlanningControllerCopy413Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -2044,6 +2070,8 @@ export const PlanningControllerCopy413Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -2079,7 +2107,6 @@ export const PlanningControllerCopy415Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -2099,6 +2126,8 @@ export const PlanningControllerCopy415Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -2166,7 +2195,6 @@ export const PlanningControllerCopy503Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -2186,6 +2214,8 @@ export const PlanningControllerCopy503Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -2264,7 +2294,6 @@ export const PlanningControllerRestore400Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -2284,6 +2313,8 @@ export const PlanningControllerRestore400Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -2319,7 +2350,6 @@ export const PlanningControllerRestore401Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -2339,6 +2369,8 @@ export const PlanningControllerRestore401Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -2374,7 +2406,6 @@ export const PlanningControllerRestore403Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -2394,6 +2425,8 @@ export const PlanningControllerRestore403Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -2429,7 +2462,6 @@ export const PlanningControllerRestore404Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -2449,6 +2481,8 @@ export const PlanningControllerRestore404Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -2490,7 +2524,6 @@ export const PlanningControllerRestore409Response = zod.union([
       'PLANNING_AUTHORIZATION_DENIED',
       'PLAN_DRAFT_NOT_EDITABLE',
       'PLAN_DRAFT_NOT_FOUND',
-      'PLAN_MONTH_ALREADY_EXISTS',
       'PLAN_MONTH_NOT_FOUND',
       'PLAN_MONTH_RECLOSE_CONFLICT',
       'PLAN_MONTH_REOPEN_CONFLICT',
@@ -2510,6 +2543,8 @@ export const PlanningControllerRestore409Response = zod.union([
       'TRACKING_QUERY_INVALID',
       'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
       'UNSUPPORTED_MEDIA_TYPE',
+      'WORKSPACE_AUTHORIZATION_DENIED',
+      'WORKSPACE_STATE_CONFLICT',
     ]),
     detail: zod.string(),
     instance: zod.string(),
@@ -2570,7 +2605,6 @@ export const PlanningControllerRestore413Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -2590,6 +2624,8 @@ export const PlanningControllerRestore413Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -2625,7 +2661,6 @@ export const PlanningControllerRestore415Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -2645,6 +2680,8 @@ export const PlanningControllerRestore415Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -2711,7 +2748,6 @@ export const PlanningControllerRestore503Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -2731,6 +2767,8 @@ export const PlanningControllerRestore503Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -2834,7 +2872,6 @@ export const PlanningControllerVersion400Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -2854,6 +2891,8 @@ export const PlanningControllerVersion400Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -2889,7 +2928,6 @@ export const PlanningControllerVersion401Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -2909,6 +2947,8 @@ export const PlanningControllerVersion401Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -2944,7 +2984,6 @@ export const PlanningControllerVersion403Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -2964,6 +3003,8 @@ export const PlanningControllerVersion403Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -2999,7 +3040,6 @@ export const PlanningControllerVersion404Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -3019,6 +3059,8 @@ export const PlanningControllerVersion404Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -3060,7 +3102,6 @@ export const PlanningControllerVersion409Response = zod.union([
       'PLANNING_AUTHORIZATION_DENIED',
       'PLAN_DRAFT_NOT_EDITABLE',
       'PLAN_DRAFT_NOT_FOUND',
-      'PLAN_MONTH_ALREADY_EXISTS',
       'PLAN_MONTH_NOT_FOUND',
       'PLAN_MONTH_RECLOSE_CONFLICT',
       'PLAN_MONTH_REOPEN_CONFLICT',
@@ -3080,6 +3121,8 @@ export const PlanningControllerVersion409Response = zod.union([
       'TRACKING_QUERY_INVALID',
       'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
       'UNSUPPORTED_MEDIA_TYPE',
+      'WORKSPACE_AUTHORIZATION_DENIED',
+      'WORKSPACE_STATE_CONFLICT',
     ]),
     detail: zod.string(),
     instance: zod.string(),
@@ -3140,7 +3183,6 @@ export const PlanningControllerVersion413Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -3160,6 +3202,8 @@ export const PlanningControllerVersion413Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -3195,7 +3239,6 @@ export const PlanningControllerVersion415Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -3215,6 +3258,8 @@ export const PlanningControllerVersion415Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -3281,7 +3326,6 @@ export const PlanningControllerVersion503Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -3301,6 +3345,8 @@ export const PlanningControllerVersion503Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -3957,7 +4003,6 @@ export const PlanningDraftControllerEditor401Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -3977,6 +4022,8 @@ export const PlanningDraftControllerEditor401Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -4012,7 +4059,6 @@ export const PlanningDraftControllerEditor403Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -4032,6 +4078,8 @@ export const PlanningDraftControllerEditor403Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -4067,7 +4115,6 @@ export const PlanningDraftControllerEditor404Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -4087,6 +4134,8 @@ export const PlanningDraftControllerEditor404Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -4122,7 +4171,6 @@ export const PlanningDraftControllerEditor409Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -4142,6 +4190,8 @@ export const PlanningDraftControllerEditor409Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -4208,7 +4258,6 @@ export const PlanningDraftControllerEditor503Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -4228,6 +4277,8 @@ export const PlanningDraftControllerEditor503Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -4239,6 +4290,1097 @@ export const PlanningDraftControllerEditor503Response = zod.strictObject({
   title: zod.string(),
   type: zod.url(),
 })
+
+/**
+ * @summary Create an empty editable monthly draft.
+ */
+export const planningDraftControllerCreateEmptyBodyCommandIdRegExp = new RegExp(
+  '^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',
+)
+export const planningDraftControllerCreateEmptyBodyFocusMax = 500
+
+export const planningDraftControllerCreateEmptyBodyFocusRegExp = new RegExp(
+  '^(?![\\s\\S]*\\u0000)[\\s\\S]*\\S[\\s\\S]*$',
+)
+export const planningDraftControllerCreateEmptyBodyTargetMonthRegExp =
+  new RegExp(
+    '^(?:[1-9][0-9]{3}|0[1-9][0-9]{2}|00[1-9][0-9]|000[1-9])-(?:0[1-9]|1[0-2])$',
+  )
+
+export const PlanningDraftControllerCreateEmptyBody = zod.strictObject({
+  commandId: zod
+    .string()
+    .regex(planningDraftControllerCreateEmptyBodyCommandIdRegExp),
+  focus: zod
+    .string()
+    .min(1)
+    .max(planningDraftControllerCreateEmptyBodyFocusMax)
+    .regex(planningDraftControllerCreateEmptyBodyFocusRegExp),
+  targetMonth: zod
+    .string()
+    .regex(planningDraftControllerCreateEmptyBodyTargetMonthRegExp),
+})
+
+export const planningDraftControllerCreateEmpty201ResponseAggregateIdRegExp =
+  new RegExp(
+    '^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',
+  )
+export const planningDraftControllerCreateEmpty201ResponseAggregateRevisionRegExp =
+  new RegExp('^[1-9][0-9]*$')
+
+export const PlanningDraftControllerCreateEmpty201Response = zod.strictObject({
+  aggregateId: zod
+    .string()
+    .regex(planningDraftControllerCreateEmpty201ResponseAggregateIdRegExp),
+  aggregateRevision: zod
+    .string()
+    .regex(
+      planningDraftControllerCreateEmpty201ResponseAggregateRevisionRegExp,
+    ),
+  kind: zod.enum(['planning.plan-draft.v1']),
+})
+
+export const planningDraftControllerCreateEmpty400ResponseStatusMin = 400
+export const planningDraftControllerCreateEmpty400ResponseStatusMax = 599
+
+export const PlanningDraftControllerCreateEmpty400Response = zod.strictObject({
+  code: zod.enum([
+    'ACTIVE_PLAN_MONTH_NOT_FOUND',
+    'AUTHENTICATION_REQUIRED',
+    'AUTHORIZATION_DENIED',
+    'COMMAND_FINGERPRINT_CONFLICT',
+    'CONFLICT',
+    'DEPENDENCY_UNAVAILABLE',
+    'DRAFT_GOAL_NOT_FOUND',
+    'GOAL_DEFINITION_NOT_FOUND',
+    'GOAL_DEFINITION_VERSION_NOT_FOUND',
+    'INTERNAL_ERROR',
+    'MALFORMED_REQUEST',
+    'NOT_FOUND',
+    'OIDC_ACCESS_DENIED',
+    'OIDC_LOGIN_REJECTED',
+    'PAYLOAD_TOO_LARGE',
+    'PLANNING_AUTHORIZATION_DENIED',
+    'PLAN_DRAFT_NOT_EDITABLE',
+    'PLAN_DRAFT_NOT_FOUND',
+    'PLAN_MONTH_NOT_FOUND',
+    'PLAN_MONTH_RECLOSE_CONFLICT',
+    'PLAN_MONTH_REOPEN_CONFLICT',
+    'PLAN_MONTH_REVISION_CONFLICT',
+    'PLAN_PUBLICATION_NOT_FOUND',
+    'PLAN_SEED_ALREADY_CONSUMED',
+    'RATE_LIMIT_EXCEEDED',
+    'REMINDER_AUTHORIZATION_DENIED',
+    'REPORTING_AUTHORIZATION_DENIED',
+    'REPORTING_NOT_FOUND',
+    'REPORTING_QUERY_INVALID',
+    'REPORTING_SOURCE_CHANGED',
+    'TRACKING_AUTHORIZATION_DENIED',
+    'TRACKING_CLOSE_DAY_TARGET_NOT_FOUND',
+    'TRACKING_FACT_TARGET_NOT_FOUND',
+    'TRACKING_FACT_VALUE_INVALID',
+    'TRACKING_QUERY_INVALID',
+    'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
+    'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
+  ]),
+  detail: zod.string(),
+  instance: zod.string(),
+  requestId: zod.string(),
+  status: zod
+    .number()
+    .min(planningDraftControllerCreateEmpty400ResponseStatusMin)
+    .max(planningDraftControllerCreateEmpty400ResponseStatusMax),
+  title: zod.string(),
+  type: zod.url(),
+})
+
+export const planningDraftControllerCreateEmpty401ResponseStatusMin = 400
+export const planningDraftControllerCreateEmpty401ResponseStatusMax = 599
+
+export const PlanningDraftControllerCreateEmpty401Response = zod.strictObject({
+  code: zod.enum([
+    'ACTIVE_PLAN_MONTH_NOT_FOUND',
+    'AUTHENTICATION_REQUIRED',
+    'AUTHORIZATION_DENIED',
+    'COMMAND_FINGERPRINT_CONFLICT',
+    'CONFLICT',
+    'DEPENDENCY_UNAVAILABLE',
+    'DRAFT_GOAL_NOT_FOUND',
+    'GOAL_DEFINITION_NOT_FOUND',
+    'GOAL_DEFINITION_VERSION_NOT_FOUND',
+    'INTERNAL_ERROR',
+    'MALFORMED_REQUEST',
+    'NOT_FOUND',
+    'OIDC_ACCESS_DENIED',
+    'OIDC_LOGIN_REJECTED',
+    'PAYLOAD_TOO_LARGE',
+    'PLANNING_AUTHORIZATION_DENIED',
+    'PLAN_DRAFT_NOT_EDITABLE',
+    'PLAN_DRAFT_NOT_FOUND',
+    'PLAN_MONTH_NOT_FOUND',
+    'PLAN_MONTH_RECLOSE_CONFLICT',
+    'PLAN_MONTH_REOPEN_CONFLICT',
+    'PLAN_MONTH_REVISION_CONFLICT',
+    'PLAN_PUBLICATION_NOT_FOUND',
+    'PLAN_SEED_ALREADY_CONSUMED',
+    'RATE_LIMIT_EXCEEDED',
+    'REMINDER_AUTHORIZATION_DENIED',
+    'REPORTING_AUTHORIZATION_DENIED',
+    'REPORTING_NOT_FOUND',
+    'REPORTING_QUERY_INVALID',
+    'REPORTING_SOURCE_CHANGED',
+    'TRACKING_AUTHORIZATION_DENIED',
+    'TRACKING_CLOSE_DAY_TARGET_NOT_FOUND',
+    'TRACKING_FACT_TARGET_NOT_FOUND',
+    'TRACKING_FACT_VALUE_INVALID',
+    'TRACKING_QUERY_INVALID',
+    'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
+    'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
+  ]),
+  detail: zod.string(),
+  instance: zod.string(),
+  requestId: zod.string(),
+  status: zod
+    .number()
+    .min(planningDraftControllerCreateEmpty401ResponseStatusMin)
+    .max(planningDraftControllerCreateEmpty401ResponseStatusMax),
+  title: zod.string(),
+  type: zod.url(),
+})
+
+export const planningDraftControllerCreateEmpty403ResponseStatusMin = 400
+export const planningDraftControllerCreateEmpty403ResponseStatusMax = 599
+
+export const PlanningDraftControllerCreateEmpty403Response = zod.strictObject({
+  code: zod.enum([
+    'ACTIVE_PLAN_MONTH_NOT_FOUND',
+    'AUTHENTICATION_REQUIRED',
+    'AUTHORIZATION_DENIED',
+    'COMMAND_FINGERPRINT_CONFLICT',
+    'CONFLICT',
+    'DEPENDENCY_UNAVAILABLE',
+    'DRAFT_GOAL_NOT_FOUND',
+    'GOAL_DEFINITION_NOT_FOUND',
+    'GOAL_DEFINITION_VERSION_NOT_FOUND',
+    'INTERNAL_ERROR',
+    'MALFORMED_REQUEST',
+    'NOT_FOUND',
+    'OIDC_ACCESS_DENIED',
+    'OIDC_LOGIN_REJECTED',
+    'PAYLOAD_TOO_LARGE',
+    'PLANNING_AUTHORIZATION_DENIED',
+    'PLAN_DRAFT_NOT_EDITABLE',
+    'PLAN_DRAFT_NOT_FOUND',
+    'PLAN_MONTH_NOT_FOUND',
+    'PLAN_MONTH_RECLOSE_CONFLICT',
+    'PLAN_MONTH_REOPEN_CONFLICT',
+    'PLAN_MONTH_REVISION_CONFLICT',
+    'PLAN_PUBLICATION_NOT_FOUND',
+    'PLAN_SEED_ALREADY_CONSUMED',
+    'RATE_LIMIT_EXCEEDED',
+    'REMINDER_AUTHORIZATION_DENIED',
+    'REPORTING_AUTHORIZATION_DENIED',
+    'REPORTING_NOT_FOUND',
+    'REPORTING_QUERY_INVALID',
+    'REPORTING_SOURCE_CHANGED',
+    'TRACKING_AUTHORIZATION_DENIED',
+    'TRACKING_CLOSE_DAY_TARGET_NOT_FOUND',
+    'TRACKING_FACT_TARGET_NOT_FOUND',
+    'TRACKING_FACT_VALUE_INVALID',
+    'TRACKING_QUERY_INVALID',
+    'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
+    'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
+  ]),
+  detail: zod.string(),
+  instance: zod.string(),
+  requestId: zod.string(),
+  status: zod
+    .number()
+    .min(planningDraftControllerCreateEmpty403ResponseStatusMin)
+    .max(planningDraftControllerCreateEmpty403ResponseStatusMax),
+  title: zod.string(),
+  type: zod.url(),
+})
+
+export const planningDraftControllerCreateEmpty409ResponseOneStatusMin = 400
+export const planningDraftControllerCreateEmpty409ResponseOneStatusMax = 599
+
+export const planningDraftControllerCreateEmpty409ResponseTwoConflictExistingRefAggregateRevisionRegExp =
+  new RegExp('^[1-9][0-9]*$')
+export const planningDraftControllerCreateEmpty409ResponseTwoStatusMin = 400
+export const planningDraftControllerCreateEmpty409ResponseTwoStatusMax = 599
+
+export const PlanningDraftControllerCreateEmpty409Response = zod.union([
+  zod.strictObject({
+    code: zod.enum([
+      'ACTIVE_PLAN_MONTH_NOT_FOUND',
+      'AUTHENTICATION_REQUIRED',
+      'AUTHORIZATION_DENIED',
+      'COMMAND_FINGERPRINT_CONFLICT',
+      'CONFLICT',
+      'DEPENDENCY_UNAVAILABLE',
+      'DRAFT_GOAL_NOT_FOUND',
+      'GOAL_DEFINITION_NOT_FOUND',
+      'GOAL_DEFINITION_VERSION_NOT_FOUND',
+      'INTERNAL_ERROR',
+      'MALFORMED_REQUEST',
+      'NOT_FOUND',
+      'OIDC_ACCESS_DENIED',
+      'OIDC_LOGIN_REJECTED',
+      'PAYLOAD_TOO_LARGE',
+      'PLANNING_AUTHORIZATION_DENIED',
+      'PLAN_DRAFT_NOT_EDITABLE',
+      'PLAN_DRAFT_NOT_FOUND',
+      'PLAN_MONTH_NOT_FOUND',
+      'PLAN_MONTH_RECLOSE_CONFLICT',
+      'PLAN_MONTH_REOPEN_CONFLICT',
+      'PLAN_MONTH_REVISION_CONFLICT',
+      'PLAN_PUBLICATION_NOT_FOUND',
+      'PLAN_SEED_ALREADY_CONSUMED',
+      'RATE_LIMIT_EXCEEDED',
+      'REMINDER_AUTHORIZATION_DENIED',
+      'REPORTING_AUTHORIZATION_DENIED',
+      'REPORTING_NOT_FOUND',
+      'REPORTING_QUERY_INVALID',
+      'REPORTING_SOURCE_CHANGED',
+      'TRACKING_AUTHORIZATION_DENIED',
+      'TRACKING_CLOSE_DAY_TARGET_NOT_FOUND',
+      'TRACKING_FACT_TARGET_NOT_FOUND',
+      'TRACKING_FACT_VALUE_INVALID',
+      'TRACKING_QUERY_INVALID',
+      'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
+      'UNSUPPORTED_MEDIA_TYPE',
+      'WORKSPACE_AUTHORIZATION_DENIED',
+      'WORKSPACE_STATE_CONFLICT',
+    ]),
+    detail: zod.string(),
+    instance: zod.string(),
+    requestId: zod.string(),
+    status: zod
+      .number()
+      .min(planningDraftControllerCreateEmpty409ResponseOneStatusMin)
+      .max(planningDraftControllerCreateEmpty409ResponseOneStatusMax),
+    title: zod.string(),
+    type: zod.url(),
+  }),
+  zod.strictObject({
+    code: zod.enum(['PLAN_MONTH_ALREADY_EXISTS']),
+    conflict: zod.strictObject({
+      existingRef: zod.strictObject({
+        aggregateId: zod.uuid(),
+        aggregateRevision: zod
+          .string()
+          .regex(
+            planningDraftControllerCreateEmpty409ResponseTwoConflictExistingRefAggregateRevisionRegExp,
+          ),
+        kind: zod.enum(['planning.plan-draft.v1']),
+      }),
+      nextAction: zod.enum(['open-existing-month']),
+    }),
+    detail: zod.string(),
+    instance: zod.string(),
+    requestId: zod.string(),
+    status: zod
+      .number()
+      .min(planningDraftControllerCreateEmpty409ResponseTwoStatusMin)
+      .max(planningDraftControllerCreateEmpty409ResponseTwoStatusMax),
+    title: zod.string(),
+    type: zod.url(),
+  }),
+])
+
+export const planningDraftControllerCreateEmpty413ResponseStatusMin = 400
+export const planningDraftControllerCreateEmpty413ResponseStatusMax = 599
+
+export const PlanningDraftControllerCreateEmpty413Response = zod.strictObject({
+  code: zod.enum([
+    'ACTIVE_PLAN_MONTH_NOT_FOUND',
+    'AUTHENTICATION_REQUIRED',
+    'AUTHORIZATION_DENIED',
+    'COMMAND_FINGERPRINT_CONFLICT',
+    'CONFLICT',
+    'DEPENDENCY_UNAVAILABLE',
+    'DRAFT_GOAL_NOT_FOUND',
+    'GOAL_DEFINITION_NOT_FOUND',
+    'GOAL_DEFINITION_VERSION_NOT_FOUND',
+    'INTERNAL_ERROR',
+    'MALFORMED_REQUEST',
+    'NOT_FOUND',
+    'OIDC_ACCESS_DENIED',
+    'OIDC_LOGIN_REJECTED',
+    'PAYLOAD_TOO_LARGE',
+    'PLANNING_AUTHORIZATION_DENIED',
+    'PLAN_DRAFT_NOT_EDITABLE',
+    'PLAN_DRAFT_NOT_FOUND',
+    'PLAN_MONTH_NOT_FOUND',
+    'PLAN_MONTH_RECLOSE_CONFLICT',
+    'PLAN_MONTH_REOPEN_CONFLICT',
+    'PLAN_MONTH_REVISION_CONFLICT',
+    'PLAN_PUBLICATION_NOT_FOUND',
+    'PLAN_SEED_ALREADY_CONSUMED',
+    'RATE_LIMIT_EXCEEDED',
+    'REMINDER_AUTHORIZATION_DENIED',
+    'REPORTING_AUTHORIZATION_DENIED',
+    'REPORTING_NOT_FOUND',
+    'REPORTING_QUERY_INVALID',
+    'REPORTING_SOURCE_CHANGED',
+    'TRACKING_AUTHORIZATION_DENIED',
+    'TRACKING_CLOSE_DAY_TARGET_NOT_FOUND',
+    'TRACKING_FACT_TARGET_NOT_FOUND',
+    'TRACKING_FACT_VALUE_INVALID',
+    'TRACKING_QUERY_INVALID',
+    'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
+    'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
+  ]),
+  detail: zod.string(),
+  instance: zod.string(),
+  requestId: zod.string(),
+  status: zod
+    .number()
+    .min(planningDraftControllerCreateEmpty413ResponseStatusMin)
+    .max(planningDraftControllerCreateEmpty413ResponseStatusMax),
+  title: zod.string(),
+  type: zod.url(),
+})
+
+export const planningDraftControllerCreateEmpty415ResponseStatusMin = 400
+export const planningDraftControllerCreateEmpty415ResponseStatusMax = 599
+
+export const PlanningDraftControllerCreateEmpty415Response = zod.strictObject({
+  code: zod.enum([
+    'ACTIVE_PLAN_MONTH_NOT_FOUND',
+    'AUTHENTICATION_REQUIRED',
+    'AUTHORIZATION_DENIED',
+    'COMMAND_FINGERPRINT_CONFLICT',
+    'CONFLICT',
+    'DEPENDENCY_UNAVAILABLE',
+    'DRAFT_GOAL_NOT_FOUND',
+    'GOAL_DEFINITION_NOT_FOUND',
+    'GOAL_DEFINITION_VERSION_NOT_FOUND',
+    'INTERNAL_ERROR',
+    'MALFORMED_REQUEST',
+    'NOT_FOUND',
+    'OIDC_ACCESS_DENIED',
+    'OIDC_LOGIN_REJECTED',
+    'PAYLOAD_TOO_LARGE',
+    'PLANNING_AUTHORIZATION_DENIED',
+    'PLAN_DRAFT_NOT_EDITABLE',
+    'PLAN_DRAFT_NOT_FOUND',
+    'PLAN_MONTH_NOT_FOUND',
+    'PLAN_MONTH_RECLOSE_CONFLICT',
+    'PLAN_MONTH_REOPEN_CONFLICT',
+    'PLAN_MONTH_REVISION_CONFLICT',
+    'PLAN_PUBLICATION_NOT_FOUND',
+    'PLAN_SEED_ALREADY_CONSUMED',
+    'RATE_LIMIT_EXCEEDED',
+    'REMINDER_AUTHORIZATION_DENIED',
+    'REPORTING_AUTHORIZATION_DENIED',
+    'REPORTING_NOT_FOUND',
+    'REPORTING_QUERY_INVALID',
+    'REPORTING_SOURCE_CHANGED',
+    'TRACKING_AUTHORIZATION_DENIED',
+    'TRACKING_CLOSE_DAY_TARGET_NOT_FOUND',
+    'TRACKING_FACT_TARGET_NOT_FOUND',
+    'TRACKING_FACT_VALUE_INVALID',
+    'TRACKING_QUERY_INVALID',
+    'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
+    'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
+  ]),
+  detail: zod.string(),
+  instance: zod.string(),
+  requestId: zod.string(),
+  status: zod
+    .number()
+    .min(planningDraftControllerCreateEmpty415ResponseStatusMin)
+    .max(planningDraftControllerCreateEmpty415ResponseStatusMax),
+  title: zod.string(),
+  type: zod.url(),
+})
+
+export const planningDraftControllerCreateEmpty422ResponseErrorsItemCodeRegExp =
+  new RegExp('^[a-z][a-z0-9_]*$')
+export const planningDraftControllerCreateEmpty422ResponseErrorsItemPointerRegExp =
+  new RegExp('^(?:|(?:/(?:[^~/]|~[01])*)+)$')
+export const planningDraftControllerCreateEmpty422ResponseStatusMin = 400
+export const planningDraftControllerCreateEmpty422ResponseStatusMax = 599
+
+export const PlanningDraftControllerCreateEmpty422Response = zod.strictObject({
+  code: zod.enum(['VALIDATION_FAILED']),
+  detail: zod.string(),
+  errors: zod.array(
+    zod.strictObject({
+      code: zod
+        .string()
+        .regex(
+          planningDraftControllerCreateEmpty422ResponseErrorsItemCodeRegExp,
+        ),
+      detail: zod.string(),
+      pointer: zod
+        .string()
+        .regex(
+          planningDraftControllerCreateEmpty422ResponseErrorsItemPointerRegExp,
+        ),
+    }),
+  ),
+  instance: zod.string(),
+  requestId: zod.string(),
+  status: zod
+    .number()
+    .min(planningDraftControllerCreateEmpty422ResponseStatusMin)
+    .max(planningDraftControllerCreateEmpty422ResponseStatusMax),
+  title: zod.string(),
+  type: zod.url(),
+})
+
+export const planningDraftControllerCreateEmpty503ResponseStatusMin = 400
+export const planningDraftControllerCreateEmpty503ResponseStatusMax = 599
+
+export const PlanningDraftControllerCreateEmpty503Response = zod.strictObject({
+  code: zod.enum([
+    'ACTIVE_PLAN_MONTH_NOT_FOUND',
+    'AUTHENTICATION_REQUIRED',
+    'AUTHORIZATION_DENIED',
+    'COMMAND_FINGERPRINT_CONFLICT',
+    'CONFLICT',
+    'DEPENDENCY_UNAVAILABLE',
+    'DRAFT_GOAL_NOT_FOUND',
+    'GOAL_DEFINITION_NOT_FOUND',
+    'GOAL_DEFINITION_VERSION_NOT_FOUND',
+    'INTERNAL_ERROR',
+    'MALFORMED_REQUEST',
+    'NOT_FOUND',
+    'OIDC_ACCESS_DENIED',
+    'OIDC_LOGIN_REJECTED',
+    'PAYLOAD_TOO_LARGE',
+    'PLANNING_AUTHORIZATION_DENIED',
+    'PLAN_DRAFT_NOT_EDITABLE',
+    'PLAN_DRAFT_NOT_FOUND',
+    'PLAN_MONTH_NOT_FOUND',
+    'PLAN_MONTH_RECLOSE_CONFLICT',
+    'PLAN_MONTH_REOPEN_CONFLICT',
+    'PLAN_MONTH_REVISION_CONFLICT',
+    'PLAN_PUBLICATION_NOT_FOUND',
+    'PLAN_SEED_ALREADY_CONSUMED',
+    'RATE_LIMIT_EXCEEDED',
+    'REMINDER_AUTHORIZATION_DENIED',
+    'REPORTING_AUTHORIZATION_DENIED',
+    'REPORTING_NOT_FOUND',
+    'REPORTING_QUERY_INVALID',
+    'REPORTING_SOURCE_CHANGED',
+    'TRACKING_AUTHORIZATION_DENIED',
+    'TRACKING_CLOSE_DAY_TARGET_NOT_FOUND',
+    'TRACKING_FACT_TARGET_NOT_FOUND',
+    'TRACKING_FACT_VALUE_INVALID',
+    'TRACKING_QUERY_INVALID',
+    'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
+    'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
+  ]),
+  detail: zod.string(),
+  instance: zod.string(),
+  requestId: zod.string(),
+  status: zod
+    .number()
+    .min(planningDraftControllerCreateEmpty503ResponseStatusMin)
+    .max(planningDraftControllerCreateEmpty503ResponseStatusMax),
+  title: zod.string(),
+  type: zod.url(),
+})
+
+/**
+ * @summary Create an editable draft from an immutable publication.
+ */
+export const planningDraftControllerCreateFromPublicationBodyCommandIdRegExp =
+  new RegExp(
+    '^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',
+  )
+export const planningDraftControllerCreateFromPublicationBodySourcePublicationIdRegExp =
+  new RegExp(
+    '^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',
+  )
+export const planningDraftControllerCreateFromPublicationBodyTargetMonthRegExp =
+  new RegExp(
+    '^(?:[1-9][0-9]{3}|0[1-9][0-9]{2}|00[1-9][0-9]|000[1-9])-(?:0[1-9]|1[0-2])$',
+  )
+
+export const PlanningDraftControllerCreateFromPublicationBody =
+  zod.strictObject({
+    commandId: zod
+      .string()
+      .regex(planningDraftControllerCreateFromPublicationBodyCommandIdRegExp),
+    sourcePublicationId: zod
+      .string()
+      .regex(
+        planningDraftControllerCreateFromPublicationBodySourcePublicationIdRegExp,
+      ),
+    targetMonth: zod
+      .string()
+      .regex(planningDraftControllerCreateFromPublicationBodyTargetMonthRegExp),
+  })
+
+export const planningDraftControllerCreateFromPublication201ResponseAggregateIdRegExp =
+  new RegExp(
+    '^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',
+  )
+export const planningDraftControllerCreateFromPublication201ResponseAggregateRevisionRegExp =
+  new RegExp('^[1-9][0-9]*$')
+
+export const PlanningDraftControllerCreateFromPublication201Response =
+  zod.strictObject({
+    aggregateId: zod
+      .string()
+      .regex(
+        planningDraftControllerCreateFromPublication201ResponseAggregateIdRegExp,
+      ),
+    aggregateRevision: zod
+      .string()
+      .regex(
+        planningDraftControllerCreateFromPublication201ResponseAggregateRevisionRegExp,
+      ),
+    kind: zod.enum(['planning.plan-draft.v1']),
+  })
+
+export const planningDraftControllerCreateFromPublication400ResponseStatusMin = 400
+export const planningDraftControllerCreateFromPublication400ResponseStatusMax = 599
+
+export const PlanningDraftControllerCreateFromPublication400Response =
+  zod.strictObject({
+    code: zod.enum([
+      'ACTIVE_PLAN_MONTH_NOT_FOUND',
+      'AUTHENTICATION_REQUIRED',
+      'AUTHORIZATION_DENIED',
+      'COMMAND_FINGERPRINT_CONFLICT',
+      'CONFLICT',
+      'DEPENDENCY_UNAVAILABLE',
+      'DRAFT_GOAL_NOT_FOUND',
+      'GOAL_DEFINITION_NOT_FOUND',
+      'GOAL_DEFINITION_VERSION_NOT_FOUND',
+      'INTERNAL_ERROR',
+      'MALFORMED_REQUEST',
+      'NOT_FOUND',
+      'OIDC_ACCESS_DENIED',
+      'OIDC_LOGIN_REJECTED',
+      'PAYLOAD_TOO_LARGE',
+      'PLANNING_AUTHORIZATION_DENIED',
+      'PLAN_DRAFT_NOT_EDITABLE',
+      'PLAN_DRAFT_NOT_FOUND',
+      'PLAN_MONTH_NOT_FOUND',
+      'PLAN_MONTH_RECLOSE_CONFLICT',
+      'PLAN_MONTH_REOPEN_CONFLICT',
+      'PLAN_MONTH_REVISION_CONFLICT',
+      'PLAN_PUBLICATION_NOT_FOUND',
+      'PLAN_SEED_ALREADY_CONSUMED',
+      'RATE_LIMIT_EXCEEDED',
+      'REMINDER_AUTHORIZATION_DENIED',
+      'REPORTING_AUTHORIZATION_DENIED',
+      'REPORTING_NOT_FOUND',
+      'REPORTING_QUERY_INVALID',
+      'REPORTING_SOURCE_CHANGED',
+      'TRACKING_AUTHORIZATION_DENIED',
+      'TRACKING_CLOSE_DAY_TARGET_NOT_FOUND',
+      'TRACKING_FACT_TARGET_NOT_FOUND',
+      'TRACKING_FACT_VALUE_INVALID',
+      'TRACKING_QUERY_INVALID',
+      'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
+      'UNSUPPORTED_MEDIA_TYPE',
+      'WORKSPACE_AUTHORIZATION_DENIED',
+      'WORKSPACE_STATE_CONFLICT',
+    ]),
+    detail: zod.string(),
+    instance: zod.string(),
+    requestId: zod.string(),
+    status: zod
+      .number()
+      .min(planningDraftControllerCreateFromPublication400ResponseStatusMin)
+      .max(planningDraftControllerCreateFromPublication400ResponseStatusMax),
+    title: zod.string(),
+    type: zod.url(),
+  })
+
+export const planningDraftControllerCreateFromPublication401ResponseStatusMin = 400
+export const planningDraftControllerCreateFromPublication401ResponseStatusMax = 599
+
+export const PlanningDraftControllerCreateFromPublication401Response =
+  zod.strictObject({
+    code: zod.enum([
+      'ACTIVE_PLAN_MONTH_NOT_FOUND',
+      'AUTHENTICATION_REQUIRED',
+      'AUTHORIZATION_DENIED',
+      'COMMAND_FINGERPRINT_CONFLICT',
+      'CONFLICT',
+      'DEPENDENCY_UNAVAILABLE',
+      'DRAFT_GOAL_NOT_FOUND',
+      'GOAL_DEFINITION_NOT_FOUND',
+      'GOAL_DEFINITION_VERSION_NOT_FOUND',
+      'INTERNAL_ERROR',
+      'MALFORMED_REQUEST',
+      'NOT_FOUND',
+      'OIDC_ACCESS_DENIED',
+      'OIDC_LOGIN_REJECTED',
+      'PAYLOAD_TOO_LARGE',
+      'PLANNING_AUTHORIZATION_DENIED',
+      'PLAN_DRAFT_NOT_EDITABLE',
+      'PLAN_DRAFT_NOT_FOUND',
+      'PLAN_MONTH_NOT_FOUND',
+      'PLAN_MONTH_RECLOSE_CONFLICT',
+      'PLAN_MONTH_REOPEN_CONFLICT',
+      'PLAN_MONTH_REVISION_CONFLICT',
+      'PLAN_PUBLICATION_NOT_FOUND',
+      'PLAN_SEED_ALREADY_CONSUMED',
+      'RATE_LIMIT_EXCEEDED',
+      'REMINDER_AUTHORIZATION_DENIED',
+      'REPORTING_AUTHORIZATION_DENIED',
+      'REPORTING_NOT_FOUND',
+      'REPORTING_QUERY_INVALID',
+      'REPORTING_SOURCE_CHANGED',
+      'TRACKING_AUTHORIZATION_DENIED',
+      'TRACKING_CLOSE_DAY_TARGET_NOT_FOUND',
+      'TRACKING_FACT_TARGET_NOT_FOUND',
+      'TRACKING_FACT_VALUE_INVALID',
+      'TRACKING_QUERY_INVALID',
+      'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
+      'UNSUPPORTED_MEDIA_TYPE',
+      'WORKSPACE_AUTHORIZATION_DENIED',
+      'WORKSPACE_STATE_CONFLICT',
+    ]),
+    detail: zod.string(),
+    instance: zod.string(),
+    requestId: zod.string(),
+    status: zod
+      .number()
+      .min(planningDraftControllerCreateFromPublication401ResponseStatusMin)
+      .max(planningDraftControllerCreateFromPublication401ResponseStatusMax),
+    title: zod.string(),
+    type: zod.url(),
+  })
+
+export const planningDraftControllerCreateFromPublication403ResponseStatusMin = 400
+export const planningDraftControllerCreateFromPublication403ResponseStatusMax = 599
+
+export const PlanningDraftControllerCreateFromPublication403Response =
+  zod.strictObject({
+    code: zod.enum([
+      'ACTIVE_PLAN_MONTH_NOT_FOUND',
+      'AUTHENTICATION_REQUIRED',
+      'AUTHORIZATION_DENIED',
+      'COMMAND_FINGERPRINT_CONFLICT',
+      'CONFLICT',
+      'DEPENDENCY_UNAVAILABLE',
+      'DRAFT_GOAL_NOT_FOUND',
+      'GOAL_DEFINITION_NOT_FOUND',
+      'GOAL_DEFINITION_VERSION_NOT_FOUND',
+      'INTERNAL_ERROR',
+      'MALFORMED_REQUEST',
+      'NOT_FOUND',
+      'OIDC_ACCESS_DENIED',
+      'OIDC_LOGIN_REJECTED',
+      'PAYLOAD_TOO_LARGE',
+      'PLANNING_AUTHORIZATION_DENIED',
+      'PLAN_DRAFT_NOT_EDITABLE',
+      'PLAN_DRAFT_NOT_FOUND',
+      'PLAN_MONTH_NOT_FOUND',
+      'PLAN_MONTH_RECLOSE_CONFLICT',
+      'PLAN_MONTH_REOPEN_CONFLICT',
+      'PLAN_MONTH_REVISION_CONFLICT',
+      'PLAN_PUBLICATION_NOT_FOUND',
+      'PLAN_SEED_ALREADY_CONSUMED',
+      'RATE_LIMIT_EXCEEDED',
+      'REMINDER_AUTHORIZATION_DENIED',
+      'REPORTING_AUTHORIZATION_DENIED',
+      'REPORTING_NOT_FOUND',
+      'REPORTING_QUERY_INVALID',
+      'REPORTING_SOURCE_CHANGED',
+      'TRACKING_AUTHORIZATION_DENIED',
+      'TRACKING_CLOSE_DAY_TARGET_NOT_FOUND',
+      'TRACKING_FACT_TARGET_NOT_FOUND',
+      'TRACKING_FACT_VALUE_INVALID',
+      'TRACKING_QUERY_INVALID',
+      'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
+      'UNSUPPORTED_MEDIA_TYPE',
+      'WORKSPACE_AUTHORIZATION_DENIED',
+      'WORKSPACE_STATE_CONFLICT',
+    ]),
+    detail: zod.string(),
+    instance: zod.string(),
+    requestId: zod.string(),
+    status: zod
+      .number()
+      .min(planningDraftControllerCreateFromPublication403ResponseStatusMin)
+      .max(planningDraftControllerCreateFromPublication403ResponseStatusMax),
+    title: zod.string(),
+    type: zod.url(),
+  })
+
+export const planningDraftControllerCreateFromPublication404ResponseStatusMin = 400
+export const planningDraftControllerCreateFromPublication404ResponseStatusMax = 599
+
+export const PlanningDraftControllerCreateFromPublication404Response =
+  zod.strictObject({
+    code: zod.enum([
+      'ACTIVE_PLAN_MONTH_NOT_FOUND',
+      'AUTHENTICATION_REQUIRED',
+      'AUTHORIZATION_DENIED',
+      'COMMAND_FINGERPRINT_CONFLICT',
+      'CONFLICT',
+      'DEPENDENCY_UNAVAILABLE',
+      'DRAFT_GOAL_NOT_FOUND',
+      'GOAL_DEFINITION_NOT_FOUND',
+      'GOAL_DEFINITION_VERSION_NOT_FOUND',
+      'INTERNAL_ERROR',
+      'MALFORMED_REQUEST',
+      'NOT_FOUND',
+      'OIDC_ACCESS_DENIED',
+      'OIDC_LOGIN_REJECTED',
+      'PAYLOAD_TOO_LARGE',
+      'PLANNING_AUTHORIZATION_DENIED',
+      'PLAN_DRAFT_NOT_EDITABLE',
+      'PLAN_DRAFT_NOT_FOUND',
+      'PLAN_MONTH_NOT_FOUND',
+      'PLAN_MONTH_RECLOSE_CONFLICT',
+      'PLAN_MONTH_REOPEN_CONFLICT',
+      'PLAN_MONTH_REVISION_CONFLICT',
+      'PLAN_PUBLICATION_NOT_FOUND',
+      'PLAN_SEED_ALREADY_CONSUMED',
+      'RATE_LIMIT_EXCEEDED',
+      'REMINDER_AUTHORIZATION_DENIED',
+      'REPORTING_AUTHORIZATION_DENIED',
+      'REPORTING_NOT_FOUND',
+      'REPORTING_QUERY_INVALID',
+      'REPORTING_SOURCE_CHANGED',
+      'TRACKING_AUTHORIZATION_DENIED',
+      'TRACKING_CLOSE_DAY_TARGET_NOT_FOUND',
+      'TRACKING_FACT_TARGET_NOT_FOUND',
+      'TRACKING_FACT_VALUE_INVALID',
+      'TRACKING_QUERY_INVALID',
+      'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
+      'UNSUPPORTED_MEDIA_TYPE',
+      'WORKSPACE_AUTHORIZATION_DENIED',
+      'WORKSPACE_STATE_CONFLICT',
+    ]),
+    detail: zod.string(),
+    instance: zod.string(),
+    requestId: zod.string(),
+    status: zod
+      .number()
+      .min(planningDraftControllerCreateFromPublication404ResponseStatusMin)
+      .max(planningDraftControllerCreateFromPublication404ResponseStatusMax),
+    title: zod.string(),
+    type: zod.url(),
+  })
+
+export const planningDraftControllerCreateFromPublication409ResponseOneStatusMin = 400
+export const planningDraftControllerCreateFromPublication409ResponseOneStatusMax = 599
+
+export const planningDraftControllerCreateFromPublication409ResponseTwoConflictExistingRefAggregateRevisionRegExp =
+  new RegExp('^[1-9][0-9]*$')
+export const planningDraftControllerCreateFromPublication409ResponseTwoStatusMin = 400
+export const planningDraftControllerCreateFromPublication409ResponseTwoStatusMax = 599
+
+export const PlanningDraftControllerCreateFromPublication409Response =
+  zod.union([
+    zod.strictObject({
+      code: zod.enum([
+        'ACTIVE_PLAN_MONTH_NOT_FOUND',
+        'AUTHENTICATION_REQUIRED',
+        'AUTHORIZATION_DENIED',
+        'COMMAND_FINGERPRINT_CONFLICT',
+        'CONFLICT',
+        'DEPENDENCY_UNAVAILABLE',
+        'DRAFT_GOAL_NOT_FOUND',
+        'GOAL_DEFINITION_NOT_FOUND',
+        'GOAL_DEFINITION_VERSION_NOT_FOUND',
+        'INTERNAL_ERROR',
+        'MALFORMED_REQUEST',
+        'NOT_FOUND',
+        'OIDC_ACCESS_DENIED',
+        'OIDC_LOGIN_REJECTED',
+        'PAYLOAD_TOO_LARGE',
+        'PLANNING_AUTHORIZATION_DENIED',
+        'PLAN_DRAFT_NOT_EDITABLE',
+        'PLAN_DRAFT_NOT_FOUND',
+        'PLAN_MONTH_NOT_FOUND',
+        'PLAN_MONTH_RECLOSE_CONFLICT',
+        'PLAN_MONTH_REOPEN_CONFLICT',
+        'PLAN_MONTH_REVISION_CONFLICT',
+        'PLAN_PUBLICATION_NOT_FOUND',
+        'PLAN_SEED_ALREADY_CONSUMED',
+        'RATE_LIMIT_EXCEEDED',
+        'REMINDER_AUTHORIZATION_DENIED',
+        'REPORTING_AUTHORIZATION_DENIED',
+        'REPORTING_NOT_FOUND',
+        'REPORTING_QUERY_INVALID',
+        'REPORTING_SOURCE_CHANGED',
+        'TRACKING_AUTHORIZATION_DENIED',
+        'TRACKING_CLOSE_DAY_TARGET_NOT_FOUND',
+        'TRACKING_FACT_TARGET_NOT_FOUND',
+        'TRACKING_FACT_VALUE_INVALID',
+        'TRACKING_QUERY_INVALID',
+        'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
+        'UNSUPPORTED_MEDIA_TYPE',
+        'WORKSPACE_AUTHORIZATION_DENIED',
+        'WORKSPACE_STATE_CONFLICT',
+      ]),
+      detail: zod.string(),
+      instance: zod.string(),
+      requestId: zod.string(),
+      status: zod
+        .number()
+        .min(
+          planningDraftControllerCreateFromPublication409ResponseOneStatusMin,
+        )
+        .max(
+          planningDraftControllerCreateFromPublication409ResponseOneStatusMax,
+        ),
+      title: zod.string(),
+      type: zod.url(),
+    }),
+    zod.strictObject({
+      code: zod.enum(['PLAN_MONTH_ALREADY_EXISTS']),
+      conflict: zod.strictObject({
+        existingRef: zod.strictObject({
+          aggregateId: zod.uuid(),
+          aggregateRevision: zod
+            .string()
+            .regex(
+              planningDraftControllerCreateFromPublication409ResponseTwoConflictExistingRefAggregateRevisionRegExp,
+            ),
+          kind: zod.enum(['planning.plan-draft.v1']),
+        }),
+        nextAction: zod.enum(['open-existing-month']),
+      }),
+      detail: zod.string(),
+      instance: zod.string(),
+      requestId: zod.string(),
+      status: zod
+        .number()
+        .min(
+          planningDraftControllerCreateFromPublication409ResponseTwoStatusMin,
+        )
+        .max(
+          planningDraftControllerCreateFromPublication409ResponseTwoStatusMax,
+        ),
+      title: zod.string(),
+      type: zod.url(),
+    }),
+  ])
+
+export const planningDraftControllerCreateFromPublication413ResponseStatusMin = 400
+export const planningDraftControllerCreateFromPublication413ResponseStatusMax = 599
+
+export const PlanningDraftControllerCreateFromPublication413Response =
+  zod.strictObject({
+    code: zod.enum([
+      'ACTIVE_PLAN_MONTH_NOT_FOUND',
+      'AUTHENTICATION_REQUIRED',
+      'AUTHORIZATION_DENIED',
+      'COMMAND_FINGERPRINT_CONFLICT',
+      'CONFLICT',
+      'DEPENDENCY_UNAVAILABLE',
+      'DRAFT_GOAL_NOT_FOUND',
+      'GOAL_DEFINITION_NOT_FOUND',
+      'GOAL_DEFINITION_VERSION_NOT_FOUND',
+      'INTERNAL_ERROR',
+      'MALFORMED_REQUEST',
+      'NOT_FOUND',
+      'OIDC_ACCESS_DENIED',
+      'OIDC_LOGIN_REJECTED',
+      'PAYLOAD_TOO_LARGE',
+      'PLANNING_AUTHORIZATION_DENIED',
+      'PLAN_DRAFT_NOT_EDITABLE',
+      'PLAN_DRAFT_NOT_FOUND',
+      'PLAN_MONTH_NOT_FOUND',
+      'PLAN_MONTH_RECLOSE_CONFLICT',
+      'PLAN_MONTH_REOPEN_CONFLICT',
+      'PLAN_MONTH_REVISION_CONFLICT',
+      'PLAN_PUBLICATION_NOT_FOUND',
+      'PLAN_SEED_ALREADY_CONSUMED',
+      'RATE_LIMIT_EXCEEDED',
+      'REMINDER_AUTHORIZATION_DENIED',
+      'REPORTING_AUTHORIZATION_DENIED',
+      'REPORTING_NOT_FOUND',
+      'REPORTING_QUERY_INVALID',
+      'REPORTING_SOURCE_CHANGED',
+      'TRACKING_AUTHORIZATION_DENIED',
+      'TRACKING_CLOSE_DAY_TARGET_NOT_FOUND',
+      'TRACKING_FACT_TARGET_NOT_FOUND',
+      'TRACKING_FACT_VALUE_INVALID',
+      'TRACKING_QUERY_INVALID',
+      'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
+      'UNSUPPORTED_MEDIA_TYPE',
+      'WORKSPACE_AUTHORIZATION_DENIED',
+      'WORKSPACE_STATE_CONFLICT',
+    ]),
+    detail: zod.string(),
+    instance: zod.string(),
+    requestId: zod.string(),
+    status: zod
+      .number()
+      .min(planningDraftControllerCreateFromPublication413ResponseStatusMin)
+      .max(planningDraftControllerCreateFromPublication413ResponseStatusMax),
+    title: zod.string(),
+    type: zod.url(),
+  })
+
+export const planningDraftControllerCreateFromPublication415ResponseStatusMin = 400
+export const planningDraftControllerCreateFromPublication415ResponseStatusMax = 599
+
+export const PlanningDraftControllerCreateFromPublication415Response =
+  zod.strictObject({
+    code: zod.enum([
+      'ACTIVE_PLAN_MONTH_NOT_FOUND',
+      'AUTHENTICATION_REQUIRED',
+      'AUTHORIZATION_DENIED',
+      'COMMAND_FINGERPRINT_CONFLICT',
+      'CONFLICT',
+      'DEPENDENCY_UNAVAILABLE',
+      'DRAFT_GOAL_NOT_FOUND',
+      'GOAL_DEFINITION_NOT_FOUND',
+      'GOAL_DEFINITION_VERSION_NOT_FOUND',
+      'INTERNAL_ERROR',
+      'MALFORMED_REQUEST',
+      'NOT_FOUND',
+      'OIDC_ACCESS_DENIED',
+      'OIDC_LOGIN_REJECTED',
+      'PAYLOAD_TOO_LARGE',
+      'PLANNING_AUTHORIZATION_DENIED',
+      'PLAN_DRAFT_NOT_EDITABLE',
+      'PLAN_DRAFT_NOT_FOUND',
+      'PLAN_MONTH_NOT_FOUND',
+      'PLAN_MONTH_RECLOSE_CONFLICT',
+      'PLAN_MONTH_REOPEN_CONFLICT',
+      'PLAN_MONTH_REVISION_CONFLICT',
+      'PLAN_PUBLICATION_NOT_FOUND',
+      'PLAN_SEED_ALREADY_CONSUMED',
+      'RATE_LIMIT_EXCEEDED',
+      'REMINDER_AUTHORIZATION_DENIED',
+      'REPORTING_AUTHORIZATION_DENIED',
+      'REPORTING_NOT_FOUND',
+      'REPORTING_QUERY_INVALID',
+      'REPORTING_SOURCE_CHANGED',
+      'TRACKING_AUTHORIZATION_DENIED',
+      'TRACKING_CLOSE_DAY_TARGET_NOT_FOUND',
+      'TRACKING_FACT_TARGET_NOT_FOUND',
+      'TRACKING_FACT_VALUE_INVALID',
+      'TRACKING_QUERY_INVALID',
+      'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
+      'UNSUPPORTED_MEDIA_TYPE',
+      'WORKSPACE_AUTHORIZATION_DENIED',
+      'WORKSPACE_STATE_CONFLICT',
+    ]),
+    detail: zod.string(),
+    instance: zod.string(),
+    requestId: zod.string(),
+    status: zod
+      .number()
+      .min(planningDraftControllerCreateFromPublication415ResponseStatusMin)
+      .max(planningDraftControllerCreateFromPublication415ResponseStatusMax),
+    title: zod.string(),
+    type: zod.url(),
+  })
+
+export const planningDraftControllerCreateFromPublication422ResponseErrorsItemCodeRegExp =
+  new RegExp('^[a-z][a-z0-9_]*$')
+export const planningDraftControllerCreateFromPublication422ResponseErrorsItemPointerRegExp =
+  new RegExp('^(?:|(?:/(?:[^~/]|~[01])*)+)$')
+export const planningDraftControllerCreateFromPublication422ResponseStatusMin = 400
+export const planningDraftControllerCreateFromPublication422ResponseStatusMax = 599
+
+export const PlanningDraftControllerCreateFromPublication422Response =
+  zod.strictObject({
+    code: zod.enum(['VALIDATION_FAILED']),
+    detail: zod.string(),
+    errors: zod.array(
+      zod.strictObject({
+        code: zod
+          .string()
+          .regex(
+            planningDraftControllerCreateFromPublication422ResponseErrorsItemCodeRegExp,
+          ),
+        detail: zod.string(),
+        pointer: zod
+          .string()
+          .regex(
+            planningDraftControllerCreateFromPublication422ResponseErrorsItemPointerRegExp,
+          ),
+      }),
+    ),
+    instance: zod.string(),
+    requestId: zod.string(),
+    status: zod
+      .number()
+      .min(planningDraftControllerCreateFromPublication422ResponseStatusMin)
+      .max(planningDraftControllerCreateFromPublication422ResponseStatusMax),
+    title: zod.string(),
+    type: zod.url(),
+  })
+
+export const planningDraftControllerCreateFromPublication503ResponseStatusMin = 400
+export const planningDraftControllerCreateFromPublication503ResponseStatusMax = 599
+
+export const PlanningDraftControllerCreateFromPublication503Response =
+  zod.strictObject({
+    code: zod.enum([
+      'ACTIVE_PLAN_MONTH_NOT_FOUND',
+      'AUTHENTICATION_REQUIRED',
+      'AUTHORIZATION_DENIED',
+      'COMMAND_FINGERPRINT_CONFLICT',
+      'CONFLICT',
+      'DEPENDENCY_UNAVAILABLE',
+      'DRAFT_GOAL_NOT_FOUND',
+      'GOAL_DEFINITION_NOT_FOUND',
+      'GOAL_DEFINITION_VERSION_NOT_FOUND',
+      'INTERNAL_ERROR',
+      'MALFORMED_REQUEST',
+      'NOT_FOUND',
+      'OIDC_ACCESS_DENIED',
+      'OIDC_LOGIN_REJECTED',
+      'PAYLOAD_TOO_LARGE',
+      'PLANNING_AUTHORIZATION_DENIED',
+      'PLAN_DRAFT_NOT_EDITABLE',
+      'PLAN_DRAFT_NOT_FOUND',
+      'PLAN_MONTH_NOT_FOUND',
+      'PLAN_MONTH_RECLOSE_CONFLICT',
+      'PLAN_MONTH_REOPEN_CONFLICT',
+      'PLAN_MONTH_REVISION_CONFLICT',
+      'PLAN_PUBLICATION_NOT_FOUND',
+      'PLAN_SEED_ALREADY_CONSUMED',
+      'RATE_LIMIT_EXCEEDED',
+      'REMINDER_AUTHORIZATION_DENIED',
+      'REPORTING_AUTHORIZATION_DENIED',
+      'REPORTING_NOT_FOUND',
+      'REPORTING_QUERY_INVALID',
+      'REPORTING_SOURCE_CHANGED',
+      'TRACKING_AUTHORIZATION_DENIED',
+      'TRACKING_CLOSE_DAY_TARGET_NOT_FOUND',
+      'TRACKING_FACT_TARGET_NOT_FOUND',
+      'TRACKING_FACT_VALUE_INVALID',
+      'TRACKING_QUERY_INVALID',
+      'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
+      'UNSUPPORTED_MEDIA_TYPE',
+      'WORKSPACE_AUTHORIZATION_DENIED',
+      'WORKSPACE_STATE_CONFLICT',
+    ]),
+    detail: zod.string(),
+    instance: zod.string(),
+    requestId: zod.string(),
+    status: zod
+      .number()
+      .min(planningDraftControllerCreateFromPublication503ResponseStatusMin)
+      .max(planningDraftControllerCreateFromPublication503ResponseStatusMax),
+    title: zod.string(),
+    type: zod.url(),
+  })
 
 /**
  * @summary Create a complete editable draft from the one-time April seed.
@@ -4306,7 +5448,6 @@ export const PlanningDraftControllerCreateFromSeed400Response =
       'PLANNING_AUTHORIZATION_DENIED',
       'PLAN_DRAFT_NOT_EDITABLE',
       'PLAN_DRAFT_NOT_FOUND',
-      'PLAN_MONTH_ALREADY_EXISTS',
       'PLAN_MONTH_NOT_FOUND',
       'PLAN_MONTH_RECLOSE_CONFLICT',
       'PLAN_MONTH_REOPEN_CONFLICT',
@@ -4326,6 +5467,8 @@ export const PlanningDraftControllerCreateFromSeed400Response =
       'TRACKING_QUERY_INVALID',
       'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
       'UNSUPPORTED_MEDIA_TYPE',
+      'WORKSPACE_AUTHORIZATION_DENIED',
+      'WORKSPACE_STATE_CONFLICT',
     ]),
     detail: zod.string(),
     instance: zod.string(),
@@ -4362,7 +5505,6 @@ export const PlanningDraftControllerCreateFromSeed401Response =
       'PLANNING_AUTHORIZATION_DENIED',
       'PLAN_DRAFT_NOT_EDITABLE',
       'PLAN_DRAFT_NOT_FOUND',
-      'PLAN_MONTH_ALREADY_EXISTS',
       'PLAN_MONTH_NOT_FOUND',
       'PLAN_MONTH_RECLOSE_CONFLICT',
       'PLAN_MONTH_REOPEN_CONFLICT',
@@ -4382,6 +5524,8 @@ export const PlanningDraftControllerCreateFromSeed401Response =
       'TRACKING_QUERY_INVALID',
       'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
       'UNSUPPORTED_MEDIA_TYPE',
+      'WORKSPACE_AUTHORIZATION_DENIED',
+      'WORKSPACE_STATE_CONFLICT',
     ]),
     detail: zod.string(),
     instance: zod.string(),
@@ -4418,7 +5562,6 @@ export const PlanningDraftControllerCreateFromSeed403Response =
       'PLANNING_AUTHORIZATION_DENIED',
       'PLAN_DRAFT_NOT_EDITABLE',
       'PLAN_DRAFT_NOT_FOUND',
-      'PLAN_MONTH_ALREADY_EXISTS',
       'PLAN_MONTH_NOT_FOUND',
       'PLAN_MONTH_RECLOSE_CONFLICT',
       'PLAN_MONTH_REOPEN_CONFLICT',
@@ -4438,6 +5581,8 @@ export const PlanningDraftControllerCreateFromSeed403Response =
       'TRACKING_QUERY_INVALID',
       'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
       'UNSUPPORTED_MEDIA_TYPE',
+      'WORKSPACE_AUTHORIZATION_DENIED',
+      'WORKSPACE_STATE_CONFLICT',
     ]),
     detail: zod.string(),
     instance: zod.string(),
@@ -4450,10 +5595,15 @@ export const PlanningDraftControllerCreateFromSeed403Response =
     type: zod.url(),
   })
 
-export const planningDraftControllerCreateFromSeed409ResponseStatusMin = 400
-export const planningDraftControllerCreateFromSeed409ResponseStatusMax = 599
+export const planningDraftControllerCreateFromSeed409ResponseOneStatusMin = 400
+export const planningDraftControllerCreateFromSeed409ResponseOneStatusMax = 599
 
-export const PlanningDraftControllerCreateFromSeed409Response =
+export const planningDraftControllerCreateFromSeed409ResponseTwoConflictExistingRefAggregateRevisionRegExp =
+  new RegExp('^[1-9][0-9]*$')
+export const planningDraftControllerCreateFromSeed409ResponseTwoStatusMin = 400
+export const planningDraftControllerCreateFromSeed409ResponseTwoStatusMax = 599
+
+export const PlanningDraftControllerCreateFromSeed409Response = zod.union([
   zod.strictObject({
     code: zod.enum([
       'ACTIVE_PLAN_MONTH_NOT_FOUND',
@@ -4474,7 +5624,6 @@ export const PlanningDraftControllerCreateFromSeed409Response =
       'PLANNING_AUTHORIZATION_DENIED',
       'PLAN_DRAFT_NOT_EDITABLE',
       'PLAN_DRAFT_NOT_FOUND',
-      'PLAN_MONTH_ALREADY_EXISTS',
       'PLAN_MONTH_NOT_FOUND',
       'PLAN_MONTH_RECLOSE_CONFLICT',
       'PLAN_MONTH_REOPEN_CONFLICT',
@@ -4494,17 +5643,44 @@ export const PlanningDraftControllerCreateFromSeed409Response =
       'TRACKING_QUERY_INVALID',
       'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
       'UNSUPPORTED_MEDIA_TYPE',
+      'WORKSPACE_AUTHORIZATION_DENIED',
+      'WORKSPACE_STATE_CONFLICT',
     ]),
     detail: zod.string(),
     instance: zod.string(),
     requestId: zod.string(),
     status: zod
       .number()
-      .min(planningDraftControllerCreateFromSeed409ResponseStatusMin)
-      .max(planningDraftControllerCreateFromSeed409ResponseStatusMax),
+      .min(planningDraftControllerCreateFromSeed409ResponseOneStatusMin)
+      .max(planningDraftControllerCreateFromSeed409ResponseOneStatusMax),
     title: zod.string(),
     type: zod.url(),
-  })
+  }),
+  zod.strictObject({
+    code: zod.enum(['PLAN_MONTH_ALREADY_EXISTS']),
+    conflict: zod.strictObject({
+      existingRef: zod.strictObject({
+        aggregateId: zod.uuid(),
+        aggregateRevision: zod
+          .string()
+          .regex(
+            planningDraftControllerCreateFromSeed409ResponseTwoConflictExistingRefAggregateRevisionRegExp,
+          ),
+        kind: zod.enum(['planning.plan-draft.v1']),
+      }),
+      nextAction: zod.enum(['open-existing-month']),
+    }),
+    detail: zod.string(),
+    instance: zod.string(),
+    requestId: zod.string(),
+    status: zod
+      .number()
+      .min(planningDraftControllerCreateFromSeed409ResponseTwoStatusMin)
+      .max(planningDraftControllerCreateFromSeed409ResponseTwoStatusMax),
+    title: zod.string(),
+    type: zod.url(),
+  }),
+])
 
 export const planningDraftControllerCreateFromSeed413ResponseStatusMin = 400
 export const planningDraftControllerCreateFromSeed413ResponseStatusMax = 599
@@ -4530,7 +5706,6 @@ export const PlanningDraftControllerCreateFromSeed413Response =
       'PLANNING_AUTHORIZATION_DENIED',
       'PLAN_DRAFT_NOT_EDITABLE',
       'PLAN_DRAFT_NOT_FOUND',
-      'PLAN_MONTH_ALREADY_EXISTS',
       'PLAN_MONTH_NOT_FOUND',
       'PLAN_MONTH_RECLOSE_CONFLICT',
       'PLAN_MONTH_REOPEN_CONFLICT',
@@ -4550,6 +5725,8 @@ export const PlanningDraftControllerCreateFromSeed413Response =
       'TRACKING_QUERY_INVALID',
       'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
       'UNSUPPORTED_MEDIA_TYPE',
+      'WORKSPACE_AUTHORIZATION_DENIED',
+      'WORKSPACE_STATE_CONFLICT',
     ]),
     detail: zod.string(),
     instance: zod.string(),
@@ -4586,7 +5763,6 @@ export const PlanningDraftControllerCreateFromSeed415Response =
       'PLANNING_AUTHORIZATION_DENIED',
       'PLAN_DRAFT_NOT_EDITABLE',
       'PLAN_DRAFT_NOT_FOUND',
-      'PLAN_MONTH_ALREADY_EXISTS',
       'PLAN_MONTH_NOT_FOUND',
       'PLAN_MONTH_RECLOSE_CONFLICT',
       'PLAN_MONTH_REOPEN_CONFLICT',
@@ -4606,6 +5782,8 @@ export const PlanningDraftControllerCreateFromSeed415Response =
       'TRACKING_QUERY_INVALID',
       'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
       'UNSUPPORTED_MEDIA_TYPE',
+      'WORKSPACE_AUTHORIZATION_DENIED',
+      'WORKSPACE_STATE_CONFLICT',
     ]),
     detail: zod.string(),
     instance: zod.string(),
@@ -4678,7 +5856,6 @@ export const PlanningDraftControllerCreateFromSeed503Response =
       'PLANNING_AUTHORIZATION_DENIED',
       'PLAN_DRAFT_NOT_EDITABLE',
       'PLAN_DRAFT_NOT_FOUND',
-      'PLAN_MONTH_ALREADY_EXISTS',
       'PLAN_MONTH_NOT_FOUND',
       'PLAN_MONTH_RECLOSE_CONFLICT',
       'PLAN_MONTH_REOPEN_CONFLICT',
@@ -4698,6 +5875,8 @@ export const PlanningDraftControllerCreateFromSeed503Response =
       'TRACKING_QUERY_INVALID',
       'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
       'UNSUPPORTED_MEDIA_TYPE',
+      'WORKSPACE_AUTHORIZATION_DENIED',
+      'WORKSPACE_STATE_CONFLICT',
     ]),
     detail: zod.string(),
     instance: zod.string(),
@@ -5629,7 +6808,6 @@ export const PlanningDraftControllerPublicationPreview401Response =
       'PLANNING_AUTHORIZATION_DENIED',
       'PLAN_DRAFT_NOT_EDITABLE',
       'PLAN_DRAFT_NOT_FOUND',
-      'PLAN_MONTH_ALREADY_EXISTS',
       'PLAN_MONTH_NOT_FOUND',
       'PLAN_MONTH_RECLOSE_CONFLICT',
       'PLAN_MONTH_REOPEN_CONFLICT',
@@ -5649,6 +6827,8 @@ export const PlanningDraftControllerPublicationPreview401Response =
       'TRACKING_QUERY_INVALID',
       'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
       'UNSUPPORTED_MEDIA_TYPE',
+      'WORKSPACE_AUTHORIZATION_DENIED',
+      'WORKSPACE_STATE_CONFLICT',
     ]),
     detail: zod.string(),
     instance: zod.string(),
@@ -5685,7 +6865,6 @@ export const PlanningDraftControllerPublicationPreview403Response =
       'PLANNING_AUTHORIZATION_DENIED',
       'PLAN_DRAFT_NOT_EDITABLE',
       'PLAN_DRAFT_NOT_FOUND',
-      'PLAN_MONTH_ALREADY_EXISTS',
       'PLAN_MONTH_NOT_FOUND',
       'PLAN_MONTH_RECLOSE_CONFLICT',
       'PLAN_MONTH_REOPEN_CONFLICT',
@@ -5705,6 +6884,8 @@ export const PlanningDraftControllerPublicationPreview403Response =
       'TRACKING_QUERY_INVALID',
       'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
       'UNSUPPORTED_MEDIA_TYPE',
+      'WORKSPACE_AUTHORIZATION_DENIED',
+      'WORKSPACE_STATE_CONFLICT',
     ]),
     detail: zod.string(),
     instance: zod.string(),
@@ -5741,7 +6922,6 @@ export const PlanningDraftControllerPublicationPreview404Response =
       'PLANNING_AUTHORIZATION_DENIED',
       'PLAN_DRAFT_NOT_EDITABLE',
       'PLAN_DRAFT_NOT_FOUND',
-      'PLAN_MONTH_ALREADY_EXISTS',
       'PLAN_MONTH_NOT_FOUND',
       'PLAN_MONTH_RECLOSE_CONFLICT',
       'PLAN_MONTH_REOPEN_CONFLICT',
@@ -5761,6 +6941,8 @@ export const PlanningDraftControllerPublicationPreview404Response =
       'TRACKING_QUERY_INVALID',
       'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
       'UNSUPPORTED_MEDIA_TYPE',
+      'WORKSPACE_AUTHORIZATION_DENIED',
+      'WORKSPACE_STATE_CONFLICT',
     ]),
     detail: zod.string(),
     instance: zod.string(),
@@ -5797,7 +6979,6 @@ export const PlanningDraftControllerPublicationPreview409Response =
       'PLANNING_AUTHORIZATION_DENIED',
       'PLAN_DRAFT_NOT_EDITABLE',
       'PLAN_DRAFT_NOT_FOUND',
-      'PLAN_MONTH_ALREADY_EXISTS',
       'PLAN_MONTH_NOT_FOUND',
       'PLAN_MONTH_RECLOSE_CONFLICT',
       'PLAN_MONTH_REOPEN_CONFLICT',
@@ -5817,6 +6998,8 @@ export const PlanningDraftControllerPublicationPreview409Response =
       'TRACKING_QUERY_INVALID',
       'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
       'UNSUPPORTED_MEDIA_TYPE',
+      'WORKSPACE_AUTHORIZATION_DENIED',
+      'WORKSPACE_STATE_CONFLICT',
     ]),
     detail: zod.string(),
     instance: zod.string(),
@@ -5889,7 +7072,6 @@ export const PlanningDraftControllerPublicationPreview503Response =
       'PLANNING_AUTHORIZATION_DENIED',
       'PLAN_DRAFT_NOT_EDITABLE',
       'PLAN_DRAFT_NOT_FOUND',
-      'PLAN_MONTH_ALREADY_EXISTS',
       'PLAN_MONTH_NOT_FOUND',
       'PLAN_MONTH_RECLOSE_CONFLICT',
       'PLAN_MONTH_REOPEN_CONFLICT',
@@ -5909,6 +7091,8 @@ export const PlanningDraftControllerPublicationPreview503Response =
       'TRACKING_QUERY_INVALID',
       'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
       'UNSUPPORTED_MEDIA_TYPE',
+      'WORKSPACE_AUTHORIZATION_DENIED',
+      'WORKSPACE_STATE_CONFLICT',
     ]),
     detail: zod.string(),
     instance: zod.string(),
@@ -5917,6 +7101,592 @@ export const PlanningDraftControllerPublicationPreview503Response =
       .number()
       .min(planningDraftControllerPublicationPreview503ResponseStatusMin)
       .max(planningDraftControllerPublicationPreview503ResponseStatusMax),
+    title: zod.string(),
+    type: zod.url(),
+  })
+
+/**
+ * @summary Replace the editable monthly draft focus.
+ */
+export const planningDraftControllerUpdateMonthFocusPathPlanMonthIdRegExp =
+  new RegExp(
+    '^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',
+  )
+
+export const PlanningDraftControllerUpdateMonthFocusParams = zod.strictObject({
+  planMonthId: zod
+    .string()
+    .regex(planningDraftControllerUpdateMonthFocusPathPlanMonthIdRegExp),
+})
+
+export const planningDraftControllerUpdateMonthFocusBodyCommandIdRegExp =
+  new RegExp(
+    '^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',
+  )
+export const planningDraftControllerUpdateMonthFocusBodyExpectedRevisionRegExp =
+  new RegExp('^[1-9][0-9]*$')
+export const planningDraftControllerUpdateMonthFocusBodyFocusMax = 500
+
+export const planningDraftControllerUpdateMonthFocusBodyFocusRegExp =
+  new RegExp('^(?![\\s\\S]*\\u0000)[\\s\\S]*\\S[\\s\\S]*$')
+
+export const PlanningDraftControllerUpdateMonthFocusBody = zod.strictObject({
+  commandId: zod
+    .string()
+    .regex(planningDraftControllerUpdateMonthFocusBodyCommandIdRegExp),
+  expectedRevision: zod
+    .string()
+    .regex(planningDraftControllerUpdateMonthFocusBodyExpectedRevisionRegExp),
+  focus: zod
+    .string()
+    .min(1)
+    .max(planningDraftControllerUpdateMonthFocusBodyFocusMax)
+    .regex(planningDraftControllerUpdateMonthFocusBodyFocusRegExp),
+})
+
+export const planningDraftControllerUpdateMonthFocus200ResponseAggregateIdRegExp =
+  new RegExp(
+    '^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',
+  )
+export const planningDraftControllerUpdateMonthFocus200ResponseAggregateRevisionRegExp =
+  new RegExp('^[1-9][0-9]*$')
+
+export const PlanningDraftControllerUpdateMonthFocus200Response =
+  zod.strictObject({
+    aggregateId: zod
+      .string()
+      .regex(
+        planningDraftControllerUpdateMonthFocus200ResponseAggregateIdRegExp,
+      ),
+    aggregateRevision: zod
+      .string()
+      .regex(
+        planningDraftControllerUpdateMonthFocus200ResponseAggregateRevisionRegExp,
+      ),
+    kind: zod.enum(['planning.plan-draft.v1']),
+  })
+
+export const planningDraftControllerUpdateMonthFocus400ResponseStatusMin = 400
+export const planningDraftControllerUpdateMonthFocus400ResponseStatusMax = 599
+
+export const PlanningDraftControllerUpdateMonthFocus400Response =
+  zod.strictObject({
+    code: zod.enum([
+      'ACTIVE_PLAN_MONTH_NOT_FOUND',
+      'AUTHENTICATION_REQUIRED',
+      'AUTHORIZATION_DENIED',
+      'COMMAND_FINGERPRINT_CONFLICT',
+      'CONFLICT',
+      'DEPENDENCY_UNAVAILABLE',
+      'DRAFT_GOAL_NOT_FOUND',
+      'GOAL_DEFINITION_NOT_FOUND',
+      'GOAL_DEFINITION_VERSION_NOT_FOUND',
+      'INTERNAL_ERROR',
+      'MALFORMED_REQUEST',
+      'NOT_FOUND',
+      'OIDC_ACCESS_DENIED',
+      'OIDC_LOGIN_REJECTED',
+      'PAYLOAD_TOO_LARGE',
+      'PLANNING_AUTHORIZATION_DENIED',
+      'PLAN_DRAFT_NOT_EDITABLE',
+      'PLAN_DRAFT_NOT_FOUND',
+      'PLAN_MONTH_NOT_FOUND',
+      'PLAN_MONTH_RECLOSE_CONFLICT',
+      'PLAN_MONTH_REOPEN_CONFLICT',
+      'PLAN_MONTH_REVISION_CONFLICT',
+      'PLAN_PUBLICATION_NOT_FOUND',
+      'PLAN_SEED_ALREADY_CONSUMED',
+      'RATE_LIMIT_EXCEEDED',
+      'REMINDER_AUTHORIZATION_DENIED',
+      'REPORTING_AUTHORIZATION_DENIED',
+      'REPORTING_NOT_FOUND',
+      'REPORTING_QUERY_INVALID',
+      'REPORTING_SOURCE_CHANGED',
+      'TRACKING_AUTHORIZATION_DENIED',
+      'TRACKING_CLOSE_DAY_TARGET_NOT_FOUND',
+      'TRACKING_FACT_TARGET_NOT_FOUND',
+      'TRACKING_FACT_VALUE_INVALID',
+      'TRACKING_QUERY_INVALID',
+      'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
+      'UNSUPPORTED_MEDIA_TYPE',
+      'WORKSPACE_AUTHORIZATION_DENIED',
+      'WORKSPACE_STATE_CONFLICT',
+    ]),
+    detail: zod.string(),
+    instance: zod.string(),
+    requestId: zod.string(),
+    status: zod
+      .number()
+      .min(planningDraftControllerUpdateMonthFocus400ResponseStatusMin)
+      .max(planningDraftControllerUpdateMonthFocus400ResponseStatusMax),
+    title: zod.string(),
+    type: zod.url(),
+  })
+
+export const planningDraftControllerUpdateMonthFocus401ResponseStatusMin = 400
+export const planningDraftControllerUpdateMonthFocus401ResponseStatusMax = 599
+
+export const PlanningDraftControllerUpdateMonthFocus401Response =
+  zod.strictObject({
+    code: zod.enum([
+      'ACTIVE_PLAN_MONTH_NOT_FOUND',
+      'AUTHENTICATION_REQUIRED',
+      'AUTHORIZATION_DENIED',
+      'COMMAND_FINGERPRINT_CONFLICT',
+      'CONFLICT',
+      'DEPENDENCY_UNAVAILABLE',
+      'DRAFT_GOAL_NOT_FOUND',
+      'GOAL_DEFINITION_NOT_FOUND',
+      'GOAL_DEFINITION_VERSION_NOT_FOUND',
+      'INTERNAL_ERROR',
+      'MALFORMED_REQUEST',
+      'NOT_FOUND',
+      'OIDC_ACCESS_DENIED',
+      'OIDC_LOGIN_REJECTED',
+      'PAYLOAD_TOO_LARGE',
+      'PLANNING_AUTHORIZATION_DENIED',
+      'PLAN_DRAFT_NOT_EDITABLE',
+      'PLAN_DRAFT_NOT_FOUND',
+      'PLAN_MONTH_NOT_FOUND',
+      'PLAN_MONTH_RECLOSE_CONFLICT',
+      'PLAN_MONTH_REOPEN_CONFLICT',
+      'PLAN_MONTH_REVISION_CONFLICT',
+      'PLAN_PUBLICATION_NOT_FOUND',
+      'PLAN_SEED_ALREADY_CONSUMED',
+      'RATE_LIMIT_EXCEEDED',
+      'REMINDER_AUTHORIZATION_DENIED',
+      'REPORTING_AUTHORIZATION_DENIED',
+      'REPORTING_NOT_FOUND',
+      'REPORTING_QUERY_INVALID',
+      'REPORTING_SOURCE_CHANGED',
+      'TRACKING_AUTHORIZATION_DENIED',
+      'TRACKING_CLOSE_DAY_TARGET_NOT_FOUND',
+      'TRACKING_FACT_TARGET_NOT_FOUND',
+      'TRACKING_FACT_VALUE_INVALID',
+      'TRACKING_QUERY_INVALID',
+      'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
+      'UNSUPPORTED_MEDIA_TYPE',
+      'WORKSPACE_AUTHORIZATION_DENIED',
+      'WORKSPACE_STATE_CONFLICT',
+    ]),
+    detail: zod.string(),
+    instance: zod.string(),
+    requestId: zod.string(),
+    status: zod
+      .number()
+      .min(planningDraftControllerUpdateMonthFocus401ResponseStatusMin)
+      .max(planningDraftControllerUpdateMonthFocus401ResponseStatusMax),
+    title: zod.string(),
+    type: zod.url(),
+  })
+
+export const planningDraftControllerUpdateMonthFocus403ResponseStatusMin = 400
+export const planningDraftControllerUpdateMonthFocus403ResponseStatusMax = 599
+
+export const PlanningDraftControllerUpdateMonthFocus403Response =
+  zod.strictObject({
+    code: zod.enum([
+      'ACTIVE_PLAN_MONTH_NOT_FOUND',
+      'AUTHENTICATION_REQUIRED',
+      'AUTHORIZATION_DENIED',
+      'COMMAND_FINGERPRINT_CONFLICT',
+      'CONFLICT',
+      'DEPENDENCY_UNAVAILABLE',
+      'DRAFT_GOAL_NOT_FOUND',
+      'GOAL_DEFINITION_NOT_FOUND',
+      'GOAL_DEFINITION_VERSION_NOT_FOUND',
+      'INTERNAL_ERROR',
+      'MALFORMED_REQUEST',
+      'NOT_FOUND',
+      'OIDC_ACCESS_DENIED',
+      'OIDC_LOGIN_REJECTED',
+      'PAYLOAD_TOO_LARGE',
+      'PLANNING_AUTHORIZATION_DENIED',
+      'PLAN_DRAFT_NOT_EDITABLE',
+      'PLAN_DRAFT_NOT_FOUND',
+      'PLAN_MONTH_NOT_FOUND',
+      'PLAN_MONTH_RECLOSE_CONFLICT',
+      'PLAN_MONTH_REOPEN_CONFLICT',
+      'PLAN_MONTH_REVISION_CONFLICT',
+      'PLAN_PUBLICATION_NOT_FOUND',
+      'PLAN_SEED_ALREADY_CONSUMED',
+      'RATE_LIMIT_EXCEEDED',
+      'REMINDER_AUTHORIZATION_DENIED',
+      'REPORTING_AUTHORIZATION_DENIED',
+      'REPORTING_NOT_FOUND',
+      'REPORTING_QUERY_INVALID',
+      'REPORTING_SOURCE_CHANGED',
+      'TRACKING_AUTHORIZATION_DENIED',
+      'TRACKING_CLOSE_DAY_TARGET_NOT_FOUND',
+      'TRACKING_FACT_TARGET_NOT_FOUND',
+      'TRACKING_FACT_VALUE_INVALID',
+      'TRACKING_QUERY_INVALID',
+      'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
+      'UNSUPPORTED_MEDIA_TYPE',
+      'WORKSPACE_AUTHORIZATION_DENIED',
+      'WORKSPACE_STATE_CONFLICT',
+    ]),
+    detail: zod.string(),
+    instance: zod.string(),
+    requestId: zod.string(),
+    status: zod
+      .number()
+      .min(planningDraftControllerUpdateMonthFocus403ResponseStatusMin)
+      .max(planningDraftControllerUpdateMonthFocus403ResponseStatusMax),
+    title: zod.string(),
+    type: zod.url(),
+  })
+
+export const planningDraftControllerUpdateMonthFocus404ResponseStatusMin = 400
+export const planningDraftControllerUpdateMonthFocus404ResponseStatusMax = 599
+
+export const PlanningDraftControllerUpdateMonthFocus404Response =
+  zod.strictObject({
+    code: zod.enum([
+      'ACTIVE_PLAN_MONTH_NOT_FOUND',
+      'AUTHENTICATION_REQUIRED',
+      'AUTHORIZATION_DENIED',
+      'COMMAND_FINGERPRINT_CONFLICT',
+      'CONFLICT',
+      'DEPENDENCY_UNAVAILABLE',
+      'DRAFT_GOAL_NOT_FOUND',
+      'GOAL_DEFINITION_NOT_FOUND',
+      'GOAL_DEFINITION_VERSION_NOT_FOUND',
+      'INTERNAL_ERROR',
+      'MALFORMED_REQUEST',
+      'NOT_FOUND',
+      'OIDC_ACCESS_DENIED',
+      'OIDC_LOGIN_REJECTED',
+      'PAYLOAD_TOO_LARGE',
+      'PLANNING_AUTHORIZATION_DENIED',
+      'PLAN_DRAFT_NOT_EDITABLE',
+      'PLAN_DRAFT_NOT_FOUND',
+      'PLAN_MONTH_NOT_FOUND',
+      'PLAN_MONTH_RECLOSE_CONFLICT',
+      'PLAN_MONTH_REOPEN_CONFLICT',
+      'PLAN_MONTH_REVISION_CONFLICT',
+      'PLAN_PUBLICATION_NOT_FOUND',
+      'PLAN_SEED_ALREADY_CONSUMED',
+      'RATE_LIMIT_EXCEEDED',
+      'REMINDER_AUTHORIZATION_DENIED',
+      'REPORTING_AUTHORIZATION_DENIED',
+      'REPORTING_NOT_FOUND',
+      'REPORTING_QUERY_INVALID',
+      'REPORTING_SOURCE_CHANGED',
+      'TRACKING_AUTHORIZATION_DENIED',
+      'TRACKING_CLOSE_DAY_TARGET_NOT_FOUND',
+      'TRACKING_FACT_TARGET_NOT_FOUND',
+      'TRACKING_FACT_VALUE_INVALID',
+      'TRACKING_QUERY_INVALID',
+      'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
+      'UNSUPPORTED_MEDIA_TYPE',
+      'WORKSPACE_AUTHORIZATION_DENIED',
+      'WORKSPACE_STATE_CONFLICT',
+    ]),
+    detail: zod.string(),
+    instance: zod.string(),
+    requestId: zod.string(),
+    status: zod
+      .number()
+      .min(planningDraftControllerUpdateMonthFocus404ResponseStatusMin)
+      .max(planningDraftControllerUpdateMonthFocus404ResponseStatusMax),
+    title: zod.string(),
+    type: zod.url(),
+  })
+
+export const planningDraftControllerUpdateMonthFocus409ResponseOneStatusMin = 400
+export const planningDraftControllerUpdateMonthFocus409ResponseOneStatusMax = 599
+
+export const planningDraftControllerUpdateMonthFocus409ResponseTwoConflictCurrentRevisionRegExp =
+  new RegExp('^[1-9][0-9]*$')
+export const planningDraftControllerUpdateMonthFocus409ResponseTwoConflictExpectedRevisionRegExp =
+  new RegExp('^[1-9][0-9]*$')
+export const planningDraftControllerUpdateMonthFocus409ResponseTwoStatusMin = 400
+export const planningDraftControllerUpdateMonthFocus409ResponseTwoStatusMax = 599
+
+export const PlanningDraftControllerUpdateMonthFocus409Response = zod.union([
+  zod.strictObject({
+    code: zod.enum([
+      'ACTIVE_PLAN_MONTH_NOT_FOUND',
+      'AUTHENTICATION_REQUIRED',
+      'AUTHORIZATION_DENIED',
+      'COMMAND_FINGERPRINT_CONFLICT',
+      'CONFLICT',
+      'DEPENDENCY_UNAVAILABLE',
+      'DRAFT_GOAL_NOT_FOUND',
+      'GOAL_DEFINITION_NOT_FOUND',
+      'GOAL_DEFINITION_VERSION_NOT_FOUND',
+      'INTERNAL_ERROR',
+      'MALFORMED_REQUEST',
+      'NOT_FOUND',
+      'OIDC_ACCESS_DENIED',
+      'OIDC_LOGIN_REJECTED',
+      'PAYLOAD_TOO_LARGE',
+      'PLANNING_AUTHORIZATION_DENIED',
+      'PLAN_DRAFT_NOT_EDITABLE',
+      'PLAN_DRAFT_NOT_FOUND',
+      'PLAN_MONTH_NOT_FOUND',
+      'PLAN_MONTH_RECLOSE_CONFLICT',
+      'PLAN_MONTH_REOPEN_CONFLICT',
+      'PLAN_MONTH_REVISION_CONFLICT',
+      'PLAN_PUBLICATION_NOT_FOUND',
+      'PLAN_SEED_ALREADY_CONSUMED',
+      'RATE_LIMIT_EXCEEDED',
+      'REMINDER_AUTHORIZATION_DENIED',
+      'REPORTING_AUTHORIZATION_DENIED',
+      'REPORTING_NOT_FOUND',
+      'REPORTING_QUERY_INVALID',
+      'REPORTING_SOURCE_CHANGED',
+      'TRACKING_AUTHORIZATION_DENIED',
+      'TRACKING_CLOSE_DAY_TARGET_NOT_FOUND',
+      'TRACKING_FACT_TARGET_NOT_FOUND',
+      'TRACKING_FACT_VALUE_INVALID',
+      'TRACKING_QUERY_INVALID',
+      'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
+      'UNSUPPORTED_MEDIA_TYPE',
+      'WORKSPACE_AUTHORIZATION_DENIED',
+      'WORKSPACE_STATE_CONFLICT',
+    ]),
+    detail: zod.string(),
+    instance: zod.string(),
+    requestId: zod.string(),
+    status: zod
+      .number()
+      .min(planningDraftControllerUpdateMonthFocus409ResponseOneStatusMin)
+      .max(planningDraftControllerUpdateMonthFocus409ResponseOneStatusMax),
+    title: zod.string(),
+    type: zod.url(),
+  }),
+  zod.strictObject({
+    code: zod.enum(['DRAFT_REVISION_CONFLICT']),
+    conflict: zod.strictObject({
+      currentRevision: zod
+        .string()
+        .regex(
+          planningDraftControllerUpdateMonthFocus409ResponseTwoConflictCurrentRevisionRegExp,
+        ),
+      expectedRevision: zod
+        .string()
+        .regex(
+          planningDraftControllerUpdateMonthFocus409ResponseTwoConflictExpectedRevisionRegExp,
+        ),
+      nextAction: zod.enum(['reload-draft-and-retry']),
+    }),
+    detail: zod.string(),
+    instance: zod.string(),
+    requestId: zod.string(),
+    status: zod
+      .number()
+      .min(planningDraftControllerUpdateMonthFocus409ResponseTwoStatusMin)
+      .max(planningDraftControllerUpdateMonthFocus409ResponseTwoStatusMax),
+    title: zod.string(),
+    type: zod.url(),
+  }),
+])
+
+export const planningDraftControllerUpdateMonthFocus413ResponseStatusMin = 400
+export const planningDraftControllerUpdateMonthFocus413ResponseStatusMax = 599
+
+export const PlanningDraftControllerUpdateMonthFocus413Response =
+  zod.strictObject({
+    code: zod.enum([
+      'ACTIVE_PLAN_MONTH_NOT_FOUND',
+      'AUTHENTICATION_REQUIRED',
+      'AUTHORIZATION_DENIED',
+      'COMMAND_FINGERPRINT_CONFLICT',
+      'CONFLICT',
+      'DEPENDENCY_UNAVAILABLE',
+      'DRAFT_GOAL_NOT_FOUND',
+      'GOAL_DEFINITION_NOT_FOUND',
+      'GOAL_DEFINITION_VERSION_NOT_FOUND',
+      'INTERNAL_ERROR',
+      'MALFORMED_REQUEST',
+      'NOT_FOUND',
+      'OIDC_ACCESS_DENIED',
+      'OIDC_LOGIN_REJECTED',
+      'PAYLOAD_TOO_LARGE',
+      'PLANNING_AUTHORIZATION_DENIED',
+      'PLAN_DRAFT_NOT_EDITABLE',
+      'PLAN_DRAFT_NOT_FOUND',
+      'PLAN_MONTH_NOT_FOUND',
+      'PLAN_MONTH_RECLOSE_CONFLICT',
+      'PLAN_MONTH_REOPEN_CONFLICT',
+      'PLAN_MONTH_REVISION_CONFLICT',
+      'PLAN_PUBLICATION_NOT_FOUND',
+      'PLAN_SEED_ALREADY_CONSUMED',
+      'RATE_LIMIT_EXCEEDED',
+      'REMINDER_AUTHORIZATION_DENIED',
+      'REPORTING_AUTHORIZATION_DENIED',
+      'REPORTING_NOT_FOUND',
+      'REPORTING_QUERY_INVALID',
+      'REPORTING_SOURCE_CHANGED',
+      'TRACKING_AUTHORIZATION_DENIED',
+      'TRACKING_CLOSE_DAY_TARGET_NOT_FOUND',
+      'TRACKING_FACT_TARGET_NOT_FOUND',
+      'TRACKING_FACT_VALUE_INVALID',
+      'TRACKING_QUERY_INVALID',
+      'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
+      'UNSUPPORTED_MEDIA_TYPE',
+      'WORKSPACE_AUTHORIZATION_DENIED',
+      'WORKSPACE_STATE_CONFLICT',
+    ]),
+    detail: zod.string(),
+    instance: zod.string(),
+    requestId: zod.string(),
+    status: zod
+      .number()
+      .min(planningDraftControllerUpdateMonthFocus413ResponseStatusMin)
+      .max(planningDraftControllerUpdateMonthFocus413ResponseStatusMax),
+    title: zod.string(),
+    type: zod.url(),
+  })
+
+export const planningDraftControllerUpdateMonthFocus415ResponseStatusMin = 400
+export const planningDraftControllerUpdateMonthFocus415ResponseStatusMax = 599
+
+export const PlanningDraftControllerUpdateMonthFocus415Response =
+  zod.strictObject({
+    code: zod.enum([
+      'ACTIVE_PLAN_MONTH_NOT_FOUND',
+      'AUTHENTICATION_REQUIRED',
+      'AUTHORIZATION_DENIED',
+      'COMMAND_FINGERPRINT_CONFLICT',
+      'CONFLICT',
+      'DEPENDENCY_UNAVAILABLE',
+      'DRAFT_GOAL_NOT_FOUND',
+      'GOAL_DEFINITION_NOT_FOUND',
+      'GOAL_DEFINITION_VERSION_NOT_FOUND',
+      'INTERNAL_ERROR',
+      'MALFORMED_REQUEST',
+      'NOT_FOUND',
+      'OIDC_ACCESS_DENIED',
+      'OIDC_LOGIN_REJECTED',
+      'PAYLOAD_TOO_LARGE',
+      'PLANNING_AUTHORIZATION_DENIED',
+      'PLAN_DRAFT_NOT_EDITABLE',
+      'PLAN_DRAFT_NOT_FOUND',
+      'PLAN_MONTH_NOT_FOUND',
+      'PLAN_MONTH_RECLOSE_CONFLICT',
+      'PLAN_MONTH_REOPEN_CONFLICT',
+      'PLAN_MONTH_REVISION_CONFLICT',
+      'PLAN_PUBLICATION_NOT_FOUND',
+      'PLAN_SEED_ALREADY_CONSUMED',
+      'RATE_LIMIT_EXCEEDED',
+      'REMINDER_AUTHORIZATION_DENIED',
+      'REPORTING_AUTHORIZATION_DENIED',
+      'REPORTING_NOT_FOUND',
+      'REPORTING_QUERY_INVALID',
+      'REPORTING_SOURCE_CHANGED',
+      'TRACKING_AUTHORIZATION_DENIED',
+      'TRACKING_CLOSE_DAY_TARGET_NOT_FOUND',
+      'TRACKING_FACT_TARGET_NOT_FOUND',
+      'TRACKING_FACT_VALUE_INVALID',
+      'TRACKING_QUERY_INVALID',
+      'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
+      'UNSUPPORTED_MEDIA_TYPE',
+      'WORKSPACE_AUTHORIZATION_DENIED',
+      'WORKSPACE_STATE_CONFLICT',
+    ]),
+    detail: zod.string(),
+    instance: zod.string(),
+    requestId: zod.string(),
+    status: zod
+      .number()
+      .min(planningDraftControllerUpdateMonthFocus415ResponseStatusMin)
+      .max(planningDraftControllerUpdateMonthFocus415ResponseStatusMax),
+    title: zod.string(),
+    type: zod.url(),
+  })
+
+export const planningDraftControllerUpdateMonthFocus422ResponseErrorsItemCodeRegExp =
+  new RegExp('^[a-z][a-z0-9_]*$')
+export const planningDraftControllerUpdateMonthFocus422ResponseErrorsItemPointerRegExp =
+  new RegExp('^(?:|(?:/(?:[^~/]|~[01])*)+)$')
+export const planningDraftControllerUpdateMonthFocus422ResponseStatusMin = 400
+export const planningDraftControllerUpdateMonthFocus422ResponseStatusMax = 599
+
+export const PlanningDraftControllerUpdateMonthFocus422Response =
+  zod.strictObject({
+    code: zod.enum(['VALIDATION_FAILED']),
+    detail: zod.string(),
+    errors: zod.array(
+      zod.strictObject({
+        code: zod
+          .string()
+          .regex(
+            planningDraftControllerUpdateMonthFocus422ResponseErrorsItemCodeRegExp,
+          ),
+        detail: zod.string(),
+        pointer: zod
+          .string()
+          .regex(
+            planningDraftControllerUpdateMonthFocus422ResponseErrorsItemPointerRegExp,
+          ),
+      }),
+    ),
+    instance: zod.string(),
+    requestId: zod.string(),
+    status: zod
+      .number()
+      .min(planningDraftControllerUpdateMonthFocus422ResponseStatusMin)
+      .max(planningDraftControllerUpdateMonthFocus422ResponseStatusMax),
+    title: zod.string(),
+    type: zod.url(),
+  })
+
+export const planningDraftControllerUpdateMonthFocus503ResponseStatusMin = 400
+export const planningDraftControllerUpdateMonthFocus503ResponseStatusMax = 599
+
+export const PlanningDraftControllerUpdateMonthFocus503Response =
+  zod.strictObject({
+    code: zod.enum([
+      'ACTIVE_PLAN_MONTH_NOT_FOUND',
+      'AUTHENTICATION_REQUIRED',
+      'AUTHORIZATION_DENIED',
+      'COMMAND_FINGERPRINT_CONFLICT',
+      'CONFLICT',
+      'DEPENDENCY_UNAVAILABLE',
+      'DRAFT_GOAL_NOT_FOUND',
+      'GOAL_DEFINITION_NOT_FOUND',
+      'GOAL_DEFINITION_VERSION_NOT_FOUND',
+      'INTERNAL_ERROR',
+      'MALFORMED_REQUEST',
+      'NOT_FOUND',
+      'OIDC_ACCESS_DENIED',
+      'OIDC_LOGIN_REJECTED',
+      'PAYLOAD_TOO_LARGE',
+      'PLANNING_AUTHORIZATION_DENIED',
+      'PLAN_DRAFT_NOT_EDITABLE',
+      'PLAN_DRAFT_NOT_FOUND',
+      'PLAN_MONTH_NOT_FOUND',
+      'PLAN_MONTH_RECLOSE_CONFLICT',
+      'PLAN_MONTH_REOPEN_CONFLICT',
+      'PLAN_MONTH_REVISION_CONFLICT',
+      'PLAN_PUBLICATION_NOT_FOUND',
+      'PLAN_SEED_ALREADY_CONSUMED',
+      'RATE_LIMIT_EXCEEDED',
+      'REMINDER_AUTHORIZATION_DENIED',
+      'REPORTING_AUTHORIZATION_DENIED',
+      'REPORTING_NOT_FOUND',
+      'REPORTING_QUERY_INVALID',
+      'REPORTING_SOURCE_CHANGED',
+      'TRACKING_AUTHORIZATION_DENIED',
+      'TRACKING_CLOSE_DAY_TARGET_NOT_FOUND',
+      'TRACKING_FACT_TARGET_NOT_FOUND',
+      'TRACKING_FACT_VALUE_INVALID',
+      'TRACKING_QUERY_INVALID',
+      'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
+      'UNSUPPORTED_MEDIA_TYPE',
+      'WORKSPACE_AUTHORIZATION_DENIED',
+      'WORKSPACE_STATE_CONFLICT',
+    ]),
+    detail: zod.string(),
+    instance: zod.string(),
+    requestId: zod.string(),
+    status: zod
+      .number()
+      .min(planningDraftControllerUpdateMonthFocus503ResponseStatusMin)
+      .max(planningDraftControllerUpdateMonthFocus503ResponseStatusMax),
     title: zod.string(),
     type: zod.url(),
   })
@@ -6349,7 +8119,6 @@ export const PlanningDraftControllerAdd400Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -6369,6 +8138,8 @@ export const PlanningDraftControllerAdd400Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -6404,7 +8175,6 @@ export const PlanningDraftControllerAdd401Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -6424,6 +8194,8 @@ export const PlanningDraftControllerAdd401Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -6459,7 +8231,6 @@ export const PlanningDraftControllerAdd403Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -6479,6 +8250,8 @@ export const PlanningDraftControllerAdd403Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -6514,7 +8287,6 @@ export const PlanningDraftControllerAdd404Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -6534,6 +8306,8 @@ export const PlanningDraftControllerAdd404Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -6577,7 +8351,6 @@ export const PlanningDraftControllerAdd409Response = zod.union([
       'PLANNING_AUTHORIZATION_DENIED',
       'PLAN_DRAFT_NOT_EDITABLE',
       'PLAN_DRAFT_NOT_FOUND',
-      'PLAN_MONTH_ALREADY_EXISTS',
       'PLAN_MONTH_NOT_FOUND',
       'PLAN_MONTH_RECLOSE_CONFLICT',
       'PLAN_MONTH_REOPEN_CONFLICT',
@@ -6597,6 +8370,8 @@ export const PlanningDraftControllerAdd409Response = zod.union([
       'TRACKING_QUERY_INVALID',
       'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
       'UNSUPPORTED_MEDIA_TYPE',
+      'WORKSPACE_AUTHORIZATION_DENIED',
+      'WORKSPACE_STATE_CONFLICT',
     ]),
     detail: zod.string(),
     instance: zod.string(),
@@ -6621,6 +8396,7 @@ export const PlanningDraftControllerAdd409Response = zod.union([
         .regex(
           planningDraftControllerAdd409ResponseTwoConflictExpectedRevisionRegExp,
         ),
+      nextAction: zod.enum(['reload-draft-and-retry']),
     }),
     detail: zod.string(),
     instance: zod.string(),
@@ -6657,7 +8433,6 @@ export const PlanningDraftControllerAdd413Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -6677,6 +8452,8 @@ export const PlanningDraftControllerAdd413Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -6712,7 +8489,6 @@ export const PlanningDraftControllerAdd415Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -6732,6 +8508,8 @@ export const PlanningDraftControllerAdd415Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -6798,7 +8576,6 @@ export const PlanningDraftControllerAdd503Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -6818,6 +8595,8 @@ export const PlanningDraftControllerAdd503Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -6910,7 +8689,6 @@ export const PlanningDraftControllerReorder400Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -6930,6 +8708,8 @@ export const PlanningDraftControllerReorder400Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -6965,7 +8745,6 @@ export const PlanningDraftControllerReorder401Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -6985,6 +8764,8 @@ export const PlanningDraftControllerReorder401Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -7020,7 +8801,6 @@ export const PlanningDraftControllerReorder403Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -7040,6 +8820,8 @@ export const PlanningDraftControllerReorder403Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -7075,7 +8857,6 @@ export const PlanningDraftControllerReorder404Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -7095,6 +8876,8 @@ export const PlanningDraftControllerReorder404Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -7138,7 +8921,6 @@ export const PlanningDraftControllerReorder409Response = zod.union([
       'PLANNING_AUTHORIZATION_DENIED',
       'PLAN_DRAFT_NOT_EDITABLE',
       'PLAN_DRAFT_NOT_FOUND',
-      'PLAN_MONTH_ALREADY_EXISTS',
       'PLAN_MONTH_NOT_FOUND',
       'PLAN_MONTH_RECLOSE_CONFLICT',
       'PLAN_MONTH_REOPEN_CONFLICT',
@@ -7158,6 +8940,8 @@ export const PlanningDraftControllerReorder409Response = zod.union([
       'TRACKING_QUERY_INVALID',
       'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
       'UNSUPPORTED_MEDIA_TYPE',
+      'WORKSPACE_AUTHORIZATION_DENIED',
+      'WORKSPACE_STATE_CONFLICT',
     ]),
     detail: zod.string(),
     instance: zod.string(),
@@ -7182,6 +8966,7 @@ export const PlanningDraftControllerReorder409Response = zod.union([
         .regex(
           planningDraftControllerReorder409ResponseTwoConflictExpectedRevisionRegExp,
         ),
+      nextAction: zod.enum(['reload-draft-and-retry']),
     }),
     detail: zod.string(),
     instance: zod.string(),
@@ -7218,7 +9003,6 @@ export const PlanningDraftControllerReorder413Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -7238,6 +9022,8 @@ export const PlanningDraftControllerReorder413Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -7273,7 +9059,6 @@ export const PlanningDraftControllerReorder415Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -7293,6 +9078,8 @@ export const PlanningDraftControllerReorder415Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -7361,7 +9148,6 @@ export const PlanningDraftControllerReorder503Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -7381,6 +9167,8 @@ export const PlanningDraftControllerReorder503Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -7467,7 +9255,6 @@ export const PlanningDraftControllerRemove400Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -7487,6 +9274,8 @@ export const PlanningDraftControllerRemove400Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -7522,7 +9311,6 @@ export const PlanningDraftControllerRemove401Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -7542,6 +9330,8 @@ export const PlanningDraftControllerRemove401Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -7577,7 +9367,6 @@ export const PlanningDraftControllerRemove403Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -7597,6 +9386,8 @@ export const PlanningDraftControllerRemove403Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -7632,7 +9423,6 @@ export const PlanningDraftControllerRemove404Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -7652,6 +9442,8 @@ export const PlanningDraftControllerRemove404Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -7695,7 +9487,6 @@ export const PlanningDraftControllerRemove409Response = zod.union([
       'PLANNING_AUTHORIZATION_DENIED',
       'PLAN_DRAFT_NOT_EDITABLE',
       'PLAN_DRAFT_NOT_FOUND',
-      'PLAN_MONTH_ALREADY_EXISTS',
       'PLAN_MONTH_NOT_FOUND',
       'PLAN_MONTH_RECLOSE_CONFLICT',
       'PLAN_MONTH_REOPEN_CONFLICT',
@@ -7715,6 +9506,8 @@ export const PlanningDraftControllerRemove409Response = zod.union([
       'TRACKING_QUERY_INVALID',
       'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
       'UNSUPPORTED_MEDIA_TYPE',
+      'WORKSPACE_AUTHORIZATION_DENIED',
+      'WORKSPACE_STATE_CONFLICT',
     ]),
     detail: zod.string(),
     instance: zod.string(),
@@ -7739,6 +9532,7 @@ export const PlanningDraftControllerRemove409Response = zod.union([
         .regex(
           planningDraftControllerRemove409ResponseTwoConflictExpectedRevisionRegExp,
         ),
+      nextAction: zod.enum(['reload-draft-and-retry']),
     }),
     detail: zod.string(),
     instance: zod.string(),
@@ -7775,7 +9569,6 @@ export const PlanningDraftControllerRemove413Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -7795,6 +9588,8 @@ export const PlanningDraftControllerRemove413Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -7830,7 +9625,6 @@ export const PlanningDraftControllerRemove415Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -7850,6 +9644,8 @@ export const PlanningDraftControllerRemove415Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -7916,7 +9712,6 @@ export const PlanningDraftControllerRemove503Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -7936,6 +9731,8 @@ export const PlanningDraftControllerRemove503Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -8423,7 +10220,6 @@ export const PlanningDraftControllerUpdate400Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -8443,6 +10239,8 @@ export const PlanningDraftControllerUpdate400Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -8478,7 +10276,6 @@ export const PlanningDraftControllerUpdate401Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -8498,6 +10295,8 @@ export const PlanningDraftControllerUpdate401Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -8533,7 +10332,6 @@ export const PlanningDraftControllerUpdate403Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -8553,6 +10351,8 @@ export const PlanningDraftControllerUpdate403Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -8588,7 +10388,6 @@ export const PlanningDraftControllerUpdate404Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -8608,6 +10407,8 @@ export const PlanningDraftControllerUpdate404Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -8651,7 +10452,6 @@ export const PlanningDraftControllerUpdate409Response = zod.union([
       'PLANNING_AUTHORIZATION_DENIED',
       'PLAN_DRAFT_NOT_EDITABLE',
       'PLAN_DRAFT_NOT_FOUND',
-      'PLAN_MONTH_ALREADY_EXISTS',
       'PLAN_MONTH_NOT_FOUND',
       'PLAN_MONTH_RECLOSE_CONFLICT',
       'PLAN_MONTH_REOPEN_CONFLICT',
@@ -8671,6 +10471,8 @@ export const PlanningDraftControllerUpdate409Response = zod.union([
       'TRACKING_QUERY_INVALID',
       'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
       'UNSUPPORTED_MEDIA_TYPE',
+      'WORKSPACE_AUTHORIZATION_DENIED',
+      'WORKSPACE_STATE_CONFLICT',
     ]),
     detail: zod.string(),
     instance: zod.string(),
@@ -8695,6 +10497,7 @@ export const PlanningDraftControllerUpdate409Response = zod.union([
         .regex(
           planningDraftControllerUpdate409ResponseTwoConflictExpectedRevisionRegExp,
         ),
+      nextAction: zod.enum(['reload-draft-and-retry']),
     }),
     detail: zod.string(),
     instance: zod.string(),
@@ -8731,7 +10534,6 @@ export const PlanningDraftControllerUpdate413Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -8751,6 +10553,8 @@ export const PlanningDraftControllerUpdate413Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -8786,7 +10590,6 @@ export const PlanningDraftControllerUpdate415Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -8806,6 +10609,8 @@ export const PlanningDraftControllerUpdate415Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -8872,7 +10677,6 @@ export const PlanningDraftControllerUpdate503Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -8892,6 +10696,8 @@ export const PlanningDraftControllerUpdate503Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -8988,7 +10794,6 @@ export const PlanningDraftControllerPublish400Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -9008,6 +10813,8 @@ export const PlanningDraftControllerPublish400Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -9043,7 +10850,6 @@ export const PlanningDraftControllerPublish401Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -9063,6 +10869,8 @@ export const PlanningDraftControllerPublish401Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -9098,7 +10906,6 @@ export const PlanningDraftControllerPublish403Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -9118,6 +10925,8 @@ export const PlanningDraftControllerPublish403Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -9153,7 +10962,6 @@ export const PlanningDraftControllerPublish404Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -9173,6 +10981,8 @@ export const PlanningDraftControllerPublish404Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -9203,6 +11013,11 @@ export const planningDraftControllerPublish409ResponseFourConflictPublicationRev
 export const planningDraftControllerPublish409ResponseFourStatusMin = 400
 export const planningDraftControllerPublish409ResponseFourStatusMax = 599
 
+export const planningDraftControllerPublish409ResponseFiveConflictLatestPublicationRevisionRegExp =
+  new RegExp('^[1-9][0-9]*$')
+export const planningDraftControllerPublish409ResponseFiveStatusMin = 400
+export const planningDraftControllerPublish409ResponseFiveStatusMax = 599
+
 export const PlanningDraftControllerPublish409Response = zod.union([
   zod.strictObject({
     code: zod.enum([
@@ -9224,7 +11039,6 @@ export const PlanningDraftControllerPublish409Response = zod.union([
       'PLANNING_AUTHORIZATION_DENIED',
       'PLAN_DRAFT_NOT_EDITABLE',
       'PLAN_DRAFT_NOT_FOUND',
-      'PLAN_MONTH_ALREADY_EXISTS',
       'PLAN_MONTH_NOT_FOUND',
       'PLAN_MONTH_RECLOSE_CONFLICT',
       'PLAN_MONTH_REOPEN_CONFLICT',
@@ -9244,6 +11058,8 @@ export const PlanningDraftControllerPublish409Response = zod.union([
       'TRACKING_QUERY_INVALID',
       'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
       'UNSUPPORTED_MEDIA_TYPE',
+      'WORKSPACE_AUTHORIZATION_DENIED',
+      'WORKSPACE_STATE_CONFLICT',
     ]),
     detail: zod.string(),
     instance: zod.string(),
@@ -9331,6 +11147,27 @@ export const PlanningDraftControllerPublish409Response = zod.union([
     title: zod.string(),
     type: zod.url(),
   }),
+  zod.strictObject({
+    code: zod.enum(['PLAN_PUBLICATION_MODE_CONFLICT']),
+    conflict: zod.strictObject({
+      latestPublicationRevision: zod
+        .string()
+        .regex(
+          planningDraftControllerPublish409ResponseFiveConflictLatestPublicationRevisionRegExp,
+        )
+        .nullable(),
+      requiredMode: zod.enum(['publish', 'republish']),
+    }),
+    detail: zod.string(),
+    instance: zod.string(),
+    requestId: zod.string(),
+    status: zod
+      .number()
+      .min(planningDraftControllerPublish409ResponseFiveStatusMin)
+      .max(planningDraftControllerPublish409ResponseFiveStatusMax),
+    title: zod.string(),
+    type: zod.url(),
+  }),
 ])
 
 export const planningDraftControllerPublish413ResponseStatusMin = 400
@@ -9356,7 +11193,6 @@ export const PlanningDraftControllerPublish413Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -9376,6 +11212,8 @@ export const PlanningDraftControllerPublish413Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -9411,7 +11249,6 @@ export const PlanningDraftControllerPublish415Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -9431,6 +11268,8 @@ export const PlanningDraftControllerPublish415Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -9499,7 +11338,6 @@ export const PlanningDraftControllerPublish503Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -9519,6 +11357,8 @@ export const PlanningDraftControllerPublish503Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -9527,6 +11367,1010 @@ export const PlanningDraftControllerPublish503Response = zod.strictObject({
     .number()
     .min(planningDraftControllerPublish503ResponseStatusMin)
     .max(planningDraftControllerPublish503ResponseStatusMax),
+  title: zod.string(),
+  type: zod.url(),
+})
+
+/**
+ * @summary Republish a cancelled future monthly plan.
+ */
+export const planningDraftControllerRepublishPathPlanMonthIdRegExp = new RegExp(
+  '^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',
+)
+
+export const PlanningDraftControllerRepublishParams = zod.strictObject({
+  planMonthId: zod
+    .string()
+    .regex(planningDraftControllerRepublishPathPlanMonthIdRegExp),
+})
+
+export const planningDraftControllerRepublishBodyCommandIdRegExp = new RegExp(
+  '^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',
+)
+export const planningDraftControllerRepublishBodyExpectedRevisionRegExp =
+  new RegExp('^[1-9][0-9]*$')
+export const planningDraftControllerRepublishBodyPreviewHashRegExp = new RegExp(
+  '^[0-9a-f]{64}$',
+)
+export const planningDraftControllerRepublishBodyPreviewHashVersionRegExp =
+  new RegExp('^[a-z0-9][a-z0-9.-]{0,99}$')
+export const planningDraftControllerRepublishBodyPreviewSchemaVersionRegExp =
+  new RegExp('^[a-z0-9][a-z0-9.-]{0,99}$')
+
+export const PlanningDraftControllerRepublishBody = zod.strictObject({
+  commandId: zod
+    .string()
+    .regex(planningDraftControllerRepublishBodyCommandIdRegExp),
+  expectedRevision: zod
+    .string()
+    .regex(planningDraftControllerRepublishBodyExpectedRevisionRegExp),
+  previewHash: zod
+    .string()
+    .regex(planningDraftControllerRepublishBodyPreviewHashRegExp),
+  previewHashVersion: zod
+    .string()
+    .regex(planningDraftControllerRepublishBodyPreviewHashVersionRegExp),
+  previewSchemaVersion: zod
+    .string()
+    .regex(planningDraftControllerRepublishBodyPreviewSchemaVersionRegExp),
+})
+
+export const planningDraftControllerRepublish201ResponseAggregateIdRegExp =
+  new RegExp(
+    '^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',
+  )
+export const planningDraftControllerRepublish201ResponseAggregateRevisionRegExp =
+  new RegExp('^[1-9][0-9]*$')
+
+export const PlanningDraftControllerRepublish201Response = zod.strictObject({
+  aggregateId: zod
+    .string()
+    .regex(planningDraftControllerRepublish201ResponseAggregateIdRegExp),
+  aggregateRevision: zod
+    .string()
+    .regex(planningDraftControllerRepublish201ResponseAggregateRevisionRegExp),
+  kind: zod.enum(['planning.plan-publication.v1']),
+})
+
+export const planningDraftControllerRepublish400ResponseStatusMin = 400
+export const planningDraftControllerRepublish400ResponseStatusMax = 599
+
+export const PlanningDraftControllerRepublish400Response = zod.strictObject({
+  code: zod.enum([
+    'ACTIVE_PLAN_MONTH_NOT_FOUND',
+    'AUTHENTICATION_REQUIRED',
+    'AUTHORIZATION_DENIED',
+    'COMMAND_FINGERPRINT_CONFLICT',
+    'CONFLICT',
+    'DEPENDENCY_UNAVAILABLE',
+    'DRAFT_GOAL_NOT_FOUND',
+    'GOAL_DEFINITION_NOT_FOUND',
+    'GOAL_DEFINITION_VERSION_NOT_FOUND',
+    'INTERNAL_ERROR',
+    'MALFORMED_REQUEST',
+    'NOT_FOUND',
+    'OIDC_ACCESS_DENIED',
+    'OIDC_LOGIN_REJECTED',
+    'PAYLOAD_TOO_LARGE',
+    'PLANNING_AUTHORIZATION_DENIED',
+    'PLAN_DRAFT_NOT_EDITABLE',
+    'PLAN_DRAFT_NOT_FOUND',
+    'PLAN_MONTH_NOT_FOUND',
+    'PLAN_MONTH_RECLOSE_CONFLICT',
+    'PLAN_MONTH_REOPEN_CONFLICT',
+    'PLAN_MONTH_REVISION_CONFLICT',
+    'PLAN_PUBLICATION_NOT_FOUND',
+    'PLAN_SEED_ALREADY_CONSUMED',
+    'RATE_LIMIT_EXCEEDED',
+    'REMINDER_AUTHORIZATION_DENIED',
+    'REPORTING_AUTHORIZATION_DENIED',
+    'REPORTING_NOT_FOUND',
+    'REPORTING_QUERY_INVALID',
+    'REPORTING_SOURCE_CHANGED',
+    'TRACKING_AUTHORIZATION_DENIED',
+    'TRACKING_CLOSE_DAY_TARGET_NOT_FOUND',
+    'TRACKING_FACT_TARGET_NOT_FOUND',
+    'TRACKING_FACT_VALUE_INVALID',
+    'TRACKING_QUERY_INVALID',
+    'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
+    'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
+  ]),
+  detail: zod.string(),
+  instance: zod.string(),
+  requestId: zod.string(),
+  status: zod
+    .number()
+    .min(planningDraftControllerRepublish400ResponseStatusMin)
+    .max(planningDraftControllerRepublish400ResponseStatusMax),
+  title: zod.string(),
+  type: zod.url(),
+})
+
+export const planningDraftControllerRepublish401ResponseStatusMin = 400
+export const planningDraftControllerRepublish401ResponseStatusMax = 599
+
+export const PlanningDraftControllerRepublish401Response = zod.strictObject({
+  code: zod.enum([
+    'ACTIVE_PLAN_MONTH_NOT_FOUND',
+    'AUTHENTICATION_REQUIRED',
+    'AUTHORIZATION_DENIED',
+    'COMMAND_FINGERPRINT_CONFLICT',
+    'CONFLICT',
+    'DEPENDENCY_UNAVAILABLE',
+    'DRAFT_GOAL_NOT_FOUND',
+    'GOAL_DEFINITION_NOT_FOUND',
+    'GOAL_DEFINITION_VERSION_NOT_FOUND',
+    'INTERNAL_ERROR',
+    'MALFORMED_REQUEST',
+    'NOT_FOUND',
+    'OIDC_ACCESS_DENIED',
+    'OIDC_LOGIN_REJECTED',
+    'PAYLOAD_TOO_LARGE',
+    'PLANNING_AUTHORIZATION_DENIED',
+    'PLAN_DRAFT_NOT_EDITABLE',
+    'PLAN_DRAFT_NOT_FOUND',
+    'PLAN_MONTH_NOT_FOUND',
+    'PLAN_MONTH_RECLOSE_CONFLICT',
+    'PLAN_MONTH_REOPEN_CONFLICT',
+    'PLAN_MONTH_REVISION_CONFLICT',
+    'PLAN_PUBLICATION_NOT_FOUND',
+    'PLAN_SEED_ALREADY_CONSUMED',
+    'RATE_LIMIT_EXCEEDED',
+    'REMINDER_AUTHORIZATION_DENIED',
+    'REPORTING_AUTHORIZATION_DENIED',
+    'REPORTING_NOT_FOUND',
+    'REPORTING_QUERY_INVALID',
+    'REPORTING_SOURCE_CHANGED',
+    'TRACKING_AUTHORIZATION_DENIED',
+    'TRACKING_CLOSE_DAY_TARGET_NOT_FOUND',
+    'TRACKING_FACT_TARGET_NOT_FOUND',
+    'TRACKING_FACT_VALUE_INVALID',
+    'TRACKING_QUERY_INVALID',
+    'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
+    'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
+  ]),
+  detail: zod.string(),
+  instance: zod.string(),
+  requestId: zod.string(),
+  status: zod
+    .number()
+    .min(planningDraftControllerRepublish401ResponseStatusMin)
+    .max(planningDraftControllerRepublish401ResponseStatusMax),
+  title: zod.string(),
+  type: zod.url(),
+})
+
+export const planningDraftControllerRepublish403ResponseStatusMin = 400
+export const planningDraftControllerRepublish403ResponseStatusMax = 599
+
+export const PlanningDraftControllerRepublish403Response = zod.strictObject({
+  code: zod.enum([
+    'ACTIVE_PLAN_MONTH_NOT_FOUND',
+    'AUTHENTICATION_REQUIRED',
+    'AUTHORIZATION_DENIED',
+    'COMMAND_FINGERPRINT_CONFLICT',
+    'CONFLICT',
+    'DEPENDENCY_UNAVAILABLE',
+    'DRAFT_GOAL_NOT_FOUND',
+    'GOAL_DEFINITION_NOT_FOUND',
+    'GOAL_DEFINITION_VERSION_NOT_FOUND',
+    'INTERNAL_ERROR',
+    'MALFORMED_REQUEST',
+    'NOT_FOUND',
+    'OIDC_ACCESS_DENIED',
+    'OIDC_LOGIN_REJECTED',
+    'PAYLOAD_TOO_LARGE',
+    'PLANNING_AUTHORIZATION_DENIED',
+    'PLAN_DRAFT_NOT_EDITABLE',
+    'PLAN_DRAFT_NOT_FOUND',
+    'PLAN_MONTH_NOT_FOUND',
+    'PLAN_MONTH_RECLOSE_CONFLICT',
+    'PLAN_MONTH_REOPEN_CONFLICT',
+    'PLAN_MONTH_REVISION_CONFLICT',
+    'PLAN_PUBLICATION_NOT_FOUND',
+    'PLAN_SEED_ALREADY_CONSUMED',
+    'RATE_LIMIT_EXCEEDED',
+    'REMINDER_AUTHORIZATION_DENIED',
+    'REPORTING_AUTHORIZATION_DENIED',
+    'REPORTING_NOT_FOUND',
+    'REPORTING_QUERY_INVALID',
+    'REPORTING_SOURCE_CHANGED',
+    'TRACKING_AUTHORIZATION_DENIED',
+    'TRACKING_CLOSE_DAY_TARGET_NOT_FOUND',
+    'TRACKING_FACT_TARGET_NOT_FOUND',
+    'TRACKING_FACT_VALUE_INVALID',
+    'TRACKING_QUERY_INVALID',
+    'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
+    'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
+  ]),
+  detail: zod.string(),
+  instance: zod.string(),
+  requestId: zod.string(),
+  status: zod
+    .number()
+    .min(planningDraftControllerRepublish403ResponseStatusMin)
+    .max(planningDraftControllerRepublish403ResponseStatusMax),
+  title: zod.string(),
+  type: zod.url(),
+})
+
+export const planningDraftControllerRepublish404ResponseStatusMin = 400
+export const planningDraftControllerRepublish404ResponseStatusMax = 599
+
+export const PlanningDraftControllerRepublish404Response = zod.strictObject({
+  code: zod.enum([
+    'ACTIVE_PLAN_MONTH_NOT_FOUND',
+    'AUTHENTICATION_REQUIRED',
+    'AUTHORIZATION_DENIED',
+    'COMMAND_FINGERPRINT_CONFLICT',
+    'CONFLICT',
+    'DEPENDENCY_UNAVAILABLE',
+    'DRAFT_GOAL_NOT_FOUND',
+    'GOAL_DEFINITION_NOT_FOUND',
+    'GOAL_DEFINITION_VERSION_NOT_FOUND',
+    'INTERNAL_ERROR',
+    'MALFORMED_REQUEST',
+    'NOT_FOUND',
+    'OIDC_ACCESS_DENIED',
+    'OIDC_LOGIN_REJECTED',
+    'PAYLOAD_TOO_LARGE',
+    'PLANNING_AUTHORIZATION_DENIED',
+    'PLAN_DRAFT_NOT_EDITABLE',
+    'PLAN_DRAFT_NOT_FOUND',
+    'PLAN_MONTH_NOT_FOUND',
+    'PLAN_MONTH_RECLOSE_CONFLICT',
+    'PLAN_MONTH_REOPEN_CONFLICT',
+    'PLAN_MONTH_REVISION_CONFLICT',
+    'PLAN_PUBLICATION_NOT_FOUND',
+    'PLAN_SEED_ALREADY_CONSUMED',
+    'RATE_LIMIT_EXCEEDED',
+    'REMINDER_AUTHORIZATION_DENIED',
+    'REPORTING_AUTHORIZATION_DENIED',
+    'REPORTING_NOT_FOUND',
+    'REPORTING_QUERY_INVALID',
+    'REPORTING_SOURCE_CHANGED',
+    'TRACKING_AUTHORIZATION_DENIED',
+    'TRACKING_CLOSE_DAY_TARGET_NOT_FOUND',
+    'TRACKING_FACT_TARGET_NOT_FOUND',
+    'TRACKING_FACT_VALUE_INVALID',
+    'TRACKING_QUERY_INVALID',
+    'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
+    'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
+  ]),
+  detail: zod.string(),
+  instance: zod.string(),
+  requestId: zod.string(),
+  status: zod
+    .number()
+    .min(planningDraftControllerRepublish404ResponseStatusMin)
+    .max(planningDraftControllerRepublish404ResponseStatusMax),
+  title: zod.string(),
+  type: zod.url(),
+})
+
+export const planningDraftControllerRepublish409ResponseOneStatusMin = 400
+export const planningDraftControllerRepublish409ResponseOneStatusMax = 599
+
+export const planningDraftControllerRepublish409ResponseTwoConflictCurrentDraftRevisionRegExp =
+  new RegExp('^[1-9][0-9]*$')
+export const planningDraftControllerRepublish409ResponseTwoConflictCurrentPreviewHashRegExp =
+  new RegExp('^[0-9a-f]{64}$')
+export const planningDraftControllerRepublish409ResponseTwoStatusMin = 400
+export const planningDraftControllerRepublish409ResponseTwoStatusMax = 599
+
+export const planningDraftControllerRepublish409ResponseThreeStatusMin = 400
+export const planningDraftControllerRepublish409ResponseThreeStatusMax = 599
+
+export const planningDraftControllerRepublish409ResponseFourConflictPublicationRevisionRegExp =
+  new RegExp('^[1-9][0-9]*$')
+export const planningDraftControllerRepublish409ResponseFourStatusMin = 400
+export const planningDraftControllerRepublish409ResponseFourStatusMax = 599
+
+export const planningDraftControllerRepublish409ResponseFiveConflictLatestPublicationRevisionRegExp =
+  new RegExp('^[1-9][0-9]*$')
+export const planningDraftControllerRepublish409ResponseFiveStatusMin = 400
+export const planningDraftControllerRepublish409ResponseFiveStatusMax = 599
+
+export const PlanningDraftControllerRepublish409Response = zod.union([
+  zod.strictObject({
+    code: zod.enum([
+      'ACTIVE_PLAN_MONTH_NOT_FOUND',
+      'AUTHENTICATION_REQUIRED',
+      'AUTHORIZATION_DENIED',
+      'COMMAND_FINGERPRINT_CONFLICT',
+      'CONFLICT',
+      'DEPENDENCY_UNAVAILABLE',
+      'DRAFT_GOAL_NOT_FOUND',
+      'GOAL_DEFINITION_NOT_FOUND',
+      'GOAL_DEFINITION_VERSION_NOT_FOUND',
+      'INTERNAL_ERROR',
+      'MALFORMED_REQUEST',
+      'NOT_FOUND',
+      'OIDC_ACCESS_DENIED',
+      'OIDC_LOGIN_REJECTED',
+      'PAYLOAD_TOO_LARGE',
+      'PLANNING_AUTHORIZATION_DENIED',
+      'PLAN_DRAFT_NOT_EDITABLE',
+      'PLAN_DRAFT_NOT_FOUND',
+      'PLAN_MONTH_NOT_FOUND',
+      'PLAN_MONTH_RECLOSE_CONFLICT',
+      'PLAN_MONTH_REOPEN_CONFLICT',
+      'PLAN_MONTH_REVISION_CONFLICT',
+      'PLAN_PUBLICATION_NOT_FOUND',
+      'PLAN_SEED_ALREADY_CONSUMED',
+      'RATE_LIMIT_EXCEEDED',
+      'REMINDER_AUTHORIZATION_DENIED',
+      'REPORTING_AUTHORIZATION_DENIED',
+      'REPORTING_NOT_FOUND',
+      'REPORTING_QUERY_INVALID',
+      'REPORTING_SOURCE_CHANGED',
+      'TRACKING_AUTHORIZATION_DENIED',
+      'TRACKING_CLOSE_DAY_TARGET_NOT_FOUND',
+      'TRACKING_FACT_TARGET_NOT_FOUND',
+      'TRACKING_FACT_VALUE_INVALID',
+      'TRACKING_QUERY_INVALID',
+      'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
+      'UNSUPPORTED_MEDIA_TYPE',
+      'WORKSPACE_AUTHORIZATION_DENIED',
+      'WORKSPACE_STATE_CONFLICT',
+    ]),
+    detail: zod.string(),
+    instance: zod.string(),
+    requestId: zod.string(),
+    status: zod
+      .number()
+      .min(planningDraftControllerRepublish409ResponseOneStatusMin)
+      .max(planningDraftControllerRepublish409ResponseOneStatusMax),
+    title: zod.string(),
+    type: zod.url(),
+  }),
+  zod.strictObject({
+    code: zod.enum(['PUBLICATION_PREVIEW_CONFLICT']),
+    conflict: zod.strictObject({
+      currentDraftRevision: zod
+        .string()
+        .regex(
+          planningDraftControllerRepublish409ResponseTwoConflictCurrentDraftRevisionRegExp,
+        ),
+      currentPreviewHash: zod
+        .string()
+        .regex(
+          planningDraftControllerRepublish409ResponseTwoConflictCurrentPreviewHashRegExp,
+        ),
+      currentPreviewHashVersion: zod.string(),
+      currentPreviewSchemaVersion: zod.string(),
+      nextAction: zod.enum(['reload-publication-preview-and-retry']),
+    }),
+    detail: zod.string(),
+    instance: zod.string(),
+    requestId: zod.string(),
+    status: zod
+      .number()
+      .min(planningDraftControllerRepublish409ResponseTwoStatusMin)
+      .max(planningDraftControllerRepublish409ResponseTwoStatusMax),
+    title: zod.string(),
+    type: zod.url(),
+  }),
+  zod.strictObject({
+    blockers: zod.array(
+      zod.strictObject({
+        code: zod.enum(['required', 'empty_collection', 'incompatible']),
+        detail: zod.enum([
+          'Required value is missing.',
+          'At least one item is required.',
+          'Values are incompatible.',
+          'due date is outside target month',
+          'week ordinal is not present in target month',
+          'Target month is not current or next.',
+          'Publication materialization exceeds 10000 rows.',
+        ]),
+        planGoalId: zod.uuid().nullable(),
+        pointer: zod.string(),
+      }),
+    ),
+    code: zod.enum(['PLAN_PUBLICATION_BLOCKED']),
+    detail: zod.string(),
+    instance: zod.string(),
+    requestId: zod.string(),
+    status: zod
+      .number()
+      .min(planningDraftControllerRepublish409ResponseThreeStatusMin)
+      .max(planningDraftControllerRepublish409ResponseThreeStatusMax),
+    title: zod.string(),
+    type: zod.url(),
+  }),
+  zod.strictObject({
+    code: zod.enum(['PLAN_MONTH_ALREADY_PUBLISHED']),
+    conflict: zod.strictObject({
+      nextAction: zod.enum(['open-published-plan']),
+      publicationId: zod.uuid(),
+      publicationRevision: zod
+        .string()
+        .regex(
+          planningDraftControllerRepublish409ResponseFourConflictPublicationRevisionRegExp,
+        ),
+    }),
+    detail: zod.string(),
+    instance: zod.string(),
+    requestId: zod.string(),
+    status: zod
+      .number()
+      .min(planningDraftControllerRepublish409ResponseFourStatusMin)
+      .max(planningDraftControllerRepublish409ResponseFourStatusMax),
+    title: zod.string(),
+    type: zod.url(),
+  }),
+  zod.strictObject({
+    code: zod.enum(['PLAN_PUBLICATION_MODE_CONFLICT']),
+    conflict: zod.strictObject({
+      latestPublicationRevision: zod
+        .string()
+        .regex(
+          planningDraftControllerRepublish409ResponseFiveConflictLatestPublicationRevisionRegExp,
+        )
+        .nullable(),
+      requiredMode: zod.enum(['publish', 'republish']),
+    }),
+    detail: zod.string(),
+    instance: zod.string(),
+    requestId: zod.string(),
+    status: zod
+      .number()
+      .min(planningDraftControllerRepublish409ResponseFiveStatusMin)
+      .max(planningDraftControllerRepublish409ResponseFiveStatusMax),
+    title: zod.string(),
+    type: zod.url(),
+  }),
+])
+
+export const planningDraftControllerRepublish413ResponseStatusMin = 400
+export const planningDraftControllerRepublish413ResponseStatusMax = 599
+
+export const PlanningDraftControllerRepublish413Response = zod.strictObject({
+  code: zod.enum([
+    'ACTIVE_PLAN_MONTH_NOT_FOUND',
+    'AUTHENTICATION_REQUIRED',
+    'AUTHORIZATION_DENIED',
+    'COMMAND_FINGERPRINT_CONFLICT',
+    'CONFLICT',
+    'DEPENDENCY_UNAVAILABLE',
+    'DRAFT_GOAL_NOT_FOUND',
+    'GOAL_DEFINITION_NOT_FOUND',
+    'GOAL_DEFINITION_VERSION_NOT_FOUND',
+    'INTERNAL_ERROR',
+    'MALFORMED_REQUEST',
+    'NOT_FOUND',
+    'OIDC_ACCESS_DENIED',
+    'OIDC_LOGIN_REJECTED',
+    'PAYLOAD_TOO_LARGE',
+    'PLANNING_AUTHORIZATION_DENIED',
+    'PLAN_DRAFT_NOT_EDITABLE',
+    'PLAN_DRAFT_NOT_FOUND',
+    'PLAN_MONTH_NOT_FOUND',
+    'PLAN_MONTH_RECLOSE_CONFLICT',
+    'PLAN_MONTH_REOPEN_CONFLICT',
+    'PLAN_MONTH_REVISION_CONFLICT',
+    'PLAN_PUBLICATION_NOT_FOUND',
+    'PLAN_SEED_ALREADY_CONSUMED',
+    'RATE_LIMIT_EXCEEDED',
+    'REMINDER_AUTHORIZATION_DENIED',
+    'REPORTING_AUTHORIZATION_DENIED',
+    'REPORTING_NOT_FOUND',
+    'REPORTING_QUERY_INVALID',
+    'REPORTING_SOURCE_CHANGED',
+    'TRACKING_AUTHORIZATION_DENIED',
+    'TRACKING_CLOSE_DAY_TARGET_NOT_FOUND',
+    'TRACKING_FACT_TARGET_NOT_FOUND',
+    'TRACKING_FACT_VALUE_INVALID',
+    'TRACKING_QUERY_INVALID',
+    'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
+    'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
+  ]),
+  detail: zod.string(),
+  instance: zod.string(),
+  requestId: zod.string(),
+  status: zod
+    .number()
+    .min(planningDraftControllerRepublish413ResponseStatusMin)
+    .max(planningDraftControllerRepublish413ResponseStatusMax),
+  title: zod.string(),
+  type: zod.url(),
+})
+
+export const planningDraftControllerRepublish415ResponseStatusMin = 400
+export const planningDraftControllerRepublish415ResponseStatusMax = 599
+
+export const PlanningDraftControllerRepublish415Response = zod.strictObject({
+  code: zod.enum([
+    'ACTIVE_PLAN_MONTH_NOT_FOUND',
+    'AUTHENTICATION_REQUIRED',
+    'AUTHORIZATION_DENIED',
+    'COMMAND_FINGERPRINT_CONFLICT',
+    'CONFLICT',
+    'DEPENDENCY_UNAVAILABLE',
+    'DRAFT_GOAL_NOT_FOUND',
+    'GOAL_DEFINITION_NOT_FOUND',
+    'GOAL_DEFINITION_VERSION_NOT_FOUND',
+    'INTERNAL_ERROR',
+    'MALFORMED_REQUEST',
+    'NOT_FOUND',
+    'OIDC_ACCESS_DENIED',
+    'OIDC_LOGIN_REJECTED',
+    'PAYLOAD_TOO_LARGE',
+    'PLANNING_AUTHORIZATION_DENIED',
+    'PLAN_DRAFT_NOT_EDITABLE',
+    'PLAN_DRAFT_NOT_FOUND',
+    'PLAN_MONTH_NOT_FOUND',
+    'PLAN_MONTH_RECLOSE_CONFLICT',
+    'PLAN_MONTH_REOPEN_CONFLICT',
+    'PLAN_MONTH_REVISION_CONFLICT',
+    'PLAN_PUBLICATION_NOT_FOUND',
+    'PLAN_SEED_ALREADY_CONSUMED',
+    'RATE_LIMIT_EXCEEDED',
+    'REMINDER_AUTHORIZATION_DENIED',
+    'REPORTING_AUTHORIZATION_DENIED',
+    'REPORTING_NOT_FOUND',
+    'REPORTING_QUERY_INVALID',
+    'REPORTING_SOURCE_CHANGED',
+    'TRACKING_AUTHORIZATION_DENIED',
+    'TRACKING_CLOSE_DAY_TARGET_NOT_FOUND',
+    'TRACKING_FACT_TARGET_NOT_FOUND',
+    'TRACKING_FACT_VALUE_INVALID',
+    'TRACKING_QUERY_INVALID',
+    'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
+    'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
+  ]),
+  detail: zod.string(),
+  instance: zod.string(),
+  requestId: zod.string(),
+  status: zod
+    .number()
+    .min(planningDraftControllerRepublish415ResponseStatusMin)
+    .max(planningDraftControllerRepublish415ResponseStatusMax),
+  title: zod.string(),
+  type: zod.url(),
+})
+
+export const planningDraftControllerRepublish422ResponseErrorsItemCodeRegExp =
+  new RegExp('^[a-z][a-z0-9_]*$')
+export const planningDraftControllerRepublish422ResponseErrorsItemPointerRegExp =
+  new RegExp('^(?:|(?:/(?:[^~/]|~[01])*)+)$')
+export const planningDraftControllerRepublish422ResponseStatusMin = 400
+export const planningDraftControllerRepublish422ResponseStatusMax = 599
+
+export const PlanningDraftControllerRepublish422Response = zod.strictObject({
+  code: zod.enum(['VALIDATION_FAILED']),
+  detail: zod.string(),
+  errors: zod.array(
+    zod.strictObject({
+      code: zod
+        .string()
+        .regex(planningDraftControllerRepublish422ResponseErrorsItemCodeRegExp),
+      detail: zod.string(),
+      pointer: zod
+        .string()
+        .regex(
+          planningDraftControllerRepublish422ResponseErrorsItemPointerRegExp,
+        ),
+    }),
+  ),
+  instance: zod.string(),
+  requestId: zod.string(),
+  status: zod
+    .number()
+    .min(planningDraftControllerRepublish422ResponseStatusMin)
+    .max(planningDraftControllerRepublish422ResponseStatusMax),
+  title: zod.string(),
+  type: zod.url(),
+})
+
+export const planningDraftControllerRepublish503ResponseStatusMin = 400
+export const planningDraftControllerRepublish503ResponseStatusMax = 599
+
+export const PlanningDraftControllerRepublish503Response = zod.strictObject({
+  code: zod.enum([
+    'ACTIVE_PLAN_MONTH_NOT_FOUND',
+    'AUTHENTICATION_REQUIRED',
+    'AUTHORIZATION_DENIED',
+    'COMMAND_FINGERPRINT_CONFLICT',
+    'CONFLICT',
+    'DEPENDENCY_UNAVAILABLE',
+    'DRAFT_GOAL_NOT_FOUND',
+    'GOAL_DEFINITION_NOT_FOUND',
+    'GOAL_DEFINITION_VERSION_NOT_FOUND',
+    'INTERNAL_ERROR',
+    'MALFORMED_REQUEST',
+    'NOT_FOUND',
+    'OIDC_ACCESS_DENIED',
+    'OIDC_LOGIN_REJECTED',
+    'PAYLOAD_TOO_LARGE',
+    'PLANNING_AUTHORIZATION_DENIED',
+    'PLAN_DRAFT_NOT_EDITABLE',
+    'PLAN_DRAFT_NOT_FOUND',
+    'PLAN_MONTH_NOT_FOUND',
+    'PLAN_MONTH_RECLOSE_CONFLICT',
+    'PLAN_MONTH_REOPEN_CONFLICT',
+    'PLAN_MONTH_REVISION_CONFLICT',
+    'PLAN_PUBLICATION_NOT_FOUND',
+    'PLAN_SEED_ALREADY_CONSUMED',
+    'RATE_LIMIT_EXCEEDED',
+    'REMINDER_AUTHORIZATION_DENIED',
+    'REPORTING_AUTHORIZATION_DENIED',
+    'REPORTING_NOT_FOUND',
+    'REPORTING_QUERY_INVALID',
+    'REPORTING_SOURCE_CHANGED',
+    'TRACKING_AUTHORIZATION_DENIED',
+    'TRACKING_CLOSE_DAY_TARGET_NOT_FOUND',
+    'TRACKING_FACT_TARGET_NOT_FOUND',
+    'TRACKING_FACT_VALUE_INVALID',
+    'TRACKING_QUERY_INVALID',
+    'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
+    'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
+  ]),
+  detail: zod.string(),
+  instance: zod.string(),
+  requestId: zod.string(),
+  status: zod
+    .number()
+    .min(planningDraftControllerRepublish503ResponseStatusMin)
+    .max(planningDraftControllerRepublish503ResponseStatusMax),
+  title: zod.string(),
+  type: zod.url(),
+})
+
+/**
+ * @summary List monthly planning states for the workspace.
+ */
+export const planningMonthControllerListQueryCursorMax = 300
+
+export const planningMonthControllerListQueryCursorRegExp = new RegExp(
+  '^v1\\.[A-Za-z0-9_-]+$',
+)
+export const planningMonthControllerListQueryLimitDefault = 20
+export const planningMonthControllerListQueryLimitMax = 50
+
+export const PlanningMonthControllerListQueryParams = zod.strictObject({
+  cursor: zod
+    .string()
+    .max(planningMonthControllerListQueryCursorMax)
+    .regex(planningMonthControllerListQueryCursorRegExp)
+    .optional(),
+  limit: zod
+    .int()
+    .min(1)
+    .max(planningMonthControllerListQueryLimitMax)
+    .default(planningMonthControllerListQueryLimitDefault),
+})
+
+export const planningMonthControllerList200ResponseItemsItemDraftRevisionRegExp =
+  new RegExp('^[1-9][0-9]*$')
+export const planningMonthControllerList200ResponseItemsItemLifecyclePlanMonthIdRegExp =
+  new RegExp(
+    '^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',
+  )
+export const planningMonthControllerList200ResponseItemsItemLifecycleRevisionRegExp =
+  new RegExp('^[1-9][0-9]*$')
+export const planningMonthControllerList200ResponseItemsItemPublicationOneActiveLocalDateRegExp =
+  new RegExp('^[0-9]{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12][0-9]|3[01])$')
+export const planningMonthControllerList200ResponseItemsItemPublicationOnePublicationIdRegExp =
+  new RegExp(
+    '^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',
+  )
+export const planningMonthControllerList200ResponseItemsItemPublicationOneRevisionRegExp =
+  new RegExp('^[1-9][0-9]*$')
+export const planningMonthControllerList200ResponseItemsItemReportOneReportRevisionIdRegExp =
+  new RegExp(
+    '^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',
+  )
+export const planningMonthControllerList200ResponseItemsItemReportOneRevisionRegExp =
+  new RegExp('^[1-9][0-9]*$')
+export const planningMonthControllerList200ResponseItemsItemTargetMonthRegExp =
+  new RegExp(
+    '^(?:[1-9][0-9]{3}|0[1-9][0-9]{2}|00[1-9][0-9]|000[1-9])-(?:0[1-9]|1[0-2])$',
+  )
+export const planningMonthControllerList200ResponseItemsMax = 50
+
+export const planningMonthControllerList200ResponseNextCursorRegExp =
+  new RegExp('^v1\\.[A-Za-z0-9_-]+$')
+export const planningMonthControllerList200ResponseQueryLocalDateRegExp =
+  new RegExp('^[0-9]{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12][0-9]|3[01])$')
+
+export const PlanningMonthControllerList200Response = zod.strictObject({
+  items: zod
+    .array(
+      zod.strictObject({
+        allowedActions: zod.strictObject({
+          cancel: zod.boolean(),
+          copySource: zod.boolean(),
+          openDraft: zod.boolean(),
+          openPublication: zod.boolean(),
+          reclose: zod.boolean(),
+          reopen: zod.boolean(),
+        }),
+        draft: zod.strictObject({
+          revision: zod
+            .string()
+            .regex(
+              planningMonthControllerList200ResponseItemsItemDraftRevisionRegExp,
+            ),
+        }),
+        lifecycle: zod.strictObject({
+          mode: zod.enum(['ordinary', 'reopened']),
+          planMonthId: zod
+            .string()
+            .regex(
+              planningMonthControllerList200ResponseItemsItemLifecyclePlanMonthIdRegExp,
+            ),
+          revision: zod
+            .string()
+            .regex(
+              planningMonthControllerList200ResponseItemsItemLifecycleRevisionRegExp,
+            ),
+          status: zod.enum(['draft', 'published', 'grace', 'closed']),
+        }),
+        phase: zod.enum(['draft', 'future', 'active', 'grace', 'closed']),
+        publication: zod
+          .strictObject({
+            activeLocalDate: zod.iso
+              .date()
+              .regex(
+                planningMonthControllerList200ResponseItemsItemPublicationOneActiveLocalDateRegExp,
+              ),
+            isActive: zod.boolean(),
+            publicationId: zod
+              .string()
+              .regex(
+                planningMonthControllerList200ResponseItemsItemPublicationOnePublicationIdRegExp,
+              ),
+            revision: zod
+              .string()
+              .regex(
+                planningMonthControllerList200ResponseItemsItemPublicationOneRevisionRegExp,
+              ),
+          })
+          .nullable(),
+        report: zod
+          .strictObject({
+            reportRevisionId: zod
+              .string()
+              .regex(
+                planningMonthControllerList200ResponseItemsItemReportOneReportRevisionIdRegExp,
+              ),
+            revision: zod
+              .string()
+              .regex(
+                planningMonthControllerList200ResponseItemsItemReportOneRevisionRegExp,
+              ),
+            status: zod.enum(['original', 'revised']),
+          })
+          .nullable(),
+        targetMonth: zod
+          .string()
+          .regex(
+            planningMonthControllerList200ResponseItemsItemTargetMonthRegExp,
+          ),
+      }),
+    )
+    .max(planningMonthControllerList200ResponseItemsMax),
+  nextCursor: zod
+    .string()
+    .regex(planningMonthControllerList200ResponseNextCursorRegExp)
+    .nullable(),
+  queryLocalDate: zod.iso
+    .date()
+    .regex(planningMonthControllerList200ResponseQueryLocalDateRegExp),
+  schemaVersion: zod.enum(['planning.month-index.v1']),
+})
+
+export const planningMonthControllerList401ResponseStatusMin = 400
+export const planningMonthControllerList401ResponseStatusMax = 599
+
+export const PlanningMonthControllerList401Response = zod.strictObject({
+  code: zod.enum([
+    'ACTIVE_PLAN_MONTH_NOT_FOUND',
+    'AUTHENTICATION_REQUIRED',
+    'AUTHORIZATION_DENIED',
+    'COMMAND_FINGERPRINT_CONFLICT',
+    'CONFLICT',
+    'DEPENDENCY_UNAVAILABLE',
+    'DRAFT_GOAL_NOT_FOUND',
+    'GOAL_DEFINITION_NOT_FOUND',
+    'GOAL_DEFINITION_VERSION_NOT_FOUND',
+    'INTERNAL_ERROR',
+    'MALFORMED_REQUEST',
+    'NOT_FOUND',
+    'OIDC_ACCESS_DENIED',
+    'OIDC_LOGIN_REJECTED',
+    'PAYLOAD_TOO_LARGE',
+    'PLANNING_AUTHORIZATION_DENIED',
+    'PLAN_DRAFT_NOT_EDITABLE',
+    'PLAN_DRAFT_NOT_FOUND',
+    'PLAN_MONTH_NOT_FOUND',
+    'PLAN_MONTH_RECLOSE_CONFLICT',
+    'PLAN_MONTH_REOPEN_CONFLICT',
+    'PLAN_MONTH_REVISION_CONFLICT',
+    'PLAN_PUBLICATION_NOT_FOUND',
+    'PLAN_SEED_ALREADY_CONSUMED',
+    'RATE_LIMIT_EXCEEDED',
+    'REMINDER_AUTHORIZATION_DENIED',
+    'REPORTING_AUTHORIZATION_DENIED',
+    'REPORTING_NOT_FOUND',
+    'REPORTING_QUERY_INVALID',
+    'REPORTING_SOURCE_CHANGED',
+    'TRACKING_AUTHORIZATION_DENIED',
+    'TRACKING_CLOSE_DAY_TARGET_NOT_FOUND',
+    'TRACKING_FACT_TARGET_NOT_FOUND',
+    'TRACKING_FACT_VALUE_INVALID',
+    'TRACKING_QUERY_INVALID',
+    'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
+    'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
+  ]),
+  detail: zod.string(),
+  instance: zod.string(),
+  requestId: zod.string(),
+  status: zod
+    .number()
+    .min(planningMonthControllerList401ResponseStatusMin)
+    .max(planningMonthControllerList401ResponseStatusMax),
+  title: zod.string(),
+  type: zod.url(),
+})
+
+export const planningMonthControllerList403ResponseStatusMin = 400
+export const planningMonthControllerList403ResponseStatusMax = 599
+
+export const PlanningMonthControllerList403Response = zod.strictObject({
+  code: zod.enum([
+    'ACTIVE_PLAN_MONTH_NOT_FOUND',
+    'AUTHENTICATION_REQUIRED',
+    'AUTHORIZATION_DENIED',
+    'COMMAND_FINGERPRINT_CONFLICT',
+    'CONFLICT',
+    'DEPENDENCY_UNAVAILABLE',
+    'DRAFT_GOAL_NOT_FOUND',
+    'GOAL_DEFINITION_NOT_FOUND',
+    'GOAL_DEFINITION_VERSION_NOT_FOUND',
+    'INTERNAL_ERROR',
+    'MALFORMED_REQUEST',
+    'NOT_FOUND',
+    'OIDC_ACCESS_DENIED',
+    'OIDC_LOGIN_REJECTED',
+    'PAYLOAD_TOO_LARGE',
+    'PLANNING_AUTHORIZATION_DENIED',
+    'PLAN_DRAFT_NOT_EDITABLE',
+    'PLAN_DRAFT_NOT_FOUND',
+    'PLAN_MONTH_NOT_FOUND',
+    'PLAN_MONTH_RECLOSE_CONFLICT',
+    'PLAN_MONTH_REOPEN_CONFLICT',
+    'PLAN_MONTH_REVISION_CONFLICT',
+    'PLAN_PUBLICATION_NOT_FOUND',
+    'PLAN_SEED_ALREADY_CONSUMED',
+    'RATE_LIMIT_EXCEEDED',
+    'REMINDER_AUTHORIZATION_DENIED',
+    'REPORTING_AUTHORIZATION_DENIED',
+    'REPORTING_NOT_FOUND',
+    'REPORTING_QUERY_INVALID',
+    'REPORTING_SOURCE_CHANGED',
+    'TRACKING_AUTHORIZATION_DENIED',
+    'TRACKING_CLOSE_DAY_TARGET_NOT_FOUND',
+    'TRACKING_FACT_TARGET_NOT_FOUND',
+    'TRACKING_FACT_VALUE_INVALID',
+    'TRACKING_QUERY_INVALID',
+    'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
+    'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
+  ]),
+  detail: zod.string(),
+  instance: zod.string(),
+  requestId: zod.string(),
+  status: zod
+    .number()
+    .min(planningMonthControllerList403ResponseStatusMin)
+    .max(planningMonthControllerList403ResponseStatusMax),
+  title: zod.string(),
+  type: zod.url(),
+})
+
+export const planningMonthControllerList422ResponseErrorsItemCodeRegExp =
+  new RegExp('^[a-z][a-z0-9_]*$')
+export const planningMonthControllerList422ResponseErrorsItemPointerRegExp =
+  new RegExp('^(?:|(?:/(?:[^~/]|~[01])*)+)$')
+export const planningMonthControllerList422ResponseStatusMin = 400
+export const planningMonthControllerList422ResponseStatusMax = 599
+
+export const PlanningMonthControllerList422Response = zod.strictObject({
+  code: zod.enum(['VALIDATION_FAILED']),
+  detail: zod.string(),
+  errors: zod.array(
+    zod.strictObject({
+      code: zod
+        .string()
+        .regex(planningMonthControllerList422ResponseErrorsItemCodeRegExp),
+      detail: zod.string(),
+      pointer: zod
+        .string()
+        .regex(planningMonthControllerList422ResponseErrorsItemPointerRegExp),
+    }),
+  ),
+  instance: zod.string(),
+  requestId: zod.string(),
+  status: zod
+    .number()
+    .min(planningMonthControllerList422ResponseStatusMin)
+    .max(planningMonthControllerList422ResponseStatusMax),
+  title: zod.string(),
+  type: zod.url(),
+})
+
+export const planningMonthControllerList503ResponseStatusMin = 400
+export const planningMonthControllerList503ResponseStatusMax = 599
+
+export const PlanningMonthControllerList503Response = zod.strictObject({
+  code: zod.enum([
+    'ACTIVE_PLAN_MONTH_NOT_FOUND',
+    'AUTHENTICATION_REQUIRED',
+    'AUTHORIZATION_DENIED',
+    'COMMAND_FINGERPRINT_CONFLICT',
+    'CONFLICT',
+    'DEPENDENCY_UNAVAILABLE',
+    'DRAFT_GOAL_NOT_FOUND',
+    'GOAL_DEFINITION_NOT_FOUND',
+    'GOAL_DEFINITION_VERSION_NOT_FOUND',
+    'INTERNAL_ERROR',
+    'MALFORMED_REQUEST',
+    'NOT_FOUND',
+    'OIDC_ACCESS_DENIED',
+    'OIDC_LOGIN_REJECTED',
+    'PAYLOAD_TOO_LARGE',
+    'PLANNING_AUTHORIZATION_DENIED',
+    'PLAN_DRAFT_NOT_EDITABLE',
+    'PLAN_DRAFT_NOT_FOUND',
+    'PLAN_MONTH_NOT_FOUND',
+    'PLAN_MONTH_RECLOSE_CONFLICT',
+    'PLAN_MONTH_REOPEN_CONFLICT',
+    'PLAN_MONTH_REVISION_CONFLICT',
+    'PLAN_PUBLICATION_NOT_FOUND',
+    'PLAN_SEED_ALREADY_CONSUMED',
+    'RATE_LIMIT_EXCEEDED',
+    'REMINDER_AUTHORIZATION_DENIED',
+    'REPORTING_AUTHORIZATION_DENIED',
+    'REPORTING_NOT_FOUND',
+    'REPORTING_QUERY_INVALID',
+    'REPORTING_SOURCE_CHANGED',
+    'TRACKING_AUTHORIZATION_DENIED',
+    'TRACKING_CLOSE_DAY_TARGET_NOT_FOUND',
+    'TRACKING_FACT_TARGET_NOT_FOUND',
+    'TRACKING_FACT_VALUE_INVALID',
+    'TRACKING_QUERY_INVALID',
+    'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
+    'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
+  ]),
+  detail: zod.string(),
+  instance: zod.string(),
+  requestId: zod.string(),
+  status: zod
+    .number()
+    .min(planningMonthControllerList503ResponseStatusMin)
+    .max(planningMonthControllerList503ResponseStatusMax),
   title: zod.string(),
   type: zod.url(),
 })
@@ -10391,7 +13235,6 @@ export const PlanningMonthControllerActive401Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -10411,6 +13254,8 @@ export const PlanningMonthControllerActive401Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -10446,7 +13291,6 @@ export const PlanningMonthControllerActive403Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -10466,6 +13310,8 @@ export const PlanningMonthControllerActive403Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -10501,7 +13347,6 @@ export const PlanningMonthControllerActive404Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -10521,6 +13366,8 @@ export const PlanningMonthControllerActive404Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -10587,7 +13434,6 @@ export const PlanningMonthControllerActive503Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -10607,6 +13453,8 @@ export const PlanningMonthControllerActive503Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -10615,6 +13463,789 @@ export const PlanningMonthControllerActive503Response = zod.strictObject({
     .number()
     .min(planningMonthControllerActive503ResponseStatusMin)
     .max(planningMonthControllerActive503ResponseStatusMax),
+  title: zod.string(),
+  type: zod.url(),
+})
+
+/**
+ * @summary Read the bounded immutable month lifecycle history.
+ */
+export const planningMonthControllerHistoryPathPlanMonthIdRegExp = new RegExp(
+  '^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',
+)
+
+export const PlanningMonthControllerHistoryParams = zod.strictObject({
+  planMonthId: zod
+    .string()
+    .regex(planningMonthControllerHistoryPathPlanMonthIdRegExp),
+})
+
+export const planningMonthControllerHistoryQueryCursorRegExp = new RegExp(
+  '^[1-9][0-9]*$',
+)
+export const planningMonthControllerHistoryQueryLimitDefault = 20
+export const planningMonthControllerHistoryQueryLimitMax = 50
+
+export const PlanningMonthControllerHistoryQueryParams = zod.strictObject({
+  cursor: zod
+    .string()
+    .regex(planningMonthControllerHistoryQueryCursorRegExp)
+    .optional(),
+  limit: zod
+    .int()
+    .min(1)
+    .max(planningMonthControllerHistoryQueryLimitMax)
+    .default(planningMonthControllerHistoryQueryLimitDefault),
+})
+
+export const planningMonthControllerHistory200ResponseCurrentRevisionRegExp =
+  new RegExp('^[1-9][0-9]*$')
+export const planningMonthControllerHistory200ResponseItemsItemOneActorOneIdRegExp =
+  new RegExp(
+    '^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',
+  )
+export const planningMonthControllerHistory200ResponseItemsItemOneActorTwoIdMax = 32
+
+export const planningMonthControllerHistory200ResponseItemsItemOneAfterRevisionRegExp =
+  new RegExp('^[1-9][0-9]*$')
+export const planningMonthControllerHistory200ResponseItemsItemOneBeforeRevisionRegExp =
+  new RegExp('^[1-9][0-9]*$')
+export const planningMonthControllerHistory200ResponseItemsItemOneIdRegExp =
+  new RegExp(
+    '^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',
+  )
+export const planningMonthControllerHistory200ResponseItemsItemOnePublicationPublicationIdRegExp =
+  new RegExp(
+    '^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',
+  )
+export const planningMonthControllerHistory200ResponseItemsItemOnePublicationRevisionRegExp =
+  new RegExp('^[1-9][0-9]*$')
+export const planningMonthControllerHistory200ResponseItemsItemTwoActorOneIdRegExp =
+  new RegExp(
+    '^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',
+  )
+export const planningMonthControllerHistory200ResponseItemsItemTwoActorTwoIdMax = 32
+
+export const planningMonthControllerHistory200ResponseItemsItemTwoAfterRevisionRegExp =
+  new RegExp('^[1-9][0-9]*$')
+export const planningMonthControllerHistory200ResponseItemsItemTwoBeforeRevisionRegExp =
+  new RegExp('^[1-9][0-9]*$')
+export const planningMonthControllerHistory200ResponseItemsItemTwoIdRegExp =
+  new RegExp(
+    '^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',
+  )
+export const planningMonthControllerHistory200ResponseItemsItemTwoPublicationPublicationIdRegExp =
+  new RegExp(
+    '^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',
+  )
+export const planningMonthControllerHistory200ResponseItemsItemTwoPublicationRevisionRegExp =
+  new RegExp('^[1-9][0-9]*$')
+export const planningMonthControllerHistory200ResponseItemsItemThreeActorOneIdRegExp =
+  new RegExp(
+    '^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',
+  )
+export const planningMonthControllerHistory200ResponseItemsItemThreeActorTwoIdMax = 32
+
+export const planningMonthControllerHistory200ResponseItemsItemThreeAfterRevisionRegExp =
+  new RegExp('^[1-9][0-9]*$')
+export const planningMonthControllerHistory200ResponseItemsItemThreeBeforeRevisionRegExp =
+  new RegExp('^[1-9][0-9]*$')
+export const planningMonthControllerHistory200ResponseItemsItemThreeIdRegExp =
+  new RegExp(
+    '^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',
+  )
+export const planningMonthControllerHistory200ResponseItemsItemFourActorOneIdRegExp =
+  new RegExp(
+    '^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',
+  )
+export const planningMonthControllerHistory200ResponseItemsItemFourActorTwoIdMax = 32
+
+export const planningMonthControllerHistory200ResponseItemsItemFourAfterRevisionRegExp =
+  new RegExp('^[1-9][0-9]*$')
+export const planningMonthControllerHistory200ResponseItemsItemFourBeforeRevisionRegExp =
+  new RegExp('^[1-9][0-9]*$')
+export const planningMonthControllerHistory200ResponseItemsItemFourIdRegExp =
+  new RegExp(
+    '^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',
+  )
+export const planningMonthControllerHistory200ResponseItemsItemFourReportReportRevisionIdRegExp =
+  new RegExp(
+    '^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',
+  )
+export const planningMonthControllerHistory200ResponseItemsItemFourReportRevisionRegExp =
+  new RegExp('^[1-9][0-9]*$')
+export const planningMonthControllerHistory200ResponseItemsItemFiveActorOneIdRegExp =
+  new RegExp(
+    '^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',
+  )
+export const planningMonthControllerHistory200ResponseItemsItemFiveActorTwoIdMax = 32
+
+export const planningMonthControllerHistory200ResponseItemsItemFiveAfterRevisionRegExp =
+  new RegExp('^[1-9][0-9]*$')
+export const planningMonthControllerHistory200ResponseItemsItemFiveBeforeRevisionRegExp =
+  new RegExp('^[1-9][0-9]*$')
+export const planningMonthControllerHistory200ResponseItemsItemFiveIdRegExp =
+  new RegExp(
+    '^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',
+  )
+export const planningMonthControllerHistory200ResponseItemsItemFiveReasonMax = 2000
+
+export const planningMonthControllerHistory200ResponseItemsItemSixActorOneIdRegExp =
+  new RegExp(
+    '^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',
+  )
+export const planningMonthControllerHistory200ResponseItemsItemSixActorTwoIdMax = 32
+
+export const planningMonthControllerHistory200ResponseItemsItemSixAfterRevisionRegExp =
+  new RegExp('^[1-9][0-9]*$')
+export const planningMonthControllerHistory200ResponseItemsItemSixBeforeRevisionRegExp =
+  new RegExp('^[1-9][0-9]*$')
+export const planningMonthControllerHistory200ResponseItemsItemSixIdRegExp =
+  new RegExp(
+    '^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',
+  )
+export const planningMonthControllerHistory200ResponseItemsItemSixReportReportRevisionIdRegExp =
+  new RegExp(
+    '^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',
+  )
+export const planningMonthControllerHistory200ResponseItemsItemSixReportRevisionRegExp =
+  new RegExp('^[1-9][0-9]*$')
+export const planningMonthControllerHistory200ResponseItemsMax = 50
+
+export const planningMonthControllerHistory200ResponseNextCursorRegExp =
+  new RegExp('^[1-9][0-9]*$')
+export const planningMonthControllerHistory200ResponsePlanMonthIdRegExp =
+  new RegExp(
+    '^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',
+  )
+export const planningMonthControllerHistory200ResponseTargetMonthRegExp =
+  new RegExp(
+    '^(?:[1-9][0-9]{3}|0[1-9][0-9]{2}|00[1-9][0-9]|000[1-9])-(?:0[1-9]|1[0-2])$',
+  )
+
+export const PlanningMonthControllerHistory200Response = zod.strictObject({
+  current: zod.strictObject({
+    mode: zod.enum(['ordinary', 'reopened']),
+    revision: zod
+      .string()
+      .regex(planningMonthControllerHistory200ResponseCurrentRevisionRegExp),
+    status: zod.enum(['draft', 'published', 'grace', 'closed']),
+  }),
+  items: zod
+    .array(
+      zod.union([
+        zod.strictObject({
+          actor: zod.union([
+            zod.strictObject({
+              id: zod
+                .string()
+                .regex(
+                  planningMonthControllerHistory200ResponseItemsItemOneActorOneIdRegExp,
+                ),
+              kind: zod.enum(['member']),
+            }),
+            zod.strictObject({
+              id: zod
+                .string()
+                .min(1)
+                .max(
+                  planningMonthControllerHistory200ResponseItemsItemOneActorTwoIdMax,
+                ),
+              kind: zod.enum(['system']),
+            }),
+          ]),
+          after: zod.strictObject({
+            mode: zod.enum(['ordinary', 'reopened']),
+            revision: zod
+              .string()
+              .regex(
+                planningMonthControllerHistory200ResponseItemsItemOneAfterRevisionRegExp,
+              ),
+            status: zod.enum(['draft', 'published', 'grace', 'closed']),
+          }),
+          before: zod.strictObject({
+            mode: zod.enum(['ordinary', 'reopened']),
+            revision: zod
+              .string()
+              .regex(
+                planningMonthControllerHistory200ResponseItemsItemOneBeforeRevisionRegExp,
+              ),
+            status: zod.enum(['draft', 'published', 'grace', 'closed']),
+          }),
+          id: zod
+            .string()
+            .regex(
+              planningMonthControllerHistory200ResponseItemsItemOneIdRegExp,
+            ),
+          kind: zod.enum(['published']),
+          occurredAt: zod.iso.datetime({ offset: true }),
+          publication: zod.strictObject({
+            publicationId: zod
+              .string()
+              .regex(
+                planningMonthControllerHistory200ResponseItemsItemOnePublicationPublicationIdRegExp,
+              ),
+            revision: zod
+              .string()
+              .regex(
+                planningMonthControllerHistory200ResponseItemsItemOnePublicationRevisionRegExp,
+              ),
+          }),
+          reason: zod.literal(null).nullable(),
+          report: zod.literal(null).nullable(),
+        }),
+        zod.strictObject({
+          actor: zod.union([
+            zod.strictObject({
+              id: zod
+                .string()
+                .regex(
+                  planningMonthControllerHistory200ResponseItemsItemTwoActorOneIdRegExp,
+                ),
+              kind: zod.enum(['member']),
+            }),
+            zod.strictObject({
+              id: zod
+                .string()
+                .min(1)
+                .max(
+                  planningMonthControllerHistory200ResponseItemsItemTwoActorTwoIdMax,
+                ),
+              kind: zod.enum(['system']),
+            }),
+          ]),
+          after: zod.strictObject({
+            mode: zod.enum(['ordinary', 'reopened']),
+            revision: zod
+              .string()
+              .regex(
+                planningMonthControllerHistory200ResponseItemsItemTwoAfterRevisionRegExp,
+              ),
+            status: zod.enum(['draft', 'published', 'grace', 'closed']),
+          }),
+          before: zod.strictObject({
+            mode: zod.enum(['ordinary', 'reopened']),
+            revision: zod
+              .string()
+              .regex(
+                planningMonthControllerHistory200ResponseItemsItemTwoBeforeRevisionRegExp,
+              ),
+            status: zod.enum(['draft', 'published', 'grace', 'closed']),
+          }),
+          id: zod
+            .string()
+            .regex(
+              planningMonthControllerHistory200ResponseItemsItemTwoIdRegExp,
+            ),
+          kind: zod.enum(['publication_cancelled']),
+          occurredAt: zod.iso.datetime({ offset: true }),
+          publication: zod.strictObject({
+            publicationId: zod
+              .string()
+              .regex(
+                planningMonthControllerHistory200ResponseItemsItemTwoPublicationPublicationIdRegExp,
+              ),
+            revision: zod
+              .string()
+              .regex(
+                planningMonthControllerHistory200ResponseItemsItemTwoPublicationRevisionRegExp,
+              ),
+          }),
+          reason: zod.literal(null).nullable(),
+          report: zod.literal(null).nullable(),
+        }),
+        zod.strictObject({
+          actor: zod.union([
+            zod.strictObject({
+              id: zod
+                .string()
+                .regex(
+                  planningMonthControllerHistory200ResponseItemsItemThreeActorOneIdRegExp,
+                ),
+              kind: zod.enum(['member']),
+            }),
+            zod.strictObject({
+              id: zod
+                .string()
+                .min(1)
+                .max(
+                  planningMonthControllerHistory200ResponseItemsItemThreeActorTwoIdMax,
+                ),
+              kind: zod.enum(['system']),
+            }),
+          ]),
+          after: zod.strictObject({
+            mode: zod.enum(['ordinary', 'reopened']),
+            revision: zod
+              .string()
+              .regex(
+                planningMonthControllerHistory200ResponseItemsItemThreeAfterRevisionRegExp,
+              ),
+            status: zod.enum(['draft', 'published', 'grace', 'closed']),
+          }),
+          before: zod.strictObject({
+            mode: zod.enum(['ordinary', 'reopened']),
+            revision: zod
+              .string()
+              .regex(
+                planningMonthControllerHistory200ResponseItemsItemThreeBeforeRevisionRegExp,
+              ),
+            status: zod.enum(['draft', 'published', 'grace', 'closed']),
+          }),
+          id: zod
+            .string()
+            .regex(
+              planningMonthControllerHistory200ResponseItemsItemThreeIdRegExp,
+            ),
+          kind: zod.enum(['grace_started']),
+          occurredAt: zod.iso.datetime({ offset: true }),
+          publication: zod.literal(null).nullable(),
+          reason: zod.literal(null).nullable(),
+          report: zod.literal(null).nullable(),
+        }),
+        zod.strictObject({
+          actor: zod.union([
+            zod.strictObject({
+              id: zod
+                .string()
+                .regex(
+                  planningMonthControllerHistory200ResponseItemsItemFourActorOneIdRegExp,
+                ),
+              kind: zod.enum(['member']),
+            }),
+            zod.strictObject({
+              id: zod
+                .string()
+                .min(1)
+                .max(
+                  planningMonthControllerHistory200ResponseItemsItemFourActorTwoIdMax,
+                ),
+              kind: zod.enum(['system']),
+            }),
+          ]),
+          after: zod.strictObject({
+            mode: zod.enum(['ordinary', 'reopened']),
+            revision: zod
+              .string()
+              .regex(
+                planningMonthControllerHistory200ResponseItemsItemFourAfterRevisionRegExp,
+              ),
+            status: zod.enum(['draft', 'published', 'grace', 'closed']),
+          }),
+          before: zod.strictObject({
+            mode: zod.enum(['ordinary', 'reopened']),
+            revision: zod
+              .string()
+              .regex(
+                planningMonthControllerHistory200ResponseItemsItemFourBeforeRevisionRegExp,
+              ),
+            status: zod.enum(['draft', 'published', 'grace', 'closed']),
+          }),
+          id: zod
+            .string()
+            .regex(
+              planningMonthControllerHistory200ResponseItemsItemFourIdRegExp,
+            ),
+          kind: zod.enum(['closed']),
+          occurredAt: zod.iso.datetime({ offset: true }),
+          publication: zod.literal(null).nullable(),
+          reason: zod.literal(null).nullable(),
+          report: zod.strictObject({
+            reportRevisionId: zod
+              .string()
+              .regex(
+                planningMonthControllerHistory200ResponseItemsItemFourReportReportRevisionIdRegExp,
+              ),
+            revision: zod
+              .string()
+              .regex(
+                planningMonthControllerHistory200ResponseItemsItemFourReportRevisionRegExp,
+              ),
+          }),
+        }),
+        zod.strictObject({
+          actor: zod.union([
+            zod.strictObject({
+              id: zod
+                .string()
+                .regex(
+                  planningMonthControllerHistory200ResponseItemsItemFiveActorOneIdRegExp,
+                ),
+              kind: zod.enum(['member']),
+            }),
+            zod.strictObject({
+              id: zod
+                .string()
+                .min(1)
+                .max(
+                  planningMonthControllerHistory200ResponseItemsItemFiveActorTwoIdMax,
+                ),
+              kind: zod.enum(['system']),
+            }),
+          ]),
+          after: zod.strictObject({
+            mode: zod.enum(['ordinary', 'reopened']),
+            revision: zod
+              .string()
+              .regex(
+                planningMonthControllerHistory200ResponseItemsItemFiveAfterRevisionRegExp,
+              ),
+            status: zod.enum(['draft', 'published', 'grace', 'closed']),
+          }),
+          before: zod.strictObject({
+            mode: zod.enum(['ordinary', 'reopened']),
+            revision: zod
+              .string()
+              .regex(
+                planningMonthControllerHistory200ResponseItemsItemFiveBeforeRevisionRegExp,
+              ),
+            status: zod.enum(['draft', 'published', 'grace', 'closed']),
+          }),
+          id: zod
+            .string()
+            .regex(
+              planningMonthControllerHistory200ResponseItemsItemFiveIdRegExp,
+            ),
+          kind: zod.enum(['reopened']),
+          occurredAt: zod.iso.datetime({ offset: true }),
+          publication: zod.literal(null).nullable(),
+          reason: zod
+            .string()
+            .min(1)
+            .max(
+              planningMonthControllerHistory200ResponseItemsItemFiveReasonMax,
+            ),
+          report: zod.literal(null).nullable(),
+        }),
+        zod.strictObject({
+          actor: zod.union([
+            zod.strictObject({
+              id: zod
+                .string()
+                .regex(
+                  planningMonthControllerHistory200ResponseItemsItemSixActorOneIdRegExp,
+                ),
+              kind: zod.enum(['member']),
+            }),
+            zod.strictObject({
+              id: zod
+                .string()
+                .min(1)
+                .max(
+                  planningMonthControllerHistory200ResponseItemsItemSixActorTwoIdMax,
+                ),
+              kind: zod.enum(['system']),
+            }),
+          ]),
+          after: zod.strictObject({
+            mode: zod.enum(['ordinary', 'reopened']),
+            revision: zod
+              .string()
+              .regex(
+                planningMonthControllerHistory200ResponseItemsItemSixAfterRevisionRegExp,
+              ),
+            status: zod.enum(['draft', 'published', 'grace', 'closed']),
+          }),
+          before: zod.strictObject({
+            mode: zod.enum(['ordinary', 'reopened']),
+            revision: zod
+              .string()
+              .regex(
+                planningMonthControllerHistory200ResponseItemsItemSixBeforeRevisionRegExp,
+              ),
+            status: zod.enum(['draft', 'published', 'grace', 'closed']),
+          }),
+          id: zod
+            .string()
+            .regex(
+              planningMonthControllerHistory200ResponseItemsItemSixIdRegExp,
+            ),
+          kind: zod.enum(['reclosed']),
+          occurredAt: zod.iso.datetime({ offset: true }),
+          publication: zod.literal(null).nullable(),
+          reason: zod.literal(null).nullable(),
+          report: zod.strictObject({
+            reportRevisionId: zod
+              .string()
+              .regex(
+                planningMonthControllerHistory200ResponseItemsItemSixReportReportRevisionIdRegExp,
+              ),
+            revision: zod
+              .string()
+              .regex(
+                planningMonthControllerHistory200ResponseItemsItemSixReportRevisionRegExp,
+              ),
+          }),
+        }),
+      ]),
+    )
+    .max(planningMonthControllerHistory200ResponseItemsMax),
+  nextCursor: zod
+    .string()
+    .regex(planningMonthControllerHistory200ResponseNextCursorRegExp)
+    .nullable(),
+  planMonthId: zod
+    .string()
+    .regex(planningMonthControllerHistory200ResponsePlanMonthIdRegExp),
+  schemaVersion: zod.enum(['planning.month-history.v1']),
+  targetMonth: zod
+    .string()
+    .regex(planningMonthControllerHistory200ResponseTargetMonthRegExp),
+})
+
+export const planningMonthControllerHistory401ResponseStatusMin = 400
+export const planningMonthControllerHistory401ResponseStatusMax = 599
+
+export const PlanningMonthControllerHistory401Response = zod.strictObject({
+  code: zod.enum([
+    'ACTIVE_PLAN_MONTH_NOT_FOUND',
+    'AUTHENTICATION_REQUIRED',
+    'AUTHORIZATION_DENIED',
+    'COMMAND_FINGERPRINT_CONFLICT',
+    'CONFLICT',
+    'DEPENDENCY_UNAVAILABLE',
+    'DRAFT_GOAL_NOT_FOUND',
+    'GOAL_DEFINITION_NOT_FOUND',
+    'GOAL_DEFINITION_VERSION_NOT_FOUND',
+    'INTERNAL_ERROR',
+    'MALFORMED_REQUEST',
+    'NOT_FOUND',
+    'OIDC_ACCESS_DENIED',
+    'OIDC_LOGIN_REJECTED',
+    'PAYLOAD_TOO_LARGE',
+    'PLANNING_AUTHORIZATION_DENIED',
+    'PLAN_DRAFT_NOT_EDITABLE',
+    'PLAN_DRAFT_NOT_FOUND',
+    'PLAN_MONTH_NOT_FOUND',
+    'PLAN_MONTH_RECLOSE_CONFLICT',
+    'PLAN_MONTH_REOPEN_CONFLICT',
+    'PLAN_MONTH_REVISION_CONFLICT',
+    'PLAN_PUBLICATION_NOT_FOUND',
+    'PLAN_SEED_ALREADY_CONSUMED',
+    'RATE_LIMIT_EXCEEDED',
+    'REMINDER_AUTHORIZATION_DENIED',
+    'REPORTING_AUTHORIZATION_DENIED',
+    'REPORTING_NOT_FOUND',
+    'REPORTING_QUERY_INVALID',
+    'REPORTING_SOURCE_CHANGED',
+    'TRACKING_AUTHORIZATION_DENIED',
+    'TRACKING_CLOSE_DAY_TARGET_NOT_FOUND',
+    'TRACKING_FACT_TARGET_NOT_FOUND',
+    'TRACKING_FACT_VALUE_INVALID',
+    'TRACKING_QUERY_INVALID',
+    'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
+    'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
+  ]),
+  detail: zod.string(),
+  instance: zod.string(),
+  requestId: zod.string(),
+  status: zod
+    .number()
+    .min(planningMonthControllerHistory401ResponseStatusMin)
+    .max(planningMonthControllerHistory401ResponseStatusMax),
+  title: zod.string(),
+  type: zod.url(),
+})
+
+export const planningMonthControllerHistory403ResponseStatusMin = 400
+export const planningMonthControllerHistory403ResponseStatusMax = 599
+
+export const PlanningMonthControllerHistory403Response = zod.strictObject({
+  code: zod.enum([
+    'ACTIVE_PLAN_MONTH_NOT_FOUND',
+    'AUTHENTICATION_REQUIRED',
+    'AUTHORIZATION_DENIED',
+    'COMMAND_FINGERPRINT_CONFLICT',
+    'CONFLICT',
+    'DEPENDENCY_UNAVAILABLE',
+    'DRAFT_GOAL_NOT_FOUND',
+    'GOAL_DEFINITION_NOT_FOUND',
+    'GOAL_DEFINITION_VERSION_NOT_FOUND',
+    'INTERNAL_ERROR',
+    'MALFORMED_REQUEST',
+    'NOT_FOUND',
+    'OIDC_ACCESS_DENIED',
+    'OIDC_LOGIN_REJECTED',
+    'PAYLOAD_TOO_LARGE',
+    'PLANNING_AUTHORIZATION_DENIED',
+    'PLAN_DRAFT_NOT_EDITABLE',
+    'PLAN_DRAFT_NOT_FOUND',
+    'PLAN_MONTH_NOT_FOUND',
+    'PLAN_MONTH_RECLOSE_CONFLICT',
+    'PLAN_MONTH_REOPEN_CONFLICT',
+    'PLAN_MONTH_REVISION_CONFLICT',
+    'PLAN_PUBLICATION_NOT_FOUND',
+    'PLAN_SEED_ALREADY_CONSUMED',
+    'RATE_LIMIT_EXCEEDED',
+    'REMINDER_AUTHORIZATION_DENIED',
+    'REPORTING_AUTHORIZATION_DENIED',
+    'REPORTING_NOT_FOUND',
+    'REPORTING_QUERY_INVALID',
+    'REPORTING_SOURCE_CHANGED',
+    'TRACKING_AUTHORIZATION_DENIED',
+    'TRACKING_CLOSE_DAY_TARGET_NOT_FOUND',
+    'TRACKING_FACT_TARGET_NOT_FOUND',
+    'TRACKING_FACT_VALUE_INVALID',
+    'TRACKING_QUERY_INVALID',
+    'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
+    'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
+  ]),
+  detail: zod.string(),
+  instance: zod.string(),
+  requestId: zod.string(),
+  status: zod
+    .number()
+    .min(planningMonthControllerHistory403ResponseStatusMin)
+    .max(planningMonthControllerHistory403ResponseStatusMax),
+  title: zod.string(),
+  type: zod.url(),
+})
+
+export const planningMonthControllerHistory404ResponseStatusMin = 400
+export const planningMonthControllerHistory404ResponseStatusMax = 599
+
+export const PlanningMonthControllerHistory404Response = zod.strictObject({
+  code: zod.enum([
+    'ACTIVE_PLAN_MONTH_NOT_FOUND',
+    'AUTHENTICATION_REQUIRED',
+    'AUTHORIZATION_DENIED',
+    'COMMAND_FINGERPRINT_CONFLICT',
+    'CONFLICT',
+    'DEPENDENCY_UNAVAILABLE',
+    'DRAFT_GOAL_NOT_FOUND',
+    'GOAL_DEFINITION_NOT_FOUND',
+    'GOAL_DEFINITION_VERSION_NOT_FOUND',
+    'INTERNAL_ERROR',
+    'MALFORMED_REQUEST',
+    'NOT_FOUND',
+    'OIDC_ACCESS_DENIED',
+    'OIDC_LOGIN_REJECTED',
+    'PAYLOAD_TOO_LARGE',
+    'PLANNING_AUTHORIZATION_DENIED',
+    'PLAN_DRAFT_NOT_EDITABLE',
+    'PLAN_DRAFT_NOT_FOUND',
+    'PLAN_MONTH_NOT_FOUND',
+    'PLAN_MONTH_RECLOSE_CONFLICT',
+    'PLAN_MONTH_REOPEN_CONFLICT',
+    'PLAN_MONTH_REVISION_CONFLICT',
+    'PLAN_PUBLICATION_NOT_FOUND',
+    'PLAN_SEED_ALREADY_CONSUMED',
+    'RATE_LIMIT_EXCEEDED',
+    'REMINDER_AUTHORIZATION_DENIED',
+    'REPORTING_AUTHORIZATION_DENIED',
+    'REPORTING_NOT_FOUND',
+    'REPORTING_QUERY_INVALID',
+    'REPORTING_SOURCE_CHANGED',
+    'TRACKING_AUTHORIZATION_DENIED',
+    'TRACKING_CLOSE_DAY_TARGET_NOT_FOUND',
+    'TRACKING_FACT_TARGET_NOT_FOUND',
+    'TRACKING_FACT_VALUE_INVALID',
+    'TRACKING_QUERY_INVALID',
+    'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
+    'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
+  ]),
+  detail: zod.string(),
+  instance: zod.string(),
+  requestId: zod.string(),
+  status: zod
+    .number()
+    .min(planningMonthControllerHistory404ResponseStatusMin)
+    .max(planningMonthControllerHistory404ResponseStatusMax),
+  title: zod.string(),
+  type: zod.url(),
+})
+
+export const planningMonthControllerHistory422ResponseErrorsItemCodeRegExp =
+  new RegExp('^[a-z][a-z0-9_]*$')
+export const planningMonthControllerHistory422ResponseErrorsItemPointerRegExp =
+  new RegExp('^(?:|(?:/(?:[^~/]|~[01])*)+)$')
+export const planningMonthControllerHistory422ResponseStatusMin = 400
+export const planningMonthControllerHistory422ResponseStatusMax = 599
+
+export const PlanningMonthControllerHistory422Response = zod.strictObject({
+  code: zod.enum(['VALIDATION_FAILED']),
+  detail: zod.string(),
+  errors: zod.array(
+    zod.strictObject({
+      code: zod
+        .string()
+        .regex(planningMonthControllerHistory422ResponseErrorsItemCodeRegExp),
+      detail: zod.string(),
+      pointer: zod
+        .string()
+        .regex(
+          planningMonthControllerHistory422ResponseErrorsItemPointerRegExp,
+        ),
+    }),
+  ),
+  instance: zod.string(),
+  requestId: zod.string(),
+  status: zod
+    .number()
+    .min(planningMonthControllerHistory422ResponseStatusMin)
+    .max(planningMonthControllerHistory422ResponseStatusMax),
+  title: zod.string(),
+  type: zod.url(),
+})
+
+export const planningMonthControllerHistory503ResponseStatusMin = 400
+export const planningMonthControllerHistory503ResponseStatusMax = 599
+
+export const PlanningMonthControllerHistory503Response = zod.strictObject({
+  code: zod.enum([
+    'ACTIVE_PLAN_MONTH_NOT_FOUND',
+    'AUTHENTICATION_REQUIRED',
+    'AUTHORIZATION_DENIED',
+    'COMMAND_FINGERPRINT_CONFLICT',
+    'CONFLICT',
+    'DEPENDENCY_UNAVAILABLE',
+    'DRAFT_GOAL_NOT_FOUND',
+    'GOAL_DEFINITION_NOT_FOUND',
+    'GOAL_DEFINITION_VERSION_NOT_FOUND',
+    'INTERNAL_ERROR',
+    'MALFORMED_REQUEST',
+    'NOT_FOUND',
+    'OIDC_ACCESS_DENIED',
+    'OIDC_LOGIN_REJECTED',
+    'PAYLOAD_TOO_LARGE',
+    'PLANNING_AUTHORIZATION_DENIED',
+    'PLAN_DRAFT_NOT_EDITABLE',
+    'PLAN_DRAFT_NOT_FOUND',
+    'PLAN_MONTH_NOT_FOUND',
+    'PLAN_MONTH_RECLOSE_CONFLICT',
+    'PLAN_MONTH_REOPEN_CONFLICT',
+    'PLAN_MONTH_REVISION_CONFLICT',
+    'PLAN_PUBLICATION_NOT_FOUND',
+    'PLAN_SEED_ALREADY_CONSUMED',
+    'RATE_LIMIT_EXCEEDED',
+    'REMINDER_AUTHORIZATION_DENIED',
+    'REPORTING_AUTHORIZATION_DENIED',
+    'REPORTING_NOT_FOUND',
+    'REPORTING_QUERY_INVALID',
+    'REPORTING_SOURCE_CHANGED',
+    'TRACKING_AUTHORIZATION_DENIED',
+    'TRACKING_CLOSE_DAY_TARGET_NOT_FOUND',
+    'TRACKING_FACT_TARGET_NOT_FOUND',
+    'TRACKING_FACT_VALUE_INVALID',
+    'TRACKING_QUERY_INVALID',
+    'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
+    'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
+  ]),
+  detail: zod.string(),
+  instance: zod.string(),
+  requestId: zod.string(),
+  status: zod
+    .number()
+    .min(planningMonthControllerHistory503ResponseStatusMin)
+    .max(planningMonthControllerHistory503ResponseStatusMax),
   title: zod.string(),
   type: zod.url(),
 })
@@ -10687,7 +14318,6 @@ export const PlanningMonthControllerReclose400Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -10707,6 +14337,8 @@ export const PlanningMonthControllerReclose400Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -10742,7 +14374,6 @@ export const PlanningMonthControllerReclose401Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -10762,6 +14393,8 @@ export const PlanningMonthControllerReclose401Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -10797,7 +14430,6 @@ export const PlanningMonthControllerReclose403Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -10817,6 +14449,8 @@ export const PlanningMonthControllerReclose403Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -10852,7 +14486,6 @@ export const PlanningMonthControllerReclose404Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -10872,6 +14505,8 @@ export const PlanningMonthControllerReclose404Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -10920,7 +14555,6 @@ export const PlanningMonthControllerReclose409Response = zod.union([
       'PLANNING_AUTHORIZATION_DENIED',
       'PLAN_DRAFT_NOT_EDITABLE',
       'PLAN_DRAFT_NOT_FOUND',
-      'PLAN_MONTH_ALREADY_EXISTS',
       'PLAN_MONTH_NOT_FOUND',
       'PLAN_MONTH_RECLOSE_CONFLICT',
       'PLAN_MONTH_REOPEN_CONFLICT',
@@ -10940,6 +14574,8 @@ export const PlanningMonthControllerReclose409Response = zod.union([
       'TRACKING_QUERY_INVALID',
       'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
       'UNSUPPORTED_MEDIA_TYPE',
+      'WORKSPACE_AUTHORIZATION_DENIED',
+      'WORKSPACE_STATE_CONFLICT',
     ]),
     detail: zod.string(),
     instance: zod.string(),
@@ -10971,7 +14607,6 @@ export const PlanningMonthControllerReclose409Response = zod.union([
       'PLANNING_AUTHORIZATION_DENIED',
       'PLAN_DRAFT_NOT_EDITABLE',
       'PLAN_DRAFT_NOT_FOUND',
-      'PLAN_MONTH_ALREADY_EXISTS',
       'PLAN_MONTH_NOT_FOUND',
       'PLAN_MONTH_RECLOSE_CONFLICT',
       'PLAN_MONTH_REOPEN_CONFLICT',
@@ -10991,6 +14626,8 @@ export const PlanningMonthControllerReclose409Response = zod.union([
       'TRACKING_QUERY_INVALID',
       'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
       'UNSUPPORTED_MEDIA_TYPE',
+      'WORKSPACE_AUTHORIZATION_DENIED',
+      'WORKSPACE_STATE_CONFLICT',
     ]),
     conflict: zod.strictObject({
       currentRevision: zod
@@ -11035,7 +14672,6 @@ export const PlanningMonthControllerReclose409Response = zod.union([
       'PLANNING_AUTHORIZATION_DENIED',
       'PLAN_DRAFT_NOT_EDITABLE',
       'PLAN_DRAFT_NOT_FOUND',
-      'PLAN_MONTH_ALREADY_EXISTS',
       'PLAN_MONTH_NOT_FOUND',
       'PLAN_MONTH_RECLOSE_CONFLICT',
       'PLAN_MONTH_REOPEN_CONFLICT',
@@ -11055,6 +14691,8 @@ export const PlanningMonthControllerReclose409Response = zod.union([
       'TRACKING_QUERY_INVALID',
       'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
       'UNSUPPORTED_MEDIA_TYPE',
+      'WORKSPACE_AUTHORIZATION_DENIED',
+      'WORKSPACE_STATE_CONFLICT',
     ]),
     conflict: zod.strictObject({
       currentLifecycleMode: zod.enum(['ordinary', 'reopened']),
@@ -11101,7 +14739,6 @@ export const PlanningMonthControllerReclose413Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -11121,6 +14758,8 @@ export const PlanningMonthControllerReclose413Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -11156,7 +14795,6 @@ export const PlanningMonthControllerReclose415Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -11176,6 +14814,8 @@ export const PlanningMonthControllerReclose415Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -11244,7 +14884,6 @@ export const PlanningMonthControllerReclose503Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -11264,6 +14903,8 @@ export const PlanningMonthControllerReclose503Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -11354,7 +14995,6 @@ export const PlanningMonthControllerReopen400Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -11374,6 +15014,8 @@ export const PlanningMonthControllerReopen400Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -11409,7 +15051,6 @@ export const PlanningMonthControllerReopen401Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -11429,6 +15070,8 @@ export const PlanningMonthControllerReopen401Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -11464,7 +15107,6 @@ export const PlanningMonthControllerReopen403Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -11484,6 +15126,8 @@ export const PlanningMonthControllerReopen403Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -11519,7 +15163,6 @@ export const PlanningMonthControllerReopen404Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -11539,6 +15182,8 @@ export const PlanningMonthControllerReopen404Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -11587,7 +15232,6 @@ export const PlanningMonthControllerReopen409Response = zod.union([
       'PLANNING_AUTHORIZATION_DENIED',
       'PLAN_DRAFT_NOT_EDITABLE',
       'PLAN_DRAFT_NOT_FOUND',
-      'PLAN_MONTH_ALREADY_EXISTS',
       'PLAN_MONTH_NOT_FOUND',
       'PLAN_MONTH_RECLOSE_CONFLICT',
       'PLAN_MONTH_REOPEN_CONFLICT',
@@ -11607,6 +15251,8 @@ export const PlanningMonthControllerReopen409Response = zod.union([
       'TRACKING_QUERY_INVALID',
       'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
       'UNSUPPORTED_MEDIA_TYPE',
+      'WORKSPACE_AUTHORIZATION_DENIED',
+      'WORKSPACE_STATE_CONFLICT',
     ]),
     detail: zod.string(),
     instance: zod.string(),
@@ -11638,7 +15284,6 @@ export const PlanningMonthControllerReopen409Response = zod.union([
       'PLANNING_AUTHORIZATION_DENIED',
       'PLAN_DRAFT_NOT_EDITABLE',
       'PLAN_DRAFT_NOT_FOUND',
-      'PLAN_MONTH_ALREADY_EXISTS',
       'PLAN_MONTH_NOT_FOUND',
       'PLAN_MONTH_RECLOSE_CONFLICT',
       'PLAN_MONTH_REOPEN_CONFLICT',
@@ -11658,6 +15303,8 @@ export const PlanningMonthControllerReopen409Response = zod.union([
       'TRACKING_QUERY_INVALID',
       'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
       'UNSUPPORTED_MEDIA_TYPE',
+      'WORKSPACE_AUTHORIZATION_DENIED',
+      'WORKSPACE_STATE_CONFLICT',
     ]),
     conflict: zod.strictObject({
       currentRevision: zod
@@ -11702,7 +15349,6 @@ export const PlanningMonthControllerReopen409Response = zod.union([
       'PLANNING_AUTHORIZATION_DENIED',
       'PLAN_DRAFT_NOT_EDITABLE',
       'PLAN_DRAFT_NOT_FOUND',
-      'PLAN_MONTH_ALREADY_EXISTS',
       'PLAN_MONTH_NOT_FOUND',
       'PLAN_MONTH_RECLOSE_CONFLICT',
       'PLAN_MONTH_REOPEN_CONFLICT',
@@ -11722,6 +15368,8 @@ export const PlanningMonthControllerReopen409Response = zod.union([
       'TRACKING_QUERY_INVALID',
       'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
       'UNSUPPORTED_MEDIA_TYPE',
+      'WORKSPACE_AUTHORIZATION_DENIED',
+      'WORKSPACE_STATE_CONFLICT',
     ]),
     conflict: zod.strictObject({
       currentRevision: zod
@@ -11768,7 +15416,6 @@ export const PlanningMonthControllerReopen413Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -11788,6 +15435,8 @@ export const PlanningMonthControllerReopen413Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -11823,7 +15472,6 @@ export const PlanningMonthControllerReopen415Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -11843,6 +15491,8 @@ export const PlanningMonthControllerReopen415Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -11909,7 +15559,6 @@ export const PlanningMonthControllerReopen503Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -11929,6 +15578,8 @@ export const PlanningMonthControllerReopen503Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -12819,7 +16470,6 @@ export const PlanningPublicationControllerGet401Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -12839,6 +16489,8 @@ export const PlanningPublicationControllerGet401Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -12874,7 +16526,6 @@ export const PlanningPublicationControllerGet403Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -12894,6 +16545,8 @@ export const PlanningPublicationControllerGet403Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -12929,7 +16582,6 @@ export const PlanningPublicationControllerGet404Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -12949,6 +16601,8 @@ export const PlanningPublicationControllerGet404Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -13017,7 +16671,6 @@ export const PlanningPublicationControllerGet503Response = zod.strictObject({
     'PLANNING_AUTHORIZATION_DENIED',
     'PLAN_DRAFT_NOT_EDITABLE',
     'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_ALREADY_EXISTS',
     'PLAN_MONTH_NOT_FOUND',
     'PLAN_MONTH_RECLOSE_CONFLICT',
     'PLAN_MONTH_REOPEN_CONFLICT',
@@ -13037,6 +16690,8 @@ export const PlanningPublicationControllerGet503Response = zod.strictObject({
     'TRACKING_QUERY_INVALID',
     'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
     'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
   ]),
   detail: zod.string(),
   instance: zod.string(),
@@ -13045,6 +16700,644 @@ export const PlanningPublicationControllerGet503Response = zod.strictObject({
     .number()
     .min(planningPublicationControllerGet503ResponseStatusMin)
     .max(planningPublicationControllerGet503ResponseStatusMax),
+  title: zod.string(),
+  type: zod.url(),
+})
+
+/**
+ * @summary Cancel an unstarted fact-free publication.
+ */
+export const planningPublicationControllerCancelPathPublicationIdRegExp =
+  new RegExp(
+    '^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',
+  )
+
+export const PlanningPublicationControllerCancelParams = zod.strictObject({
+  publicationId: zod
+    .string()
+    .regex(planningPublicationControllerCancelPathPublicationIdRegExp),
+})
+
+export const planningPublicationControllerCancelBodyCommandIdRegExp =
+  new RegExp(
+    '^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',
+  )
+export const planningPublicationControllerCancelBodyExpectedRevisionRegExp =
+  new RegExp('^[1-9][0-9]*$')
+export const planningPublicationControllerCancelBodyPlanMonthIdRegExp =
+  new RegExp(
+    '^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',
+  )
+
+export const PlanningPublicationControllerCancelBody = zod.strictObject({
+  commandId: zod
+    .string()
+    .regex(planningPublicationControllerCancelBodyCommandIdRegExp),
+  expectedRevision: zod
+    .string()
+    .regex(planningPublicationControllerCancelBodyExpectedRevisionRegExp),
+  planMonthId: zod
+    .string()
+    .regex(planningPublicationControllerCancelBodyPlanMonthIdRegExp),
+})
+
+export const planningPublicationControllerCancel200ResponseAggregateIdRegExp =
+  new RegExp(
+    '^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',
+  )
+export const planningPublicationControllerCancel200ResponseAggregateRevisionRegExp =
+  new RegExp('^[1-9][0-9]*$')
+
+export const PlanningPublicationControllerCancel200Response = zod.strictObject({
+  aggregateId: zod
+    .string()
+    .regex(planningPublicationControllerCancel200ResponseAggregateIdRegExp),
+  aggregateRevision: zod
+    .string()
+    .regex(
+      planningPublicationControllerCancel200ResponseAggregateRevisionRegExp,
+    ),
+  kind: zod.enum(['planning.plan-month.v1']),
+})
+
+export const planningPublicationControllerCancel400ResponseStatusMin = 400
+export const planningPublicationControllerCancel400ResponseStatusMax = 599
+
+export const PlanningPublicationControllerCancel400Response = zod.strictObject({
+  code: zod.enum([
+    'ACTIVE_PLAN_MONTH_NOT_FOUND',
+    'AUTHENTICATION_REQUIRED',
+    'AUTHORIZATION_DENIED',
+    'COMMAND_FINGERPRINT_CONFLICT',
+    'CONFLICT',
+    'DEPENDENCY_UNAVAILABLE',
+    'DRAFT_GOAL_NOT_FOUND',
+    'GOAL_DEFINITION_NOT_FOUND',
+    'GOAL_DEFINITION_VERSION_NOT_FOUND',
+    'INTERNAL_ERROR',
+    'MALFORMED_REQUEST',
+    'NOT_FOUND',
+    'OIDC_ACCESS_DENIED',
+    'OIDC_LOGIN_REJECTED',
+    'PAYLOAD_TOO_LARGE',
+    'PLANNING_AUTHORIZATION_DENIED',
+    'PLAN_DRAFT_NOT_EDITABLE',
+    'PLAN_DRAFT_NOT_FOUND',
+    'PLAN_MONTH_NOT_FOUND',
+    'PLAN_MONTH_RECLOSE_CONFLICT',
+    'PLAN_MONTH_REOPEN_CONFLICT',
+    'PLAN_MONTH_REVISION_CONFLICT',
+    'PLAN_PUBLICATION_NOT_FOUND',
+    'PLAN_SEED_ALREADY_CONSUMED',
+    'RATE_LIMIT_EXCEEDED',
+    'REMINDER_AUTHORIZATION_DENIED',
+    'REPORTING_AUTHORIZATION_DENIED',
+    'REPORTING_NOT_FOUND',
+    'REPORTING_QUERY_INVALID',
+    'REPORTING_SOURCE_CHANGED',
+    'TRACKING_AUTHORIZATION_DENIED',
+    'TRACKING_CLOSE_DAY_TARGET_NOT_FOUND',
+    'TRACKING_FACT_TARGET_NOT_FOUND',
+    'TRACKING_FACT_VALUE_INVALID',
+    'TRACKING_QUERY_INVALID',
+    'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
+    'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
+  ]),
+  detail: zod.string(),
+  instance: zod.string(),
+  requestId: zod.string(),
+  status: zod
+    .number()
+    .min(planningPublicationControllerCancel400ResponseStatusMin)
+    .max(planningPublicationControllerCancel400ResponseStatusMax),
+  title: zod.string(),
+  type: zod.url(),
+})
+
+export const planningPublicationControllerCancel401ResponseStatusMin = 400
+export const planningPublicationControllerCancel401ResponseStatusMax = 599
+
+export const PlanningPublicationControllerCancel401Response = zod.strictObject({
+  code: zod.enum([
+    'ACTIVE_PLAN_MONTH_NOT_FOUND',
+    'AUTHENTICATION_REQUIRED',
+    'AUTHORIZATION_DENIED',
+    'COMMAND_FINGERPRINT_CONFLICT',
+    'CONFLICT',
+    'DEPENDENCY_UNAVAILABLE',
+    'DRAFT_GOAL_NOT_FOUND',
+    'GOAL_DEFINITION_NOT_FOUND',
+    'GOAL_DEFINITION_VERSION_NOT_FOUND',
+    'INTERNAL_ERROR',
+    'MALFORMED_REQUEST',
+    'NOT_FOUND',
+    'OIDC_ACCESS_DENIED',
+    'OIDC_LOGIN_REJECTED',
+    'PAYLOAD_TOO_LARGE',
+    'PLANNING_AUTHORIZATION_DENIED',
+    'PLAN_DRAFT_NOT_EDITABLE',
+    'PLAN_DRAFT_NOT_FOUND',
+    'PLAN_MONTH_NOT_FOUND',
+    'PLAN_MONTH_RECLOSE_CONFLICT',
+    'PLAN_MONTH_REOPEN_CONFLICT',
+    'PLAN_MONTH_REVISION_CONFLICT',
+    'PLAN_PUBLICATION_NOT_FOUND',
+    'PLAN_SEED_ALREADY_CONSUMED',
+    'RATE_LIMIT_EXCEEDED',
+    'REMINDER_AUTHORIZATION_DENIED',
+    'REPORTING_AUTHORIZATION_DENIED',
+    'REPORTING_NOT_FOUND',
+    'REPORTING_QUERY_INVALID',
+    'REPORTING_SOURCE_CHANGED',
+    'TRACKING_AUTHORIZATION_DENIED',
+    'TRACKING_CLOSE_DAY_TARGET_NOT_FOUND',
+    'TRACKING_FACT_TARGET_NOT_FOUND',
+    'TRACKING_FACT_VALUE_INVALID',
+    'TRACKING_QUERY_INVALID',
+    'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
+    'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
+  ]),
+  detail: zod.string(),
+  instance: zod.string(),
+  requestId: zod.string(),
+  status: zod
+    .number()
+    .min(planningPublicationControllerCancel401ResponseStatusMin)
+    .max(planningPublicationControllerCancel401ResponseStatusMax),
+  title: zod.string(),
+  type: zod.url(),
+})
+
+export const planningPublicationControllerCancel403ResponseStatusMin = 400
+export const planningPublicationControllerCancel403ResponseStatusMax = 599
+
+export const PlanningPublicationControllerCancel403Response = zod.strictObject({
+  code: zod.enum([
+    'ACTIVE_PLAN_MONTH_NOT_FOUND',
+    'AUTHENTICATION_REQUIRED',
+    'AUTHORIZATION_DENIED',
+    'COMMAND_FINGERPRINT_CONFLICT',
+    'CONFLICT',
+    'DEPENDENCY_UNAVAILABLE',
+    'DRAFT_GOAL_NOT_FOUND',
+    'GOAL_DEFINITION_NOT_FOUND',
+    'GOAL_DEFINITION_VERSION_NOT_FOUND',
+    'INTERNAL_ERROR',
+    'MALFORMED_REQUEST',
+    'NOT_FOUND',
+    'OIDC_ACCESS_DENIED',
+    'OIDC_LOGIN_REJECTED',
+    'PAYLOAD_TOO_LARGE',
+    'PLANNING_AUTHORIZATION_DENIED',
+    'PLAN_DRAFT_NOT_EDITABLE',
+    'PLAN_DRAFT_NOT_FOUND',
+    'PLAN_MONTH_NOT_FOUND',
+    'PLAN_MONTH_RECLOSE_CONFLICT',
+    'PLAN_MONTH_REOPEN_CONFLICT',
+    'PLAN_MONTH_REVISION_CONFLICT',
+    'PLAN_PUBLICATION_NOT_FOUND',
+    'PLAN_SEED_ALREADY_CONSUMED',
+    'RATE_LIMIT_EXCEEDED',
+    'REMINDER_AUTHORIZATION_DENIED',
+    'REPORTING_AUTHORIZATION_DENIED',
+    'REPORTING_NOT_FOUND',
+    'REPORTING_QUERY_INVALID',
+    'REPORTING_SOURCE_CHANGED',
+    'TRACKING_AUTHORIZATION_DENIED',
+    'TRACKING_CLOSE_DAY_TARGET_NOT_FOUND',
+    'TRACKING_FACT_TARGET_NOT_FOUND',
+    'TRACKING_FACT_VALUE_INVALID',
+    'TRACKING_QUERY_INVALID',
+    'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
+    'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
+  ]),
+  detail: zod.string(),
+  instance: zod.string(),
+  requestId: zod.string(),
+  status: zod
+    .number()
+    .min(planningPublicationControllerCancel403ResponseStatusMin)
+    .max(planningPublicationControllerCancel403ResponseStatusMax),
+  title: zod.string(),
+  type: zod.url(),
+})
+
+export const planningPublicationControllerCancel404ResponseStatusMin = 400
+export const planningPublicationControllerCancel404ResponseStatusMax = 599
+
+export const PlanningPublicationControllerCancel404Response = zod.strictObject({
+  code: zod.enum([
+    'ACTIVE_PLAN_MONTH_NOT_FOUND',
+    'AUTHENTICATION_REQUIRED',
+    'AUTHORIZATION_DENIED',
+    'COMMAND_FINGERPRINT_CONFLICT',
+    'CONFLICT',
+    'DEPENDENCY_UNAVAILABLE',
+    'DRAFT_GOAL_NOT_FOUND',
+    'GOAL_DEFINITION_NOT_FOUND',
+    'GOAL_DEFINITION_VERSION_NOT_FOUND',
+    'INTERNAL_ERROR',
+    'MALFORMED_REQUEST',
+    'NOT_FOUND',
+    'OIDC_ACCESS_DENIED',
+    'OIDC_LOGIN_REJECTED',
+    'PAYLOAD_TOO_LARGE',
+    'PLANNING_AUTHORIZATION_DENIED',
+    'PLAN_DRAFT_NOT_EDITABLE',
+    'PLAN_DRAFT_NOT_FOUND',
+    'PLAN_MONTH_NOT_FOUND',
+    'PLAN_MONTH_RECLOSE_CONFLICT',
+    'PLAN_MONTH_REOPEN_CONFLICT',
+    'PLAN_MONTH_REVISION_CONFLICT',
+    'PLAN_PUBLICATION_NOT_FOUND',
+    'PLAN_SEED_ALREADY_CONSUMED',
+    'RATE_LIMIT_EXCEEDED',
+    'REMINDER_AUTHORIZATION_DENIED',
+    'REPORTING_AUTHORIZATION_DENIED',
+    'REPORTING_NOT_FOUND',
+    'REPORTING_QUERY_INVALID',
+    'REPORTING_SOURCE_CHANGED',
+    'TRACKING_AUTHORIZATION_DENIED',
+    'TRACKING_CLOSE_DAY_TARGET_NOT_FOUND',
+    'TRACKING_FACT_TARGET_NOT_FOUND',
+    'TRACKING_FACT_VALUE_INVALID',
+    'TRACKING_QUERY_INVALID',
+    'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
+    'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
+  ]),
+  detail: zod.string(),
+  instance: zod.string(),
+  requestId: zod.string(),
+  status: zod
+    .number()
+    .min(planningPublicationControllerCancel404ResponseStatusMin)
+    .max(planningPublicationControllerCancel404ResponseStatusMax),
+  title: zod.string(),
+  type: zod.url(),
+})
+
+export const planningPublicationControllerCancel409ResponseOneStatusMin = 400
+export const planningPublicationControllerCancel409ResponseOneStatusMax = 599
+
+export const planningPublicationControllerCancel409ResponseTwoConflictCurrentRevisionRegExp =
+  new RegExp('^[1-9][0-9]*$')
+export const planningPublicationControllerCancel409ResponseTwoConflictExpectedRevisionRegExp =
+  new RegExp('^[1-9][0-9]*$')
+export const planningPublicationControllerCancel409ResponseTwoStatusMin = 400
+export const planningPublicationControllerCancel409ResponseTwoStatusMax = 599
+
+export const planningPublicationControllerCancel409ResponseThreeConflictCurrentRevisionRegExp =
+  new RegExp('^[1-9][0-9]*$')
+export const planningPublicationControllerCancel409ResponseThreeStatusMin = 400
+export const planningPublicationControllerCancel409ResponseThreeStatusMax = 599
+
+export const PlanningPublicationControllerCancel409Response = zod.union([
+  zod.strictObject({
+    code: zod.enum([
+      'ACTIVE_PLAN_MONTH_NOT_FOUND',
+      'AUTHENTICATION_REQUIRED',
+      'AUTHORIZATION_DENIED',
+      'COMMAND_FINGERPRINT_CONFLICT',
+      'CONFLICT',
+      'DEPENDENCY_UNAVAILABLE',
+      'DRAFT_GOAL_NOT_FOUND',
+      'GOAL_DEFINITION_NOT_FOUND',
+      'GOAL_DEFINITION_VERSION_NOT_FOUND',
+      'INTERNAL_ERROR',
+      'MALFORMED_REQUEST',
+      'NOT_FOUND',
+      'OIDC_ACCESS_DENIED',
+      'OIDC_LOGIN_REJECTED',
+      'PAYLOAD_TOO_LARGE',
+      'PLANNING_AUTHORIZATION_DENIED',
+      'PLAN_DRAFT_NOT_EDITABLE',
+      'PLAN_DRAFT_NOT_FOUND',
+      'PLAN_MONTH_NOT_FOUND',
+      'PLAN_MONTH_RECLOSE_CONFLICT',
+      'PLAN_MONTH_REOPEN_CONFLICT',
+      'PLAN_MONTH_REVISION_CONFLICT',
+      'PLAN_PUBLICATION_NOT_FOUND',
+      'PLAN_SEED_ALREADY_CONSUMED',
+      'RATE_LIMIT_EXCEEDED',
+      'REMINDER_AUTHORIZATION_DENIED',
+      'REPORTING_AUTHORIZATION_DENIED',
+      'REPORTING_NOT_FOUND',
+      'REPORTING_QUERY_INVALID',
+      'REPORTING_SOURCE_CHANGED',
+      'TRACKING_AUTHORIZATION_DENIED',
+      'TRACKING_CLOSE_DAY_TARGET_NOT_FOUND',
+      'TRACKING_FACT_TARGET_NOT_FOUND',
+      'TRACKING_FACT_VALUE_INVALID',
+      'TRACKING_QUERY_INVALID',
+      'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
+      'UNSUPPORTED_MEDIA_TYPE',
+      'WORKSPACE_AUTHORIZATION_DENIED',
+      'WORKSPACE_STATE_CONFLICT',
+    ]),
+    detail: zod.string(),
+    instance: zod.string(),
+    requestId: zod.string(),
+    status: zod
+      .number()
+      .min(planningPublicationControllerCancel409ResponseOneStatusMin)
+      .max(planningPublicationControllerCancel409ResponseOneStatusMax),
+    title: zod.string(),
+    type: zod.url(),
+  }),
+  zod.strictObject({
+    code: zod.enum([
+      'ACTIVE_PLAN_MONTH_NOT_FOUND',
+      'AUTHENTICATION_REQUIRED',
+      'AUTHORIZATION_DENIED',
+      'COMMAND_FINGERPRINT_CONFLICT',
+      'CONFLICT',
+      'DEPENDENCY_UNAVAILABLE',
+      'DRAFT_GOAL_NOT_FOUND',
+      'GOAL_DEFINITION_NOT_FOUND',
+      'GOAL_DEFINITION_VERSION_NOT_FOUND',
+      'INTERNAL_ERROR',
+      'MALFORMED_REQUEST',
+      'NOT_FOUND',
+      'OIDC_ACCESS_DENIED',
+      'OIDC_LOGIN_REJECTED',
+      'PAYLOAD_TOO_LARGE',
+      'PLANNING_AUTHORIZATION_DENIED',
+      'PLAN_DRAFT_NOT_EDITABLE',
+      'PLAN_DRAFT_NOT_FOUND',
+      'PLAN_MONTH_NOT_FOUND',
+      'PLAN_MONTH_RECLOSE_CONFLICT',
+      'PLAN_MONTH_REOPEN_CONFLICT',
+      'PLAN_MONTH_REVISION_CONFLICT',
+      'PLAN_PUBLICATION_NOT_FOUND',
+      'PLAN_SEED_ALREADY_CONSUMED',
+      'RATE_LIMIT_EXCEEDED',
+      'REMINDER_AUTHORIZATION_DENIED',
+      'REPORTING_AUTHORIZATION_DENIED',
+      'REPORTING_NOT_FOUND',
+      'REPORTING_QUERY_INVALID',
+      'REPORTING_SOURCE_CHANGED',
+      'TRACKING_AUTHORIZATION_DENIED',
+      'TRACKING_CLOSE_DAY_TARGET_NOT_FOUND',
+      'TRACKING_FACT_TARGET_NOT_FOUND',
+      'TRACKING_FACT_VALUE_INVALID',
+      'TRACKING_QUERY_INVALID',
+      'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
+      'UNSUPPORTED_MEDIA_TYPE',
+      'WORKSPACE_AUTHORIZATION_DENIED',
+      'WORKSPACE_STATE_CONFLICT',
+    ]),
+    conflict: zod.strictObject({
+      currentRevision: zod
+        .string()
+        .regex(
+          planningPublicationControllerCancel409ResponseTwoConflictCurrentRevisionRegExp,
+        ),
+      expectedRevision: zod
+        .string()
+        .regex(
+          planningPublicationControllerCancel409ResponseTwoConflictExpectedRevisionRegExp,
+        ),
+      nextAction: zod.enum(['reload-month-and-retry']),
+    }),
+    detail: zod.string(),
+    instance: zod.string(),
+    requestId: zod.string(),
+    status: zod
+      .number()
+      .min(planningPublicationControllerCancel409ResponseTwoStatusMin)
+      .max(planningPublicationControllerCancel409ResponseTwoStatusMax),
+    title: zod.string(),
+    type: zod.url(),
+  }),
+  zod.strictObject({
+    code: zod.enum(['PLAN_PUBLICATION_CANCELLATION_CONFLICT']),
+    conflict: zod.strictObject({
+      currentRevision: zod
+        .string()
+        .regex(
+          planningPublicationControllerCancel409ResponseThreeConflictCurrentRevisionRegExp,
+        ),
+      reason: zod.enum(['not_active', 'month_started', 'facts_exist']),
+    }),
+    detail: zod.string(),
+    instance: zod.string(),
+    requestId: zod.string(),
+    status: zod
+      .number()
+      .min(planningPublicationControllerCancel409ResponseThreeStatusMin)
+      .max(planningPublicationControllerCancel409ResponseThreeStatusMax),
+    title: zod.string(),
+    type: zod.url(),
+  }),
+])
+
+export const planningPublicationControllerCancel413ResponseStatusMin = 400
+export const planningPublicationControllerCancel413ResponseStatusMax = 599
+
+export const PlanningPublicationControllerCancel413Response = zod.strictObject({
+  code: zod.enum([
+    'ACTIVE_PLAN_MONTH_NOT_FOUND',
+    'AUTHENTICATION_REQUIRED',
+    'AUTHORIZATION_DENIED',
+    'COMMAND_FINGERPRINT_CONFLICT',
+    'CONFLICT',
+    'DEPENDENCY_UNAVAILABLE',
+    'DRAFT_GOAL_NOT_FOUND',
+    'GOAL_DEFINITION_NOT_FOUND',
+    'GOAL_DEFINITION_VERSION_NOT_FOUND',
+    'INTERNAL_ERROR',
+    'MALFORMED_REQUEST',
+    'NOT_FOUND',
+    'OIDC_ACCESS_DENIED',
+    'OIDC_LOGIN_REJECTED',
+    'PAYLOAD_TOO_LARGE',
+    'PLANNING_AUTHORIZATION_DENIED',
+    'PLAN_DRAFT_NOT_EDITABLE',
+    'PLAN_DRAFT_NOT_FOUND',
+    'PLAN_MONTH_NOT_FOUND',
+    'PLAN_MONTH_RECLOSE_CONFLICT',
+    'PLAN_MONTH_REOPEN_CONFLICT',
+    'PLAN_MONTH_REVISION_CONFLICT',
+    'PLAN_PUBLICATION_NOT_FOUND',
+    'PLAN_SEED_ALREADY_CONSUMED',
+    'RATE_LIMIT_EXCEEDED',
+    'REMINDER_AUTHORIZATION_DENIED',
+    'REPORTING_AUTHORIZATION_DENIED',
+    'REPORTING_NOT_FOUND',
+    'REPORTING_QUERY_INVALID',
+    'REPORTING_SOURCE_CHANGED',
+    'TRACKING_AUTHORIZATION_DENIED',
+    'TRACKING_CLOSE_DAY_TARGET_NOT_FOUND',
+    'TRACKING_FACT_TARGET_NOT_FOUND',
+    'TRACKING_FACT_VALUE_INVALID',
+    'TRACKING_QUERY_INVALID',
+    'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
+    'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
+  ]),
+  detail: zod.string(),
+  instance: zod.string(),
+  requestId: zod.string(),
+  status: zod
+    .number()
+    .min(planningPublicationControllerCancel413ResponseStatusMin)
+    .max(planningPublicationControllerCancel413ResponseStatusMax),
+  title: zod.string(),
+  type: zod.url(),
+})
+
+export const planningPublicationControllerCancel415ResponseStatusMin = 400
+export const planningPublicationControllerCancel415ResponseStatusMax = 599
+
+export const PlanningPublicationControllerCancel415Response = zod.strictObject({
+  code: zod.enum([
+    'ACTIVE_PLAN_MONTH_NOT_FOUND',
+    'AUTHENTICATION_REQUIRED',
+    'AUTHORIZATION_DENIED',
+    'COMMAND_FINGERPRINT_CONFLICT',
+    'CONFLICT',
+    'DEPENDENCY_UNAVAILABLE',
+    'DRAFT_GOAL_NOT_FOUND',
+    'GOAL_DEFINITION_NOT_FOUND',
+    'GOAL_DEFINITION_VERSION_NOT_FOUND',
+    'INTERNAL_ERROR',
+    'MALFORMED_REQUEST',
+    'NOT_FOUND',
+    'OIDC_ACCESS_DENIED',
+    'OIDC_LOGIN_REJECTED',
+    'PAYLOAD_TOO_LARGE',
+    'PLANNING_AUTHORIZATION_DENIED',
+    'PLAN_DRAFT_NOT_EDITABLE',
+    'PLAN_DRAFT_NOT_FOUND',
+    'PLAN_MONTH_NOT_FOUND',
+    'PLAN_MONTH_RECLOSE_CONFLICT',
+    'PLAN_MONTH_REOPEN_CONFLICT',
+    'PLAN_MONTH_REVISION_CONFLICT',
+    'PLAN_PUBLICATION_NOT_FOUND',
+    'PLAN_SEED_ALREADY_CONSUMED',
+    'RATE_LIMIT_EXCEEDED',
+    'REMINDER_AUTHORIZATION_DENIED',
+    'REPORTING_AUTHORIZATION_DENIED',
+    'REPORTING_NOT_FOUND',
+    'REPORTING_QUERY_INVALID',
+    'REPORTING_SOURCE_CHANGED',
+    'TRACKING_AUTHORIZATION_DENIED',
+    'TRACKING_CLOSE_DAY_TARGET_NOT_FOUND',
+    'TRACKING_FACT_TARGET_NOT_FOUND',
+    'TRACKING_FACT_VALUE_INVALID',
+    'TRACKING_QUERY_INVALID',
+    'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
+    'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
+  ]),
+  detail: zod.string(),
+  instance: zod.string(),
+  requestId: zod.string(),
+  status: zod
+    .number()
+    .min(planningPublicationControllerCancel415ResponseStatusMin)
+    .max(planningPublicationControllerCancel415ResponseStatusMax),
+  title: zod.string(),
+  type: zod.url(),
+})
+
+export const planningPublicationControllerCancel422ResponseErrorsItemCodeRegExp =
+  new RegExp('^[a-z][a-z0-9_]*$')
+export const planningPublicationControllerCancel422ResponseErrorsItemPointerRegExp =
+  new RegExp('^(?:|(?:/(?:[^~/]|~[01])*)+)$')
+export const planningPublicationControllerCancel422ResponseStatusMin = 400
+export const planningPublicationControllerCancel422ResponseStatusMax = 599
+
+export const PlanningPublicationControllerCancel422Response = zod.strictObject({
+  code: zod.enum(['VALIDATION_FAILED']),
+  detail: zod.string(),
+  errors: zod.array(
+    zod.strictObject({
+      code: zod
+        .string()
+        .regex(
+          planningPublicationControllerCancel422ResponseErrorsItemCodeRegExp,
+        ),
+      detail: zod.string(),
+      pointer: zod
+        .string()
+        .regex(
+          planningPublicationControllerCancel422ResponseErrorsItemPointerRegExp,
+        ),
+    }),
+  ),
+  instance: zod.string(),
+  requestId: zod.string(),
+  status: zod
+    .number()
+    .min(planningPublicationControllerCancel422ResponseStatusMin)
+    .max(planningPublicationControllerCancel422ResponseStatusMax),
+  title: zod.string(),
+  type: zod.url(),
+})
+
+export const planningPublicationControllerCancel503ResponseStatusMin = 400
+export const planningPublicationControllerCancel503ResponseStatusMax = 599
+
+export const PlanningPublicationControllerCancel503Response = zod.strictObject({
+  code: zod.enum([
+    'ACTIVE_PLAN_MONTH_NOT_FOUND',
+    'AUTHENTICATION_REQUIRED',
+    'AUTHORIZATION_DENIED',
+    'COMMAND_FINGERPRINT_CONFLICT',
+    'CONFLICT',
+    'DEPENDENCY_UNAVAILABLE',
+    'DRAFT_GOAL_NOT_FOUND',
+    'GOAL_DEFINITION_NOT_FOUND',
+    'GOAL_DEFINITION_VERSION_NOT_FOUND',
+    'INTERNAL_ERROR',
+    'MALFORMED_REQUEST',
+    'NOT_FOUND',
+    'OIDC_ACCESS_DENIED',
+    'OIDC_LOGIN_REJECTED',
+    'PAYLOAD_TOO_LARGE',
+    'PLANNING_AUTHORIZATION_DENIED',
+    'PLAN_DRAFT_NOT_EDITABLE',
+    'PLAN_DRAFT_NOT_FOUND',
+    'PLAN_MONTH_NOT_FOUND',
+    'PLAN_MONTH_RECLOSE_CONFLICT',
+    'PLAN_MONTH_REOPEN_CONFLICT',
+    'PLAN_MONTH_REVISION_CONFLICT',
+    'PLAN_PUBLICATION_NOT_FOUND',
+    'PLAN_SEED_ALREADY_CONSUMED',
+    'RATE_LIMIT_EXCEEDED',
+    'REMINDER_AUTHORIZATION_DENIED',
+    'REPORTING_AUTHORIZATION_DENIED',
+    'REPORTING_NOT_FOUND',
+    'REPORTING_QUERY_INVALID',
+    'REPORTING_SOURCE_CHANGED',
+    'TRACKING_AUTHORIZATION_DENIED',
+    'TRACKING_CLOSE_DAY_TARGET_NOT_FOUND',
+    'TRACKING_FACT_TARGET_NOT_FOUND',
+    'TRACKING_FACT_VALUE_INVALID',
+    'TRACKING_QUERY_INVALID',
+    'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
+    'UNSUPPORTED_MEDIA_TYPE',
+    'WORKSPACE_AUTHORIZATION_DENIED',
+    'WORKSPACE_STATE_CONFLICT',
+  ]),
+  detail: zod.string(),
+  instance: zod.string(),
+  requestId: zod.string(),
+  status: zod
+    .number()
+    .min(planningPublicationControllerCancel503ResponseStatusMin)
+    .max(planningPublicationControllerCancel503ResponseStatusMax),
   title: zod.string(),
   type: zod.url(),
 })
