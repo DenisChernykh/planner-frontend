@@ -439,7 +439,7 @@ implementation pin.
 ```json
 {
   "schemaVersion": "planner.openapi-source.v1",
-  "repository": "https://github.com/DenisChernykh/planner-backend",
+  "repository": "https://github.com/DenisChernykh/planner",
   "revision": "<40 lowercase hex>",
   "artifactPath": "docs/api/openapi.json",
   "sha256": "<64 lowercase hex>"
