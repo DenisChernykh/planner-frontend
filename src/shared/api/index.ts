@@ -19,10 +19,33 @@ export {
   setCsrfToken,
 } from './client/csrf-token'
 export {
+  authControllerLogout,
+  authControllerMe,
+  getAuthControllerMeQueryKey,
+} from './generated/auth/auth'
+export {
+  getGetTelegramNavigationQueryKey,
+  getTelegramNavigation,
+} from './generated/telegram/telegram'
+export {
+  getTrackingQueryControllerTodayQueryKey,
+  trackingQueryControllerToday,
+} from './generated/tracking/tracking'
+export {
+  getWorkspaceControllerCurrentQueryKey,
+  workspaceControllerCurrent,
+} from './generated/workspace/workspace'
+export {
   TELEGRAM_OIDC_RESULT_CODES,
   TelegramOidcResultCodeSchema,
 } from './generated-zod/telegram-oidc-result'
 export type { TelegramOidcResultCode } from './generated-zod/telegram-oidc-result'
-export type { HealthLive200 } from './generated/model/healthLive200'
+export type {
+  AuthenticatedPrincipalResponseDto,
+  GetTelegramNavigation200,
+  TrackingTodayResponseV1,
+  WorkspaceCurrentResponseV1,
+} from './generated/model'
 export { HealthLive200Response } from './generated-zod/health/health.zod'
+export type { HealthLive200 } from './generated/model/healthLive200'
 export { OPENAPI_CONTRACT_SOURCE } from './generated-zod/contract-source'

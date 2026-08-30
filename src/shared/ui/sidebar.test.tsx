@@ -25,9 +25,14 @@ describe('SidebarProvider', () => {
     const sidebar = screen.getByText('Навигация').closest('[data-slot=sidebar]')
     expect(sidebar).toHaveAttribute('data-state', 'expanded')
 
-    await user.click(screen.getByRole('button', { name: 'Toggle Sidebar' }))
+    const trigger = screen.getByRole('button', { name: 'Скрыть навигацию' })
+    expect(trigger).toHaveAttribute('aria-expanded', 'true')
+    await user.click(trigger)
 
     expect(sidebar).toHaveAttribute('data-state', 'collapsed')
+    expect(
+      screen.getByRole('button', { name: 'Открыть навигацию' }),
+    ).toHaveAttribute('aria-expanded', 'false')
     expect(document.cookie).not.toContain('sidebar_state=')
   })
 })
