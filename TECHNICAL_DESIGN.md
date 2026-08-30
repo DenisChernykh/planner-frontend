@@ -2,7 +2,7 @@
 
 - **Версия:** 1.1
 - **Дата:** 24 августа 2026 года
-- **Статус:** `M1` foundation находится в review; frontend OpenAPI consumer
+- **Статус:** `M1` foundation завершён локально; frontend OpenAPI consumer
   закреплён на published backend handoff `F10`
 
 ## 1. Назначение и граница
@@ -54,17 +54,25 @@ Frontend не пересчитывает эти правила, не вывод�
 
 ### 2.1. Проверенный baseline
 
-| Репозиторий                 | Проверенное состояние                                                                                | Роль                                                     |
-| --------------------------- | ---------------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
-| `planner-frontend`          | branch `feat/m1-frontend-foundation`; commits `48c4de5`, `e31b927`, `0c4ea8b`, `23dab01` плюс текущий F10 repin | M1 implementation в review и owning consumer pipeline   |
-| `react-starter`             | clean `stage=origin/stage=258b4e0a21022fc0894701e52885fd39b40469ee`                                  | Read-only foundation source                              |
-| `planner-backend` published | `origin/main=ef76210ad66d442704417addfcf54e7f68cab65d`                                               | Published `F01…F09` и canonical OpenAPI для F10 handoff |
+| Репозиторий                 | Проверенное состояние                                                                                                                | Роль                                                     |
+| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------- |
+| `planner-frontend`          | `origin/main=59e8c08` содержит M1 до `23dab01`; `origin/feat/m1-frontend-foundation=2a287ea` содержит corrected pin и review fix      | M1 local complete; correction ещё не merged в `main`     |
+| `react-starter`             | clean `stage=origin/stage=258b4e0a21022fc0894701e52885fd39b40469ee`                                                                  | Read-only foundation source                              |
+| `planner-backend` published | `origin/main=ef76210ad66d442704417addfcf54e7f68cab65d`                                                                               | Published `F01…F09` и canonical OpenAPI для F10 handoff |
 
 `openapi/source.json` закрепляет backend revision
 `ef76210ad66d442704417addfcf54e7f68cab65d` и exact SHA-256
 `ed80c89d36296750da11f68f4597a732a8e4e08f82f2e81a6ba8369dd2a9a625`.
 Default `api:sync` получил artifact по immutable GitHub raw URL; локальный
 sibling checkout не является альтернативным источником pin.
+
+Локальная приёмка 30 августа 2026 года выполнена на Node `24.18.0` и pnpm
+`11.15.1`: byte-for-byte sync не дал diff, `pnpm check` прошёл с 24 test files /
+208 tests и production build, Vite вернул HTTP 200. После удаления sidebar
+cookie второй независимый review не нашёл замечаний. Эти результаты не
+приписываются corrected remote CI или hosted runtime: correction опубликован в
+feature-ветке, но ещё не прошёл новый PR/CI и не merged в `main`; acceptance
+commit остаётся локальным.
 
 ### 2.2. Уровни доказательств
 
