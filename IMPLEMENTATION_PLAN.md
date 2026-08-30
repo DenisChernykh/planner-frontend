@@ -91,8 +91,9 @@ resolved версии перепроверяются; dirty backend artifact н�
 
 ### B0 — Вести backend contract runway параллельно frontend
 
-**Статус:** `IN REVIEW`; published backend `e5f9667` закреплён frontend commit
-`e31b927`, remote CI и итоговый review остаются отдельными evidence.
+**Статус:** `LOCAL COMPLETE`; published backend `ef76210` закреплён текущим
+frontend F10 repin, local source gate и independent cross-repository review
+пройдены. Frontend push/remote CI и hosted runtime остаются separate evidence.
 
 `B0` исполняется в `planner-backend` по существующим cards `F01…F10` и не
 считается frontend milestone.
@@ -137,9 +138,9 @@ M9 RC ─→ D0 hosted delivery plan ─→ P0 month pilot evaluation
 
 ### M1 — Перенести frontend foundation и transport platform
 
-**Статус:** `IN REVIEW`; foundation commit `48c4de5`, contract pin `e31b927`;
-review fixes входят в текущую ветку, remote CI и hosted runtime являются
-отдельным evidence.
+**Статус:** `IN REVIEW`; foundation commit `48c4de5`, исходный contract pin
+`e31b927`, review fixes `0c4ea8b`/`23dab01` и текущий corrective F10 repin;
+remote CI и hosted runtime являются отдельным evidence.
 **Зависимости:** `react-starter@258b4e0`, staged contract policy из `G0/B0`.
 
 **В scope:**
