@@ -61,6 +61,12 @@ resolved версии перепроверяются; dirty backend artifact н�
 7. Mobile и desktop имеют одинаковые data, actions, permissions и recovery.
 8. `pnpm check`, local browser, hosted smoke и фактический месячный пилот —
    четыре разных уровня доказательств.
+9. Для `M2…M9` действует `reuse-first`: перед реализацией generic-механизма
+   сверить его с exact `react-starter` baseline из технического дизайна;
+   совместимый механизм перенести осознанным diff и адаптировать к pinned
+   Planner contracts, новый создавать только при отсутствии совместимого
+   варианта. В PR фиксируются source SHA, reused/adapted scope и исключения, а
+   acceptance заново доказывается в Planner.
 
 ## 4. Подготовительные gates вне frontend milestones
 

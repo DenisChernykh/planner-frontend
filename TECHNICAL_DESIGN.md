@@ -122,6 +122,28 @@ commit остаётся локальным.
 создаётся, unrelated histories не сливаются. Будущий перенос улучшений starter
 выполняется отдельным осознанным diff с новым exact source SHA.
 
+#### 3.1.1. Reuse-first для продуктовых milestones
+
+Для `M2…M9` перед созданием generic-механизма проверяется совместимый механизм
+в exact baseline `react-starter`. Совместимая композиция и её поведенческие
+границы переносятся осознанным diff, после чего адаптируются к pinned Planner
+contracts. Product semantics, routes, permissions и labels из starter не
+считаются переиспользуемым контрактом. Если совместимого механизма нет,
+реализация создаётся в Planner и это исключение фиксируется в PR.
+
+Для `M2` provenance и Planner-owned адаптация выглядят так:
+
+| Область                | Reused foundation из `react-starter@258b4e0`                                 | Planner-owned адаптация                                                                                                                   |
+| ---------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| Session и router       | loaders, protected/public route shape, Query cache и `AbortSignal` boundaries | serialized fresh auth decision, principal replacement, fail-closed transition, ordered workspace/tracking/root gates                    |
+| Login/logout/`returnTo` | redirect, logout и cache-clear patterns                                       | Telegram document OIDC и finite result, strict pathname allowlist, exact `401/403`, single-flight и privacy behavior                     |
+| AppShell и navigation  | `SidebarProvider`, Sidebar/Sheet, mobile-close и account-footer composition   | четыре Planner destinations, backend display labels/timezone, route-family active semantics, focus и offline/reconnect presentation      |
+
+Эта стратегия не создаёт runtime dependency или автоматический sync со starter
+HEAD. Каждое новое заимствование требует нового exact source SHA и reviewed
+diff. Pinned Planner contracts и Planner tests остаются authoritative, поэтому
+provenance не является acceptance evidence сам по себе.
+
 ### 3.2. Стек
 
 Manifest specifiers и lockfile переносятся из exact
