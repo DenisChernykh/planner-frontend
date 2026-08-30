@@ -2,8 +2,9 @@
 
 **Версия:** 1.1
 **Дата:** 24 августа 2026 года
-**Статус:** `G0` принят; `M1` foundation завершён локально; published backend
-handoff `F10` закреплён consumer manifest/generated output
+**Статус:** `G0` принят; `M1` foundation и `M2` Auth/AppShell завершены
+локально; published backend handoff `F10` закреплён consumer
+manifest/generated output
 **Гранулярность:** девять крупных задач `M1…M9`
 
 ## 1. Назначение и источники
@@ -184,6 +185,16 @@ remote CI и hosted runtime являются отдельным evidence.
 - в коде нет password/admin/approval product modules из starter.
 
 ### M2 — Реализовать Telegram auth, session, workspace и AppShell
+
+**Статус:** `LOCAL COMPLETE` 30 августа 2026 года. Session/cache/CSRF,
+protected router boundaries, Sidebar/Sheet и AppShell опираются на exact
+read-only `react-starter@258b4e0`; в Planner адаптированы Telegram OIDC,
+published DTO/invariants, route table, root resolver, reconnect и privacy
+границы. Exact local checkout прошёл `pnpm check`, три независимых code review
+и mock-backed Playwright smoke на desktop/mobile viewport: login/finite result,
+sanitized deep link, AppShell/focus, offline/reconnect и logout. Реальные
+Chrome/macOS и Safari/iPhone manual evidence, hosted backend/OIDC smoke,
+frontend push/remote CI/PR/deployment остаются отдельными доказательствами.
 
 **Трассировка:** `UF-01`, `W-01`, account-часть `W-14`, `FE-AC-01…03`.
 **Зависимости:** `M1`; published pins `F01` и `F08`; `F09` для bot link.
