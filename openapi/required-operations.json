@@ -1,0 +1,290 @@
+{
+  "schemaVersion": "planner.openapi-required-operations.v1",
+  "operations": [
+    {
+      "method": "GET",
+      "path": "/auth/csrf",
+      "operationId": "AuthController_csrfToken"
+    },
+    {
+      "method": "POST",
+      "path": "/auth/logout",
+      "operationId": "AuthController_logout"
+    },
+    {
+      "method": "GET",
+      "path": "/auth/me",
+      "operationId": "AuthController_me"
+    },
+    {
+      "method": "GET",
+      "path": "/auth/telegram/callback",
+      "operationId": "completeTelegramOidcLogin"
+    },
+    {
+      "method": "GET",
+      "path": "/auth/telegram/start",
+      "operationId": "startTelegramOidcLogin"
+    },
+    {
+      "method": "GET",
+      "path": "/health/live",
+      "operationId": "healthLive"
+    },
+    {
+      "method": "GET",
+      "path": "/health/ready",
+      "operationId": "healthReady"
+    },
+    {
+      "method": "GET",
+      "path": "/health/startup",
+      "operationId": "healthStartup"
+    },
+    {
+      "method": "GET",
+      "path": "/planning/catalog/goal-definitions",
+      "operationId": "PlanningController_list"
+    },
+    {
+      "method": "POST",
+      "path": "/planning/catalog/goal-definitions",
+      "operationId": "PlanningController_create"
+    },
+    {
+      "method": "GET",
+      "path": "/planning/catalog/goal-definitions/{goalDefinitionId}",
+      "operationId": "PlanningController_get"
+    },
+    {
+      "method": "POST",
+      "path": "/planning/catalog/goal-definitions/{goalDefinitionId}/archive",
+      "operationId": "PlanningController_archive"
+    },
+    {
+      "method": "POST",
+      "path": "/planning/catalog/goal-definitions/{goalDefinitionId}/copy",
+      "operationId": "PlanningController_copy"
+    },
+    {
+      "method": "POST",
+      "path": "/planning/catalog/goal-definitions/{goalDefinitionId}/restore",
+      "operationId": "PlanningController_restore"
+    },
+    {
+      "method": "POST",
+      "path": "/planning/catalog/goal-definitions/{goalDefinitionId}/versions",
+      "operationId": "PlanningController_version"
+    },
+    {
+      "method": "GET",
+      "path": "/planning/drafts",
+      "operationId": "PlanningDraftController_editor"
+    },
+    {
+      "method": "POST",
+      "path": "/planning/drafts/empty",
+      "operationId": "PlanningDraftController_createEmpty"
+    },
+    {
+      "method": "POST",
+      "path": "/planning/drafts/from-publication",
+      "operationId": "PlanningDraftController_createFromPublication"
+    },
+    {
+      "method": "POST",
+      "path": "/planning/drafts/from-seed",
+      "operationId": "PlanningDraftController_createFromSeed"
+    },
+    {
+      "method": "GET",
+      "path": "/planning/drafts/publication-preview",
+      "operationId": "PlanningDraftController_publicationPreview"
+    },
+    {
+      "method": "POST",
+      "path": "/planning/drafts/{planMonthId}/focus",
+      "operationId": "PlanningDraftController_updateMonthFocus"
+    },
+    {
+      "method": "POST",
+      "path": "/planning/drafts/{planMonthId}/goals",
+      "operationId": "PlanningDraftController_add"
+    },
+    {
+      "method": "POST",
+      "path": "/planning/drafts/{planMonthId}/goals/reorder",
+      "operationId": "PlanningDraftController_reorder"
+    },
+    {
+      "method": "POST",
+      "path": "/planning/drafts/{planMonthId}/goals/{planGoalId}/remove",
+      "operationId": "PlanningDraftController_remove"
+    },
+    {
+      "method": "POST",
+      "path": "/planning/drafts/{planMonthId}/goals/{planGoalId}/update",
+      "operationId": "PlanningDraftController_update"
+    },
+    {
+      "method": "POST",
+      "path": "/planning/drafts/{planMonthId}/publish",
+      "operationId": "PlanningDraftController_publish"
+    },
+    {
+      "method": "POST",
+      "path": "/planning/drafts/{planMonthId}/republish",
+      "operationId": "PlanningDraftController_republish"
+    },
+    {
+      "method": "GET",
+      "path": "/planning/months",
+      "operationId": "PlanningMonthController_list"
+    },
+    {
+      "method": "GET",
+      "path": "/planning/months/active",
+      "operationId": "PlanningMonthController_active"
+    },
+    {
+      "method": "GET",
+      "path": "/planning/months/{planMonthId}/history",
+      "operationId": "PlanningMonthController_history"
+    },
+    {
+      "method": "POST",
+      "path": "/planning/months/{planMonthId}/reclose",
+      "operationId": "PlanningMonthController_reclose"
+    },
+    {
+      "method": "POST",
+      "path": "/planning/months/{planMonthId}/reopen",
+      "operationId": "PlanningMonthController_reopen"
+    },
+    {
+      "method": "GET",
+      "path": "/planning/publications/{publicationId}",
+      "operationId": "PlanningPublicationController_get"
+    },
+    {
+      "method": "POST",
+      "path": "/planning/publications/{publicationId}/cancel",
+      "operationId": "PlanningPublicationController_cancel"
+    },
+    {
+      "method": "GET",
+      "path": "/reminders/delivery-status",
+      "operationId": "ReminderSettingsController_deliveryStatus"
+    },
+    {
+      "method": "GET",
+      "path": "/reminders/settings",
+      "operationId": "ReminderSettingsController_settings"
+    },
+    {
+      "method": "POST",
+      "path": "/reminders/settings",
+      "operationId": "ReminderSettingsController_saveSettings"
+    },
+    {
+      "method": "GET",
+      "path": "/reporting/months/{targetMonth}",
+      "operationId": "ReportingController_month"
+    },
+    {
+      "method": "GET",
+      "path": "/telegram/navigation",
+      "operationId": "getTelegramNavigation"
+    },
+    {
+      "method": "POST",
+      "path": "/tracking/facts",
+      "operationId": "ScalarFactController_recordFact"
+    },
+    {
+      "method": "POST",
+      "path": "/tracking/facts/checklist-item",
+      "operationId": "CompositeFactController_recordChecklistItem"
+    },
+    {
+      "method": "POST",
+      "path": "/tracking/facts/checkpoint",
+      "operationId": "ScalarFactController_recordCheckpoint"
+    },
+    {
+      "method": "POST",
+      "path": "/tracking/facts/composite-occurrence",
+      "operationId": "CompositeFactController_recordCompositeOccurrence"
+    },
+    {
+      "method": "POST",
+      "path": "/tracking/facts/or-variant",
+      "operationId": "CompositeFactController_recordOrVariant"
+    },
+    {
+      "method": "POST",
+      "path": "/tracking/facts/rating",
+      "operationId": "ScalarFactController_recordRating"
+    },
+    {
+      "method": "POST",
+      "path": "/tracking/facts/text",
+      "operationId": "CompositeFactController_recordText"
+    },
+    {
+      "method": "POST",
+      "path": "/tracking/facts/time",
+      "operationId": "ScalarFactController_recordTime"
+    },
+    {
+      "method": "POST",
+      "path": "/tracking/facts/{factRecordId}/correct",
+      "operationId": "FactMaintenanceController_correct"
+    },
+    {
+      "method": "POST",
+      "path": "/tracking/facts/{factRecordId}/delete",
+      "operationId": "FactMaintenanceController_delete"
+    },
+    {
+      "method": "GET",
+      "path": "/tracking/facts/{factRecordId}/history",
+      "operationId": "FactMaintenanceController_getHistory"
+    },
+    {
+      "method": "POST",
+      "path": "/tracking/facts/{factRecordId}/undo",
+      "operationId": "FactMaintenanceController_undo"
+    },
+    {
+      "method": "GET",
+      "path": "/tracking/months/{targetMonth}",
+      "operationId": "TrackingQueryController_month"
+    },
+    {
+      "method": "POST",
+      "path": "/tracking/publications/{publicationId}/days/{localDate}/close",
+      "operationId": "FactMaintenanceController_closeDay"
+    },
+    {
+      "method": "GET",
+      "path": "/tracking/publications/{publicationId}/days/{localDate}/close-preview",
+      "operationId": "FactMaintenanceController_closeDayPreview"
+    },
+    {
+      "method": "POST",
+      "path": "/tracking/publications/{publicationId}/weekly-tasks/{flexiblePeriodId}/result",
+      "operationId": "FactMaintenanceController_recordWeeklyTaskResult"
+    },
+    {
+      "method": "GET",
+      "path": "/tracking/today",
+      "operationId": "TrackingQueryController_today"
+    },
+    {
+      "method": "GET",
+      "path": "/workspace/current",
+      "operationId": "WorkspaceController_current"
+    }
+  ]
+}

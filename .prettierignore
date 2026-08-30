@@ -1,0 +1,11 @@
+dist
+coverage
+openapi/openapi.json
+.superpowers
+.playwright-cli
+API_COVERAGE.md
+IMPLEMENTATION_PLAN.md
+PRD.md
+SCREEN_MAP.md
+TECHNICAL_DESIGN.md
+USER_FLOWS.md
