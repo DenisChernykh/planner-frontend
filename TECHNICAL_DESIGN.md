@@ -2,8 +2,8 @@
 
 - **Версия:** 1.1
 - **Дата:** 24 августа 2026 года
-- **Статус:** `M1` foundation завершён локально; frontend OpenAPI consumer
-  закреплён на published backend handoff `F10`
+- **Статус:** `M1` foundation и `M2` Auth/AppShell завершены локально; frontend
+  OpenAPI consumer закреплён на published backend handoff `F10`
 
 ## 1. Назначение и граница
 
