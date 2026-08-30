@@ -1,6 +1,7 @@
 import { QueryClient } from '@tanstack/react-query'
 
 import {
+  ApiDocumentedResponseError,
   ApiNetworkError,
   ApiProblemError,
   ApiProtocolError,
@@ -19,8 +20,9 @@ function isAbortError(error: unknown) {
 /**
  * Ограничивает автоматические повторы безопасных чтений.
  *
- * @remarks Network failures и валидные server Problems `5xx` получают не более
- * двух повторов. Отмена, protocol failure и `4xx` всегда завершаются сразу.
+ * @remarks Network failures, валидные server Problems и документированные
+ * non-success ответы `5xx` получают не более двух повторов. Отмена, protocol
+ * failure и `4xx` всегда завершаются сразу.
  */
 export function shouldRetryQuery(failureCount: number, error: unknown) {
   if (
@@ -32,7 +34,11 @@ export function shouldRetryQuery(failureCount: number, error: unknown) {
   }
 
   if (error instanceof ApiNetworkError) return true
-  return error instanceof ApiProblemError && error.status >= 500
+  return (
+    (error instanceof ApiProblemError ||
+      error instanceof ApiDocumentedResponseError) &&
+    error.status >= 500
+  )
 }
 
 /** Создаёт изолированный QueryClient для приложения или теста. */

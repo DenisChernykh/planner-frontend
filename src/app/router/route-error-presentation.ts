@@ -2,6 +2,7 @@ import { isRouteErrorResponse } from 'react-router'
 
 import {
   ApiAbortError,
+  ApiDocumentedResponseError,
   ApiNetworkError,
   ApiProblemError,
   ApiProtocolError,
@@ -33,6 +34,21 @@ export function getRouteErrorPresentation(
       message: 'Сервер вернул ответ вне опубликованного контракта.',
       ...(error.requestId === null ? {} : { requestId: error.requestId }),
       retryable: false,
+    }
+  }
+
+  if (error instanceof ApiDocumentedResponseError) {
+    if (error.status < 500) {
+      return {
+        message: 'Не удалось загрузить данные страницы.',
+        ...(error.requestId === null ? {} : { requestId: error.requestId }),
+        retryable: false,
+      }
+    }
+    return {
+      message: 'Сервис временно недоступен.',
+      ...(error.requestId === null ? {} : { requestId: error.requestId }),
+      retryable: true,
     }
   }
 

@@ -1,21 +1,28 @@
 import { QueryClient } from '@tanstack/react-query'
 import { delay, http, HttpResponse } from 'msw'
-import { beforeEach, describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, expectTypeOf, it } from 'vitest'
 
 import { server } from '@/shared/lib/testing'
 
 import {
   getAuthControllerMeQueryKey,
   getAuthControllerMeQueryOptions,
+  type StartTelegramOidcLoginQueryError,
 } from '../generated/auth/auth'
+import type {
+  HealthLiveQueryError,
+  HealthReadyQueryError,
+} from '../generated/health/health'
+import type { HealthReady503 } from '../generated/model/healthReady503'
 import {
   ApiAbortError,
+  ApiDocumentedResponseError,
   ApiNetworkError,
   ApiProblemError,
   ApiProtocolError,
 } from './api-errors'
 import { API_AXIOS_INSTANCE } from './axios-client'
-import { clearCsrfToken } from './csrf-token'
+import { clearCsrfToken, setCsrfToken } from './csrf-token'
 import { apiMutator } from './orval-mutator'
 
 const apiOrigin = `${window.location.origin}/api`
@@ -27,6 +34,21 @@ const principal = {
 
 describe('credentialed Planner Axios transport', () => {
   beforeEach(clearCsrfToken)
+
+  it('exposes the documented readiness body only through the error type', () => {
+    expectTypeOf<
+      Extract<HealthReadyQueryError, ApiDocumentedResponseError>
+    >().toEqualTypeOf<ApiDocumentedResponseError<HealthReady503>>()
+  })
+
+  it('omits the documented-response branch from Problem-only and bodyless operations', () => {
+    expectTypeOf<
+      Extract<HealthLiveQueryError, ApiDocumentedResponseError>
+    >().toEqualTypeOf<never>()
+    expectTypeOf<
+      Extract<StartTelegramOidcLoginQueryError, ApiDocumentedResponseError>
+    >().toEqualTypeOf<never>()
+  })
 
   it('uses only the same-origin /api base and includes cookie credentials', async () => {
     let credentials: RequestCredentials | undefined
@@ -160,6 +182,77 @@ describe('credentialed Planner Axios transport', () => {
     expect(observedHeaders).toEqual([csrfToken])
   })
 
+  it('does not dispatch an unsafe request across a CSRF generation change', async () => {
+    let markCsrfStarted!: () => void
+    let releaseCsrf!: () => void
+    let logoutRequests = 0
+    const csrfStarted = new Promise<void>((resolve) => {
+      markCsrfStarted = resolve
+    })
+    const csrfRelease = new Promise<void>((resolve) => {
+      releaseCsrf = resolve
+    })
+
+    server.use(
+      http.get(`${apiOrigin}/auth/csrf`, async () => {
+        markCsrfStarted()
+        await csrfRelease
+        return HttpResponse.json({ csrfToken })
+      }),
+      http.post(`${apiOrigin}/auth/logout`, () => {
+        logoutRequests += 1
+        return new HttpResponse(null, { status: 204 })
+      }),
+    )
+
+    const mutation = apiMutator({ url: '/auth/logout', method: 'POST' })
+    await csrfStarted
+    clearCsrfToken()
+    releaseCsrf()
+
+    await expect(mutation).rejects.toBeInstanceOf(ApiAbortError)
+    expect(logoutRequests).toBe(0)
+  })
+
+  it('aborts before dispatch when clear follows the CSRF interceptor', async () => {
+    let logoutRequests = 0
+    setCsrfToken(csrfToken)
+    server.use(
+      http.post(`${apiOrigin}/auth/logout`, () => {
+        logoutRequests += 1
+        return new HttpResponse(null, { status: 204 })
+      }),
+    )
+
+    const mutation = apiMutator({ url: '/auth/logout', method: 'POST' })
+    queueMicrotask(() => queueMicrotask(clearCsrfToken))
+
+    await expect(mutation).rejects.toBeInstanceOf(ApiAbortError)
+    expect(logoutRequests).toBe(0)
+  })
+
+  it('preserves caller cancellation when composing the CSRF generation signal', async () => {
+    let logoutRequests = 0
+    setCsrfToken(csrfToken)
+    server.use(
+      http.post(`${apiOrigin}/auth/logout`, () => {
+        logoutRequests += 1
+        return new HttpResponse(null, { status: 204 })
+      }),
+    )
+    const controller = new AbortController()
+
+    const mutation = apiMutator({
+      url: '/auth/logout',
+      method: 'POST',
+      signal: controller.signal,
+    })
+    controller.abort()
+
+    await expect(mutation).rejects.toBeInstanceOf(ApiAbortError)
+    expect(logoutRequests).toBe(0)
+  })
+
   it('turns an invalid CSRF success body into a protocol error without sending mutation', async () => {
     let logoutRequests = 0
     server.use(
@@ -236,6 +329,89 @@ describe('credentialed Planner Axios transport', () => {
       message: 'The API rejected the request',
       requestId: 'request-503',
     })
+  })
+
+  it.each([
+    ['/health/ready', { status: 'unavailable' }],
+    ['/health/startup', { status: 'starting' }],
+  ])(
+    'rejects the documented JSON 503 for %s with its validated body',
+    async (url, body) => {
+      server.use(
+        http.get(`${apiOrigin}${url}`, () =>
+          HttpResponse.json(body, {
+            status: 503,
+            headers: { 'X-Request-Id': 'health-request' },
+          }),
+        ),
+      )
+
+      const error = await apiMutator({ url, method: 'GET' }).catch(
+        (failure: unknown) => failure,
+      )
+
+      expect(error).toBeInstanceOf(ApiDocumentedResponseError)
+      expect(error).toMatchObject({
+        body,
+        requestId: 'health-request',
+        status: 503,
+      })
+    },
+  )
+
+  it.each([
+    [
+      'the readiness body belongs to startup',
+      '/health/ready',
+      503,
+      { status: 'starting' },
+    ],
+    [
+      'the readiness status is undeclared',
+      '/health/ready',
+      502,
+      { status: 'unavailable' },
+    ],
+    [
+      'liveness has no JSON 503 contract',
+      '/health/live',
+      503,
+      { status: 'unavailable' },
+    ],
+  ])('maps %s to a protocol error', async (_case, url, status, body) => {
+    server.use(
+      http.get(`${apiOrigin}${url}`, () => HttpResponse.json(body, { status })),
+    )
+
+    await expect(apiMutator({ url, method: 'GET' })).rejects.toBeInstanceOf(
+      ApiProtocolError,
+    )
+  })
+
+  it('keeps a health Problem response on the Problem Details boundary', async () => {
+    server.use(
+      http.get(`${apiOrigin}/health/ready`, () =>
+        HttpResponse.json(
+          {
+            type: 'https://planner.invalid/problems/internal-error',
+            title: 'Internal server error',
+            status: 500,
+            detail: 'The server could not complete the request.',
+            instance: 'urn:request:health-problem',
+            code: 'INTERNAL_ERROR',
+            requestId: 'health-problem',
+          },
+          {
+            status: 500,
+            headers: { 'Content-Type': 'application/problem+json' },
+          },
+        ),
+      ),
+    )
+
+    await expect(
+      apiMutator({ url: '/health/ready', method: 'GET' }),
+    ).rejects.toBeInstanceOf(ApiProblemError)
   })
 
   it('classifies transport loss as network and cancellation as abort', async () => {

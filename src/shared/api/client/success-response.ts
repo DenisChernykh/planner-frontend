@@ -1,7 +1,7 @@
 import type { AxiosResponse } from 'axios'
 
-import { ApiProtocolError } from './api-errors'
-import { GENERATED_SUCCESS_RESPONSE_CONTRACTS } from '../generated-zod/success-contracts'
+import { ApiDocumentedResponseError, ApiProtocolError } from './api-errors'
+import { GENERATED_API_RESPONSE_CONTRACTS } from '../generated-zod/response-contracts'
 
 function compilePath(path: string) {
   const source = path
@@ -15,7 +15,7 @@ function compilePath(path: string) {
   return new RegExp(`^${source}$`, 'u')
 }
 
-const contracts = GENERATED_SUCCESS_RESPONSE_CONTRACTS.map((contract) => ({
+const contracts = GENERATED_API_RESPONSE_CONTRACTS.map((contract) => ({
   ...contract,
   pathPattern: compilePath(contract.path),
 }))
@@ -50,7 +50,8 @@ export async function parseSuccessfulApiResponse<T>(
       candidate.method === method && candidate.pathPattern.test(path),
   )
   const expected = contract?.responses.find(
-    (candidate) => candidate.status === response.status,
+    (candidate) =>
+      candidate.status === response.status && candidate.outcome === 'success',
   )
 
   if (expected === undefined) {
@@ -78,4 +79,38 @@ export async function parseSuccessfulApiResponse<T>(
   const parsed = schema.safeParse(response.data)
   if (!parsed.success) throw new ApiProtocolError(requestId(response))
   return parsed.data as T
+}
+
+export async function parseDocumentedApiErrorResponse(
+  response: AxiosResponse<unknown>,
+): Promise<ApiDocumentedResponseError | null> {
+  const method = response.config.method?.toUpperCase() ?? 'GET'
+  const path = requestPath(response.config.url ?? '')
+  const contract = contracts.find(
+    (candidate) =>
+      candidate.method === method && candidate.pathPattern.test(path),
+  )
+  const expected = contract?.responses.find(
+    (candidate) =>
+      candidate.status === response.status &&
+      candidate.outcome === 'documented-error',
+  )
+
+  if (
+    expected === undefined ||
+    expected.mediaType === null ||
+    mediaType(response) !== expected.mediaType
+  ) {
+    return null
+  }
+
+  const schema = await expected.loadSchema()
+  const parsed = schema.safeParse(response.data)
+  if (!parsed.success) throw new ApiProtocolError(requestId(response))
+
+  return new ApiDocumentedResponseError(
+    response.status,
+    parsed.data,
+    requestId(response),
+  )
 }

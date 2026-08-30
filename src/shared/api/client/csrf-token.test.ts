@@ -2,10 +2,14 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import {
   clearCsrfToken,
-  getOrFetchCsrfToken,
+  getOrFetchCsrfTokenLease,
   peekCsrfToken,
   setCsrfToken,
 } from './csrf-token'
+
+async function readCsrfToken(fetcher: () => Promise<string>) {
+  return (await getOrFetchCsrfTokenLease(fetcher)).read()
+}
 
 describe('CSRF token memory', () => {
   beforeEach(clearCsrfToken)
@@ -23,9 +27,9 @@ describe('CSRF token memory', () => {
 
     await expect(
       Promise.all([
-        getOrFetchCsrfToken(fetcher),
-        getOrFetchCsrfToken(fetcher),
-        getOrFetchCsrfToken(fetcher),
+        readCsrfToken(fetcher),
+        readCsrfToken(fetcher),
+        readCsrfToken(fetcher),
       ]),
     ).resolves.toEqual(['token-1', 'token-1', 'token-1'])
     expect(fetcher).toHaveBeenCalledOnce()
@@ -37,38 +41,91 @@ describe('CSRF token memory', () => {
       .mockRejectedValueOnce(new Error('offline'))
       .mockResolvedValueOnce('token-2')
 
-    await expect(getOrFetchCsrfToken(fetcher)).rejects.toThrow('offline')
-    await expect(getOrFetchCsrfToken(fetcher)).resolves.toBe('token-2')
+    await expect(readCsrfToken(fetcher)).rejects.toThrow('offline')
+    await expect(readCsrfToken(fetcher)).resolves.toBe('token-2')
     expect(fetcher).toHaveBeenCalledTimes(2)
   })
 
-  it('does not let a late response restore a token after clear', async () => {
+  it('rejects every waiter when clear invalidates an in-flight fetch', async () => {
     let resolveOld!: (token: string) => void
     const oldRequest = new Promise<string>((resolve) => {
       resolveOld = resolve
     })
+    const fetcher = vi.fn(() => oldRequest)
 
-    const pending = getOrFetchCsrfToken(() => oldRequest)
+    const firstWaiter = readCsrfToken(fetcher)
+    const secondWaiter = readCsrfToken(fetcher)
     clearCsrfToken()
-    resolveOld('stale-token')
-    await pending
 
+    const results = await Promise.allSettled([firstWaiter, secondWaiter])
+
+    expect(fetcher).toHaveBeenCalledOnce()
+    expect(results).toEqual([
+      expect.objectContaining({
+        status: 'rejected',
+        reason: expect.objectContaining({
+          name: 'AbortError',
+        }),
+      }),
+      expect.objectContaining({
+        status: 'rejected',
+        reason: expect.objectContaining({
+          name: 'AbortError',
+        }),
+      }),
+    ])
     expect(peekCsrfToken()).toBeNull()
+
+    resolveOld('stale-token')
   })
 
-  it('does not let a stale response overwrite a newer session token', async () => {
+  it('rejects an old waiter instead of releasing its token after set', async () => {
     let resolveOld!: (token: string) => void
     const oldRequest = new Promise<string>((resolve) => {
       resolveOld = resolve
     })
+    const oldFetcher = vi.fn(() => oldRequest)
+    const unusedFetcher = vi.fn(async () => 'must-not-fetch')
 
-    const pending = getOrFetchCsrfToken(() => oldRequest)
-    clearCsrfToken()
+    const firstWaiter = readCsrfToken(oldFetcher)
+    const secondWaiter = readCsrfToken(oldFetcher)
     setCsrfToken('new-session-token')
-    resolveOld('old-session-token')
-    await pending
 
+    const results = await Promise.allSettled([firstWaiter, secondWaiter])
+    expect(results).toEqual([
+      expect.objectContaining({
+        status: 'rejected',
+        reason: expect.objectContaining({ name: 'AbortError' }),
+      }),
+      expect.objectContaining({
+        status: 'rejected',
+        reason: expect.objectContaining({ name: 'AbortError' }),
+      }),
+    ])
+    expect(oldFetcher).toHaveBeenCalledOnce()
+    await expect(readCsrfToken(unusedFetcher)).resolves.toBe(
+      'new-session-token',
+    )
+    expect(unusedFetcher).not.toHaveBeenCalled()
     expect(peekCsrfToken()).toBe('new-session-token')
+
+    resolveOld('old-session-token')
+  })
+
+  it('rejects a fulfilled lease when clear wins before its consumer continuation', async () => {
+    let resolveOld!: (token: string) => void
+    const oldRequest = new Promise<string>((resolve) => {
+      resolveOld = resolve
+    })
+    const pending = readCsrfToken(() => oldRequest)
+
+    resolveOld('stale-token')
+    queueMicrotask(clearCsrfToken)
+
+    await expect(pending).rejects.toMatchObject({
+      name: 'AbortError',
+    })
+    expect(peekCsrfToken()).toBeNull()
   })
 
   it('keeps deduplicating a newer generation while the old one settles', async () => {
@@ -82,12 +139,14 @@ describe('CSRF token memory', () => {
     })
     const newFetcher = vi.fn(() => newRequest)
 
-    const pendingOld = getOrFetchCsrfToken(() => oldRequest)
+    const pendingOld = readCsrfToken(() => oldRequest)
     clearCsrfToken()
-    const pendingNew = getOrFetchCsrfToken(newFetcher)
+    const pendingNew = readCsrfToken(newFetcher)
     resolveOld('old-token')
-    await pendingOld
-    const deduplicatedNew = getOrFetchCsrfToken(newFetcher)
+    await expect(pendingOld).rejects.toMatchObject({
+      name: 'AbortError',
+    })
+    const deduplicatedNew = readCsrfToken(newFetcher)
     resolveNew('new-token')
 
     await expect(Promise.all([pendingNew, deduplicatedNew])).resolves.toEqual([

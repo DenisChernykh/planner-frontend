@@ -121,7 +121,7 @@ function collectProblemCodes(document, entries) {
   return [...codes].sort()
 }
 
-function collectSuccessContracts(entries) {
+function collectResponseContracts(entries) {
   const contracts = []
   for (const { method, operation, path } of entries) {
     const responses = []
@@ -133,22 +133,32 @@ function collectSuccessContracts(entries) {
     for (const [statusText, response] of Object.entries(
       operation.responses ?? {},
     )) {
-      if (!/^2\d\d$/u.test(statusText) || !isRecord(response)) continue
+      if (!/^[1-5]\d\d$/u.test(statusText) || !isRecord(response)) continue
       const status = Number(statusText)
       const content = response.content
+      const outcome = /^2\d\d$/u.test(statusText)
+        ? 'success'
+        : 'documented-error'
 
-      if (content === undefined || Object.keys(content).length === 0) {
-        responses.push({ mediaType: null, schema: null, status })
+      if (
+        outcome === 'success' &&
+        (content === undefined || Object.keys(content).length === 0)
+      ) {
+        responses.push({ mediaType: null, outcome, schema: null, status })
         continue
       }
       if (!isRecord(content) || !isRecord(content[JSON_MEDIA_TYPE])) {
-        throw new Error(
-          `${operation.operationId} has an unsupported success media type`,
-        )
+        if (outcome === 'success') {
+          throw new Error(
+            `${operation.operationId} has an unsupported success media type`,
+          )
+        }
+        continue
       }
 
       responses.push({
         mediaType: JSON_MEDIA_TYPE,
+        outcome,
         schema: `${pascal(operation.operationId)}${status}Response`,
         status,
       })
@@ -290,7 +300,7 @@ function renderTelegramOidcResultCodes(codes) {
   ].join('\n')
 }
 
-function renderSuccessContracts(contracts, imports) {
+function renderResponseContracts(contracts, imports) {
   const lines = [...generatedHeader(), "import type { ZodType } from 'zod'", '']
 
   const sortedImports = [...imports].sort(([left], [right]) =>
@@ -306,18 +316,18 @@ function renderSuccessContracts(contracts, imports) {
 
   lines.push(
     '',
-    'export type GeneratedSuccessResponse =',
-    "  | { readonly status: number; readonly mediaType: 'application/json'; readonly loadSchema: () => Promise<ZodType<unknown>> }",
-    '  | { readonly status: number; readonly mediaType: null; readonly loadSchema: null }',
+    'export type GeneratedApiResponse =',
+    "  | { readonly status: number; readonly outcome: 'success' | 'documented-error'; readonly mediaType: 'application/json'; readonly loadSchema: () => Promise<ZodType<unknown>> }",
+    "  | { readonly status: number; readonly outcome: 'success'; readonly mediaType: null; readonly loadSchema: null }",
     '',
-    'export type GeneratedSuccessResponseContract = Readonly<{',
+    'export type GeneratedApiResponseContract = Readonly<{',
     '  method: string',
     '  operationId: string',
     '  path: string',
-    '  responses: readonly GeneratedSuccessResponse[]',
+    '  responses: readonly GeneratedApiResponse[]',
     '}>',
     '',
-    'export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [',
+    'export const GENERATED_API_RESPONSE_CONTRACTS = [',
   )
 
   for (const contract of contracts) {
@@ -329,6 +339,7 @@ function renderSuccessContracts(contracts, imports) {
     for (const response of contract.responses) {
       lines.push('      {')
       lines.push(`        status: ${response.status},`)
+      lines.push(`        outcome: ${JSON.stringify(response.outcome)},`)
       lines.push(`        mediaType: ${JSON.stringify(response.mediaType)},`)
       lines.push(
         response.schema === null
@@ -341,10 +352,7 @@ function renderSuccessContracts(contracts, imports) {
     lines.push('  },')
   }
 
-  lines.push(
-    '] as const satisfies readonly GeneratedSuccessResponseContract[]',
-    '',
-  )
+  lines.push('] as const satisfies readonly GeneratedApiResponseContract[]', '')
   return lines.join('\n')
 }
 
@@ -352,16 +360,16 @@ export async function generateRuntimeContract(root = process.cwd()) {
   const { document, manifest } = await validateCommittedSnapshot(root)
   const entries = operationEntries(document)
   const problemCodes = collectProblemCodes(document, entries)
-  const contracts = collectSuccessContracts(entries)
+  const contracts = collectResponseContracts(entries)
   const telegramOidcResultCodes = collectTelegramOidcResultCodes(document)
   const imports = await assertGeneratedSchemas(root, contracts)
   const problemCodesDestination = resolve(
     root,
     'src/shared/api/generated-zod/problem-codes.ts',
   )
-  const successContractsDestination = resolve(
+  const responseContractsDestination = resolve(
     root,
-    'src/shared/api/generated-zod/success-contracts.ts',
+    'src/shared/api/generated-zod/response-contracts.ts',
   )
   const contractSourceDestination = resolve(
     root,
@@ -380,8 +388,8 @@ export async function generateRuntimeContract(root = process.cwd()) {
       renderTelegramOidcResultCodes(telegramOidcResultCodes),
     ),
     writeFile(
-      successContractsDestination,
-      renderSuccessContracts(contracts, imports),
+      responseContractsDestination,
+      renderResponseContracts(contracts, imports),
     ),
   ])
   return {
@@ -389,7 +397,7 @@ export async function generateRuntimeContract(root = process.cwd()) {
     destinations: [
       contractSourceDestination,
       problemCodesDestination,
-      successContractsDestination,
+      responseContractsDestination,
       telegramOidcResultCodesDestination,
     ],
     problemCodes,
@@ -399,5 +407,5 @@ export async function generateRuntimeContract(root = process.cwd()) {
 
 const result = await generateRuntimeContract()
 process.stdout.write(
-  `Generated ${result.contracts.length} success contracts, ${result.problemCodes.length} Problem codes and ${result.telegramOidcResultCodes.length} Telegram OIDC result codes\n`,
+  `Generated ${result.contracts.length} response contracts, ${result.problemCodes.length} Problem codes and ${result.telegramOidcResultCodes.length} Telegram OIDC result codes\n`,
 )

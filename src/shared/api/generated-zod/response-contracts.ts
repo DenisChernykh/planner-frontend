@@ -13,26 +13,28 @@ const loadTelegramSchemas = () => import('./telegram/telegram.zod')
 const loadTrackingSchemas = () => import('./tracking/tracking.zod')
 const loadWorkspaceSchemas = () => import('./workspace/workspace.zod')
 
-export type GeneratedSuccessResponse =
+export type GeneratedApiResponse =
   | {
       readonly status: number
+      readonly outcome: 'success' | 'documented-error'
       readonly mediaType: 'application/json'
       readonly loadSchema: () => Promise<ZodType<unknown>>
     }
   | {
       readonly status: number
+      readonly outcome: 'success'
       readonly mediaType: null
       readonly loadSchema: null
     }
 
-export type GeneratedSuccessResponseContract = Readonly<{
+export type GeneratedApiResponseContract = Readonly<{
   method: string
   operationId: string
   path: string
-  responses: readonly GeneratedSuccessResponse[]
+  responses: readonly GeneratedApiResponse[]
 }>
 
-export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
+export const GENERATED_API_RESPONSE_CONTRACTS = [
   {
     method: 'GET',
     operationId: 'AuthController_csrfToken',
@@ -40,6 +42,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 200,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadAuthSchemas()).AuthControllerCsrfToken200Response,
@@ -53,6 +56,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 204,
+        outcome: 'success',
         mediaType: null,
         loadSchema: null,
       },
@@ -65,6 +69,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 200,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadAuthSchemas()).AuthControllerMe200Response,
@@ -78,6 +83,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 200,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadHealthSchemas()).HealthLive200Response,
@@ -91,9 +97,17 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 200,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadHealthSchemas()).HealthReady200Response,
+      },
+      {
+        status: 503,
+        outcome: 'documented-error',
+        mediaType: 'application/json',
+        loadSchema: async () =>
+          (await loadHealthSchemas()).HealthReady503Response,
       },
     ],
   },
@@ -104,9 +118,17 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 200,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadHealthSchemas()).HealthStartup200Response,
+      },
+      {
+        status: 503,
+        outcome: 'documented-error',
+        mediaType: 'application/json',
+        loadSchema: async () =>
+          (await loadHealthSchemas()).HealthStartup503Response,
       },
     ],
   },
@@ -117,6 +139,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 200,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadPlanningSchemas()).PlanningControllerList200Response,
@@ -130,6 +153,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 201,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadPlanningSchemas()).PlanningControllerCreate201Response,
@@ -143,6 +167,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 200,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadPlanningSchemas()).PlanningControllerGet200Response,
@@ -156,6 +181,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 200,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadPlanningSchemas()).PlanningControllerArchive200Response,
@@ -169,6 +195,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 201,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadPlanningSchemas()).PlanningControllerCopy201Response,
@@ -182,6 +209,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 200,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadPlanningSchemas()).PlanningControllerRestore200Response,
@@ -195,6 +223,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 201,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadPlanningSchemas()).PlanningControllerVersion201Response,
@@ -208,6 +237,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 200,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadPlanningSchemas())
@@ -222,6 +252,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 200,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadPlanningSchemas())
@@ -236,6 +267,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 201,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadPlanningSchemas()).PlanningDraftControllerAdd201Response,
@@ -249,6 +281,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 200,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadPlanningSchemas())
@@ -263,6 +296,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 200,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadPlanningSchemas())
@@ -277,6 +311,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 200,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadPlanningSchemas())
@@ -291,6 +326,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 201,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadPlanningSchemas())
@@ -305,6 +341,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 201,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadPlanningSchemas())
@@ -319,6 +356,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 201,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadPlanningSchemas())
@@ -333,6 +371,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 201,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadPlanningSchemas())
@@ -347,6 +386,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 201,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadPlanningSchemas())
@@ -361,6 +401,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 200,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadPlanningSchemas())
@@ -375,6 +416,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 200,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadPlanningSchemas()).PlanningMonthControllerList200Response,
@@ -388,6 +430,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 200,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadPlanningSchemas())
@@ -402,6 +445,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 200,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadPlanningSchemas())
@@ -416,6 +460,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 200,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadPlanningSchemas())
@@ -430,6 +475,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 200,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadPlanningSchemas())
@@ -444,6 +490,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 200,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadPlanningSchemas())
@@ -458,6 +505,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 200,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadPlanningSchemas())
@@ -472,6 +520,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 200,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadRemindersSchemas())
@@ -486,6 +535,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 200,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadRemindersSchemas())
@@ -500,6 +550,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 201,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadRemindersSchemas())
@@ -514,6 +565,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 200,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadReportingSchemas()).ReportingControllerMonth200Response,
@@ -527,6 +579,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 200,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadTelegramSchemas()).GetTelegramNavigation200Response,
@@ -540,6 +593,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 201,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadTrackingSchemas())
@@ -554,6 +608,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 200,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadTrackingSchemas())
@@ -568,6 +623,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 200,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadTrackingSchemas())
@@ -582,6 +638,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 200,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadTrackingSchemas())
@@ -596,6 +653,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 200,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadTrackingSchemas())
@@ -610,6 +668,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 201,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadTrackingSchemas())
@@ -624,6 +683,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 201,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadTrackingSchemas())
@@ -638,6 +698,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 201,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadTrackingSchemas())
@@ -652,6 +713,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 201,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadTrackingSchemas())
@@ -666,6 +728,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 201,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadTrackingSchemas())
@@ -680,6 +743,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 201,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadTrackingSchemas())
@@ -694,6 +758,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 201,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadTrackingSchemas())
@@ -708,6 +773,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 200,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadTrackingSchemas()).TrackingQueryControllerMonth200Response,
@@ -721,6 +787,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 201,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadTrackingSchemas())
@@ -735,6 +802,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 200,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadTrackingSchemas())
@@ -749,6 +817,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 201,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadTrackingSchemas())
@@ -763,6 +832,7 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 200,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadTrackingSchemas()).TrackingQueryControllerToday200Response,
@@ -776,10 +846,11 @@ export const GENERATED_SUCCESS_RESPONSE_CONTRACTS = [
     responses: [
       {
         status: 200,
+        outcome: 'success',
         mediaType: 'application/json',
         loadSchema: async () =>
           (await loadWorkspaceSchemas()).WorkspaceControllerCurrent200Response,
       },
     ],
   },
-] as const satisfies readonly GeneratedSuccessResponseContract[]
+] as const satisfies readonly GeneratedApiResponseContract[]

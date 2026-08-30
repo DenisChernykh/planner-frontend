@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { getOrFetchCsrfToken } from './csrf-token'
+import { getOrFetchCsrfTokenLease } from './csrf-token'
 import { parseSuccessfulApiResponse } from './success-response'
 
 const unsafeMethods = new Set(['POST', 'PUT', 'PATCH', 'DELETE'])
@@ -24,6 +24,11 @@ API_AXIOS_INSTANCE.interceptors.request.use(async (config) => {
 
   config.headers.set('Content-Type', 'application/json')
   if (config.data === undefined) config.data = {}
-  config.headers.set('X-CSRF-Token', await getOrFetchCsrfToken(fetchCsrfToken))
+  const csrfTokenLease = await getOrFetchCsrfTokenLease(fetchCsrfToken)
+  const requestSignal = config.signal as AbortSignal | undefined
+  config.signal = requestSignal
+    ? AbortSignal.any([requestSignal, csrfTokenLease.signal])
+    : csrfTokenLease.signal
+  config.headers.set('X-CSRF-Token', csrfTokenLease.read())
   return config
 })

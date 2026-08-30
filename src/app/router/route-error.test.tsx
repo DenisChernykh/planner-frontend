@@ -4,6 +4,7 @@ import { createMemoryRouter, RouterProvider } from 'react-router'
 import { describe, expect, it } from 'vitest'
 
 import {
+  ApiDocumentedResponseError,
   ApiNetworkError,
   ApiProblemError,
   ApiProtocolError,
@@ -47,6 +48,18 @@ describe('route error presentation', () => {
       {
         message: 'Сервис временно недоступен.',
         requestId: 'problem-request',
+        retryable: true,
+      },
+    ],
+    [
+      new ApiDocumentedResponseError(
+        503,
+        { status: 'unavailable' },
+        'health-request',
+      ),
+      {
+        message: 'Сервис временно недоступен.',
+        requestId: 'health-request',
         retryable: true,
       },
     ],

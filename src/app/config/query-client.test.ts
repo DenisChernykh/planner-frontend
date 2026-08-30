@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import {
+  ApiDocumentedResponseError,
   ApiNetworkError,
   ApiProblemError,
   ApiProtocolError,
@@ -27,6 +28,12 @@ describe('shouldRetryQuery', () => {
   it('retries network and valid 5xx failures at most twice', () => {
     expect(shouldRetryQuery(0, new ApiNetworkError())).toBe(true)
     expect(shouldRetryQuery(1, problem(503))).toBe(true)
+    expect(
+      shouldRetryQuery(
+        1,
+        new ApiDocumentedResponseError(503, { status: 'unavailable' }, null),
+      ),
+    ).toBe(true)
     expect(shouldRetryQuery(2, new ApiNetworkError())).toBe(false)
   })
 

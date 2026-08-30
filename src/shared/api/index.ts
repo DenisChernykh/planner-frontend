@@ -1,5 +1,6 @@
 export {
   ApiAbortError,
+  ApiDocumentedResponseError,
   ApiNetworkError,
   ApiProblemError,
   ApiProtocolError,

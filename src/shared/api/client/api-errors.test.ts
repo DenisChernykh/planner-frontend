@@ -9,6 +9,7 @@ import { describe, expect, it } from 'vitest'
 
 import {
   ApiAbortError,
+  ApiDocumentedResponseError,
   ApiNetworkError,
   ApiProblemError,
   ApiProtocolError,
@@ -206,6 +207,11 @@ describe('normalizeApiError', () => {
 
   it.each([
     new ApiAbortError(),
+    new ApiDocumentedResponseError(
+      503,
+      { status: 'unavailable' },
+      'request-health',
+    ),
     new ApiNetworkError(),
     new ApiProtocolError('request-2'),
   ])('preserves an already normalized error instance', (error) => {

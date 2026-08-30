@@ -76,8 +76,32 @@ export class ApiProtocolError extends Error {
   }
 }
 
-export type ApiClientError =
-  ApiAbortError | ApiNetworkError | ApiProblemError | ApiProtocolError
+export class ApiDocumentedResponseError<TBody = unknown> extends Error {
+  public readonly name = 'ApiDocumentedResponseError'
+  public readonly status: number
+  public readonly body: TBody
+  public readonly requestId: string | null
+
+  public constructor(status: number, body: TBody, requestId: string | null) {
+    super('The API returned a documented non-success response')
+    this.status = status
+    this.body = body
+    this.requestId = requestId
+  }
+}
+
+type DocumentedResponseBranch<TDocumentedBody> = [
+  Exclude<TDocumentedBody, null | void>,
+] extends [never]
+  ? never
+  : ApiDocumentedResponseError<Exclude<TDocumentedBody, null | void>>
+
+export type ApiClientError<TDocumentedBody = never> =
+  | ApiAbortError
+  | DocumentedResponseBranch<TDocumentedBody>
+  | ApiNetworkError
+  | ApiProblemError
+  | ApiProtocolError
 
 function parseRetryAfter(value: unknown, now: number): number | null {
   if (typeof value !== 'string') return null
@@ -106,9 +130,10 @@ function isAbort(error: unknown) {
 export function normalizeApiError(
   error: unknown,
   now = Date.now(),
-): ApiClientError {
+): ApiClientError<unknown> {
   if (
     error instanceof ApiAbortError ||
+    error instanceof ApiDocumentedResponseError ||
     error instanceof ApiNetworkError ||
     error instanceof ApiProblemError ||
     error instanceof ApiProtocolError

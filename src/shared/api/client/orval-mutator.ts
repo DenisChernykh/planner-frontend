@@ -1,19 +1,28 @@
-import type { AxiosRequestConfig } from 'axios'
+import axios, { type AxiosRequestConfig } from 'axios'
 
 import {
   type ApiClientError,
   ApiProtocolError,
+  type ProblemDocumentLike,
   normalizeApiError,
 } from './api-errors'
 import { API_AXIOS_INSTANCE } from './axios-client'
-import { parseSuccessfulApiResponse } from './success-response'
+import {
+  parseDocumentedApiErrorResponse,
+  parseSuccessfulApiResponse,
+} from './success-response'
 
-// Orval's generated DTO union is documentation only at this boundary. The
-// transport validates the safe base envelope; a feature must call
-// validateApiProblem with its generated Zod schema before reading extensions.
-export type ErrorType<GeneratedErrorData> = GeneratedErrorData extends unknown
-  ? ApiClientError
-  : never
+type DocumentedErrorData<GeneratedErrorData> =
+  GeneratedErrorData extends ProblemDocumentLike | null | void
+    ? never
+    : GeneratedErrorData
+
+// Problem Details and documented non-Problem responses have distinct runtime
+// errors. A feature must still validate Problem extensions with its generated
+// operation schema before reading them.
+export type ErrorType<GeneratedErrorData> = ApiClientError<
+  DocumentedErrorData<GeneratedErrorData>
+>
 
 export type BodyType<BodyData> = BodyData
 
@@ -48,6 +57,15 @@ export async function apiMutator<T>(
     })
     return await parseSuccessfulApiResponse<T>(response)
   } catch (error) {
+    if (axios.isAxiosError(error) && error.response !== undefined) {
+      let documentedError
+      try {
+        documentedError = await parseDocumentedApiErrorResponse(error.response)
+      } catch (validationError) {
+        throw normalizeApiError(validationError)
+      }
+      if (documentedError !== null) throw documentedError
+    }
     throw normalizeApiError(error)
   }
 }
