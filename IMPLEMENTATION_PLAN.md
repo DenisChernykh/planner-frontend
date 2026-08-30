@@ -2,7 +2,7 @@
 
 **Версия:** 1.1
 **Дата:** 24 августа 2026 года
-**Статус:** `G0` принят; `M1` foundation находится в review; published backend
+**Статус:** `G0` принят; `M1` foundation завершён локально; published backend
 handoff `F10` закреплён consumer manifest/generated output
 **Гранулярность:** девять крупных задач `M1…M9`
 
@@ -138,8 +138,12 @@ M9 RC ─→ D0 hosted delivery plan ─→ P0 month pilot evaluation
 
 ### M1 — Перенести frontend foundation и transport platform
 
-**Статус:** `IN REVIEW`; foundation commit `48c4de5`, исходный contract pin
-`e31b927`, review fixes `0c4ea8b`/`23dab01` и текущий corrective F10 repin;
+**Статус:** `LOCAL COMPLETE` 30 августа 2026 года; foundation и первые review
+fixes merged в `origin/main@59e8c08`, corrective F10 repin `5e30072` и финальный
+review fix опубликованы в `origin/feat/m1-frontend-foundation@2a287ea`, но ещё
+не merged в `main`. Exact local checkout прошёл byte-for-byte `api:sync`,
+`pnpm check` (24 test files / 208 tests), production build и Vite HTTP smoke;
+второй независимый review не нашёл замечаний. Acceptance commit, corrected
 remote CI и hosted runtime являются отдельным evidence.
 **Зависимости:** `react-starter@258b4e0`, staged contract policy из `G0/B0`.
 
