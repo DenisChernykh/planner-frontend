@@ -12,7 +12,9 @@ describe('Planner returnTo', () => {
     '/plans/new',
     '/plans/2026-09/edit',
     '/plans/2026-09/preview',
-    '/plans/catalog/goals/v1.2',
+    '/plans/2026-09/goals/new',
+    '/plans/catalog',
+    '/plans/catalog/new',
     '/statistics/2026-08',
     '/settings',
   ])('accepts protected pathname %s', (pathname) => {
@@ -28,6 +30,18 @@ describe('Planner returnTo', () => {
     '/auth/telegram/result',
     '/auth/telegram/start',
     '/admin/accounts',
+    '/plans/private-user@example.com',
+    '/plans/token/raw-secret',
+    '/plans/catalog/not-a-uuid',
+    '/plans/2026-09/goals/11111111-1111-4111-8111-111111111111/edit',
+    '/plans/catalog/11111111-1111-4111-8111-111111111111',
+    '/plans/catalog/11111111-1111-4111-8111-111111111111/new-version',
+    '/months/0000-01',
+    '/plans/0000-01/edit',
+    '/statistics/0000-01',
+    '/months/2026-02/days/2026-02-29',
+    '/months/2024-02/days/2024-02-30',
+    '/months/2026-08/days/2026-09-01',
   ])('rejects unsafe target %s', (target) => {
     expect(sanitizeReturnTo(target)).toBeNull()
   })
