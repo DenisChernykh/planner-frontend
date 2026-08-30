@@ -2,9 +2,12 @@
 
 **Версия:** 1.0
 **Дата:** 24 августа 2026 года
-**Статус:** baseline для frontend PRD и будущего backend addendum
-**Backend baseline:** локальный commit `44f00d00715d6a485ad5aff3f36680a414af96ae`
-**OpenAPI baseline:** `Planner API 0.1.0-alpha.0`, 45 paths / 47 operations
+**Статус:** historical discovery baseline; текущее разрешение gaps — в разделе
+2.1
+**Backend baseline (historical):** локальный commit
+`44f00d00715d6a485ad5aff3f36680a414af96ae`
+**OpenAPI baseline (historical):** `Planner API 0.1.0-alpha.0`, 45 paths / 47
+operations
 
 ## 1. Назначение
 
@@ -33,6 +36,28 @@ HTTP-контрактом `planner-backend`. У каждого чтения и �
   production deployment, hosted Telegram OIDC или browser smoke.
 - Перед началом frontend implementation должен быть выбран опубликованный
   backend SHA и настроен проверяемый способ синхронизации OpenAPI между repos.
+
+### 2.1. Текущее разрешение gaps на 30 августа 2026 года
+
+Frontend consumer закреплён на published backend
+`e5f9667a12e3a8274eff261b7a016f3816bd93fb`. Exact OpenAPI SHA-256:
+`55ace461a3282c4bbf4a8d3df7c242176ec930cb147c566fb7dbd094b3b60d79`.
+Источник истины — `openapi/source.json`; исходные матрицы ниже сохранены как
+история discovery, а не как текущая readiness-сводка.
+
+| Gap | Published contract в pinned artifact | Текущее состояние |
+| --- | --- | --- |
+| `GAP-01` | `GET /workspace/current` | Resolved |
+| `GAP-02` | `GET /planning/months` | Resolved |
+| `GAP-03` | `POST /planning/drafts/empty` | Resolved |
+| `GAP-04` | `POST /planning/drafts/from-publication` | Resolved |
+| `GAP-05` | `POST /planning/drafts/{planMonthId}/focus` | Resolved |
+| `GAP-06` | `POST /planning/publications/{publicationId}/cancel`; `POST /planning/drafts/{planMonthId}/republish` | Resolved |
+| `GAP-07` | `GET /tracking/facts/{factRecordId}/history`; `GET /planning/months/{planMonthId}/history` | Resolved |
+| `GAP-08` | `GET /auth/telegram/callback` завершает распознанный terminal outcome через `303` на fixed finite `Location` | Resolved |
+| `GAP-09` | `GET /telegram/navigation` | Resolved |
+| `GAP-DELIVERY-01` | Exact-byte manifest, sync, generation и drift pipeline в `planner-frontend` | Resolved locally; remote CI is separate evidence |
+| `GAP-DEPLOY-01` | Hosted origin/OIDC/session/API smoke | Pending; вне scope M1 |
 
 ## 3. Обозначения
 
@@ -80,7 +105,7 @@ HTTP-контрактом `planner-backend`. У каждого чтения и �
   ставит команды в очередь. Черновой ввод в открытой форме не считается
   сохранённым.
 
-## 5. Матрица пользовательских jobs
+## 5. Историческая матрица пользовательских jobs
 
 ### 5.1. UF-01 — вход, сессия и аккаунт
 
@@ -184,7 +209,7 @@ HTTP-контрактом `planner-backend`. У каждого чтения и �
 | Показать историю lifecycle и причин | `W-07`, `W-13`, `W-15` | — | `GAP-07` | Current lifecycle/report revision доступны, но нет bounded timeline publish/cancel/reopen/reclose с actor, reason и переходами status/revision. |
 | Создать следующий месяц из прошлого | `W-08` | — | `GAP-02` + `GAP-04` | Нужны discovery источника и публичная copy command. |
 
-## 6. Реестр backend gaps
+## 6. Исторический реестр backend gaps
 
 ### GAP-01 — Workspace/member bootstrap
 
@@ -315,7 +340,7 @@ backup/restore и hosted smoke без PII leakage.
 8. published backend SHA и OpenAPI handoff подтверждены отдельно от локального
    frontend commit и hosted deployment.
 
-## Приложение A. Текущий OpenAPI inventory
+## Приложение A. Исходный OpenAPI inventory на 24 августа 2026 года
 
 ### Auth
 

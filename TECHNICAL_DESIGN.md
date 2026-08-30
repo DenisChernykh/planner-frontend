@@ -2,8 +2,8 @@
 
 - **Версия:** 1.1
 - **Дата:** 24 августа 2026 года
-- **Статус:** approved implementation baseline; `G0` принят, frontend-код не
-  начат, backend consumer handoff `F10` не завершён
+- **Статус:** `M1` foundation находится в review; frontend OpenAPI consumer
+  закреплён на published backend handoff `F10`
 
 ## 1. Назначение и граница
 
@@ -54,24 +54,17 @@ Frontend не пересчитывает эти правила, не вывод�
 
 ### 2.1. Проверенный baseline
 
-| Репозиторий                 | Проверенное состояние                                                                                                   | Роль                                                                    |
-| --------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| `planner-frontend`          | `main=origin/main=9eb6e299bb9c36191fbf735004a3a78a1fd78d2f`; `TECHNICAL_DESIGN.md` и `IMPLEMENTATION_PLAN.md` untracked | Согласованный, но ещё не зафиксированный Git baseline                   |
-| `react-starter`             | clean `stage=origin/stage=258b4e0a21022fc0894701e52885fd39b40469ee`                                                     | Read-only foundation source                                             |
-| `planner-backend` published | `origin/main=cf76080b2a1972377eb1e4fa4da5ccd8aaa02331`                                                                  | Опубликованный backend baseline и cards `F01…F10`                       |
-| `planner-backend` local     | `main=0ef4f0da8d006fedb92f953cd53fbbfac01e7e58`, ahead by 2; working tree содержит незавершённый `F02` WIP              | Локальные `F01` commits и исследовательский `F02`, не consumer contract |
+| Репозиторий                 | Проверенное состояние                                                                                | Роль                                                     |
+| --------------------------- | ---------------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
+| `planner-frontend`          | branch `feat/m1-frontend-foundation`; commits `48c4de5`, `e31b927` плюс текущие review fixes       | M1 implementation в review и owning consumer pipeline   |
+| `react-starter`             | clean `stage=origin/stage=258b4e0a21022fc0894701e52885fd39b40469ee`                                  | Read-only foundation source                              |
+| `planner-backend` published | `origin/main=e5f9667a12e3a8274eff261b7a016f3816bd93fb`                                               | Published `F01…F09` и canonical OpenAPI для F10 handoff |
 
-На локальном backend `0ef4f0d` операция
-`GET /workspace/current` (`WorkspaceController_current`) присутствует, но её
-commits ещё не находятся в `origin/main`. Dirty `F02` working tree уже меняет
-локальный OpenAPI: 47 paths, 49 operations, SHA-256
-`cf6618400b7660701d2c95104181639b184ad6ea5502824ac95d8deb8f023320`.
-Этот checksum является только point-in-time наблюдением незавершённого WIP и не
-может использоваться как frontend pin.
-
-Перед первым OpenAPI sync implementer повторно проверяет exact refs, clean/dirty
-state и live `F01…F10`. Значения выше не разрешают молча потребить более новый
-локальный backend artifact.
+`openapi/source.json` закрепляет backend revision
+`e5f9667a12e3a8274eff261b7a016f3816bd93fb` и exact SHA-256
+`55ace461a3282c4bbf4a8d3df7c242176ec930cb147c566fb7dbd094b3b60d79`.
+Default `api:sync` получил artifact по immutable GitHub raw URL; локальный
+sibling checkout не является альтернативным источником pin.
 
 ### 2.2. Уровни доказательств
 
@@ -325,9 +318,9 @@ errors остаются отдельными состояниями.
 `/auth/telegram/start`. Frontend не вызывает start через Axios и не читает
 OIDC `state`, `code`, nonce, PKCE verifier, provider token или session cookie.
 
-Успех callback возвращает browser на `/`. После F08 любой terminal failure,
-включая cancel, denied identity, invalid/expired ceremony и временную
-недоступность dependency, получает фиксированный redirect
+После F08 любой распознанный terminal callback, включая success, cancel,
+denied identity, invalid/expired ceremony и временную недоступность dependency,
+получает фиксированный redirect
 `/auth/telegram/result?result=<finite-code>`. Raw Problem response не является
 конечным UX document navigation. Finite enum является частью published OpenAPI
 contract и генерируется вместе с frontend schemas. Result page:
@@ -439,7 +432,7 @@ implementation pin.
 ```json
 {
   "schemaVersion": "planner.openapi-source.v1",
-  "repository": "https://github.com/DenisChernykh/planner-backend",
+  "repository": "https://github.com/DenisChernykh/planner",
   "revision": "<40 lowercase hex>",
   "artifactPath": "docs/api/openapi.json",
   "sha256": "<64 lowercase hex>"
@@ -857,16 +850,16 @@ published pinned artifact и соответствующие surfaces прошл�
 
 | Gate                     | Frontend use                                   | Текущее наблюдение                                    |
 | ------------------------ | ---------------------------------------------- | ----------------------------------------------------- |
-| F01 workspace context    | AppShell labels, owner choice, report sections | Реализован в local commits до `0ef4f0d`; не published |
-| F02 month discovery      | Plans/month/statistics navigation              | Pending                                               |
-| F03 empty draft          | W-08                                           | Pending                                               |
-| F04 publication copy     | W-08/next month                                | Pending                                               |
-| F05 focus update         | W-09                                           | Pending                                               |
-| F06 cancel/republish     | W-07/W-11                                      | Pending                                               |
-| F07 fact/month histories | W-06/W-07/W-13/W-15                            | Pending                                               |
-| F08 OIDC result redirect | W-01                                           | Pending                                               |
-| F09 bot navigation       | W-01/W-14                                      | Pending                                               |
-| F10 pinned handoff       | Reproducible consumer contract                 | Pending; final integration gate                       |
+| F01 workspace context    | AppShell labels, owner choice, report sections | Published в pinned backend `e5f9667`                  |
+| F02 month discovery      | Plans/month/statistics navigation              | Published в pinned backend `e5f9667`                  |
+| F03 empty draft          | W-08                                           | Published в pinned backend `e5f9667`                  |
+| F04 publication copy     | W-08/next month                                | Published в pinned backend `e5f9667`                  |
+| F05 focus update         | W-09                                           | Published в pinned backend `e5f9667`                  |
+| F06 cancel/republish     | W-07/W-11                                      | Published в pinned backend `e5f9667`                  |
+| F07 fact/month histories | W-06/W-07/W-13/W-15                            | Published в pinned backend `e5f9667`                  |
+| F08 OIDC result redirect | W-01                                           | Published в pinned backend `e5f9667`                  |
+| F09 bot navigation       | W-01/W-14                                      | Published в pinned backend `e5f9667`                  |
+| F10 pinned handoff       | Reproducible consumer contract                 | Pinned frontend commit `e31b927`; CI/review pending   |
 
 Foundation и независимые UI primitives могут разрабатываться раньше F10, но
 никакая GAP-dependent feature не получает статус ready на основе локального
