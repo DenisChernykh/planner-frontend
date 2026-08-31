@@ -28,8 +28,6 @@ import {
   TooltipTrigger,
 } from '@/shared/ui/tooltip'
 
-const SIDEBAR_COOKIE_NAME = 'sidebar_state'
-const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
 const SIDEBAR_WIDTH = '16rem'
 const SIDEBAR_WIDTH_MOBILE = '18rem'
 const SIDEBAR_WIDTH_ICON = '3rem'
@@ -67,10 +65,9 @@ function useSidebar() {
 /**
  * Предоставляет контекст состояния и базовую раскладку для sidebar.
  *
- * @remarks Поддерживает controlled и uncontrolled desktop-состояние, сохраняет
- * его в cookie `sidebar_state`, управляет отдельным mobile sheet и регистрирует
- * глобальное сочетание `Cmd/Ctrl+B`. Также подключает `TooltipProvider` для
- * пунктов свёрнутого меню.
+ * @remarks Поддерживает controlled и uncontrolled desktop-состояние только в
+ * памяти, управляет отдельным mobile sheet и регистрирует глобальное сочетание
+ * `Cmd/Ctrl+B`. Также подключает `TooltipProvider` для пунктов свёрнутого меню.
  */
 function SidebarProvider({
   defaultOpen = true,
@@ -97,8 +94,6 @@ function SidebarProvider({
       } else {
         _setOpen(openState)
       }
-
-      document.cookie = `${SIDEBAR_COOKIE_NAME}=${openState}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`
     },
     [setOpenProp, open],
   )
@@ -279,7 +274,8 @@ function SidebarTrigger({
   onClick,
   ...props
 }: React.ComponentProps<typeof Button>) {
-  const { toggleSidebar } = useSidebar()
+  const { isMobile, open, openMobile, toggleSidebar } = useSidebar()
+  const isExpanded = isMobile ? openMobile : open
 
   return (
     <Button
@@ -288,6 +284,8 @@ function SidebarTrigger({
       variant="ghost"
       size="icon-sm"
       className={cn(className)}
+      aria-expanded={isExpanded}
+      aria-label={isExpanded ? 'Скрыть навигацию' : 'Открыть навигацию'}
       onClick={(event) => {
         onClick?.(event)
         toggleSidebar()
@@ -295,7 +293,9 @@ function SidebarTrigger({
       {...props}
     >
       <PanelLeftIcon className="cn-rtl-flip" />
-      <span className="sr-only">Toggle Sidebar</span>
+      <span className="sr-only">
+        {isExpanded ? 'Скрыть навигацию' : 'Открыть навигацию'}
+      </span>
     </Button>
   )
 }

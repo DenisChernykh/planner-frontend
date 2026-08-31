@@ -1,16 +1,29 @@
+import { productDateSchema } from '@/shared/lib/date'
+
 const returnToStorageKey = 'planner.return-to.v1'
 const maxReturnToLength = 2048
 const returnToBaseOrigin = 'https://planner.invalid'
 
 const ambiguousPathEncodingPattern = /%(?:25|2e|2f|5c)/iu
+const targetMonthSource =
+  '(?:[1-9]\\d{3}|0[1-9]\\d{2}|00[1-9]\\d|000[1-9])-(?:0[1-9]|1[0-2])'
+const monthDayPathPattern = new RegExp(
+  `^/months/(?<targetMonth>${targetMonthSource})/days/(?<localDate>\\d{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\\d|3[01]))$`,
+  'u',
+)
 
 const protectedRoutePatterns = [
   /^\/$/u,
   /^\/today$/u,
-  /^\/months\/\d{4}-(?:0[1-9]|1[0-2])$/u,
-  /^\/months\/\d{4}-(?:0[1-9]|1[0-2])\/days\/\d{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\d|3[01])$/u,
-  /^\/plans(?:\/.*)?$/u,
-  /^\/statistics\/\d{4}-(?:0[1-9]|1[0-2])$/u,
+  new RegExp(`^/months/${targetMonthSource}$`, 'u'),
+  monthDayPathPattern,
+  /^\/plans$/u,
+  /^\/plans\/new$/u,
+  new RegExp(`^/plans/${targetMonthSource}/(?:edit|preview)$`, 'u'),
+  new RegExp(`^/plans/${targetMonthSource}/goals/new$`, 'u'),
+  /^\/plans\/catalog$/u,
+  /^\/plans\/catalog\/new$/u,
+  new RegExp(`^/statistics/${targetMonthSource}$`, 'u'),
   /^\/settings$/u,
 ]
 
@@ -34,6 +47,19 @@ function isCanonicalPathname(value: string) {
   }
 }
 
+function hasCanonicalMonthDay(value: string) {
+  const match = monthDayPathPattern.exec(value)
+  if (match?.groups === undefined) return true
+
+  const { localDate, targetMonth } = match.groups
+  return (
+    localDate !== undefined &&
+    targetMonth !== undefined &&
+    localDate.startsWith(`${targetMonth}-`) &&
+    productDateSchema.safeParse(localDate).success
+  )
+}
+
 /** Возвращает только разрешённый protected pathname для OIDC return. */
 export function sanitizeReturnTo(value: string | null | undefined) {
   if (
@@ -45,7 +71,8 @@ export function sanitizeReturnTo(value: string | null | undefined) {
     value.startsWith('//') ||
     value.includes('?') ||
     value.includes('#') ||
-    !isCanonicalPathname(value)
+    !isCanonicalPathname(value) ||
+    !hasCanonicalMonthDay(value)
   ) {
     return null
   }

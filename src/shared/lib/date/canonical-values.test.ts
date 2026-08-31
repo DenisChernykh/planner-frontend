@@ -26,6 +26,8 @@ describe('canonical Planner values', () => {
 
   it('rejects normalized, impossible, or lossy representations', () => {
     expect(productMonthSchema.safeParse('2026-8').success).toBe(false)
+    expect(productMonthSchema.safeParse('0000-01').success).toBe(false)
+    expect(productMonthSchema.safeParse('2026-13').success).toBe(false)
     expect(productDateSchema.safeParse('2026-02-29').success).toBe(false)
     expect(localTimeSchema.safeParse('24:00').success).toBe(false)
     expect(revisionStringSchema.safeParse('01').success).toBe(false)

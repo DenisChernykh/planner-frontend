@@ -674,62 +674,6 @@ export const CompleteTelegramOidcLogin401Response = zod.strictObject({
   type: zod.url(),
 })
 
-export const completeTelegramOidcLogin403ResponseStatusMin = 400
-export const completeTelegramOidcLogin403ResponseStatusMax = 599
-
-export const CompleteTelegramOidcLogin403Response = zod.strictObject({
-  code: zod.enum([
-    'ACTIVE_PLAN_MONTH_NOT_FOUND',
-    'AUTHENTICATION_REQUIRED',
-    'AUTHORIZATION_DENIED',
-    'COMMAND_FINGERPRINT_CONFLICT',
-    'CONFLICT',
-    'DEPENDENCY_UNAVAILABLE',
-    'DRAFT_GOAL_NOT_FOUND',
-    'GOAL_DEFINITION_NOT_FOUND',
-    'GOAL_DEFINITION_VERSION_NOT_FOUND',
-    'INTERNAL_ERROR',
-    'MALFORMED_REQUEST',
-    'NOT_FOUND',
-    'OIDC_ACCESS_DENIED',
-    'OIDC_LOGIN_REJECTED',
-    'PAYLOAD_TOO_LARGE',
-    'PLANNING_AUTHORIZATION_DENIED',
-    'PLAN_DRAFT_NOT_EDITABLE',
-    'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_NOT_FOUND',
-    'PLAN_MONTH_RECLOSE_CONFLICT',
-    'PLAN_MONTH_REOPEN_CONFLICT',
-    'PLAN_MONTH_REVISION_CONFLICT',
-    'PLAN_PUBLICATION_NOT_FOUND',
-    'PLAN_SEED_ALREADY_CONSUMED',
-    'RATE_LIMIT_EXCEEDED',
-    'REMINDER_AUTHORIZATION_DENIED',
-    'REPORTING_AUTHORIZATION_DENIED',
-    'REPORTING_NOT_FOUND',
-    'REPORTING_QUERY_INVALID',
-    'REPORTING_SOURCE_CHANGED',
-    'TRACKING_AUTHORIZATION_DENIED',
-    'TRACKING_CLOSE_DAY_TARGET_NOT_FOUND',
-    'TRACKING_FACT_TARGET_NOT_FOUND',
-    'TRACKING_FACT_VALUE_INVALID',
-    'TRACKING_QUERY_INVALID',
-    'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
-    'UNSUPPORTED_MEDIA_TYPE',
-    'WORKSPACE_AUTHORIZATION_DENIED',
-    'WORKSPACE_STATE_CONFLICT',
-  ]),
-  detail: zod.string(),
-  instance: zod.string(),
-  requestId: zod.string(),
-  status: zod
-    .number()
-    .min(completeTelegramOidcLogin403ResponseStatusMin)
-    .max(completeTelegramOidcLogin403ResponseStatusMax),
-  title: zod.string(),
-  type: zod.url(),
-})
-
 export const completeTelegramOidcLogin413ResponseStatusMin = 400
 export const completeTelegramOidcLogin413ResponseStatusMax = 599
 
@@ -813,62 +757,6 @@ export const CompleteTelegramOidcLogin422Response = zod.strictObject({
     .number()
     .min(completeTelegramOidcLogin422ResponseStatusMin)
     .max(completeTelegramOidcLogin422ResponseStatusMax),
-  title: zod.string(),
-  type: zod.url(),
-})
-
-export const completeTelegramOidcLogin503ResponseStatusMin = 400
-export const completeTelegramOidcLogin503ResponseStatusMax = 599
-
-export const CompleteTelegramOidcLogin503Response = zod.strictObject({
-  code: zod.enum([
-    'ACTIVE_PLAN_MONTH_NOT_FOUND',
-    'AUTHENTICATION_REQUIRED',
-    'AUTHORIZATION_DENIED',
-    'COMMAND_FINGERPRINT_CONFLICT',
-    'CONFLICT',
-    'DEPENDENCY_UNAVAILABLE',
-    'DRAFT_GOAL_NOT_FOUND',
-    'GOAL_DEFINITION_NOT_FOUND',
-    'GOAL_DEFINITION_VERSION_NOT_FOUND',
-    'INTERNAL_ERROR',
-    'MALFORMED_REQUEST',
-    'NOT_FOUND',
-    'OIDC_ACCESS_DENIED',
-    'OIDC_LOGIN_REJECTED',
-    'PAYLOAD_TOO_LARGE',
-    'PLANNING_AUTHORIZATION_DENIED',
-    'PLAN_DRAFT_NOT_EDITABLE',
-    'PLAN_DRAFT_NOT_FOUND',
-    'PLAN_MONTH_NOT_FOUND',
-    'PLAN_MONTH_RECLOSE_CONFLICT',
-    'PLAN_MONTH_REOPEN_CONFLICT',
-    'PLAN_MONTH_REVISION_CONFLICT',
-    'PLAN_PUBLICATION_NOT_FOUND',
-    'PLAN_SEED_ALREADY_CONSUMED',
-    'RATE_LIMIT_EXCEEDED',
-    'REMINDER_AUTHORIZATION_DENIED',
-    'REPORTING_AUTHORIZATION_DENIED',
-    'REPORTING_NOT_FOUND',
-    'REPORTING_QUERY_INVALID',
-    'REPORTING_SOURCE_CHANGED',
-    'TRACKING_AUTHORIZATION_DENIED',
-    'TRACKING_CLOSE_DAY_TARGET_NOT_FOUND',
-    'TRACKING_FACT_TARGET_NOT_FOUND',
-    'TRACKING_FACT_VALUE_INVALID',
-    'TRACKING_QUERY_INVALID',
-    'TRACKING_WEEKLY_TASK_TARGET_NOT_FOUND',
-    'UNSUPPORTED_MEDIA_TYPE',
-    'WORKSPACE_AUTHORIZATION_DENIED',
-    'WORKSPACE_STATE_CONFLICT',
-  ]),
-  detail: zod.string(),
-  instance: zod.string(),
-  requestId: zod.string(),
-  status: zod
-    .number()
-    .min(completeTelegramOidcLogin503ResponseStatusMin)
-    .max(completeTelegramOidcLogin503ResponseStatusMax),
   title: zod.string(),
   type: zod.url(),
 })

@@ -39,6 +39,18 @@ export {
 } from './field'
 export { Input } from './input'
 export {
+  Menu,
+  MenuGroup,
+  MenuGroupLabel,
+  MenuItem,
+  MenuLinkItem,
+  MenuPopup,
+  MenuPortal,
+  MenuPositioner,
+  MenuSeparator,
+  MenuTrigger,
+} from './menu'
+export {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,

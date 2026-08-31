@@ -5,7 +5,8 @@ import { z } from 'zod'
 
 export const PRODUCT_TIME_ZONE = 'Asia/Yekaterinburg'
 
-const monthPattern = /^(?<year>\d{4})-(?<month>0[1-9]|1[0-2])$/u
+const monthPattern =
+  /^(?<year>(?:[1-9]\d{3}|0[1-9]\d{2}|00[1-9]\d|000[1-9]))-(?<month>0[1-9]|1[0-2])$/u
 const datePattern =
   /^(?<year>\d{4})-(?<month>0[1-9]|1[0-2])-(?<day>0[1-9]|[12]\d|3[01])$/u
 const timePattern = /^(?:[01]\d|2[0-3]):[0-5]\d$/u
