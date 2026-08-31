@@ -2,8 +2,8 @@
 
 - **Версия:** 1.1
 - **Дата:** 24 августа 2026 года
-- **Статус:** `M1` foundation находится в review; frontend OpenAPI consumer
-  закреплён на published backend handoff `F10`
+- **Статус:** `M1` foundation и `M2` Auth/AppShell завершены локально; frontend
+  OpenAPI consumer закреплён на published backend handoff `F10`
 
 ## 1. Назначение и граница
 
@@ -54,17 +54,25 @@ Frontend не пересчитывает эти правила, не вывод�
 
 ### 2.1. Проверенный baseline
 
-| Репозиторий                 | Проверенное состояние                                                                                | Роль                                                     |
-| --------------------------- | ---------------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
-| `planner-frontend`          | branch `feat/m1-frontend-foundation`; commits `48c4de5`, `e31b927` плюс текущие review fixes       | M1 implementation в review и owning consumer pipeline   |
-| `react-starter`             | clean `stage=origin/stage=258b4e0a21022fc0894701e52885fd39b40469ee`                                  | Read-only foundation source                              |
-| `planner-backend` published | `origin/main=e5f9667a12e3a8274eff261b7a016f3816bd93fb`                                               | Published `F01…F09` и canonical OpenAPI для F10 handoff |
+| Репозиторий                 | Проверенное состояние                                                                                                                | Роль                                                     |
+| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------- |
+| `planner-frontend`          | `origin/main=59e8c08` содержит M1 до `23dab01`; `origin/feat/m1-frontend-foundation=2a287ea` содержит corrected pin и review fix      | M1 local complete; correction ещё не merged в `main`     |
+| `react-starter`             | clean `stage=origin/stage=258b4e0a21022fc0894701e52885fd39b40469ee`                                                                  | Read-only foundation source                              |
+| `planner-backend` published | `origin/main=ef76210ad66d442704417addfcf54e7f68cab65d`                                                                               | Published `F01…F09` и canonical OpenAPI для F10 handoff |
 
 `openapi/source.json` закрепляет backend revision
-`e5f9667a12e3a8274eff261b7a016f3816bd93fb` и exact SHA-256
-`55ace461a3282c4bbf4a8d3df7c242176ec930cb147c566fb7dbd094b3b60d79`.
+`ef76210ad66d442704417addfcf54e7f68cab65d` и exact SHA-256
+`ed80c89d36296750da11f68f4597a732a8e4e08f82f2e81a6ba8369dd2a9a625`.
 Default `api:sync` получил artifact по immutable GitHub raw URL; локальный
 sibling checkout не является альтернативным источником pin.
+
+Локальная приёмка 30 августа 2026 года выполнена на Node `24.18.0` и pnpm
+`11.15.1`: byte-for-byte sync не дал diff, `pnpm check` прошёл с 24 test files /
+208 tests и production build, Vite вернул HTTP 200. После удаления sidebar
+cookie второй независимый review не нашёл замечаний. Эти результаты не
+приписываются corrected remote CI или hosted runtime: correction опубликован в
+feature-ветке, но ещё не прошёл новый PR/CI и не merged в `main`; acceptance
+commit остаётся локальным.
 
 ### 2.2. Уровни доказательств
 
@@ -114,6 +122,28 @@ sibling checkout не является альтернативным источн
 создаётся, unrelated histories не сливаются. Будущий перенос улучшений starter
 выполняется отдельным осознанным diff с новым exact source SHA.
 
+#### 3.1.1. Reuse-first для продуктовых milestones
+
+Для `M2…M9` перед созданием generic-механизма проверяется совместимый механизм
+в exact baseline `react-starter`. Совместимая композиция и её поведенческие
+границы переносятся осознанным diff, после чего адаптируются к pinned Planner
+contracts. Product semantics, routes, permissions и labels из starter не
+считаются переиспользуемым контрактом. Если совместимого механизма нет,
+реализация создаётся в Planner и это исключение фиксируется в PR.
+
+Для `M2` provenance и Planner-owned адаптация выглядят так:
+
+| Область                | Reused foundation из `react-starter@258b4e0`                                 | Planner-owned адаптация                                                                                                                   |
+| ---------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| Session и router       | loaders, protected/public route shape, Query cache и `AbortSignal` boundaries | serialized fresh auth decision, principal replacement, fail-closed transition, ordered workspace/tracking/root gates                    |
+| Login/logout/`returnTo` | redirect, logout и cache-clear patterns                                       | Telegram document OIDC и finite result, strict pathname allowlist, exact `401/403`, single-flight и privacy behavior                     |
+| AppShell и navigation  | `SidebarProvider`, Sidebar/Sheet, mobile-close и account-footer composition   | четыре Planner destinations, backend display labels/timezone, route-family active semantics, focus и offline/reconnect presentation      |
+
+Эта стратегия не создаёт runtime dependency или автоматический sync со starter
+HEAD. Каждое новое заимствование требует нового exact source SHA и reviewed
+diff. Pinned Planner contracts и Planner tests остаются authoritative, поэтому
+provenance не является acceptance evidence сам по себе.
+
 ### 3.2. Стек
 
 Manifest specifiers и lockfile переносятся из exact
@@ -157,8 +187,11 @@ flowchart LR
     U -->|"document navigation<br/>/auth/telegram/start"| BE
     BE -->|"OIDC redirect"| TG
     TG -->|"/auth/telegram/callback"| BE
-    BE -->|"303 / или<br/>/auth/telegram/result"| U
+    BE -->|"recognized terminal callback<br/>303 /auth/telegram/result"| U
 ```
+
+Ошибки до распознавания и binding callback-запроса остаются прямыми Problem
+Details responses и не являются terminal OIDC outcome.
 
 ### 4.1. Runtime path
 
@@ -850,16 +883,16 @@ published pinned artifact и соответствующие surfaces прошл�
 
 | Gate                     | Frontend use                                   | Текущее наблюдение                                    |
 | ------------------------ | ---------------------------------------------- | ----------------------------------------------------- |
-| F01 workspace context    | AppShell labels, owner choice, report sections | Published в pinned backend `e5f9667`                  |
-| F02 month discovery      | Plans/month/statistics navigation              | Published в pinned backend `e5f9667`                  |
-| F03 empty draft          | W-08                                           | Published в pinned backend `e5f9667`                  |
-| F04 publication copy     | W-08/next month                                | Published в pinned backend `e5f9667`                  |
-| F05 focus update         | W-09                                           | Published в pinned backend `e5f9667`                  |
-| F06 cancel/republish     | W-07/W-11                                      | Published в pinned backend `e5f9667`                  |
-| F07 fact/month histories | W-06/W-07/W-13/W-15                            | Published в pinned backend `e5f9667`                  |
-| F08 OIDC result redirect | W-01                                           | Published в pinned backend `e5f9667`                  |
-| F09 bot navigation       | W-01/W-14                                      | Published в pinned backend `e5f9667`                  |
-| F10 pinned handoff       | Reproducible consumer contract                 | Pinned frontend commit `e31b927`; CI/review pending   |
+| F01 workspace context    | AppShell labels, owner choice, report sections | Published в pinned backend `ef76210`                  |
+| F02 month discovery      | Plans/month/statistics navigation              | Published в pinned backend `ef76210`                  |
+| F03 empty draft          | W-08                                           | Published в pinned backend `ef76210`                  |
+| F04 publication copy     | W-08/next month                                | Published в pinned backend `ef76210`                  |
+| F05 focus update         | W-09                                           | Published в pinned backend `ef76210`                  |
+| F06 cancel/republish     | W-07/W-11                                      | Published в pinned backend `ef76210`                  |
+| F07 fact/month histories | W-06/W-07/W-13/W-15                            | Published в pinned backend `ef76210`                  |
+| F08 OIDC result redirect | W-01                                           | Published в pinned backend `ef76210`                  |
+| F09 bot navigation       | W-01/W-14                                      | Published в pinned backend `ef76210`                  |
+| F10 pinned handoff       | Reproducible consumer contract                 | Local gate/review passed; remote CI is separate evidence |
 
 Foundation и независимые UI primitives могут разрабатываться раньше F10, но
 никакая GAP-dependent feature не получает статус ready на основе локального

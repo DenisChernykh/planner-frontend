@@ -3,6 +3,6 @@
  * Do not edit manually.
  */
 export const OPENAPI_CONTRACT_SOURCE = {
-  revision: 'e5f9667a12e3a8274eff261b7a016f3816bd93fb',
-  sha256: '55ace461a3282c4bbf4a8d3df7c242176ec930cb147c566fb7dbd094b3b60d79',
+  revision: 'ef76210ad66d442704417addfcf54e7f68cab65d',
+  sha256: 'ed80c89d36296750da11f68f4597a732a8e4e08f82f2e81a6ba8369dd2a9a625',
 } as const

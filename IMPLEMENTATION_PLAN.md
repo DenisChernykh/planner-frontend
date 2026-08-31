@@ -2,8 +2,9 @@
 
 **Версия:** 1.1
 **Дата:** 24 августа 2026 года
-**Статус:** `G0` принят; `M1` foundation находится в review; published backend
-handoff `F10` закреплён consumer manifest/generated output
+**Статус:** `G0` принят; `M1` foundation и `M2` Auth/AppShell завершены
+локально; published backend handoff `F10` закреплён consumer
+manifest/generated output
 **Гранулярность:** девять крупных задач `M1…M9`
 
 ## 1. Назначение и источники
@@ -60,6 +61,12 @@ resolved версии перепроверяются; dirty backend artifact н�
 7. Mobile и desktop имеют одинаковые data, actions, permissions и recovery.
 8. `pnpm check`, local browser, hosted smoke и фактический месячный пилот —
    четыре разных уровня доказательств.
+9. Для `M2…M9` действует `reuse-first`: перед реализацией generic-механизма
+   сверить его с exact `react-starter` baseline из технического дизайна;
+   совместимый механизм перенести осознанным diff и адаптировать к pinned
+   Planner contracts, новый создавать только при отсутствии совместимого
+   варианта. В PR фиксируются source SHA, reused/adapted scope и исключения, а
+   acceptance заново доказывается в Planner.
 
 ## 4. Подготовительные gates вне frontend milestones
 
@@ -91,8 +98,9 @@ resolved версии перепроверяются; dirty backend artifact н�
 
 ### B0 — Вести backend contract runway параллельно frontend
 
-**Статус:** `IN REVIEW`; published backend `e5f9667` закреплён frontend commit
-`e31b927`, remote CI и итоговый review остаются отдельными evidence.
+**Статус:** `LOCAL COMPLETE`; published backend `ef76210` закреплён текущим
+frontend F10 repin, local source gate и independent cross-repository review
+пройдены. Frontend push/remote CI и hosted runtime остаются separate evidence.
 
 `B0` исполняется в `planner-backend` по существующим cards `F01…F10` и не
 считается frontend milestone.
@@ -137,9 +145,13 @@ M9 RC ─→ D0 hosted delivery plan ─→ P0 month pilot evaluation
 
 ### M1 — Перенести frontend foundation и transport platform
 
-**Статус:** `IN REVIEW`; foundation commit `48c4de5`, contract pin `e31b927`;
-review fixes входят в текущую ветку, remote CI и hosted runtime являются
-отдельным evidence.
+**Статус:** `LOCAL COMPLETE` 30 августа 2026 года; foundation и первые review
+fixes merged в `origin/main@59e8c08`, corrective F10 repin `5e30072` и финальный
+review fix опубликованы в `origin/feat/m1-frontend-foundation@2a287ea`, но ещё
+не merged в `main`. Exact local checkout прошёл byte-for-byte `api:sync`,
+`pnpm check` (24 test files / 208 tests), production build и Vite HTTP smoke;
+второй независимый review не нашёл замечаний. Acceptance commit, corrected
+remote CI и hosted runtime являются отдельным evidence.
 **Зависимости:** `react-starter@258b4e0`, staged contract policy из `G0/B0`.
 
 **В scope:**
@@ -179,6 +191,16 @@ review fixes входят в текущую ветку, remote CI и hosted runt
 - в коде нет password/admin/approval product modules из starter.
 
 ### M2 — Реализовать Telegram auth, session, workspace и AppShell
+
+**Статус:** `LOCAL COMPLETE` 30 августа 2026 года. Session/cache/CSRF,
+protected router boundaries, Sidebar/Sheet и AppShell опираются на exact
+read-only `react-starter@258b4e0`; в Planner адаптированы Telegram OIDC,
+published DTO/invariants, route table, root resolver, reconnect и privacy
+границы. Exact local checkout прошёл `pnpm check`, три независимых code review
+и mock-backed Playwright smoke на desktop/mobile viewport: login/finite result,
+sanitized deep link, AppShell/focus, offline/reconnect и logout. Реальные
+Chrome/macOS и Safari/iPhone manual evidence, hosted backend/OIDC smoke,
+frontend push/remote CI/PR/deployment остаются отдельными доказательствами.
 
 **Трассировка:** `UF-01`, `W-01`, account-часть `W-14`, `FE-AC-01…03`.
 **Зависимости:** `M1`; published pins `F01` и `F08`; `F09` для bot link.
