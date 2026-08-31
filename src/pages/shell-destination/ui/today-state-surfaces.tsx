@@ -179,8 +179,12 @@ export function EmptyTodayState({
 
 export function PublishedTodayContent({
   data,
+  isOnline,
+  refetch,
 }: Readonly<{
   data: Extract<TrackingTodayPresentation, { state: 'published' }>
+  isOnline: boolean
+  refetch: () => Promise<unknown>
 }>) {
   const coverage = `${data.day.coverage.filled} / ${data.day.coverage.applicable}`
 
@@ -242,7 +246,13 @@ export function PublishedTodayContent({
         ) : (
           <div className="mt-4 grid gap-4 lg:grid-cols-2">
             {data.goals.map((goal) => (
-              <TodayGoalCard key={goal.planGoalSnapshotId} goal={goal} />
+              <TodayGoalCard
+                goal={goal}
+                isOnline={isOnline}
+                key={goal.planGoalSnapshotId}
+                refetch={refetch}
+                today={data}
+              />
             ))}
           </div>
         )}

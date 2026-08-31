@@ -36,7 +36,13 @@ export function TodayPage() {
         />
         <EmptyTodayState data={tracking.data} />
         {tracking.data.state === 'published' && (
-          <PublishedTodayContent data={tracking.data} />
+          <PublishedTodayContent
+            data={tracking.data}
+            isOnline={isOnline}
+            refetch={async () => {
+              await tracking.refetch({ throwOnError: true })
+            }}
+          />
         )}
         <p className="mt-8 text-xs text-muted-foreground">
           Все даты и локальные времена показываются в {PRODUCT_TIME_ZONE}.
