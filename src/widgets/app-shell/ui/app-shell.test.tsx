@@ -14,6 +14,7 @@ const state = vi.hoisted(() => ({
   logout: vi.fn(),
   logoutShouldFail: false,
   refetch: vi.fn(),
+  trackingError: false,
   today: {
     lifecycleMode: 'ordinary',
     monthStatus: 'published',
@@ -57,7 +58,7 @@ vi.mock('@/entities/tracking', async (importOriginal) => {
     ...actual,
     useTrackingToday: () => ({
       data: state.today,
-      isError: false,
+      isError: state.trackingError,
       isFetching: false,
       isPending: false,
       refetch: state.refetch,
@@ -103,6 +104,7 @@ describe('Planner AppShell', () => {
     state.logout.mockReset()
     state.logoutShouldFail = false
     state.refetch.mockReset()
+    state.trackingError = false
   })
 
   it('renders four destinations, backend labels and exactly one main', () => {
@@ -260,5 +262,36 @@ describe('Planner AppShell', () => {
       'Вы офлайн. Доступен только уже загруженный просмотр',
     )
     expect(state.refetch).not.toHaveBeenCalled()
+  })
+
+  it('keeps the offline brand link inside the cached protected shell', async () => {
+    state.isOnline = false
+    const user = userEvent.setup()
+    renderShell('/settings')
+
+    const brandLink = screen.getByRole('link', {
+      name: 'Planner — на главную',
+    })
+    expect(brandLink).toHaveAttribute('href', '/today')
+
+    await user.click(brandLink)
+
+    expect(await screen.findByText('Today content')).toBeVisible()
+  })
+
+  it('does not derive navigation from stale tracking data after an error', () => {
+    state.trackingError = true
+    renderShell('/settings')
+
+    expect(screen.getByText('Проверяем контекст месяца')).toBeVisible()
+    const navigation = screen.getByRole('navigation', {
+      name: 'Основная навигация',
+    })
+    expect(
+      within(navigation).queryByRole('link', { name: 'Месяц' }),
+    ).not.toBeInTheDocument()
+    expect(
+      within(navigation).getByRole('button', { name: 'Месяц' }),
+    ).toHaveAttribute('data-trigger-disabled', '')
   })
 })

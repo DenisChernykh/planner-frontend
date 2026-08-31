@@ -46,7 +46,26 @@ export function TelegramLoginLink({
           return
         }
         storeReturnTo(sessionStorage, returnTo ?? rootPath)
-        setIsLeaving(true)
+
+        const isPrimaryClick = event.button === 0
+        const isModifiedClick =
+          event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        const isSameTabNavigation =
+          event.currentTarget.target === '' ||
+          event.currentTarget.target === '_self'
+
+        // Modified/non-primary clicks are allowed to use the browser's native
+        // link behavior. Only the unmodified primary same-tab navigation
+        // leaves this page, so an auxiliary click cannot strand the control in
+        // a permanent loading state.
+        if (
+          isPrimaryClick &&
+          !isModifiedClick &&
+          isSameTabNavigation &&
+          !event.defaultPrevented
+        ) {
+          setIsLeaving(true)
+        }
       }}
     >
       <span className={cn('contents', isLeaving && 'invisible')}>

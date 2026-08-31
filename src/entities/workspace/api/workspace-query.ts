@@ -22,7 +22,10 @@ const workspacePresentationQueryOptions = queryOptions({
   queryFn: ({ signal }) => fetchCurrentWorkspace(signal),
   refetchOnMount: false,
   refetchOnReconnect: false,
-  refetchOnWindowFocus: true,
+  // Browser focus is refreshed through the protected session boundary. A
+  // direct observer refetch could read the old principal before auth order is
+  // re-established.
+  refetchOnWindowFocus: false,
   select: selectWorkspacePresentation,
 })
 
