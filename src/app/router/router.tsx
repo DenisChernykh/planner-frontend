@@ -4,7 +4,10 @@ import { createBrowserRouter, type RouteObject } from 'react-router'
 import { queryClient } from '@/app/config/query-client'
 import { clearCurrentSession, loadCurrentSession } from '@/entities/session'
 import { loadTrackingToday } from '@/entities/tracking'
-import { loadCurrentWorkspace } from '@/entities/workspace'
+import {
+  currentWorkspaceQueryKey,
+  loadCurrentWorkspace,
+} from '@/entities/workspace'
 import { HomeResolverPage } from '@/pages/home-resolver'
 import { LoginPage } from '@/pages/login'
 import { NotFoundPage } from '@/pages/not-found'
@@ -25,6 +28,7 @@ import {
   loginPath,
   rootPath,
   telegramResultPath,
+  todayPath,
 } from '@/shared/routes'
 
 import { ProtectedLayout } from './protected-layout'
@@ -56,8 +60,17 @@ export function createAppRoutes(appQueryClient: QueryClient): RouteObject[] {
     confirmAccess: markFreshProtectedSessionDecision,
     load: async (signal, request) => {
       const session = await load(signal)
-      if (new URL(request.url).pathname === rootPath) {
+      const pathname = new URL(request.url).pathname
+      if (pathname === rootPath) {
         await loadCurrentWorkspace(appQueryClient, signal)
+        await loadTrackingToday(appQueryClient, signal)
+      } else if (
+        pathname === todayPath &&
+        appQueryClient.getQueryData(currentWorkspaceQueryKey) !== undefined
+      ) {
+        // Direct /today loads let WorkspaceGate establish access first. On
+        // an in-app navigation the workspace is already confirmed, so the
+        // route can refresh Today before its content is rendered.
         await loadTrackingToday(appQueryClient, signal)
       }
       return session
@@ -82,8 +95,22 @@ export function createAppRoutes(appQueryClient: QueryClient): RouteObject[] {
     {
       path: rootPath,
       loader: protectedSessionLoader,
-      shouldRevalidate: ({ defaultShouldRevalidate, nextUrl }) =>
-        nextUrl.pathname === rootPath || defaultShouldRevalidate,
+      shouldRevalidate: ({ currentUrl, defaultShouldRevalidate, nextUrl }) => {
+        // HomeResolver has already loaded Today as part of the root's
+        // session → workspace → tracking sequence. Avoid a duplicate read
+        // when that resolver replaces / with /today.
+        if (
+          currentUrl.pathname === rootPath &&
+          nextUrl.pathname === todayPath
+        ) {
+          return false
+        }
+        return (
+          nextUrl.pathname === rootPath ||
+          nextUrl.pathname === todayPath ||
+          defaultShouldRevalidate
+        )
+      },
       element: <ProtectedLayout />,
       errorElement: <RouteError />,
       hydrateFallbackElement: <InitialRouteLoading />,

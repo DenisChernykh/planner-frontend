@@ -6,6 +6,7 @@ import {
 } from '@/shared/api'
 
 import { selectTrackingNavigation } from '../model/tracking-navigation'
+import { selectTrackingTodayPresentation } from '../model/tracking-today-presentation'
 
 export const trackingTodayQueryKey = getTrackingQueryControllerTodayQueryKey()
 
@@ -14,7 +15,7 @@ async function fetchTrackingToday(signal: AbortSignal) {
   const today = await trackingQueryControllerToday(undefined, signal)
   signal.throwIfAborted()
   selectTrackingNavigation(today)
-  return today
+  return selectTrackingTodayPresentation(today)
 }
 
 const trackingTodayQueryOptions = queryOptions({
