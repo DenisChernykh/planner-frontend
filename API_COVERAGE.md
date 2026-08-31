@@ -73,9 +73,9 @@ typed-fact operations; boolean и quantity используют общий `/tra
 
 Local fixtures в
 `src/shared/lib/testing/tracking-fixtures.ts` используют generated DTO types,
-public generated response schemas и `OPENAPI_CONTRACT_SOURCE`; mixed Today и
-representative success/validation/network-recovery responses проходят schema
-validation в тестах. Это source/MSW evidence только для frontend mapping,
+request schemas где требуется и `OPENAPI_CONTRACT_SOURCE`; mixed Today и
+representative success/validation/network-recovery payloads не проходят
+отдельный runtime parse успешного response. Это source/MSW evidence только для frontend mapping,
 presentation и recovery. CI, push, PR, hosted backend/runtime и production
 authorization/atomicity этим разделом не заявляются.
 

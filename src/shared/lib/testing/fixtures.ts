@@ -1,8 +1,4 @@
-import {
-  HealthLive200Response,
-  OPENAPI_CONTRACT_SOURCE,
-  type HealthLive200,
-} from '@/shared/api'
+import { OPENAPI_CONTRACT_SOURCE, type HealthLive200 } from '@/shared/api'
 
 const healthLiveResponse = {
   status: 'ok',
@@ -11,5 +7,5 @@ const healthLiveResponse = {
 /** Minimal MSW fixture tied to the exact pinned backend artifact. */
 export const healthLiveFixture = Object.freeze({
   contract: OPENAPI_CONTRACT_SOURCE,
-  response: HealthLive200Response.parse(healthLiveResponse),
+  response: healthLiveResponse,
 })

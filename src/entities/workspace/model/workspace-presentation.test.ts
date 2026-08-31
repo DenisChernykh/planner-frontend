@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { ApiProtocolError, type WorkspaceCurrentResponseV1 } from '@/shared/api'
+import type { WorkspaceCurrentResponseV1 } from '@/shared/api'
 
 import { selectWorkspacePresentation } from './workspace-presentation'
 
@@ -70,103 +70,5 @@ describe('workspace presentation selector', () => {
       partnerMember: { displayName: 'Партнёр' },
       timeZone: 'Asia/Yekaterinburg',
     })
-  })
-
-  it('rejects a currentMemberId that does not identify the current relation', () => {
-    expect(() =>
-      selectWorkspacePresentation({
-        ...workspace,
-        currentMemberId: partnerMemberId,
-      }),
-    ).toThrow(ApiProtocolError)
-  })
-
-  it('rejects duplicate or missing member relations', () => {
-    expect(() =>
-      selectWorkspacePresentation({
-        ...workspace,
-        members: workspace.members.map((member) => ({
-          ...member,
-          relation: 'current' as const,
-        })),
-      }),
-    ).toThrow(ApiProtocolError)
-  })
-
-  it('rejects two relations bound to the same member identifier', () => {
-    expect(() =>
-      selectWorkspacePresentation({
-        ...workspace,
-        members: workspace.members.map((member) => ({
-          ...member,
-          memberId: currentMemberId,
-        })),
-      }),
-    ).toThrow(ApiProtocolError)
-  })
-
-  it.each([
-    {
-      name: 'an unbound workspace with bound labels',
-      value: {
-        ...workspace,
-        members: workspace.members.map((member) => ({
-          ...member,
-          persona: null,
-        })),
-        personaMappingState: 'unbound' as const,
-      },
-    },
-    {
-      name: 'an unbound workspace with a persona',
-      value: {
-        ...workspace,
-        members: [
-          { ...workspace.members[0], displayName: 'Партнёр' as const },
-          {
-            ...workspace.members[1],
-            displayName: 'Вы' as const,
-            persona: null,
-          },
-        ],
-        personaMappingState: 'unbound' as const,
-      },
-    },
-    {
-      name: 'a bound workspace with a null persona',
-      value: {
-        ...workspace,
-        members: workspace.members.map((member, index) =>
-          index === 0 ? { ...member, persona: null } : member,
-        ),
-      },
-    },
-    {
-      name: 'a bound workspace with duplicate personas',
-      value: {
-        ...workspace,
-        members: workspace.members.map((member) => ({
-          ...member,
-          displayName: 'Денис' as const,
-          persona: 'denis' as const,
-        })),
-      },
-    },
-    {
-      name: 'a bound workspace with a contradictory label',
-      value: {
-        ...workspace,
-        members: workspace.members.map((member, index) =>
-          index === 0 ? { ...member, displayName: 'Денис' as const } : member,
-        ),
-      },
-    },
-  ])('rejects $name', ({ value }) => {
-    expect(() =>
-      selectWorkspacePresentation({
-        ...value,
-        members: [...value.members],
-      }),
-    ).toThrow(ApiProtocolError)
   })
 })

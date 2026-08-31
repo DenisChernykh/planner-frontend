@@ -55,7 +55,7 @@ describe('workspace presentation query', () => {
     vi.mocked(workspaceControllerCurrent).mockReset()
   })
 
-  it('validates before cache and exposes only the UI-safe projection', async () => {
+  it('exposes only the UI-safe projection', async () => {
     const { queryClient, wrapper } = setup()
     vi.mocked(workspaceControllerCurrent).mockResolvedValue(workspace)
 
@@ -77,39 +77,7 @@ describe('workspace presentation query', () => {
     )
   })
 
-  it('does not cache a response with contradictory member relations', async () => {
-    const { queryClient, wrapper } = setup()
-    vi.mocked(workspaceControllerCurrent).mockResolvedValue({
-      ...workspace,
-      members: workspace.members.map((member) => ({
-        ...member,
-        relation: 'current' as const,
-      })),
-    })
-
-    const { result } = renderHook(() => useWorkspacePresentation(), { wrapper })
-    await waitFor(() => expect(result.current.isError).toBe(true))
-
-    expect(queryClient.getQueryData(currentWorkspaceQueryKey)).toBeUndefined()
-  })
-
-  it('does not cache a response with a contradictory persona mapping', async () => {
-    const { queryClient, wrapper } = setup()
-    vi.mocked(workspaceControllerCurrent).mockResolvedValue({
-      ...workspace,
-      members: workspace.members.map((member) => ({
-        ...member,
-        persona: null,
-      })),
-    })
-
-    const { result } = renderHook(() => useWorkspacePresentation(), { wrapper })
-    await waitFor(() => expect(result.current.isError).toBe(true))
-
-    expect(queryClient.getQueryData(currentWorkspaceQueryKey)).toBeUndefined()
-  })
-
-  it('does not cache a validated workspace after the caller aborts', async () => {
+  it('does not cache a workspace after the caller aborts', async () => {
     const queryClient = new QueryClient()
     const controller = new AbortController()
     let resolveWorkspace!: (value: WorkspaceCurrentResponseV1) => void

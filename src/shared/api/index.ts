@@ -57,31 +57,21 @@ export type {
 } from './generated/model'
 export {
   CompositeFactControllerRecordChecklistItem422Response,
-  CompositeFactControllerRecordChecklistItem201Response,
   CompositeFactControllerRecordCompositeOccurrence422Response,
-  CompositeFactControllerRecordCompositeOccurrence201Response,
   CompositeFactControllerRecordOrVariant422Response,
-  CompositeFactControllerRecordOrVariant201Response,
   CompositeFactControllerRecordText422Response,
-  CompositeFactControllerRecordText201Response,
   CompositeFactControllerRecordChecklistItemBody,
   CompositeFactControllerRecordCompositeOccurrenceBody,
   CompositeFactControllerRecordOrVariantBody,
   CompositeFactControllerRecordTextBody,
   ScalarFactControllerRecordCheckpoint422Response,
-  ScalarFactControllerRecordCheckpoint201Response,
   ScalarFactControllerRecordFact422Response,
-  ScalarFactControllerRecordFact201Response,
   ScalarFactControllerRecordRating422Response,
-  ScalarFactControllerRecordRating201Response,
   ScalarFactControllerRecordTime422Response,
-  ScalarFactControllerRecordTime201Response,
   ScalarFactControllerRecordCheckpointBody,
   ScalarFactControllerRecordFactBody,
   ScalarFactControllerRecordRatingBody,
   ScalarFactControllerRecordTimeBody,
 } from './generated-zod/tracking/tracking.zod'
-export { TrackingQueryControllerToday200Response } from './generated-zod/tracking/tracking.zod'
-export { HealthLive200Response } from './generated-zod/health/health.zod'
 export type { HealthLive200 } from './generated/model/healthLive200'
 export { OPENAPI_CONTRACT_SOURCE } from './generated-zod/contract-source'

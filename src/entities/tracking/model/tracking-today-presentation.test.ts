@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { ApiProtocolError, type TrackingTodayResponseV1 } from '@/shared/api'
+import type { TrackingTodayResponseV1 } from '@/shared/api'
 
 import { selectTrackingTodayPresentation } from './tracking-today-presentation'
 
@@ -163,13 +163,21 @@ describe('Today presentation selector', () => {
     expect(result.factsRevision).toBe('12')
   })
 
-  it('fails closed when the published and day goal identities drift', () => {
+  it('omits month goals without a matching day entry', () => {
     const today = publishedToday()
     if (today.state !== 'published') return
 
-    today.day.goals = []
-    expect(() => selectTrackingTodayPresentation(today)).toThrow(
-      ApiProtocolError,
+    today.goals.push({
+      ...today.goals[0]!,
+      displayOrder: 3,
+      planGoalSnapshotId: 'goal-without-day-entry',
+      title: 'Not scheduled today',
+    })
+
+    const result = selectTrackingTodayPresentation(today)
+
+    expect(result.goals.map((goal) => goal.title)).not.toContain(
+      'Not scheduled today',
     )
   })
 })

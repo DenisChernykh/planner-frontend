@@ -51,9 +51,10 @@ resolved версии перепроверяются; dirty backend artifact н�
    application command без controller/OpenAPI или unpublished sibling checkout.
 3. Foundation можно реализовывать до финального `F10`; конкретная feature может
    интегрироваться сразу после публикации и pin нужной операции.
-4. Успешный response перед записью в Query cache проходит operation-specific
-   generated Zod validation. TypeScript type и Orval generation сами по себе не
-   являются runtime validation.
+4. Успешный response перед записью в Query cache доверяется generated
+   TypeScript return type и возвращается как `response.data`; frontend не
+   выполняет runtime validation успешного payload. Контракт обеспечивают
+   pinned OpenAPI и backend contract/CI; error handling сохраняется.
 5. Decimal, revision, bigint, date и time сохраняются lossless strings на
    transport/model boundary.
 6. Mutation не имеет optimistic domain success. Unknown outcome повторяет exact
@@ -82,8 +83,8 @@ resolved версии перепроверяются; dirty backend artifact н�
   установленные версии определяются перенесённым lockfile без bootstrap-update;
 - OpenAPI checksum считается по exact published backend bytes; snapshot
   копируется byte-for-byte без нормализации trailing newline;
-- каждый успешный response проходит operation-specific generated Zod validation
-  до записи в Query cache;
+- успешные responses доверяются generated TypeScript return types; runtime
+  schema parsing успешных payloads на frontend не выполняется;
 - любой terminal OIDC callback failure завершается safe frontend result route;
   finite result enum генерируется из published `F08`, raw Problem не является
   конечным browser UX;
@@ -169,11 +170,12 @@ remote CI и hosted runtime являются отдельным evidence.
   принадлежат backend, `/auth/telegram/result` всегда принадлежит SPA;
 - реализовать OpenAPI pin/sync/generate/check, Orval TypeScript + Zod output и
   curated API exports;
-- добавить runtime parse успешных responses и безопасный Problem Details parser;
+- добавить безопасный Problem Details parser и нормализацию network/abort;
 - реализовать command-intent, lossless date/time/decimal/revision helpers;
 - перенести MSW/testing foundation, `useZodForm` и минимальные shared UI
   primitives;
-- привязать fixtures к exact OpenAPI revision и generated schemas;
+- привязать fixtures к exact OpenAPI revision и generated DTO types; request/body
+  и error schemas использовать только там, где это нужно их boundary;
 - создать semantic tokens, typography и responsive layout primitives без
   копирования starter product styling.
 
@@ -185,7 +187,8 @@ remote CI и hosted runtime являются отдельным evidence.
   запускает тот же gate на GitHub;
 - generated drift, включая untracked output, обнаруживается автоматически;
 - transport tests покрывают session cookie, CSRF, Problem/protocol/network,
-  success-schema failure, abort, duplicate submit, stale и unknown outcome;
+  typed success/cache behavior, abort, duplicate submit, stale и unknown
+  outcome;
 - pending/unknown navigation и full reload не приводят к позднему auto-send:
   после reload выполняется authoritative refetch;
 - в коде нет password/admin/approval product modules из starter.
@@ -241,7 +244,7 @@ callback, AppShell и deep links на mobile/desktop; дефекты оболо�
 fixtures реализованы на pinned backend
 `ef76210ad66d442704417addfcf54e7f68cab65d` с SHA-256
 `ed80c89d36296750da11f68f4597a732a8e4e08f82f2e81a6ba8369dd2a9a625`.
-Локальные targeted и полный `pnpm test` (53 test files / 435 tests), formatter,
+Локальные targeted и полный `pnpm test` (53 test files / 414 tests), formatter,
 lint, Steiger, TypeScript и Vite build gates пройдены; полный локальный
 `pnpm check` (api drift, format, lint, Steiger, tests и build) PASS. CI, push,
 PR, merge и deployment этим статусом не заявляются.
@@ -256,7 +259,8 @@ PR, merge и deployment этим статусом не заявляются.
   state на заранее опубликованном backend fixture;
 - все create families: boolean/quantity/time/rating/checkpoint/text/checklist/
   OR/composite;
-- exact generated DTO mapping и operation-specific response validation;
+- exact generated DTO mapping; успешные responses доверяются generated
+  TypeScript return types без frontend runtime validation;
 - lossless decimal/date/time/revision values и explicit
   `Asia/Yekaterinburg`;
 - pending, confirmed, replay, stale, unknown outcome и offline behavior;
@@ -274,15 +278,17 @@ PR, merge и deployment этим статусом не заявляются.
   read-only presentation;
 - `features/record-fact` маршрутизирует boolean/quantity через
   `/tracking/facts`, а actual time, rating, scalar checkpoint, text, checklist
-  item, OR variant и composite occurrence через их generated operations. DTO и
-  response boundary используют generated Zod schemas; decimal/date/time/revision
+  item, OR variant и composite occurrence через их generated operations. Request
+  mapping использует generated body schemas в пределах текущего scope, а
+  успешные responses доверяются generated TypeScript; decimal/date/time/revision
   остаются строками, rating — generated number;
 - `src/shared/lib/testing/tracking-fixtures.ts` содержит mixed Today с
   personal/shared/partner read-only goals, fixed/flexible progress, typed
-  success/validation/recovery fixtures и MSW handlers. Каждый response
-  проверяется generated schema и связан с `OPENAPI_CONTRACT_SOURCE`;
+  success/validation/recovery fixtures и MSW handlers. Payloads типизированы
+  generated DTO и связаны с `OPENAPI_CONTRACT_SOURCE`; runtime parse успешных
+  response fixtures не выполняется;
 - reused mechanisms: Planner-owned `CommandIntentController`, `useZodForm`,
-  generated runtime contracts и MSW foundation. Из
+  generated TypeScript/request contracts и MSW foundation. Из
   `react-starter@258b4e0` адаптированы только generic UI/form/error mechanisms;
   product semantics, permissions, routes, query ownership и command intent
   остаются Planner-owned;
@@ -552,7 +558,8 @@ design и авторизации до инфраструктурных изме�
 
 1. её product contract и published API pin зафиксированы, где применимо;
 2. handwritten код соблюдает FSD ownership, generated код не редактировался;
-3. success и error responses runtime-validated;
+3. successful responses используют generated TypeScript return types без
+   frontend runtime validation; error handling/Problem Details сохраняется;
 4. task-specific tests покрывают применимые happy path, права,
    stale/replay/unknown и failure recovery;
 5. применимые loading, empty, error, read-only и success states реализованы;

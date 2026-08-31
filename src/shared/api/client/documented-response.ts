@@ -40,47 +40,11 @@ function requestPath(url: string) {
   }
 }
 
-export async function parseSuccessfulApiResponse<T>(
-  response: AxiosResponse<unknown>,
-): Promise<T> {
-  const method = response.config.method?.toUpperCase() ?? 'GET'
-  const path = requestPath(response.config.url ?? '')
-  const contract = contracts.find(
-    (candidate) =>
-      candidate.method === method && candidate.pathPattern.test(path),
-  )
-  const expected = contract?.responses.find(
-    (candidate) =>
-      candidate.status === response.status && candidate.outcome === 'success',
-  )
-
-  if (expected === undefined) {
-    throw new ApiProtocolError(requestId(response))
-  }
-
-  if (expected.mediaType === null) {
-    if (
-      mediaType(response) !== '' ||
-      !(
-        response.data === undefined ||
-        response.data === null ||
-        response.data === ''
-      )
-    ) {
-      throw new ApiProtocolError(requestId(response))
-    }
-    return undefined as T
-  }
-
-  if (mediaType(response) !== expected.mediaType) {
-    throw new ApiProtocolError(requestId(response))
-  }
-  const schema = await expected.loadSchema()
-  const parsed = schema.safeParse(response.data)
-  if (!parsed.success) throw new ApiProtocolError(requestId(response))
-  return parsed.data as T
-}
-
+/**
+ * Preserves documented non-success response handling without validating
+ * successful operation payloads. Successful payloads are trusted at the
+ * generated TypeScript boundary in the transport mutator.
+ */
 export async function parseDocumentedApiErrorResponse(
   response: AxiosResponse<unknown>,
 ): Promise<ApiDocumentedResponseError | null> {
