@@ -22,6 +22,7 @@ import {
 } from '@/shared/api'
 import { useOnlineStatus } from '@/shared/lib/online-status'
 import { useProtectedSessionTransition } from '@/shared/lib/protected-session'
+import { ProtectedRefreshProvider } from '@/shared/lib/protected-refresh'
 import {
   clearReturnTo,
   loginPath,
@@ -65,27 +66,13 @@ function ReconnectState({
     surface.current?.focus()
   }, [state])
 
-  if (state === 'refreshing') {
-    return (
-      <main
-        ref={surface}
-        tabIndex={-1}
-        className="flex min-h-svh items-center justify-center px-6 outline-none"
-      >
-        <div className="flex items-center gap-3 text-sm" role="status">
-          <Spinner aria-hidden="true" />
-          Проверяем сессию после подключения…
-        </div>
-      </main>
-    )
-  }
-
-  return (
-    <main
-      ref={surface}
-      tabIndex={-1}
-      className="flex min-h-svh items-center justify-center px-6 outline-none"
-    >
+  const content =
+    state === 'refreshing' ? (
+      <div className="flex items-center gap-3 text-sm" role="status">
+        <Spinner aria-hidden="true" />
+        Проверяем сессию после подключения…
+      </div>
+    ) : (
       <div className="w-full max-w-lg">
         <Alert variant="destructive">
           <AlertTitle>Не удалось обновить данные</AlertTitle>
@@ -104,6 +91,15 @@ function ReconnectState({
           Повторить проверку
         </Button>
       </div>
+    )
+
+  return (
+    <main
+      ref={surface}
+      tabIndex={-1}
+      className="flex min-h-svh items-center justify-center px-6 outline-none"
+    >
+      {content}
     </main>
   )
 }
@@ -120,10 +116,13 @@ export function ReconnectRefreshBoundary({ children }: PropsWithChildren) {
     useState(reconnectVersion)
   const [retryVersion, setRetryVersion] = useState(0)
   const [focusVersion, setFocusVersion] = useState(0)
+  const [protectedSurfaceVersion, setProtectedSurfaceVersion] = useState(0)
   const handledRetryVersion = useRef(0)
   const handledFocusVersion = useRef(0)
   const refreshRunning = useRef(false)
   const abortController = useRef<AbortController | null>(null)
+  const protectedSurface = useRef<HTMLDivElement>(null)
+  const restoreFocusAfterRefresh = useRef(false)
   const pathname = useRef(location.pathname)
   const online = useRef(isOnline)
   const runAgainAfterCurrent = useRef(false)
@@ -157,6 +156,8 @@ export function ReconnectRefreshBoundary({ children }: PropsWithChildren) {
         controller.signal.throwIfAborted()
 
         if (isDifferentPrincipal(previousSession, currentSession)) {
+          beginExit()
+          setProtectedSurfaceVersion((version) => version + 1)
           await navigate(rootPath, { replace: true })
           controller.signal.throwIfAborted()
           queryClient.removeQueries({
@@ -274,19 +275,49 @@ export function ReconnectRefreshBoundary({ children }: PropsWithChildren) {
 
   const reconnectEdgePending =
     isOnline && reconnectVersion > completedReconnectVersion
+  const protectedRefreshState =
+    reconnectEdgePending || refreshState === 'refreshing'
+      ? 'refreshing'
+      : refreshState
+  const refreshPending =
+    isOnline && (refreshState !== 'idle' || reconnectEdgePending)
 
-  if (!isOnline) return children
-  if (refreshState === 'idle' && !reconnectEdgePending) return children
+  useEffect(() => {
+    if (refreshPending) {
+      restoreFocusAfterRefresh.current = true
+      return
+    }
+    if (!restoreFocusAfterRefresh.current) return
+
+    restoreFocusAfterRefresh.current = false
+    protectedSurface.current
+      ?.querySelector<HTMLElement>('[tabindex="-1"]')
+      ?.focus()
+  }, [refreshPending])
 
   return (
-    <ReconnectState
-      isOnline={isOnline}
-      onRetry={() => setRetryVersion((version) => version + 1)}
-      state={
-        !reconnectEdgePending && refreshState === 'error'
-          ? 'error'
-          : 'refreshing'
-      }
-    />
+    <ProtectedRefreshProvider
+      state={refreshPending ? protectedRefreshState : 'idle'}
+    >
+      <div
+        ref={protectedSurface}
+        key={protectedSurfaceVersion}
+        hidden={refreshPending}
+        inert={refreshPending}
+      >
+        {children}
+      </div>
+      {refreshPending && (
+        <ReconnectState
+          isOnline={isOnline}
+          onRetry={() => setRetryVersion((version) => version + 1)}
+          state={
+            !reconnectEdgePending && refreshState === 'error'
+              ? 'error'
+              : 'refreshing'
+          }
+        />
+      )}
+    </ProtectedRefreshProvider>
   )
 }
