@@ -1,4 +1,5 @@
 import { useEffect, useLayoutEffect, useRef } from 'react'
+import type { ReactNode } from 'react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { act, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
@@ -6,12 +7,20 @@ import { createMemoryRouter, RouterProvider } from 'react-router'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { currentSessionQueryKey } from '@/entities/session'
+import {
+  RecordFactIntentScopeProvider,
+  useRecordFactIntent,
+  useRecordFactIntentScope,
+} from '@/features/record-fact'
 import { telegramNavigationQueryKey } from '@/entities/telegram-navigation'
 import {
+  ApiNetworkError,
   ApiProblemError,
   type AuthenticatedPrincipalResponseDto,
+  type TrackingFactMutationResponseV1Dto,
 } from '@/shared/api'
 import { useOnlineStatus } from '@/shared/lib/online-status'
+import { useProtectedRefreshState } from '@/shared/lib/protected-refresh'
 
 import { ReconnectRefreshBoundary } from './reconnect-refresh-boundary'
 
@@ -160,12 +169,57 @@ function ProtectedContent({
   )
 }
 
+function FactContent({
+  send,
+}: Readonly<{
+  send: (
+    body: Record<string, unknown>,
+  ) =>
+    | Promise<TrackingFactMutationResponseV1Dto>
+    | TrackingFactMutationResponseV1Dto
+}>) {
+  const { isOnline } = useOnlineStatus()
+  const refreshState = useProtectedRefreshState()
+  const intent = useRecordFactIntent({
+    finalizePayload: (payload, commandId) => ({ ...payload, commandId }),
+    mapValues: (values: { value: string }) => ({ value: values.value }),
+    refetch: async () => undefined,
+    send: async (body) => send(body),
+  })
+  useRecordFactIntentScope(intent.status, intent.abandon)
+  const canInteract = isOnline && refreshState === 'idle'
+
+  return (
+    <main aria-label="Private fact content">
+      <p>Fact status: {intent.status}</p>
+      <button
+        type="button"
+        disabled={!canInteract}
+        onClick={() => void intent.submit({ value: 'same-value' }, canInteract)}
+      >
+        Submit fact
+      </button>
+      <button
+        type="button"
+        disabled={!canInteract || intent.state !== 'unknown'}
+        onClick={() => void intent.retry(canInteract)}
+      >
+        Retry fact
+      </button>
+    </main>
+  )
+}
+
 function setup({
+  content,
   initialPath = '/today',
+  onlineAtStart = false,
   onMount = vi.fn(),
   onOnlineCommit = vi.fn(),
 }: {
+  content?: ReactNode
   initialPath?: string
+  onlineAtStart?: boolean
   onMount?: () => void
   onOnlineCommit?: () => void
 } = {}) {
@@ -176,6 +230,7 @@ function setup({
   })
   queryClient.setQueryData(currentSessionQueryKey, principalA)
   queryClient.setQueryData(['private', 'principal-a'], { visible: true })
+  state.isOnline = onlineAtStart
 
   const router = createMemoryRouter(
     [
@@ -184,10 +239,12 @@ function setup({
         path: '*',
         element: (
           <ReconnectRefreshBoundary>
-            <ProtectedContent
-              onMount={onMount}
-              onOnlineCommit={onOnlineCommit}
-            />
+            {content ?? (
+              <ProtectedContent
+                onMount={onMount}
+                onOnlineCommit={onOnlineCommit}
+              />
+            )}
           </ReconnectRefreshBoundary>
         ),
       },
@@ -224,7 +281,9 @@ function setup({
 
 function expectOnlyReconnectMain() {
   expect(screen.getAllByRole('main')).toHaveLength(1)
-  expect(screen.queryByText('Protected content')).not.toBeInTheDocument()
+  expect(
+    screen.queryByRole('main', { name: 'Private shell' }),
+  ).not.toBeInTheDocument()
 }
 
 describe('ReconnectRefreshBoundary', () => {
@@ -257,8 +316,7 @@ describe('ReconnectRefreshBoundary', () => {
   it('routes browser focus through the same ordered refresh boundary', async () => {
     const events: string[] = []
     mockSuccessfulLoaders(events)
-    state.isOnline = true
-    const harness = setup()
+    const harness = setup({ onlineAtStart: true })
 
     await act(async () => {
       window.dispatchEvent(new Event('focus'))
@@ -274,7 +332,93 @@ describe('ReconnectRefreshBoundary', () => {
     )
   })
 
-  it('does not commit enabled private controls before reconnect verification starts', async () => {
+  it('keeps an unknown fact intent mounted through the first same-principal focus refresh', async () => {
+    const events: string[] = []
+    const sessionGate = createDeferred<AuthenticatedPrincipalResponseDto>()
+    let sessionCalls = 0
+    state.loadCurrentSession.mockImplementation(async () => {
+      sessionCalls += 1
+      events.push(`session-${sessionCalls}`)
+      if (sessionCalls === 1) return sessionGate.promise
+      return principalA
+    })
+    state.loadCurrentWorkspace.mockImplementation(async () => {
+      events.push('workspace')
+      return { workspace: 'current' }
+    })
+    state.loadTrackingToday.mockImplementation(async () => {
+      events.push('tracking')
+      return { tracking: 'today' }
+    })
+    const send = vi
+      .fn<
+        (
+          body: Record<string, unknown>,
+        ) => Promise<TrackingFactMutationResponseV1Dto>
+      >()
+      .mockRejectedValueOnce(new ApiNetworkError())
+      .mockResolvedValueOnce({
+        aggregateId: '11111111-1111-4111-8111-111111111111',
+        aggregateRevision: '2',
+        kind: 'tracking.fact-record.v1',
+      })
+    setup({
+      content: (
+        <RecordFactIntentScopeProvider>
+          <FactContent send={send} />
+        </RecordFactIntentScopeProvider>
+      ),
+      onlineAtStart: true,
+    })
+
+    await userEvent.click(screen.getByRole('button', { name: 'Submit fact' }))
+    await waitFor(() =>
+      expect(screen.getByText('Fact status: unknown')).toBeVisible(),
+    )
+    const firstBody = send.mock.calls[0]?.[0]
+    expect(firstBody).toBeDefined()
+    const firstSerializedBody = JSON.stringify(firstBody)
+
+    await act(async () => {
+      window.dispatchEvent(new Event('focus'))
+      await Promise.resolve()
+    })
+    expect(
+      await screen.findByText('Проверяем сессию после подключения…'),
+    ).toBeVisible()
+    expect(
+      screen.getByRole('button', { name: 'Submit fact', hidden: true }),
+    ).toBeDisabled()
+    expect(
+      screen.getByRole('button', { name: 'Retry fact', hidden: true }),
+    ).toBeDisabled()
+    expect(
+      screen.queryByRole('button', { name: 'Submit fact' }),
+    ).not.toBeInTheDocument()
+    expect(
+      screen.queryByRole('button', { name: 'Retry fact' }),
+    ).not.toBeInTheDocument()
+    expect(send).toHaveBeenCalledOnce()
+    expect(events).toEqual(['session-1'])
+
+    await act(async () => {
+      sessionGate.resolve(principalA)
+      await sessionGate.promise
+    })
+    await waitFor(() =>
+      expect(events).toEqual(['session-1', 'workspace', 'tracking']),
+    )
+    await waitFor(() =>
+      expect(screen.getByRole('button', { name: 'Retry fact' })).toBeEnabled(),
+    )
+    expect(send).toHaveBeenCalledOnce()
+
+    await userEvent.click(screen.getByRole('button', { name: 'Retry fact' }))
+    await waitFor(() => expect(send).toHaveBeenCalledTimes(2))
+    expect(JSON.stringify(send.mock.calls[1]?.[0])).toBe(firstSerializedBody)
+  })
+
+  it('hides protected controls from the accessible tree during reconnect verification', async () => {
     const sessionGate = createDeferred<AuthenticatedPrincipalResponseDto>()
     const onOnlineCommit = vi.fn()
     mockSuccessfulLoaders()
@@ -286,7 +430,6 @@ describe('ReconnectRefreshBoundary', () => {
     expect(
       await screen.findByText('Проверяем сессию после подключения…'),
     ).toBeVisible()
-    expect(onOnlineCommit).not.toHaveBeenCalled()
     expect(
       screen.queryByRole('button', { name: 'Protected action' }),
     ).toBeNull()
@@ -533,7 +676,9 @@ describe('ReconnectRefreshBoundary', () => {
     await act(async () => firstSession.resolve(principalA))
     harness.goOnline()
 
-    expect(await screen.findByText('Protected content')).toBeVisible()
+    await waitFor(() =>
+      expect(screen.getByText('Protected content')).toBeVisible(),
+    )
     await act(async () => {
       await Promise.resolve()
       await new Promise((resolve) => window.setTimeout(resolve, 0))
@@ -603,7 +748,7 @@ describe('ReconnectRefreshBoundary', () => {
     expect(document.body).not.toHaveTextContent('provider-token')
   })
 
-  it('invalidates optional Telegram metadata without blocking core remount', async () => {
+  it('invalidates optional Telegram metadata without remounting the protected core', async () => {
     const events: string[] = []
     const onMount = vi.fn()
     mockSuccessfulLoaders(events)
@@ -614,7 +759,7 @@ describe('ReconnectRefreshBoundary', () => {
     expect(onMount).toHaveBeenCalledOnce()
 
     harness.goOnline()
-    await waitFor(() => expect(onMount).toHaveBeenCalledTimes(2))
+    await waitFor(() => expect(onMount).toHaveBeenCalledOnce())
     expect(events).toEqual(['session', 'workspace', 'tracking'])
     expect(
       harness.queryClient.getQueryData(telegramNavigationQueryKey),

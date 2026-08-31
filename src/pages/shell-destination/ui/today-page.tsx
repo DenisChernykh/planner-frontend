@@ -5,6 +5,7 @@ import {
 } from '@/features/record-fact'
 import { PRODUCT_TIME_ZONE } from '@/shared/lib/date'
 import { useOnlineStatus } from '@/shared/lib/online-status'
+import { useProtectedRefreshState } from '@/shared/lib/protected-refresh'
 import { Container, Spinner } from '@/shared/ui'
 
 import {
@@ -34,15 +35,21 @@ function TodayPageContent({
   tracking: ReturnType<typeof useTrackingToday>
 }>) {
   const { hasBlockingIntents } = useRecordFactIntentScopeState()
+  const protectedRefreshState = useProtectedRefreshState()
   const data = useRetainedTodayPresentation(tracking.data, hasBlockingIntents)
   const hasRetainedSnapshot = hasBlockingIntents && tracking.data !== data
   const canMutate =
     isOnline &&
+    protectedRefreshState === 'idle' &&
     !tracking.isFetching &&
     !tracking.isError &&
     !hasBlockingIntents &&
     !hasRetainedSnapshot
-  const canRetry = isOnline && !tracking.isFetching && !tracking.isError
+  const canRetry =
+    isOnline &&
+    protectedRefreshState === 'idle' &&
+    !tracking.isFetching &&
+    !tracking.isError
 
   if (data === undefined) {
     return (
@@ -61,8 +68,10 @@ function TodayPageContent({
         <TodayRecordFactNavigationGuard />
         <TodayToolbar
           data={data}
-          isError={tracking.isError}
-          isFetching={tracking.isFetching}
+          isError={tracking.isError || protectedRefreshState === 'error'}
+          isFetching={
+            tracking.isFetching || protectedRefreshState === 'refreshing'
+          }
           isOnline={isOnline}
           onRefresh={() => void tracking.refetch()}
         />
