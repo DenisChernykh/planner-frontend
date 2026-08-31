@@ -254,6 +254,26 @@ describe('ReconnectRefreshBoundary', () => {
     expect(screen.getAllByRole('main')).toHaveLength(1)
   })
 
+  it('routes browser focus through the same ordered refresh boundary', async () => {
+    const events: string[] = []
+    mockSuccessfulLoaders(events)
+    state.isOnline = true
+    const harness = setup()
+
+    await act(async () => {
+      window.dispatchEvent(new Event('focus'))
+      await Promise.resolve()
+    })
+
+    await waitFor(() =>
+      expect(events).toEqual(['session', 'workspace', 'tracking']),
+    )
+    expect(screen.getByText('Protected content')).toBeVisible()
+    expect(harness.queryClient.getQueryData(telegramNavigationQueryKey)).toBe(
+      undefined,
+    )
+  })
+
   it('does not commit enabled private controls before reconnect verification starts', async () => {
     const sessionGate = createDeferred<AuthenticatedPrincipalResponseDto>()
     const onOnlineCommit = vi.fn()
@@ -324,7 +344,13 @@ describe('ReconnectRefreshBoundary', () => {
     const events: string[] = []
     const deferred = createDeferred<AuthenticatedPrincipalResponseDto>()
     mockSuccessfulLoaders(events)
-    state.loadCurrentSession.mockImplementation(async () => deferred.promise)
+    let sessionCalls = 0
+    state.loadCurrentSession.mockImplementation(async () => {
+      sessionCalls += 1
+      events.push(`session-${sessionCalls}`)
+      if (sessionCalls === 1) return deferred.promise
+      return principalA
+    })
     const harness = setup()
 
     harness.goOnline()
@@ -347,7 +373,17 @@ describe('ReconnectRefreshBoundary', () => {
       deferred.resolve(principalA)
       await deferred.promise
     })
-    await waitFor(() => expect(events).toEqual(['workspace', 'tracking']))
+    await waitFor(() =>
+      expect(events).toEqual([
+        'session-1',
+        'workspace',
+        'tracking',
+        'session-2',
+        'workspace',
+        'tracking',
+      ]),
+    )
+    expect(sessionCalls).toBe(2)
   })
 
   it('hides the old principal and remounts private content for a replacement session', async () => {

@@ -19,7 +19,8 @@ const telegramNavigationQueryOptions = queryOptions({
   queryFn: ({ signal }) => fetchTelegramNavigation(signal),
   refetchOnMount: false,
   refetchOnReconnect: false,
-  refetchOnWindowFocus: true,
+  // Optional metadata is refreshed after the protected core reads complete.
+  refetchOnWindowFocus: false,
 })
 
 /** Performs an authoritative optional bot-navigation refresh before remount. */

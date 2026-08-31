@@ -69,7 +69,7 @@ function TelegramNavigationCard() {
             ) : null}
           </div>
         ) : null}
-        {navigation.data?.status === 'available' ? (
+        {!navigation.isError && navigation.data?.status === 'available' ? (
           <a
             href={navigation.data.url}
             target="_blank"
@@ -80,7 +80,8 @@ function TelegramNavigationCard() {
             <ExternalLink aria-hidden="true" />
           </a>
         ) : null}
-        {navigation.data !== undefined &&
+        {!navigation.isError &&
+        navigation.data !== undefined &&
         navigation.data.status !== 'available' ? (
           <p className="text-sm leading-6 text-muted-foreground">
             Переход в бота сейчас отключён администратором пространства.

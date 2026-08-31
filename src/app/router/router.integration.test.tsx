@@ -1,5 +1,5 @@
 import { QueryClientProvider } from '@tanstack/react-query'
-import { act, render, screen } from '@testing-library/react'
+import { act, render, screen, waitFor } from '@testing-library/react'
 import { HttpResponse, http } from 'msw'
 import {
   createMemoryRouter,
@@ -9,6 +9,8 @@ import {
 import { describe, expect, it, vi } from 'vitest'
 
 import { createQueryClient } from '@/app/config/query-client'
+import { telegramNavigationQueryKey } from '@/entities/telegram-navigation'
+import { trackingTodayQueryKey } from '@/entities/tracking'
 import { currentWorkspaceQueryKey } from '@/entities/workspace'
 import type {
   AuthenticatedPrincipalResponseDto,
@@ -548,6 +550,124 @@ describe('M2 router integration', () => {
     ).toBeVisible()
     expect(screen.queryByRole('button', { name: 'Повторить' })).toBeNull()
     expect(screen.getByText('Настройки доступа')).toBeVisible()
+  })
+
+  it('hides stale Telegram navigation metadata when its refetch fails', async () => {
+    let failTelegramRefetch = false
+    installAuthenticatedHandlers([])
+    server.use(
+      http.get('*/api/telegram/navigation', () => {
+        if (failTelegramRefetch) {
+          return problemResponse(403, 'AUTHORIZATION_DENIED')
+        }
+        return HttpResponse.json({
+          capability: 'open_bot',
+          schemaVersion: 'telegram.navigation.v1',
+          status: 'available',
+          url: 'https://t.me/planner_test_bot',
+        })
+      }),
+    )
+
+    const { queryClient } = renderRouter('/settings')
+
+    expect(
+      await screen.findByRole('link', { name: 'Открыть Planner-бота' }),
+    ).toHaveAttribute('href', 'https://t.me/planner_test_bot')
+
+    failTelegramRefetch = true
+    await act(async () => {
+      await queryClient.refetchQueries({
+        queryKey: telegramNavigationQueryKey,
+      })
+    })
+
+    expect(
+      await screen.findByText('Не удалось проверить доступность бота.'),
+    ).toBeVisible()
+    expect(
+      screen.queryByRole('link', { name: 'Открыть Planner-бота' }),
+    ).not.toBeInTheDocument()
+    expect(
+      screen.queryByText(
+        'Переход в бота сейчас отключён администратором пространства.',
+      ),
+    ).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: 'Повторить' })).toBeNull()
+  })
+
+  it('keeps exact settings reachable when tracking is unavailable', async () => {
+    let trackingCalls = 0
+    server.use(
+      http.get('*/api/auth/me', () => HttpResponse.json(session)),
+      http.get('*/api/workspace/current', () => HttpResponse.json(workspace)),
+      http.get('*/api/tracking/today', () => {
+        trackingCalls += 1
+        return problemResponse(403, 'TRACKING_AUTHORIZATION_DENIED')
+      }),
+      http.get('*/api/telegram/navigation', () =>
+        HttpResponse.json({
+          capability: 'open_bot',
+          schemaVersion: 'telegram.navigation.v1',
+          status: 'disabled',
+          url: null,
+        }),
+      ),
+    )
+
+    const { queryClient } = renderRouter('/settings')
+
+    expect(await screen.findByText('Настройки доступа')).toBeVisible()
+    await waitFor(() => {
+      expect(trackingCalls).toBe(1)
+      expect(queryClient.getQueryState(trackingTodayQueryKey)?.status).toBe(
+        'error',
+      )
+    })
+    expect(screen.queryByText('Контекст месяца недоступен')).toBeNull()
+  })
+
+  it('does not let private observers bypass the focus refresh order', async () => {
+    const sessionGate = createDeferred()
+    const events: string[] = []
+    installAuthenticatedHandlers(events)
+    const { router } = renderRouter('/settings')
+
+    expect(await screen.findByText('Настройки доступа')).toBeVisible()
+    events.length = 0
+    let sessionCalls = 0
+    server.use(
+      http.get('*/api/auth/me', async () => {
+        sessionCalls += 1
+        events.push('session')
+        if (sessionCalls === 1) await sessionGate.promise
+        return HttpResponse.json(session)
+      }),
+      http.get('*/api/workspace/current', () => {
+        events.push('workspace')
+        return HttpResponse.json(workspace)
+      }),
+      http.get('*/api/tracking/today', () => {
+        events.push('tracking')
+        return HttpResponse.json(today)
+      }),
+    )
+
+    await act(async () => {
+      window.dispatchEvent(new Event('visibilitychange'))
+      await Promise.resolve()
+    })
+
+    expect(
+      await screen.findByText('Проверяем сессию после подключения…'),
+    ).toBeVisible()
+    expect(events).toEqual(['session'])
+    expect(router.state.location.pathname).toBe('/settings')
+
+    await act(async () => sessionGate.resolve())
+
+    expect(await screen.findByText('Настройки доступа')).toBeVisible()
+    expect(events.slice(0, 3)).toEqual(['session', 'workspace', 'tracking'])
   })
 
   it.each([

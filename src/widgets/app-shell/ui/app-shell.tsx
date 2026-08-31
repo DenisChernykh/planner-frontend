@@ -26,6 +26,7 @@ import { useOnlineStatus } from '@/shared/lib/online-status'
 import {
   monthPath,
   plansPath,
+  rootPath,
   settingsPath,
   statisticsPath,
   todayPath,
@@ -339,9 +340,15 @@ export function AppShell({ workspace }: AppShellProps) {
   const previousPathname = useRef<string | null>(null)
   const { isOnline } = useOnlineStatus()
   const tracking = useTrackingToday()
-  const navigation = tracking.data
-    ? selectTrackingNavigation(tracking.data)
-    : null
+  const navigation =
+    !tracking.isError && tracking.data
+      ? selectTrackingNavigation(tracking.data)
+      : null
+  const isTrackingDependentDestination =
+    location.pathname === todayPath ||
+    matchPath('/months/:targetMonth/*', location.pathname) !== null ||
+    matchPath('/plans/*', location.pathname) !== null ||
+    matchPath('/statistics/:targetMonth/*', location.pathname) !== null
 
   useEffect(() => {
     if (previousPathname.current === null) {
@@ -360,7 +367,7 @@ export function AppShell({ workspace }: AppShellProps) {
       <Sidebar collapsible="icon">
         <SidebarHeader className="border-b border-sidebar-border">
           <Link
-            to="/"
+            to={isOnline ? rootPath : todayPath}
             aria-label="Planner — на главную"
             className="flex h-10 items-center gap-2 px-2 outline-none group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:px-0 focus-visible:ring-2 focus-visible:ring-sidebar-ring"
           >
@@ -415,8 +422,8 @@ export function AppShell({ workspace }: AppShellProps) {
         </header>
 
         <TrackingState
-          isPending={tracking.isPending}
-          isError={tracking.isError}
+          isPending={isTrackingDependentDestination && tracking.isPending}
+          isError={isTrackingDependentDestination && tracking.isError}
           isFetching={tracking.isFetching}
           error={tracking.error}
           onRetry={() => void tracking.refetch()}

@@ -22,7 +22,9 @@ const trackingTodayQueryOptions = queryOptions({
   queryFn: ({ signal }) => fetchTrackingToday(signal),
   refetchOnMount: false,
   refetchOnReconnect: false,
-  refetchOnWindowFocus: true,
+  // Browser focus is refreshed through the protected session boundary so
+  // session, workspace and tracking reads cannot race each other.
+  refetchOnWindowFocus: false,
 })
 
 /** Performs a validated authoritative tracking refresh before remount. */

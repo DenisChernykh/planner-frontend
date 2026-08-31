@@ -5,7 +5,7 @@ import {
   useState,
   type PropsWithChildren,
 } from 'react'
-import { useQueryClient } from '@tanstack/react-query'
+import { focusManager, useQueryClient } from '@tanstack/react-query'
 import { useLocation, useNavigate } from 'react-router'
 
 import {
@@ -108,7 +108,7 @@ function ReconnectState({
   )
 }
 
-/** Refreshes M2 live reads in auth order after an explicit reconnect. */
+/** Refreshes M2 live reads in auth order after reconnect or browser focus. */
 export function ReconnectRefreshBoundary({ children }: PropsWithChildren) {
   const queryClient = useQueryClient()
   const location = useLocation()
@@ -119,7 +119,9 @@ export function ReconnectRefreshBoundary({ children }: PropsWithChildren) {
   const [completedReconnectVersion, setCompletedReconnectVersion] =
     useState(reconnectVersion)
   const [retryVersion, setRetryVersion] = useState(0)
+  const [focusVersion, setFocusVersion] = useState(0)
   const handledRetryVersion = useRef(0)
+  const handledFocusVersion = useRef(0)
   const refreshRunning = useRef(false)
   const abortController = useRef<AbortController | null>(null)
   const pathname = useRef(location.pathname)
@@ -211,9 +213,36 @@ export function ReconnectRefreshBoundary({ children }: PropsWithChildren) {
     },
   )
 
+  const requestFocusRefresh = useEffectEvent(() => {
+    if (!isOnline) return
+    if (refreshRunning.current) {
+      // The current pass may have checked the session before the browser focus
+      // event arrived. Queue one additional session-first pass, but never
+      // start parallel workspace or tracking reads.
+      runAgainAfterCurrent.current = true
+      return
+    }
+    setFocusVersion((version) => version + 1)
+  })
+
+  useEffect(() => {
+    const unsubscribe = focusManager.subscribe((focused) => {
+      if (focused) requestFocusRefresh()
+    })
+    const handleWindowFocus = () => requestFocusRefresh()
+    window.addEventListener('focus', handleWindowFocus)
+
+    return () => {
+      unsubscribe()
+      window.removeEventListener('focus', handleWindowFocus)
+    }
+  }, [])
+
   useEffect(() => {
     const retryRequested = retryVersion !== handledRetryVersion.current
     handledRetryVersion.current = retryVersion
+    const focusRequested = focusVersion !== handledFocusVersion.current
+    handledFocusVersion.current = focusVersion
 
     if (!isOnline) {
       abortController.current?.abort()
@@ -221,14 +250,20 @@ export function ReconnectRefreshBoundary({ children }: PropsWithChildren) {
       return
     }
     const reconnectRequested = reconnectVersion > completedReconnectVersion
-    if (!reconnectRequested && !retryRequested) return
+    if (!reconnectRequested && !retryRequested && !focusRequested) return
 
     if (refreshRunning.current) {
       runAgainAfterCurrent.current = true
       return
     }
     void runRefresh(reconnectVersion)
-  }, [completedReconnectVersion, isOnline, reconnectVersion, retryVersion])
+  }, [
+    completedReconnectVersion,
+    focusVersion,
+    isOnline,
+    reconnectVersion,
+    retryVersion,
+  ])
 
   useEffect(
     () => () => {

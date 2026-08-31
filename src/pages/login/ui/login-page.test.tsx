@@ -56,6 +56,50 @@ describe('Telegram login page', () => {
     expect(document.body).not.toHaveTextContent('token')
   })
 
+  it.each([
+    ['Ctrl', { ctrlKey: true }],
+    ['Cmd', { metaKey: true }],
+    ['Shift', { shiftKey: true }],
+    ['Alt', { altKey: true }],
+    ['auxiliary', { button: 1 }],
+  ] as const)(
+    'does not enter leaving state for a %s click',
+    (_label, options) => {
+      renderLogin('/login?returnTo=%2Fplans')
+      const link = screen.getByRole('link', {
+        name: /Продолжить через Telegram/u,
+      })
+      link.addEventListener('click', (event) => event.preventDefault())
+
+      fireEvent.click(link, options)
+
+      expect(link).not.toHaveAttribute('aria-busy')
+      expect(screen.getByText('Продолжить через Telegram')).toBeVisible()
+      expect(sessionStorage.getItem('planner.return-to.v1')).toBe('/plans')
+    },
+  )
+
+  it('allows a later normal click after a modified click', () => {
+    renderLogin('/login?returnTo=%2Fplans')
+    const link = screen.getByRole('link', {
+      name: /Продолжить через Telegram/u,
+    })
+
+    link.addEventListener('click', (event) => event.preventDefault(), {
+      once: true,
+    })
+    fireEvent.click(link, { ctrlKey: true })
+    expect(link).not.toHaveAttribute('aria-busy')
+
+    const preventDocumentNavigation = (event: Event) => event.preventDefault()
+    document.body.addEventListener('click', preventDocumentNavigation, {
+      once: true,
+    })
+    fireEvent.click(link)
+
+    expect(link).toHaveAttribute('aria-busy', 'true')
+  })
+
   it('disables ceremony start offline and never queues it for reconnect', () => {
     renderLogin('/login?returnTo=%2Ftoday', false)
 
