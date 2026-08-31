@@ -5,12 +5,9 @@ import {
 } from '@/shared/api'
 import { Button, Field, FieldLabel, TextareaField } from '@/shared/ui'
 
-import {
-  finalizeTextFact,
-  mapTextFact,
-  type FactTarget,
-} from '../model/composite-fact-mappers'
+import { finalizeTextFact, mapTextFact } from '../model/composite-fact-mappers'
 import { textFactFormSchema } from '../model/composite-fact-schemas'
+import type { FactTarget } from '../model/record-fact-mappers'
 import { useRecordFactIntent } from '../model/use-record-fact-intent'
 import { useRecordFactIntentScope } from '../model/record-fact-intent-scope'
 import { RecordFactFormFeedback } from './record-fact-form-feedback'

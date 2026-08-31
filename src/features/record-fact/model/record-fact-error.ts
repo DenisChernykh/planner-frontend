@@ -25,6 +25,27 @@ const fieldLabels: Readonly<Record<string, string>> = {
   '/value/value': 'значение',
 }
 
+type ValidationProblem = Readonly<{
+  code: 'VALIDATION_FAILED'
+  errors: readonly Readonly<{ pointer: string }>[]
+}>
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null
+}
+
+function isValidationProblem(value: unknown): value is ValidationProblem {
+  return (
+    isRecord(value) &&
+    value.code === 'VALIDATION_FAILED' &&
+    Array.isArray(value.errors) &&
+    value.errors.every(
+      (item): item is Readonly<{ pointer: string }> =>
+        isRecord(item) && typeof item.pointer === 'string',
+    )
+  )
+}
+
 /** Formats only allowlisted validation pointers; problem details stay private. */
 export function formatRecordFactError(
   error: unknown,
@@ -39,7 +60,7 @@ export function formatRecordFactError(
     return `Не удалось сохранить значение. Запрос: ${error.requestId}.`
   }
   const parsed = problemSchema.safeParse(error.problem)
-  if (!parsed.success || parsed.data.code !== 'VALIDATION_FAILED') {
+  if (!parsed.success || !isValidationProblem(parsed.data)) {
     return `Не удалось сохранить значение. Запрос: ${error.requestId}.`
   }
   const errors = parsed.data.errors

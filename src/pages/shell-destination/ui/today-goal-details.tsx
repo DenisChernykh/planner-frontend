@@ -3,10 +3,12 @@ import { formatProductDateLabel } from '@/shared/lib/date'
 import { Badge } from '@/shared/ui'
 
 const goalStateLabels = {
+  done: 'Выполнено',
   filled: 'Заполнено',
   future: 'Будущее',
   no_data: 'Нет данных',
   not_applicable: 'Не применяется',
+  not_done: 'Не выполнено',
   partial: 'Частично',
 } as const
 

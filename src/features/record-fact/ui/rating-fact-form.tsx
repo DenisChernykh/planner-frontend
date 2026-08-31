@@ -10,7 +10,10 @@ import {
   mapRatingFact,
   type FactTarget,
 } from '../model/record-fact-mappers'
-import { createRatingFactFormSchema } from '../model/record-fact-schemas'
+import {
+  createRatingFactFormSchema,
+  type RatingFactFormValues,
+} from '../model/record-fact-schemas'
 import { useRecordFactIntent } from '../model/use-record-fact-intent'
 import { useRecordFactIntentScope } from '../model/record-fact-intent-scope'
 import { RecordFactFormFeedback } from './record-fact-form-feedback'
@@ -34,7 +37,7 @@ export function RatingFactForm({
   const form = useZodForm(schema, { defaultValues: { value: '' } })
   const intent = useRecordFactIntent({
     finalizePayload: finalizeRatingFact,
-    mapValues: (values: { value: string | number }) => {
+    mapValues: (values: RatingFactFormValues) => {
       return mapRatingFact(values, target, minimum, maximum)
     },
     refetch,

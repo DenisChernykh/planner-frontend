@@ -59,6 +59,30 @@ Frontend consumer закреплён на published backend
 | `GAP-DELIVERY-01` | Exact-byte manifest, sync, generation и drift pipeline в `planner-frontend` | Resolved locally; remote CI is separate evidence |
 | `GAP-DEPLOY-01` | Hosted origin/OIDC/session/API smoke | Pending; вне scope M1 |
 
+### 2.2. M3 frontend implementation record на 31 августа 2026 года
+
+M3 реализует `W-02` и create-часть `W-03` поверх published backend
+`ef76210ad66d442704417addfcf54e7f68cab65d` и OpenAPI SHA-256
+`ed80c89d36296750da11f68f4597a732a8e4e08f82f2e81a6ba8369dd2a9a625`.
+`GET /tracking/today` проецируется как server-authoritative
+`no_plan/draft/published` read model с own/shared/partner access, fixed/flexible
+progress и explicit `Asia/Yekaterinburg`. Create mapping покрывает 8 generated
+typed-fact operations; boolean и quantity используют общий `/tracking/facts`:
+`POST /tracking/facts`, `/time`, `/rating`, `/checkpoint`, `/text`,
+`/checklist-item`, `/or-variant` и `/composite-occurrence`.
+
+Local fixtures в
+`src/shared/lib/testing/tracking-fixtures.ts` используют generated DTO types,
+public generated response schemas и `OPENAPI_CONTRACT_SOURCE`; mixed Today и
+representative success/validation/network-recovery responses проходят schema
+validation в тестах. Это source/MSW evidence только для frontend mapping,
+presentation и recovery. CI, push, PR, hosted backend/runtime и production
+authorization/atomicity этим разделом не заявляются.
+
+Playwright и browser automation не запускались по решению пользователя.
+Browser acceptance остаётся pending manual user verification и не считается
+source evidence.
+
 ## 3. Обозначения
 
 | Статус | Значение |

@@ -77,7 +77,11 @@ describe('composite fact DTO mapping', () => {
       localDate: target.localDate,
     })
     expect(typeof fixed.value).toBe('string')
-    expect(typeof flexible.component.value).toBe('string')
+    const flexibleComponent = flexible.component
+    if (flexibleComponent.kind !== 'or_variant') {
+      throw new Error('Expected an OR variant component')
+    }
+    expect(typeof flexibleComponent.value).toBe('string')
   })
 
   it('uses the backend component discriminant for flexible checklist occurrences', () => {

@@ -27,7 +27,7 @@ type TodayPresentationBase = Readonly<{
 }>
 
 export type NoPlanTodayPresentation = Readonly<
-  Omit<NoPlanToday, 'queryLocalDate'> &
+  NoPlanToday &
     TodayPresentationBase & {
       day: null
       goals: readonly []
@@ -35,7 +35,7 @@ export type NoPlanTodayPresentation = Readonly<
 >
 
 export type DraftTodayPresentation = Readonly<
-  Omit<DraftToday, 'queryLocalDate'> &
+  DraftToday &
     TodayPresentationBase & {
       day: null
       goals: readonly []
@@ -43,7 +43,7 @@ export type DraftTodayPresentation = Readonly<
 >
 
 export type PublishedTodayPresentation = Readonly<
-  Omit<PublishedToday, 'goals' | 'queryLocalDate'> &
+  Omit<PublishedToday, 'goals'> &
     TodayPresentationBase & {
       goals: readonly TrackingGoalPresentation[]
     }
@@ -115,6 +115,6 @@ export function selectTrackingTodayPresentation(
     ...today,
     ...base,
     day: null,
-    goals: Object.freeze([]),
+    goals: Object.freeze([] as const),
   })
 }

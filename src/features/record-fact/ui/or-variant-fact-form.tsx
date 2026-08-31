@@ -8,9 +8,9 @@ import { Button, TextField } from '@/shared/ui'
 import {
   finalizeOrVariantFact,
   mapOrVariantFact,
-  type FactTarget,
 } from '../model/composite-fact-mappers'
 import { createOrVariantFactFormSchema } from '../model/composite-fact-schemas'
+import type { FactTarget } from '../model/record-fact-mappers'
 import { useRecordFactIntent } from '../model/use-record-fact-intent'
 import { useRecordFactIntentScope } from '../model/record-fact-intent-scope'
 import { RecordFactFormFeedback } from './record-fact-form-feedback'

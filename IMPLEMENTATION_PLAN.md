@@ -235,6 +235,17 @@ callback, AppShell и deep links на mobile/desktop; дефекты оболо�
 
 ### M3 — Реализовать ранний Today и typed fact core
 
+**Статус:** `LOCAL SOURCE COMPLETE` 31 августа 2026 года: Today read model,
+8 generated typed-fact operations; boolean и quantity используют общий
+`/tracking/facts`; intent recovery и OpenAPI-bound MSW
+fixtures реализованы на pinned backend
+`ef76210ad66d442704417addfcf54e7f68cab65d` с SHA-256
+`ed80c89d36296750da11f68f4597a732a8e4e08f82f2e81a6ba8369dd2a9a625`.
+Локальные targeted и полный `pnpm test` (53 test files / 435 tests), formatter,
+lint, Steiger, TypeScript и Vite build gates пройдены; полный локальный
+`pnpm check` (api drift, format, lint, Steiger, tests и build) PASS. CI, push,
+PR, merge и deployment этим статусом не заявляются.
+
 **Трассировка:** core `UF-05`, `W-02`, create-часть `W-03`, `FE-AC-08`.
 **Зависимости:** `M2`; published `F01` и существующие Today/fact operations.
 `F02`, `F07`, planning UI и `M5` не блокируют этот core.
@@ -253,6 +264,35 @@ callback, AppShell и deep links на mobile/desktop; дефекты оболо�
 - общий freshness policy без realtime: refetch при route navigation, явном
   refresh, reconnect и для выбранных live entities при browser focus;
 - stale badge/read-only presentation, пока authoritative refresh не завершён.
+
+**Фактическая local acceptance M3:**
+
+- `entities/tracking` оставляет `no_plan/draft/published`, server ordering,
+  `viewerAccess`, `writable`, `applicable`, progress/coverage и
+  `Asia/Yekaterinburg` authoritative; `/today` сохраняет session-first
+  navigation refresh, manual refresh, focus/reconnect policy и stale/offline
+  read-only presentation;
+- `features/record-fact` маршрутизирует boolean/quantity через
+  `/tracking/facts`, а actual time, rating, scalar checkpoint, text, checklist
+  item, OR variant и composite occurrence через их generated operations. DTO и
+  response boundary используют generated Zod schemas; decimal/date/time/revision
+  остаются строками, rating — generated number;
+- `src/shared/lib/testing/tracking-fixtures.ts` содержит mixed Today с
+  personal/shared/partner read-only goals, fixed/flexible progress, typed
+  success/validation/recovery fixtures и MSW handlers. Каждый response
+  проверяется generated schema и связан с `OPENAPI_CONTRACT_SOURCE`;
+- reused mechanisms: Planner-owned `CommandIntentController`, `useZodForm`,
+  generated runtime contracts и MSW foundation. Из
+  `react-starter@258b4e0` адаптированы только generic UI/form/error mechanisms;
+  product semantics, permissions, routes, query ownership и command intent
+  остаются Planner-owned;
+- correction/delete/undo, CloseDay, weekly-result mutation, Month/Day UI,
+  M4–M9 и backend/OpenAPI changes не входят в M3;
+- Playwright и browser automation по решению пользователя не запускались.
+  Browser acceptance остаётся `PENDING MANUAL USER VERIFICATION` и не является
+  source evidence. Local fixtures/MSW доказывают только frontend mapping,
+  presentation и recovery, но не backend authorization, atomicity, persistence
+  или hosted runtime.
 
 **Готово, когда:**
 
