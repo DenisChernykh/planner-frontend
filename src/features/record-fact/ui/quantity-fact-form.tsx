@@ -16,6 +16,7 @@ import { useRecordFactIntentScope } from '../model/record-fact-intent-scope'
 import { RecordFactFormFeedback } from './record-fact-form-feedback'
 
 export function QuantityFactForm({
+  canMutate,
   target,
   isOnline,
   refetch,
@@ -24,6 +25,7 @@ export function QuantityFactForm({
   unit,
 }: Readonly<{
   aggregation: 'add' | 'latest'
+  canMutate: boolean
   isOnline: boolean
   precision: number
   refetch: () => Promise<unknown>
@@ -52,22 +54,22 @@ export function QuantityFactForm({
       className="flex flex-wrap items-end gap-2"
       noValidate
       onSubmit={form.handleSubmit((values) => {
-        void intent.submit(values, isOnline)
+        void intent.submit(values, canMutate)
       })}
     >
       <TextField
         className="min-w-28 flex-1"
         label={`${aggregation === 'add' ? 'Добавить' : 'Последнее значение'} (${unit})`}
         inputMode="decimal"
-        disabled={locked || !isOnline}
+        disabled={locked || !canMutate}
         error={error}
         {...form.register('value')}
       />
-      {isOnline && (
+      {canMutate && (
         <Button
           type="submit"
           size="sm"
-          disabled={locked || !isOnline}
+          disabled={locked || !canMutate}
           isLoading={
             intent.status === 'pending' || intent.status === 'reconciling'
           }
@@ -87,8 +89,9 @@ export function QuantityFactForm({
         ]}
         error={intent.error}
         isOnline={isOnline}
+        canMutate={canMutate}
         onAbandon={intent.abandon}
-        onRetry={() => void intent.retry(isOnline)}
+        onRetry={() => void intent.retry(canMutate)}
         problemSchema={ScalarFactControllerRecordFact422Response}
         status={intent.status}
       />

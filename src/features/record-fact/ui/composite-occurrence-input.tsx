@@ -5,7 +5,7 @@ import type {
   UseFormReturn,
 } from 'react-hook-form'
 
-import { Field, FieldLabel, TextField } from '@/shared/ui'
+import { TextField } from '@/shared/ui'
 
 import type {
   ChecklistItemFactFormValues,
@@ -27,15 +27,15 @@ type OccurrenceFormValues =
 
 type OccurrenceInputProps<TValues extends FieldValues> = Readonly<{
   component: OccurrenceComponent
+  canMutate: boolean
   form: Pick<UseFormReturn<TValues>, 'formState' | 'register'>
-  isOnline: boolean
   locked: boolean
 }>
 
 export function CompositeOccurrenceInput<TValues extends FieldValues>({
   component,
+  canMutate,
   form,
-  isOnline,
   locked,
 }: OccurrenceInputProps<TValues>) {
   const errors = form.formState.errors as FieldErrors<OccurrenceFormValues>
@@ -47,7 +47,7 @@ export function CompositeOccurrenceInput<TValues extends FieldValues>({
         className="min-w-28 flex-1"
         label={`${component.label} (${component.unit})`}
         inputMode="decimal"
-        disabled={locked || !isOnline}
+        disabled={locked || !canMutate}
         error={valueError}
         {...form.register('value' as Path<TValues>)}
       />
@@ -55,14 +55,14 @@ export function CompositeOccurrenceInput<TValues extends FieldValues>({
   }
 
   return (
-    <Field className="min-w-36 flex-1">
-      <FieldLabel>{component.label}</FieldLabel>
+    <fieldset className="min-w-36 flex-1">
+      <legend className="text-xs font-medium">{component.label}</legend>
       <div className="flex h-8 items-center gap-3 text-xs">
         <label className="flex items-center gap-1.5">
           <input
             type="radio"
             value="done"
-            disabled={locked || !isOnline}
+            disabled={locked || !canMutate}
             {...form.register('state' as Path<TValues>)}
           />
           Выполнено
@@ -71,12 +71,12 @@ export function CompositeOccurrenceInput<TValues extends FieldValues>({
           <input
             type="radio"
             value="not_done"
-            disabled={locked || !isOnline}
+            disabled={locked || !canMutate}
             {...form.register('state' as Path<TValues>)}
           />
           Не выполнено
         </label>
       </div>
-    </Field>
+    </fieldset>
   )
 }

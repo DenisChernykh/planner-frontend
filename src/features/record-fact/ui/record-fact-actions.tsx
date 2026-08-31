@@ -11,8 +11,10 @@ export function RecordFactActions({
   goal,
   today,
   isOnline,
+  canMutate = isOnline,
   refetch,
 }: Readonly<{
+  canMutate?: boolean
   goal: TrackingGoalPresentation
   isOnline: boolean
   refetch: () => Promise<unknown>
@@ -30,12 +32,14 @@ export function RecordFactActions({
       </p>
       <div className="grid gap-3">
         <RecordFactMeasurement
+          canMutate={canMutate}
           goal={goal}
           isOnline={isOnline}
           refetch={refetch}
           today={today}
         />
         <RecordFactCheckpoints
+          canMutate={canMutate}
           goal={goal}
           isOnline={isOnline}
           refetch={refetch}

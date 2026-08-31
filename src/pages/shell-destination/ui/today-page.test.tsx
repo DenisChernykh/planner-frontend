@@ -1,7 +1,9 @@
-import { fireEvent, render, screen } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import type { TrackingTodayPresentation } from '@/entities/tracking'
+import { ApiNetworkError } from '@/shared/api'
 
 import { TodayPage } from './today-page'
 
@@ -12,6 +14,15 @@ const state = vi.hoisted(() => ({
   refetch: vi.fn(),
   today: undefined as TrackingTodayPresentation | undefined,
 }))
+
+const apiState = vi.hoisted(() => ({
+  recordFact: vi.fn(),
+}))
+
+vi.mock('@/shared/api', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('@/shared/api')>()
+  return { ...actual, scalarFactControllerRecordFact: apiState.recordFact }
+})
 
 vi.mock('@/entities/tracking', () => ({
   useTrackingToday: () => ({
@@ -41,11 +52,12 @@ function goal(
   title: string,
   viewerAccess: 'personal_owner' | 'shared' | 'partner_read_only',
   writable: boolean,
+  config: unknown = {},
 ) {
   return {
     calendar: { kind: 'fixed' },
     category: 'Здоровье',
-    config: {},
+    config,
     day: {
       applicable: true,
       correctionWritable: false,
@@ -122,6 +134,34 @@ const published = {
   timeZone: 'Asia/Yekaterinburg',
 } as unknown as TrackingTodayPresentation
 
+const recoveryPublished = {
+  ...published,
+  goals: [
+    goal(sharedGoalId, 'Общая цель', 'shared', true, {
+      measurement: { kind: 'boolean' },
+    }),
+  ],
+} as unknown as TrackingTodayPresentation
+
+const closedPublished = {
+  ...recoveryPublished,
+  day: {
+    ...recoveryPublished.day,
+    closure: {
+      closedAt: '2026-08-30T18:00:00+05:00',
+      closedCount: '1',
+      dayCloseId: '66666666-6666-4666-8666-666666666666',
+      revision: '4',
+      state: 'closed',
+    },
+    goals: [],
+    state: 'closed',
+  },
+  goals: [],
+  monthStatus: 'closed',
+  phase: 'closed',
+} as unknown as TrackingTodayPresentation
+
 const noPlan = {
   day: null,
   goals: [],
@@ -155,6 +195,7 @@ describe('TodayPage', () => {
     state.isOnline = true
     state.refetch.mockReset()
     state.today = published
+    apiState.recordFact.mockReset()
   })
 
   it('renders mixed server-owned goals and exact Today state', () => {
@@ -209,5 +250,57 @@ describe('TodayPage', () => {
     expect(screen.getByText(/Не удалось обновить просмотр/)).toBeVisible()
     fireEvent.click(screen.getByRole('button', { name: 'Обновить' }))
     expect(state.refetch).toHaveBeenCalledOnce()
+  })
+
+  it.each([
+    ['refresh', { isFetching: true, isError: false }],
+    ['error', { isFetching: false, isError: true }],
+  ] as const)(
+    'keeps cached controls read-only during Today %s',
+    (_name, flags) => {
+      state.today = recoveryPublished
+      state.isFetching = flags.isFetching
+      state.isError = flags.isError
+      render(<TodayPage />)
+
+      expect(screen.getByRole('group', { name: 'Состояние' })).toBeVisible()
+      expect(screen.getByLabelText('Выполнено')).toBeDisabled()
+      expect(
+        screen.queryByRole('button', { name: 'Записать' }),
+      ).not.toBeInTheDocument()
+      expect(apiState.recordFact).not.toHaveBeenCalled()
+    },
+  )
+
+  it('retains an unknown recovery surface across closed, removed and no-plan refreshes', async () => {
+    apiState.recordFact.mockRejectedValueOnce(new ApiNetworkError())
+    state.today = recoveryPublished
+    const { rerender } = render(<TodayPage />)
+
+    await userEvent.click(screen.getByRole('button', { name: 'Записать' }))
+    await waitFor(() =>
+      expect(screen.getByText(/Результат не подтверждён/)).toBeVisible(),
+    )
+
+    state.today = closedPublished
+    rerender(<TodayPage />)
+    expect(screen.getByText('Общая цель')).toBeVisible()
+    expect(screen.getByText(/Результат не подтверждён/)).toBeVisible()
+
+    state.today = noPlan
+    rerender(<TodayPage />)
+    expect(screen.getByText('Общая цель')).toBeVisible()
+    expect(screen.getByText(/Результат не подтверждён/)).toBeVisible()
+    expect(
+      screen.queryByText('План на месяц ещё не создан'),
+    ).not.toBeInTheDocument()
+
+    await userEvent.click(screen.getByRole('button', { name: 'Отменить' }))
+    await waitFor(() =>
+      expect(screen.getByText('План на месяц ещё не создан')).toBeVisible(),
+    )
+    expect(
+      screen.queryByText(/Результат не подтверждён/),
+    ).not.toBeInTheDocument()
   })
 })

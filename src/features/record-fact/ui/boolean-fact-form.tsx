@@ -3,7 +3,7 @@ import {
   ScalarFactControllerRecordFact422Response,
   scalarFactControllerRecordFact,
 } from '@/shared/api'
-import { Button, Field, FieldLabel } from '@/shared/ui'
+import { Button } from '@/shared/ui'
 
 import {
   finalizeBooleanFact,
@@ -16,11 +16,13 @@ import { useRecordFactIntentScope } from '../model/record-fact-intent-scope'
 import { RecordFactFormFeedback } from './record-fact-form-feedback'
 
 export function BooleanFactForm({
+  canMutate,
   target,
   isOnline,
   refetch,
   label = 'Состояние',
 }: Readonly<{
+  canMutate: boolean
   isOnline: boolean
   label?: string
   refetch: () => Promise<unknown>
@@ -48,17 +50,17 @@ export function BooleanFactForm({
       className="flex flex-wrap items-end gap-2"
       noValidate
       onSubmit={form.handleSubmit((values) => {
-        void intent.submit(values, isOnline)
+        void intent.submit(values, canMutate)
       })}
     >
-      <Field className="min-w-36 flex-1">
-        <FieldLabel>{label}</FieldLabel>
+      <fieldset className="min-w-36 flex-1">
+        <legend className="text-xs font-medium">{label}</legend>
         <div className="flex h-8 items-center gap-3 text-xs">
           <label className="flex items-center gap-1.5">
             <input
               type="radio"
               value="done"
-              disabled={locked || !isOnline}
+              disabled={locked || !canMutate}
               {...form.register('result')}
             />
             Выполнено
@@ -67,18 +69,18 @@ export function BooleanFactForm({
             <input
               type="radio"
               value="not_done"
-              disabled={locked || !isOnline}
+              disabled={locked || !canMutate}
               {...form.register('result')}
             />
             Не выполнено
           </label>
         </div>
-      </Field>
-      {isOnline && (
+      </fieldset>
+      {canMutate && (
         <Button
           type="submit"
           size="sm"
-          disabled={locked || !isOnline}
+          disabled={locked || !canMutate}
           isLoading={
             intent.status === 'pending' || intent.status === 'reconciling'
           }
@@ -98,8 +100,9 @@ export function BooleanFactForm({
         ]}
         error={intent.error}
         isOnline={isOnline}
+        canMutate={canMutate}
         onAbandon={intent.abandon}
-        onRetry={() => void intent.retry(isOnline)}
+        onRetry={() => void intent.retry(canMutate)}
         problemSchema={ScalarFactControllerRecordFact422Response}
         status={intent.status}
       />

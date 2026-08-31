@@ -22,11 +22,13 @@ import {
 import { RecordFactFormFeedback } from './record-fact-form-feedback'
 
 export function CompositeOccurrenceForm({
+  canMutate,
   component,
   isOnline,
   refetch,
   target,
 }: Readonly<{
+  canMutate: boolean
   component: OccurrenceComponent
   isOnline: boolean
   refetch: () => Promise<unknown>
@@ -70,20 +72,20 @@ export function CompositeOccurrenceForm({
       className="flex flex-wrap items-end gap-2"
       noValidate
       onSubmit={form.handleSubmit((values) => {
-        void intent.submit(values, isOnline)
+        void intent.submit(values, canMutate)
       })}
     >
       <CompositeOccurrenceInput
         component={component}
+        canMutate={canMutate}
         form={form}
-        isOnline={isOnline}
         locked={locked}
       />
-      {isOnline && (
+      {canMutate && (
         <Button
           type="submit"
           size="sm"
-          disabled={locked || !isOnline}
+          disabled={locked || !canMutate}
           isLoading={
             intent.status === 'pending' || intent.status === 'reconciling'
           }
@@ -106,8 +108,9 @@ export function CompositeOccurrenceForm({
         ]}
         error={intent.error}
         isOnline={isOnline}
+        canMutate={canMutate}
         onAbandon={intent.abandon}
-        onRetry={() => void intent.retry(isOnline)}
+        onRetry={() => void intent.retry(canMutate)}
         problemSchema={
           CompositeFactControllerRecordCompositeOccurrence422Response
         }

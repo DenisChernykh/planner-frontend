@@ -19,6 +19,7 @@ import { useRecordFactIntentScope } from '../model/record-fact-intent-scope'
 import { RecordFactFormFeedback } from './record-fact-form-feedback'
 
 export function CheckpointRatingForm({
+  canMutate,
   checkpointId,
   isOnline,
   label,
@@ -27,6 +28,7 @@ export function CheckpointRatingForm({
   refetch,
   target,
 }: Readonly<{
+  canMutate: boolean
   checkpointId: string
   isOnline: boolean
   label: string
@@ -62,7 +64,7 @@ export function CheckpointRatingForm({
       className="flex flex-wrap items-end gap-2"
       noValidate
       onSubmit={form.handleSubmit((values) => {
-        void intent.submit(values, isOnline)
+        void intent.submit(values, canMutate)
       })}
     >
       <TextField
@@ -74,15 +76,15 @@ export function CheckpointRatingForm({
         type="text"
         inputMode="numeric"
         step={1}
-        disabled={locked || !isOnline}
+        disabled={locked || !canMutate}
         error={error}
         {...form.register('value')}
       />
-      {isOnline && (
+      {canMutate && (
         <Button
           type="submit"
           size="sm"
-          disabled={locked || !isOnline}
+          disabled={locked || !canMutate}
           isLoading={
             intent.status === 'pending' || intent.status === 'reconciling'
           }
@@ -101,8 +103,9 @@ export function CheckpointRatingForm({
         ]}
         error={intent.error}
         isOnline={isOnline}
+        canMutate={canMutate}
         onAbandon={intent.abandon}
-        onRetry={() => void intent.retry(isOnline)}
+        onRetry={() => void intent.retry(canMutate)}
         problemSchema={ScalarFactControllerRecordCheckpoint422Response}
         status={intent.status}
       />

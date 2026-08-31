@@ -12,8 +12,10 @@ export function RecordFactFormFeedback({
   allowedPointers,
   problemSchema,
   isOnline,
+  canMutate,
 }: Readonly<{
   allowedPointers?: readonly string[]
+  canMutate: boolean
   error?: unknown
   isOnline: boolean
   onAbandon?: () => void
@@ -39,7 +41,7 @@ export function RecordFactFormFeedback({
           type="button"
           variant="outline"
           size="sm"
-          disabled={!isOnline}
+          disabled={!isOnline || !canMutate}
           onClick={onRetry}
         >
           Повторить

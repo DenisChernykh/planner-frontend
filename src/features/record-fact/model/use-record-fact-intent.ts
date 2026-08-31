@@ -9,10 +9,19 @@ import {
 import {
   CommandIntentController,
   OfflineSubmissionError,
+  type CommandIntentState,
 } from '@/shared/lib/command'
 
 export type RecordFactIntentStatus =
   'idle' | 'reconciling' | 'pending' | 'unknown' | 'stale' | 'success' | 'error'
+
+function statusAfterSubmissionFailure(
+  state: CommandIntentState,
+): RecordFactIntentStatus {
+  if (state === 'unknown') return 'unknown'
+  if (state === 'stale') return 'stale'
+  return 'error'
+}
 
 type MapValues<TValues, TPayload extends object> = (values: TValues) => TPayload
 type FinalizePayload<TPayload extends object, TBody extends object> = (
@@ -173,6 +182,10 @@ export function useRecordFactIntent<
           refreshView()
           throw reconciliationError
         }
+        setError(undefined)
+        setStatus('stale')
+        refreshView()
+        return
       } else if (controller.state === 'unreconciled') {
         setStatus('reconciling')
         refreshView()
@@ -199,13 +212,7 @@ export function useRecordFactIntent<
           setIsTerminal(true)
         }
         setError(submissionError)
-        setStatus(
-          controller.state === 'unknown'
-            ? 'unknown'
-            : controller.state === 'stale'
-              ? 'stale'
-              : 'error',
-        )
+        setStatus(statusAfterSubmissionFailure(controller.state))
         refreshView()
         throw submissionError
       }

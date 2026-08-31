@@ -16,6 +16,7 @@ import { useRecordFactIntentScope } from '../model/record-fact-intent-scope'
 import { RecordFactFormFeedback } from './record-fact-form-feedback'
 
 export function ActualTimeFactForm({
+  canMutate,
   target,
   isOnline,
   refetch,
@@ -23,6 +24,7 @@ export function ActualTimeFactForm({
   end,
   label = 'Фактическое время',
 }: Readonly<{
+  canMutate: boolean
   end: string
   isOnline: boolean
   label?: string
@@ -52,22 +54,22 @@ export function ActualTimeFactForm({
       className="flex flex-wrap items-end gap-2"
       noValidate
       onSubmit={form.handleSubmit((values) => {
-        void intent.submit(values, isOnline)
+        void intent.submit(values, canMutate)
       })}
     >
       <TextField
         className="min-w-28 flex-1"
         label={`${label} (${start}–${end})`}
         type="time"
-        disabled={locked || !isOnline}
+        disabled={locked || !canMutate}
         error={error}
         {...form.register('value')}
       />
-      {isOnline && (
+      {canMutate && (
         <Button
           type="submit"
           size="sm"
-          disabled={locked || !isOnline}
+          disabled={locked || !canMutate}
           isLoading={
             intent.status === 'pending' || intent.status === 'reconciling'
           }
@@ -85,8 +87,9 @@ export function ActualTimeFactForm({
         ]}
         error={intent.error}
         isOnline={isOnline}
+        canMutate={canMutate}
         onAbandon={intent.abandon}
-        onRetry={() => void intent.retry(isOnline)}
+        onRetry={() => void intent.retry(canMutate)}
         problemSchema={ScalarFactControllerRecordTime422Response}
         status={intent.status}
       />

@@ -5,19 +5,19 @@ import type {
 
 import { ActualTimeFactForm } from './actual-time-fact-form'
 import { BooleanFactForm } from './boolean-fact-form'
-import { ChecklistItemFactForm } from './checklist-item-fact-form'
-import { RecordFactFlexible } from './record-fact-flexible'
 import { QuantityFactForm } from './quantity-fact-form'
 import { RatingFactForm } from './rating-fact-form'
 import { TextFactForm } from './text-fact-form'
-import { OrVariantFactForm } from './or-variant-fact-form'
+import { RecordFactCompositeMeasurement } from './record-fact-composite-measurement'
 
 export function RecordFactMeasurement({
+  canMutate,
   goal,
   today,
   isOnline,
   refetch,
 }: Readonly<{
+  canMutate: boolean
   goal: TrackingGoalPresentation
   isOnline: boolean
   refetch: () => Promise<unknown>
@@ -30,12 +30,6 @@ export function RecordFactMeasurement({
   } as const
   const measurement = goal.config?.measurement
   if (measurement === undefined) return null
-  const isFixedItem = (itemId: string) =>
-    goal.day.fixedExpectations.some(
-      (expectation) =>
-        expectation.componentKind === 'checklist_item' &&
-        expectation.componentId === itemId,
-    )
   const hasFixedGoalExpectation = () =>
     goal.day.fixedExpectations.some(
       (expectation) =>
@@ -45,13 +39,19 @@ export function RecordFactMeasurement({
 
   if (measurement.kind === 'boolean') {
     return (
-      <BooleanFactForm isOnline={isOnline} refetch={refetch} target={target} />
+      <BooleanFactForm
+        canMutate={canMutate}
+        isOnline={isOnline}
+        refetch={refetch}
+        target={target}
+      />
     )
   }
   if (measurement.kind === 'quantity') {
     return (
       <QuantityFactForm
         aggregation={measurement.aggregation}
+        canMutate={canMutate}
         isOnline={isOnline}
         precision={measurement.precision}
         refetch={refetch}
@@ -63,6 +63,7 @@ export function RecordFactMeasurement({
   if (measurement.kind === 'actual_time') {
     return (
       <ActualTimeFactForm
+        canMutate={canMutate}
         end={measurement.end}
         isOnline={isOnline}
         refetch={refetch}
@@ -74,6 +75,7 @@ export function RecordFactMeasurement({
   if (measurement.kind === 'rating') {
     return (
       <RatingFactForm
+        canMutate={canMutate}
         isOnline={isOnline}
         maximum={measurement.maximum}
         minimum={measurement.minimum}
@@ -85,57 +87,24 @@ export function RecordFactMeasurement({
   if (measurement.kind === 'text') {
     if (!hasFixedGoalExpectation()) return null
     return (
-      <TextFactForm isOnline={isOnline} refetch={refetch} target={target} />
+      <TextFactForm
+        canMutate={canMutate}
+        isOnline={isOnline}
+        refetch={refetch}
+        target={target}
+      />
     )
   }
-  if (measurement.kind === 'checklist') {
+  if (measurement.kind === 'checklist' || measurement.kind === 'any_of') {
     return (
-      <>
-        {measurement.items
-          .filter((item) => isFixedItem(item.itemId))
-          .map((item) => (
-            <ChecklistItemFactForm
-              itemId={item.itemId}
-              isOnline={isOnline}
-              key={item.itemId}
-              label={item.label}
-              refetch={refetch}
-              target={target}
-            />
-          ))}
-        <RecordFactFlexible
-          goal={goal}
-          isOnline={isOnline}
-          refetch={refetch}
-          target={target}
-        />
-      </>
-    )
-  }
-  if (measurement.kind === 'any_of') {
-    return (
-      <>
-        {measurement.variants
-          .filter(() => hasFixedGoalExpectation())
-          .map((variant) => (
-            <OrVariantFactForm
-              isOnline={isOnline}
-              key={variant.variantId}
-              label={variant.label}
-              precision={variant.precision}
-              refetch={refetch}
-              target={target}
-              unit={variant.unit}
-              variantId={variant.variantId}
-            />
-          ))}
-        <RecordFactFlexible
-          goal={goal}
-          isOnline={isOnline}
-          refetch={refetch}
-          target={target}
-        />
-      </>
+      <RecordFactCompositeMeasurement
+        canMutate={canMutate}
+        goal={goal}
+        isOnline={isOnline}
+        measurement={measurement}
+        refetch={refetch}
+        target={target}
+      />
     )
   }
   return null

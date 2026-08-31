@@ -8,6 +8,7 @@ import type {
 } from '@/entities/tracking'
 import {
   ApiNetworkError,
+  ApiProblemError,
   compositeFactControllerRecordChecklistItem,
   compositeFactControllerRecordCompositeOccurrence,
   compositeFactControllerRecordOrVariant,
@@ -112,6 +113,7 @@ describe('RecordFactActions', () => {
       />,
     )
 
+    expect(screen.getByRole('group', { name: 'Состояние' })).toBeVisible()
     await userEvent.click(screen.getByRole('button', { name: 'Записать' }))
     await waitFor(() => expect(refetch).toHaveBeenCalledOnce())
     expect(scalarFactControllerRecordFact).toHaveBeenCalledWith(
@@ -121,6 +123,52 @@ describe('RecordFactActions', () => {
         publicationId: target.publicationId,
         value: { kind: 'boolean', result: 'done' },
       }),
+    )
+  })
+
+  it('reconciles stale data before requiring a new confirmation', async () => {
+    const conflict = new ApiProblemError(
+      {
+        type: 'https://planner.example.test/problems/conflict',
+        title: 'Conflict',
+        status: 409,
+        detail: 'Conflict',
+        instance: 'urn:request:conflict',
+        code: 'TRACKING_FACT_TARGET_UNAVAILABLE',
+        requestId: 'request-conflict',
+      },
+      null,
+    )
+    vi.mocked(scalarFactControllerRecordFact)
+      .mockRejectedValueOnce(conflict)
+      .mockResolvedValueOnce(response)
+    const refetch = vi.fn(async () => undefined)
+    render(
+      <RecordFactActions
+        goal={createGoal({ kind: 'boolean' })}
+        isOnline
+        refetch={refetch}
+        today={today}
+      />,
+    )
+
+    const submit = screen.getByRole('button', { name: 'Записать' })
+    await userEvent.click(submit)
+    await waitFor(() =>
+      expect(screen.getByText(/Данные изменились на сервере/)).toBeVisible(),
+    )
+    await userEvent.click(submit)
+    await waitFor(() => expect(refetch).toHaveBeenCalledOnce())
+    expect(scalarFactControllerRecordFact).toHaveBeenCalledOnce()
+
+    await userEvent.click(submit)
+    await waitFor(() =>
+      expect(scalarFactControllerRecordFact).toHaveBeenCalledTimes(2),
+    )
+    expect(
+      vi.mocked(scalarFactControllerRecordFact).mock.calls[1]?.[0]?.commandId,
+    ).not.toBe(
+      vi.mocked(scalarFactControllerRecordFact).mock.calls[0]?.[0]?.commandId,
     )
   })
 
@@ -210,6 +258,25 @@ describe('RecordFactActions', () => {
     expect(screen.queryByText('Записать')).not.toBeInTheDocument()
   })
 
+  it('keeps cached controls mounted but read-only while Today is refreshing', () => {
+    render(
+      <RecordFactActions
+        canMutate={false}
+        goal={createGoal({ kind: 'boolean' })}
+        isOnline
+        refetch={vi.fn()}
+        today={today}
+      />,
+    )
+
+    expect(screen.getByRole('group', { name: 'Состояние' })).toBeVisible()
+    expect(screen.getByLabelText('Выполнено')).toBeDisabled()
+    expect(
+      screen.queryByRole('button', { name: 'Записать' }),
+    ).not.toBeInTheDocument()
+    expect(scalarFactControllerRecordFact).not.toHaveBeenCalled()
+  })
+
   it('routes text facts through the fixed text operation', async () => {
     const refetch = vi.fn(async () => undefined)
     render(
@@ -223,6 +290,7 @@ describe('RecordFactActions', () => {
       />,
     )
 
+    expect(screen.getByRole('group', { name: 'Результат' })).toBeVisible()
     fireEvent.change(screen.getByLabelText('Текстовый факт'), {
       target: { value: 'Итог дня' },
     })
@@ -259,6 +327,7 @@ describe('RecordFactActions', () => {
       />,
     )
 
+    expect(screen.getByRole('group', { name: 'Прогулка' })).toBeVisible()
     await userEvent.click(screen.getByRole('button', { name: 'Записать' }))
     await waitFor(() =>
       expect(compositeFactControllerRecordChecklistItem).toHaveBeenCalledOnce(),
@@ -352,6 +421,27 @@ describe('RecordFactActions', () => {
         component: { kind: 'or_variant', value: '1.20', variantId },
       }),
     )
+  })
+
+  it('names flexible checklist occurrence radio groups from the backend component', () => {
+    const itemId = '33333333-3333-4333-8333-333333333333'
+    render(
+      <RecordFactActions
+        goal={createGoal(
+          {
+            kind: 'checklist',
+            items: [{ itemId, label: 'Прогулка' }],
+          },
+          [],
+          [{ eligibleOnDate: true }],
+        )}
+        isOnline
+        refetch={vi.fn(async () => undefined)}
+        today={today}
+      />,
+    )
+
+    expect(screen.getByRole('group', { name: 'Прогулка' })).toBeVisible()
   })
 
   it('routes checkpoint checklist items with exact checkpoint and item IDs', async () => {

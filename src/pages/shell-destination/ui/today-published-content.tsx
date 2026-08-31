@@ -12,10 +12,12 @@ const dayStateLabels = {
 } as const
 
 export function PublishedTodayContent({
+  canMutate,
   data,
   isOnline,
   refetch,
 }: Readonly<{
+  canMutate: boolean
   data: Extract<TrackingTodayPresentation, { state: 'published' }>
   isOnline: boolean
   refetch: () => Promise<unknown>
@@ -81,6 +83,7 @@ export function PublishedTodayContent({
           <div className="mt-4 grid gap-4 lg:grid-cols-2">
             {data.goals.map((goal) => (
               <TodayGoalCard
+                canMutate={canMutate}
                 goal={goal}
                 isOnline={isOnline}
                 key={goal.planGoalSnapshotId}

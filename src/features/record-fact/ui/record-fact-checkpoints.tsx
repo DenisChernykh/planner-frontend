@@ -20,11 +20,13 @@ function checkpointIsExpected(
 }
 
 export function RecordFactCheckpoints({
+  canMutate,
   goal,
   today,
   isOnline,
   refetch,
 }: Readonly<{
+  canMutate: boolean
   goal: TrackingGoalPresentation
   isOnline: boolean
   refetch: () => Promise<unknown>
@@ -53,6 +55,7 @@ export function RecordFactCheckpoints({
         if (kind === 'boolean' || kind === 'actual_time' || kind === 'rating') {
           return (
             <CheckpointFactForm
+              canMutate={canMutate}
               checkpointId={checkpoint.checkpointId}
               isOnline={isOnline}
               key={checkpoint.checkpointId}
@@ -68,6 +71,7 @@ export function RecordFactCheckpoints({
         if (kind === 'text') {
           return (
             <TextFactForm
+              canMutate={canMutate}
               checkpointId={checkpoint.checkpointId}
               isOnline={isOnline}
               key={checkpoint.checkpointId}
@@ -82,6 +86,7 @@ export function RecordFactCheckpoints({
             <div className="grid gap-2" key={checkpoint.checkpointId}>
               {measurement.items.map((item) => (
                 <ChecklistItemFactForm
+                  canMutate={canMutate}
                   checkpointId={checkpoint.checkpointId}
                   itemId={item.itemId}
                   isOnline={isOnline}
@@ -99,6 +104,7 @@ export function RecordFactCheckpoints({
             <div className="grid gap-2" key={checkpoint.checkpointId}>
               {measurement.variants.map((variant) => (
                 <OrVariantFactForm
+                  canMutate={canMutate}
                   checkpointId={checkpoint.checkpointId}
                   isOnline={isOnline}
                   key={variant.variantId}

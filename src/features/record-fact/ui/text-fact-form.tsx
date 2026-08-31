@@ -3,7 +3,7 @@ import {
   CompositeFactControllerRecordText422Response,
   compositeFactControllerRecordText,
 } from '@/shared/api'
-import { Button, Field, FieldLabel, TextareaField } from '@/shared/ui'
+import { Button, TextareaField } from '@/shared/ui'
 
 import { finalizeTextFact, mapTextFact } from '../model/composite-fact-mappers'
 import { textFactFormSchema } from '../model/composite-fact-schemas'
@@ -13,12 +13,14 @@ import { useRecordFactIntentScope } from '../model/record-fact-intent-scope'
 import { RecordFactFormFeedback } from './record-fact-form-feedback'
 
 export function TextFactForm({
+  canMutate,
   checkpointId = null,
   isOnline,
   refetch,
   target,
   label = 'Текстовый факт',
 }: Readonly<{
+  canMutate: boolean
   checkpointId?: string | null
   isOnline: boolean
   label?: string
@@ -47,24 +49,24 @@ export function TextFactForm({
       className="grid gap-2"
       noValidate
       onSubmit={form.handleSubmit((values) => {
-        void intent.submit(values, isOnline)
+        void intent.submit(values, canMutate)
       })}
     >
       <TextareaField
         label={label}
         rows={2}
-        disabled={locked || !isOnline}
+        disabled={locked || !canMutate}
         error={form.formState.errors.text?.message}
         {...form.register('text')}
       />
-      <Field>
-        <FieldLabel>Результат</FieldLabel>
+      <fieldset>
+        <legend className="text-xs font-medium">Результат</legend>
         <div className="flex flex-wrap gap-3 text-xs">
           <label className="flex items-center gap-1.5">
             <input
               type="radio"
               value="done"
-              disabled={locked || !isOnline}
+              disabled={locked || !canMutate}
               {...form.register('result')}
             />
             Выполнено
@@ -73,18 +75,18 @@ export function TextFactForm({
             <input
               type="radio"
               value="not_done"
-              disabled={locked || !isOnline}
+              disabled={locked || !canMutate}
               {...form.register('result')}
             />
             Не выполнено
           </label>
         </div>
-      </Field>
-      {isOnline && (
+      </fieldset>
+      {canMutate && (
         <Button
           type="submit"
           size="sm"
-          disabled={locked || !isOnline}
+          disabled={locked || !canMutate}
           isLoading={
             intent.status === 'pending' || intent.status === 'reconciling'
           }
@@ -104,8 +106,9 @@ export function TextFactForm({
         ]}
         error={intent.error}
         isOnline={isOnline}
+        canMutate={canMutate}
         onAbandon={intent.abandon}
-        onRetry={() => void intent.retry(isOnline)}
+        onRetry={() => void intent.retry(canMutate)}
         problemSchema={CompositeFactControllerRecordText422Response}
         status={intent.status}
       />
