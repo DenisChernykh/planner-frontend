@@ -17,12 +17,14 @@ import { RecordFactFormFeedback } from './record-fact-form-feedback'
 
 export function BooleanFactForm({
   canMutate,
+  canRetry,
   target,
   isOnline,
   refetch,
   label = 'Состояние',
 }: Readonly<{
   canMutate: boolean
+  canRetry: boolean
   isOnline: boolean
   label?: string
   refetch: () => Promise<unknown>
@@ -100,9 +102,9 @@ export function BooleanFactForm({
         ]}
         error={intent.error}
         isOnline={isOnline}
-        canMutate={canMutate}
+        canRetry={canRetry}
         onAbandon={intent.abandon}
-        onRetry={() => void intent.retry(canMutate)}
+        onRetry={() => void intent.retry(canRetry)}
         problemSchema={ScalarFactControllerRecordFact422Response}
         status={intent.status}
       />

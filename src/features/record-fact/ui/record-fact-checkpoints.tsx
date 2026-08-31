@@ -21,12 +21,14 @@ function checkpointIsExpected(
 
 export function RecordFactCheckpoints({
   canMutate,
+  canRetry,
   goal,
   today,
   isOnline,
   refetch,
 }: Readonly<{
   canMutate: boolean
+  canRetry: boolean
   goal: TrackingGoalPresentation
   isOnline: boolean
   refetch: () => Promise<unknown>
@@ -56,6 +58,7 @@ export function RecordFactCheckpoints({
           return (
             <CheckpointFactForm
               canMutate={canMutate}
+              canRetry={canRetry}
               checkpointId={checkpoint.checkpointId}
               isOnline={isOnline}
               key={checkpoint.checkpointId}
@@ -72,6 +75,7 @@ export function RecordFactCheckpoints({
           return (
             <TextFactForm
               canMutate={canMutate}
+              canRetry={canRetry}
               checkpointId={checkpoint.checkpointId}
               isOnline={isOnline}
               key={checkpoint.checkpointId}
@@ -87,6 +91,7 @@ export function RecordFactCheckpoints({
               {measurement.items.map((item) => (
                 <ChecklistItemFactForm
                   canMutate={canMutate}
+                  canRetry={canRetry}
                   checkpointId={checkpoint.checkpointId}
                   itemId={item.itemId}
                   isOnline={isOnline}
@@ -105,6 +110,7 @@ export function RecordFactCheckpoints({
               {measurement.variants.map((variant) => (
                 <OrVariantFactForm
                   canMutate={canMutate}
+                  canRetry={canRetry}
                   checkpointId={checkpoint.checkpointId}
                   isOnline={isOnline}
                   key={variant.variantId}

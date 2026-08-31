@@ -35,6 +35,14 @@ function TodayPageContent({
 }>) {
   const { hasBlockingIntents } = useRecordFactIntentScopeState()
   const data = useRetainedTodayPresentation(tracking.data, hasBlockingIntents)
+  const hasRetainedSnapshot = hasBlockingIntents && tracking.data !== data
+  const canMutate =
+    isOnline &&
+    !tracking.isFetching &&
+    !tracking.isError &&
+    !hasBlockingIntents &&
+    !hasRetainedSnapshot
+  const canRetry = isOnline && !tracking.isFetching && !tracking.isError
 
   if (data === undefined) {
     return (
@@ -61,7 +69,8 @@ function TodayPageContent({
         <EmptyTodayState data={data} />
         {data.state === 'published' && (
           <PublishedTodayContent
-            canMutate={isOnline && !tracking.isFetching && !tracking.isError}
+            canMutate={canMutate}
+            canRetry={canRetry}
             data={data}
             isOnline={isOnline}
             refetch={async () => {

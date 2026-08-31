@@ -23,12 +23,14 @@ import { RecordFactFormFeedback } from './record-fact-form-feedback'
 
 export function CompositeOccurrenceForm({
   canMutate,
+  canRetry,
   component,
   isOnline,
   refetch,
   target,
 }: Readonly<{
   canMutate: boolean
+  canRetry: boolean
   component: OccurrenceComponent
   isOnline: boolean
   refetch: () => Promise<unknown>
@@ -108,9 +110,9 @@ export function CompositeOccurrenceForm({
         ]}
         error={intent.error}
         isOnline={isOnline}
-        canMutate={canMutate}
+        canRetry={canRetry}
         onAbandon={intent.abandon}
-        onRetry={() => void intent.retry(canMutate)}
+        onRetry={() => void intent.retry(canRetry)}
         problemSchema={
           CompositeFactControllerRecordCompositeOccurrence422Response
         }

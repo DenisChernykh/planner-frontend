@@ -5,12 +5,14 @@ import { CompositeOccurrenceForm } from './composite-occurrence-form'
 
 export function RecordFactFlexible({
   canMutate,
+  canRetry,
   goal,
   isOnline,
   refetch,
   target,
 }: Readonly<{
   canMutate: boolean
+  canRetry: boolean
   goal: TrackingGoalPresentation
   isOnline: boolean
   refetch: () => Promise<unknown>
@@ -26,6 +28,7 @@ export function RecordFactFlexible({
         {measurement.items.map((item) => (
           <CompositeOccurrenceForm
             canMutate={canMutate}
+            canRetry={canRetry}
             component={{
               kind: 'checklist_item',
               itemId: item.itemId,
@@ -46,6 +49,7 @@ export function RecordFactFlexible({
         {measurement.variants.map((variant) => (
           <CompositeOccurrenceForm
             canMutate={canMutate}
+            canRetry={canRetry}
             component={{
               kind: 'or_variant',
               label: variant.label,

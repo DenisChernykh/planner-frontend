@@ -20,6 +20,7 @@ import { RecordFactFormFeedback } from './record-fact-form-feedback'
 
 export function RatingFactForm({
   canMutate,
+  canRetry,
   target,
   isOnline,
   refetch,
@@ -28,6 +29,7 @@ export function RatingFactForm({
   label = 'Оценка',
 }: Readonly<{
   canMutate: boolean
+  canRetry: boolean
   isOnline: boolean
   label?: string
   maximum: number
@@ -93,9 +95,9 @@ export function RatingFactForm({
         ]}
         error={intent.error}
         isOnline={isOnline}
-        canMutate={canMutate}
+        canRetry={canRetry}
         onAbandon={intent.abandon}
-        onRetry={() => void intent.retry(canMutate)}
+        onRetry={() => void intent.retry(canRetry)}
         problemSchema={ScalarFactControllerRecordRating422Response}
         status={intent.status}
       />

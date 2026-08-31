@@ -17,6 +17,7 @@ import { RecordFactFormFeedback } from './record-fact-form-feedback'
 
 export function ActualTimeFactForm({
   canMutate,
+  canRetry,
   target,
   isOnline,
   refetch,
@@ -25,6 +26,7 @@ export function ActualTimeFactForm({
   label = 'Фактическое время',
 }: Readonly<{
   canMutate: boolean
+  canRetry: boolean
   end: string
   isOnline: boolean
   label?: string
@@ -87,9 +89,9 @@ export function ActualTimeFactForm({
         ]}
         error={intent.error}
         isOnline={isOnline}
-        canMutate={canMutate}
+        canRetry={canRetry}
         onAbandon={intent.abandon}
-        onRetry={() => void intent.retry(canMutate)}
+        onRetry={() => void intent.retry(canRetry)}
         problemSchema={ScalarFactControllerRecordTime422Response}
         status={intent.status}
       />

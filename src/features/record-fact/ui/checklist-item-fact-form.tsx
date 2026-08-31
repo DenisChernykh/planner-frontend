@@ -17,6 +17,7 @@ import { RecordFactFormFeedback } from './record-fact-form-feedback'
 
 export function ChecklistItemFactForm({
   canMutate,
+  canRetry,
   checkpointId = null,
   itemId,
   isOnline,
@@ -25,6 +26,7 @@ export function ChecklistItemFactForm({
   target,
 }: Readonly<{
   canMutate: boolean
+  canRetry: boolean
   checkpointId?: string | null
   isOnline: boolean
   itemId: string
@@ -104,9 +106,9 @@ export function ChecklistItemFactForm({
         ]}
         error={intent.error}
         isOnline={isOnline}
-        canMutate={canMutate}
+        canRetry={canRetry}
         onAbandon={intent.abandon}
-        onRetry={() => void intent.retry(canMutate)}
+        onRetry={() => void intent.retry(canRetry)}
         problemSchema={CompositeFactControllerRecordChecklistItem422Response}
         status={intent.status}
       />
