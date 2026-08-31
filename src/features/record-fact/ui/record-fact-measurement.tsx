@@ -12,12 +12,14 @@ import { RecordFactCompositeMeasurement } from './record-fact-composite-measurem
 
 export function RecordFactMeasurement({
   canMutate,
+  canRetry,
   goal,
   today,
   isOnline,
   refetch,
 }: Readonly<{
   canMutate: boolean
+  canRetry: boolean
   goal: TrackingGoalPresentation
   isOnline: boolean
   refetch: () => Promise<unknown>
@@ -41,6 +43,7 @@ export function RecordFactMeasurement({
     return (
       <BooleanFactForm
         canMutate={canMutate}
+        canRetry={canRetry}
         isOnline={isOnline}
         refetch={refetch}
         target={target}
@@ -52,6 +55,7 @@ export function RecordFactMeasurement({
       <QuantityFactForm
         aggregation={measurement.aggregation}
         canMutate={canMutate}
+        canRetry={canRetry}
         isOnline={isOnline}
         precision={measurement.precision}
         refetch={refetch}
@@ -64,6 +68,7 @@ export function RecordFactMeasurement({
     return (
       <ActualTimeFactForm
         canMutate={canMutate}
+        canRetry={canRetry}
         end={measurement.end}
         isOnline={isOnline}
         refetch={refetch}
@@ -76,6 +81,7 @@ export function RecordFactMeasurement({
     return (
       <RatingFactForm
         canMutate={canMutate}
+        canRetry={canRetry}
         isOnline={isOnline}
         maximum={measurement.maximum}
         minimum={measurement.minimum}
@@ -89,6 +95,7 @@ export function RecordFactMeasurement({
     return (
       <TextFactForm
         canMutate={canMutate}
+        canRetry={canRetry}
         isOnline={isOnline}
         refetch={refetch}
         target={target}
@@ -99,6 +106,7 @@ export function RecordFactMeasurement({
     return (
       <RecordFactCompositeMeasurement
         canMutate={canMutate}
+        canRetry={canRetry}
         goal={goal}
         isOnline={isOnline}
         measurement={measurement}

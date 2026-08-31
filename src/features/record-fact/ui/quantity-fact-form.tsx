@@ -17,6 +17,7 @@ import { RecordFactFormFeedback } from './record-fact-form-feedback'
 
 export function QuantityFactForm({
   canMutate,
+  canRetry,
   target,
   isOnline,
   refetch,
@@ -26,6 +27,7 @@ export function QuantityFactForm({
 }: Readonly<{
   aggregation: 'add' | 'latest'
   canMutate: boolean
+  canRetry: boolean
   isOnline: boolean
   precision: number
   refetch: () => Promise<unknown>
@@ -89,9 +91,9 @@ export function QuantityFactForm({
         ]}
         error={intent.error}
         isOnline={isOnline}
-        canMutate={canMutate}
+        canRetry={canRetry}
         onAbandon={intent.abandon}
-        onRetry={() => void intent.retry(canMutate)}
+        onRetry={() => void intent.retry(canRetry)}
         problemSchema={ScalarFactControllerRecordFact422Response}
         status={intent.status}
       />

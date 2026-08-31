@@ -17,6 +17,7 @@ import { RecordFactFormFeedback } from './record-fact-form-feedback'
 
 export function OrVariantFactForm({
   canMutate,
+  canRetry,
   checkpointId = null,
   isOnline,
   label,
@@ -27,6 +28,7 @@ export function OrVariantFactForm({
   variantId,
 }: Readonly<{
   canMutate: boolean
+  canRetry: boolean
   checkpointId?: string | null
   isOnline: boolean
   label: string
@@ -92,9 +94,9 @@ export function OrVariantFactForm({
         ]}
         error={intent.error}
         isOnline={isOnline}
-        canMutate={canMutate}
+        canRetry={canRetry}
         onAbandon={intent.abandon}
-        onRetry={() => void intent.retry(canMutate)}
+        onRetry={() => void intent.retry(canRetry)}
         problemSchema={CompositeFactControllerRecordOrVariant422Response}
         status={intent.status}
       />

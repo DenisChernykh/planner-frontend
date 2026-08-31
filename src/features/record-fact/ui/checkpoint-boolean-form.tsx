@@ -17,6 +17,7 @@ import { RecordFactFormFeedback } from './record-fact-form-feedback'
 
 export function CheckpointBooleanForm({
   canMutate,
+  canRetry,
   checkpointId,
   isOnline,
   label,
@@ -24,6 +25,7 @@ export function CheckpointBooleanForm({
   target,
 }: Readonly<{
   canMutate: boolean
+  canRetry: boolean
   checkpointId: string
   isOnline: boolean
   label: string
@@ -101,9 +103,9 @@ export function CheckpointBooleanForm({
         ]}
         error={intent.error}
         isOnline={isOnline}
-        canMutate={canMutate}
+        canRetry={canRetry}
         onAbandon={intent.abandon}
-        onRetry={() => void intent.retry(canMutate)}
+        onRetry={() => void intent.retry(canRetry)}
         problemSchema={ScalarFactControllerRecordCheckpoint422Response}
         status={intent.status}
       />

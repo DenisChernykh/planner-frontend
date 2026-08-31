@@ -12,9 +12,11 @@ export function RecordFactActions({
   today,
   isOnline,
   canMutate = isOnline,
+  canRetry = canMutate,
   refetch,
 }: Readonly<{
   canMutate?: boolean
+  canRetry?: boolean
   goal: TrackingGoalPresentation
   isOnline: boolean
   refetch: () => Promise<unknown>
@@ -33,6 +35,7 @@ export function RecordFactActions({
       <div className="grid gap-3">
         <RecordFactMeasurement
           canMutate={canMutate}
+          canRetry={canRetry}
           goal={goal}
           isOnline={isOnline}
           refetch={refetch}
@@ -40,6 +43,7 @@ export function RecordFactActions({
         />
         <RecordFactCheckpoints
           canMutate={canMutate}
+          canRetry={canRetry}
           goal={goal}
           isOnline={isOnline}
           refetch={refetch}

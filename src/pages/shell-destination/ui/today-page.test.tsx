@@ -39,6 +39,7 @@ vi.mock('@/shared/lib/online-status', () => ({
 
 const sharedGoalId = '11111111-1111-4111-8111-111111111111'
 const partnerGoalId = '22222222-2222-4222-8222-222222222222'
+const idleGoalId = '77777777-7777-4777-8777-777777777777'
 
 function metric() {
   return {
@@ -138,6 +139,9 @@ const recoveryPublished = {
   ...published,
   goals: [
     goal(sharedGoalId, 'Общая цель', 'shared', true, {
+      measurement: { kind: 'boolean' },
+    }),
+    goal(idleGoalId, 'Вторая цель', 'shared', true, {
       measurement: { kind: 'boolean' },
     }),
   ],
@@ -263,8 +267,10 @@ describe('TodayPage', () => {
       state.isError = flags.isError
       render(<TodayPage />)
 
-      expect(screen.getByRole('group', { name: 'Состояние' })).toBeVisible()
-      expect(screen.getByLabelText('Выполнено')).toBeDisabled()
+      expect(screen.getAllByRole('group', { name: 'Состояние' })).toHaveLength(
+        2,
+      )
+      expect(screen.getAllByLabelText('Выполнено')[0]).toBeDisabled()
       expect(
         screen.queryByRole('button', { name: 'Записать' }),
       ).not.toBeInTheDocument()
@@ -273,34 +279,52 @@ describe('TodayPage', () => {
   )
 
   it('retains an unknown recovery surface across closed, removed and no-plan refreshes', async () => {
-    apiState.recordFact.mockRejectedValueOnce(new ApiNetworkError())
+    apiState.recordFact
+      .mockRejectedValueOnce(new ApiNetworkError())
+      .mockResolvedValueOnce(undefined)
     state.today = recoveryPublished
     const { rerender } = render(<TodayPage />)
 
-    await userEvent.click(screen.getByRole('button', { name: 'Записать' }))
+    await userEvent.click(
+      screen.getAllByRole('button', { name: 'Записать' })[0],
+    )
     await waitFor(() =>
       expect(screen.getByText(/Результат не подтверждён/)).toBeVisible(),
     )
+    expect(screen.getAllByRole('group', { name: 'Состояние' })).toHaveLength(2)
+    expect(
+      screen.queryByRole('button', { name: 'Записать' }),
+    ).not.toBeInTheDocument()
+    expect(screen.getAllByLabelText('Выполнено')).toHaveLength(2)
+    expect(
+      screen
+        .getAllByLabelText('Выполнено')
+        .every((input) => input.matches(':disabled')),
+    ).toBe(true)
+    expect(apiState.recordFact).toHaveBeenCalledOnce()
 
     state.today = closedPublished
     rerender(<TodayPage />)
     expect(screen.getByText('Общая цель')).toBeVisible()
     expect(screen.getByText(/Результат не подтверждён/)).toBeVisible()
+    expect(screen.getByRole('button', { name: 'Повторить' })).toBeEnabled()
 
     state.today = noPlan
     rerender(<TodayPage />)
     expect(screen.getByText('Общая цель')).toBeVisible()
     expect(screen.getByText(/Результат не подтверждён/)).toBeVisible()
+    expect(screen.getByRole('button', { name: 'Повторить' })).toBeEnabled()
     expect(
       screen.queryByText('План на месяц ещё не создан'),
     ).not.toBeInTheDocument()
 
-    await userEvent.click(screen.getByRole('button', { name: 'Отменить' }))
+    await userEvent.click(screen.getByRole('button', { name: 'Повторить' }))
     await waitFor(() =>
       expect(screen.getByText('План на месяц ещё не создан')).toBeVisible(),
     )
     expect(
       screen.queryByText(/Результат не подтверждён/),
     ).not.toBeInTheDocument()
+    expect(apiState.recordFact).toHaveBeenCalledTimes(2)
   })
 })

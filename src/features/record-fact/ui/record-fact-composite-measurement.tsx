@@ -15,6 +15,7 @@ export type CompositeMeasurement = Extract<
 
 export function RecordFactCompositeMeasurement({
   canMutate,
+  canRetry,
   goal,
   isOnline,
   measurement,
@@ -22,6 +23,7 @@ export function RecordFactCompositeMeasurement({
   target,
 }: Readonly<{
   canMutate: boolean
+  canRetry: boolean
   goal: TrackingGoalPresentation
   isOnline: boolean
   measurement: CompositeMeasurement
@@ -47,6 +49,7 @@ export function RecordFactCompositeMeasurement({
           .map((item) => (
             <ChecklistItemFactForm
               canMutate={canMutate}
+              canRetry={canRetry}
               itemId={item.itemId}
               isOnline={isOnline}
               key={item.itemId}
@@ -57,6 +60,7 @@ export function RecordFactCompositeMeasurement({
           ))}
         <RecordFactFlexible
           canMutate={canMutate}
+          canRetry={canRetry}
           goal={goal}
           isOnline={isOnline}
           refetch={refetch}
@@ -73,6 +77,7 @@ export function RecordFactCompositeMeasurement({
         .map((variant) => (
           <OrVariantFactForm
             canMutate={canMutate}
+            canRetry={canRetry}
             isOnline={isOnline}
             key={variant.variantId}
             label={variant.label}
@@ -85,6 +90,7 @@ export function RecordFactCompositeMeasurement({
         ))}
       <RecordFactFlexible
         canMutate={canMutate}
+        canRetry={canRetry}
         goal={goal}
         isOnline={isOnline}
         refetch={refetch}

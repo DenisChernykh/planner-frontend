@@ -43,12 +43,14 @@ function formatMetric(
 
 export function TodayGoalCard({
   canMutate,
+  canRetry,
   goal,
   isOnline,
   refetch,
   today,
 }: Readonly<{
   canMutate: boolean
+  canRetry: boolean
   goal: TrackingGoalPresentation
   isOnline: boolean
   refetch: () => Promise<unknown>
@@ -103,6 +105,7 @@ export function TodayGoalCard({
           <TodayGoalLists goal={goal} />
           <RecordFactActions
             canMutate={canMutate}
+            canRetry={canRetry}
             goal={goal}
             isOnline={isOnline}
             refetch={refetch}

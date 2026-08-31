@@ -14,6 +14,7 @@ import { RecordFactFormFeedback } from './record-fact-form-feedback'
 
 export function TextFactForm({
   canMutate,
+  canRetry,
   checkpointId = null,
   isOnline,
   refetch,
@@ -21,6 +22,7 @@ export function TextFactForm({
   label = 'Текстовый факт',
 }: Readonly<{
   canMutate: boolean
+  canRetry: boolean
   checkpointId?: string | null
   isOnline: boolean
   label?: string
@@ -106,9 +108,9 @@ export function TextFactForm({
         ]}
         error={intent.error}
         isOnline={isOnline}
-        canMutate={canMutate}
+        canRetry={canRetry}
         onAbandon={intent.abandon}
-        onRetry={() => void intent.retry(canMutate)}
+        onRetry={() => void intent.retry(canRetry)}
         problemSchema={CompositeFactControllerRecordText422Response}
         status={intent.status}
       />

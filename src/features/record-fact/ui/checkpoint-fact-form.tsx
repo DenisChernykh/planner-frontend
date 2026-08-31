@@ -7,6 +7,7 @@ export type CheckpointKind = 'boolean' | 'actual_time' | 'rating'
 
 export type CheckpointFactFormProps = Readonly<{
   canMutate: boolean
+  canRetry: boolean
   checkpointId: string
   isOnline: boolean
   kind: CheckpointKind
