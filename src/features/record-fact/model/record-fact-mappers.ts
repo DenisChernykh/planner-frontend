@@ -130,7 +130,9 @@ export function mapCheckpointFact(
             value: createRatingFactFormSchema(
               ratingRange?.minimum ?? Number.MIN_SAFE_INTEGER,
               ratingRange?.maximum ?? Number.MAX_SAFE_INTEGER,
-            ).parse({ value: String(values.value) }).value,
+            ).parse({
+              value: String('value' in values ? values.value : ''),
+            }).value,
           }
 
   return checkpointFactPayloadSchema.parse({

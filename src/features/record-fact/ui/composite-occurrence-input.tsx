@@ -41,13 +41,14 @@ export function CompositeOccurrenceInput<TValues extends FieldValues>({
   const errors = form.formState.errors as FieldErrors<OccurrenceFormValues>
 
   if (component.kind === 'or_variant') {
+    const valueError = 'value' in errors ? errors.value?.message : undefined
     return (
       <TextField
         className="min-w-28 flex-1"
         label={`${component.label} (${component.unit})`}
         inputMode="decimal"
         disabled={locked || !isOnline}
-        error={errors.value?.message}
+        error={valueError}
         {...form.register('value' as Path<TValues>)}
       />
     )

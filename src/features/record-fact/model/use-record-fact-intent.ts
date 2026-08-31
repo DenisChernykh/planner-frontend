@@ -164,7 +164,9 @@ export function useRecordFactIntent<
         setStatus('reconciling')
         refreshView()
         try {
-          await controller.reconcile(refetch)
+          await controller.reconcile(async () => {
+            await refetch()
+          })
         } catch (reconciliationError) {
           setError(reconciliationError)
           setStatus('error')

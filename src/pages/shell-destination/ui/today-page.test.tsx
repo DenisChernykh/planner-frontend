@@ -123,6 +123,8 @@ const published = {
 } as unknown as TrackingTodayPresentation
 
 const noPlan = {
+  day: null,
+  goals: [],
   localDateLabel: '30 августа 2026',
   queryLocalDate: '2026-08-30',
   schemaVersion: 'tracking.today.v1',
@@ -132,6 +134,8 @@ const noPlan = {
 } as TrackingTodayPresentation
 
 const draft = {
+  day: null,
+  goals: [],
   draftRevision: '4',
   focus: 'Черновой фокус',
   lifecycleRevision: '2',

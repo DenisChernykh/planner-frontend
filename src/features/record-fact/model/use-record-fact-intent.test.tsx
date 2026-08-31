@@ -1,5 +1,5 @@
 import { renderHook, act } from '@testing-library/react'
-import { describe, expect, it, vi } from 'vitest'
+import { describe, expect, it, vi, type Mock } from 'vitest'
 
 import {
   ApiNetworkError,
@@ -15,11 +15,14 @@ const result: TrackingFactMutationResponseV1Dto = {
   kind: 'tracking.fact-record.v1',
 }
 
+type SendMock = Mock<
+  (body: Record<string, unknown>) => Promise<TrackingFactMutationResponseV1Dto>
+>
+type RefetchMock = Mock<() => Promise<void>>
+
 function setup(
-  send: (
-    body: Record<string, unknown>,
-  ) => Promise<TrackingFactMutationResponseV1Dto>,
-  refetch = vi.fn(async () => undefined),
+  send: SendMock,
+  refetch: RefetchMock = vi.fn(async (): Promise<void> => undefined),
 ) {
   const hook = renderHook(() =>
     useRecordFactIntent({
@@ -38,7 +41,11 @@ describe('useRecordFactIntent', () => {
     const request = new Promise<TrackingFactMutationResponseV1Dto>((settle) => {
       resolve = settle
     })
-    const send = vi.fn(() => request)
+    const send = vi.fn<
+      (
+        body: Record<string, unknown>,
+      ) => Promise<TrackingFactMutationResponseV1Dto>
+    >(() => request)
     const { hook, refetch } = setup(send)
     let first!: Promise<void>
     let second!: Promise<void>

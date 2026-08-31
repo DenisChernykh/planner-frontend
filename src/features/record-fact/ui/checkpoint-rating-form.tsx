@@ -10,7 +10,10 @@ import {
   mapCheckpointFact,
   type FactTarget,
 } from '../model/record-fact-mappers'
-import { createRatingFactFormSchema } from '../model/record-fact-schemas'
+import {
+  createRatingFactFormSchema,
+  type RatingFactFormValues,
+} from '../model/record-fact-schemas'
 import { useRecordFactIntent } from '../model/use-record-fact-intent'
 import { useRecordFactIntentScope } from '../model/record-fact-intent-scope'
 import { RecordFactFormFeedback } from './record-fact-form-feedback'
@@ -38,7 +41,7 @@ export function CheckpointRatingForm({
   const form = useZodForm(schema, { defaultValues: { value: '' } })
   const intent = useRecordFactIntent({
     finalizePayload: finalizeCheckpointFact,
-    mapValues: (values: { value: string | number }) =>
+    mapValues: (values: RatingFactFormValues) =>
       mapCheckpointFact(checkpointId, values, target, 'rating', {
         maximum: upperBound,
         minimum: lowerBound,

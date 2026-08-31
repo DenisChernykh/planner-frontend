@@ -131,13 +131,16 @@ contracts. Product semantics, routes, permissions и labels из starter не
 считаются переиспользуемым контрактом. Если совместимого механизма нет,
 реализация создаётся в Planner и это исключение фиксируется в PR.
 
-Для `M2` provenance и Planner-owned адаптация выглядят так:
+Для `M2` и `M3` provenance и Planner-owned адаптация выглядят так:
 
 | Область                | Reused foundation из `react-starter@258b4e0`                                 | Planner-owned адаптация                                                                                                                   |
 | ---------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
 | Session и router       | loaders, protected/public route shape, Query cache и `AbortSignal` boundaries | serialized fresh auth decision, principal replacement, fail-closed transition, ordered workspace/tracking/root gates                    |
 | Login/logout/`returnTo` | redirect, logout и cache-clear patterns                                       | Telegram document OIDC и finite result, strict pathname allowlist, exact `401/403`, single-flight и privacy behavior                     |
 | AppShell и navigation  | `SidebarProvider`, Sidebar/Sheet, mobile-close и account-footer composition   | четыре Planner destinations, backend display labels/timezone, route-family active semantics, focus и offline/reconnect presentation      |
+| Today read model        | query/cache identity, route-loader refresh и abort boundaries                 | discriminated `no_plan/draft/published`, server-owned access/progress/order, `Asia/Yekaterinburg`, stale/offline read-only state          |
+| Typed fact entry        | `useZodForm`, generic form/error/UI/MSW lifecycle                              | Planner-owned `CommandIntentController`; 8 generated typed-fact operations; boolean и quantity используют общий `/tracking/facts`; DTO/schema routing, exact values, duplicate/replay/unknown/reconciliation and navigation safety |
+| M3 MSW fixtures         | `setupServer`, handler lifecycle и test isolation                             | mixed Today and typed success/error/recovery payloads parsed by generated schemas at exact `OPENAPI_CONTRACT_SOURCE` pin                 |
 
 Эта стратегия не создаёт runtime dependency или автоматический sync со starter
 HEAD. Каждое новое заимствование требует нового exact source SHA и reviewed
