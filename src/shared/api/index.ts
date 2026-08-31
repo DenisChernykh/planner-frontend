@@ -29,6 +29,10 @@ export {
 } from './generated/telegram/telegram'
 export {
   getTrackingQueryControllerTodayQueryKey,
+  scalarFactControllerRecordCheckpoint,
+  scalarFactControllerRecordFact,
+  scalarFactControllerRecordRating,
+  scalarFactControllerRecordTime,
   trackingQueryControllerToday,
 } from './generated/tracking/tracking'
 export {
@@ -42,10 +46,17 @@ export {
 export type { TelegramOidcResultCode } from './generated-zod/telegram-oidc-result'
 export type {
   AuthenticatedPrincipalResponseDto,
+  TrackingFactMutationResponseV1Dto,
   GetTelegramNavigation200,
   TrackingTodayResponseV1,
   WorkspaceCurrentResponseV1,
 } from './generated/model'
+export {
+  ScalarFactControllerRecordCheckpointBody,
+  ScalarFactControllerRecordFactBody,
+  ScalarFactControllerRecordRatingBody,
+  ScalarFactControllerRecordTimeBody,
+} from './generated-zod/tracking/tracking.zod'
 export { HealthLive200Response } from './generated-zod/health/health.zod'
 export type { HealthLive200 } from './generated/model/healthLive200'
 export { OPENAPI_CONTRACT_SOURCE } from './generated-zod/contract-source'

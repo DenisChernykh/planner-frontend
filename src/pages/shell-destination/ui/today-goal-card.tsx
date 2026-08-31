@@ -1,4 +1,8 @@
-import type { TrackingGoalPresentation } from '@/entities/tracking'
+import type {
+  PublishedTodayPresentation,
+  TrackingGoalPresentation,
+} from '@/entities/tracking'
+import { RecordFactActions } from '@/features/record-fact'
 import {
   Badge,
   Card,
@@ -39,7 +43,15 @@ function formatMetric(
 
 export function TodayGoalCard({
   goal,
-}: Readonly<{ goal: TrackingGoalPresentation }>) {
+  isOnline,
+  refetch,
+  today,
+}: Readonly<{
+  goal: TrackingGoalPresentation
+  isOnline: boolean
+  refetch: () => Promise<unknown>
+  today: PublishedTodayPresentation
+}>) {
   return (
     <article>
       <Card className="h-full">
@@ -81,12 +93,18 @@ export function TodayGoalCard({
           </dl>
           <p className="mt-3 text-xs leading-5 text-muted-foreground">
             {goal.day.writable
-              ? 'Ввод разрешён сервером; действия появятся в следующем шаге.'
+              ? 'Ввод разрешён сервером для применимых ожиданий.'
               : goal.viewerAccess === 'partner_read_only'
                 ? 'Эта личная цель принадлежит партнёру и доступна только для просмотра.'
                 : 'Изменения сейчас недоступны для этой цели.'}
           </p>
           <TodayGoalLists goal={goal} />
+          <RecordFactActions
+            goal={goal}
+            isOnline={isOnline}
+            refetch={refetch}
+            today={today}
+          />
         </CardContent>
       </Card>
     </article>
