@@ -93,7 +93,7 @@ describe('useRecordFactIntent', () => {
     expect(refetch).toHaveBeenCalledOnce()
   })
 
-  it('reconciles a stale target before creating a new command id', async () => {
+  it('requires reconfirmation after stale reconciliation before sending', async () => {
     const conflict = new ApiProblemError(
       {
         type: 'https://planner.example.test/problems/conflict',
@@ -121,6 +121,13 @@ describe('useRecordFactIntent', () => {
     })
     const firstCommandId = send.mock.calls[0]?.[0]?.commandId
     expect(hook.result.current.status).toBe('stale')
+
+    await act(async () => {
+      await hook.result.current.submit({ value: '2' }, true)
+    })
+    expect(send).toHaveBeenCalledOnce()
+    expect(hook.result.current.status).toBe('stale')
+    expect(refetch).toHaveBeenCalledOnce()
 
     await act(async () => {
       await hook.result.current.submit({ value: '2' }, true)
@@ -200,6 +207,12 @@ describe('useRecordFactIntent', () => {
     expect(send).toHaveBeenCalledOnce()
     expect(refetch).toHaveBeenCalledOnce()
     expect(hook.result.current.status).toBe('error')
+
+    await act(async () => {
+      await hook.result.current.submit({ value: '2' }, true)
+    })
+    expect(send).toHaveBeenCalledOnce()
+    expect(refetch).toHaveBeenCalledTimes(2)
 
     await act(async () => {
       await hook.result.current.submit({ value: '2' }, true)

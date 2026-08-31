@@ -6,6 +6,7 @@ import type { FactTarget } from '../model/record-fact-mappers'
 export type CheckpointKind = 'boolean' | 'actual_time' | 'rating'
 
 export type CheckpointFactFormProps = Readonly<{
+  canMutate: boolean
   checkpointId: string
   isOnline: boolean
   kind: CheckpointKind

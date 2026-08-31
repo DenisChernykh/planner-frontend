@@ -16,6 +16,7 @@ import { useRecordFactIntentScope } from '../model/record-fact-intent-scope'
 import { RecordFactFormFeedback } from './record-fact-form-feedback'
 
 export function OrVariantFactForm({
+  canMutate,
   checkpointId = null,
   isOnline,
   label,
@@ -25,6 +26,7 @@ export function OrVariantFactForm({
   unit,
   variantId,
 }: Readonly<{
+  canMutate: boolean
   checkpointId?: string | null
   isOnline: boolean
   label: string
@@ -55,22 +57,22 @@ export function OrVariantFactForm({
       className="flex flex-wrap items-end gap-2"
       noValidate
       onSubmit={form.handleSubmit((values) => {
-        void intent.submit(values, isOnline)
+        void intent.submit(values, canMutate)
       })}
     >
       <TextField
         className="min-w-28 flex-1"
         label={`${label} (${unit})`}
         inputMode="decimal"
-        disabled={locked || !isOnline}
+        disabled={locked || !canMutate}
         error={form.formState.errors.value?.message}
         {...form.register('value')}
       />
-      {isOnline && (
+      {canMutate && (
         <Button
           type="submit"
           size="sm"
-          disabled={locked || !isOnline}
+          disabled={locked || !canMutate}
           isLoading={
             intent.status === 'pending' || intent.status === 'reconciling'
           }
@@ -90,8 +92,9 @@ export function OrVariantFactForm({
         ]}
         error={intent.error}
         isOnline={isOnline}
+        canMutate={canMutate}
         onAbandon={intent.abandon}
-        onRetry={() => void intent.retry(isOnline)}
+        onRetry={() => void intent.retry(canMutate)}
         problemSchema={CompositeFactControllerRecordOrVariant422Response}
         status={intent.status}
       />

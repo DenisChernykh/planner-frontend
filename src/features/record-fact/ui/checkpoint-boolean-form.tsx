@@ -16,12 +16,14 @@ import { useRecordFactIntentScope } from '../model/record-fact-intent-scope'
 import { RecordFactFormFeedback } from './record-fact-form-feedback'
 
 export function CheckpointBooleanForm({
+  canMutate,
   checkpointId,
   isOnline,
   label,
   refetch,
   target,
 }: Readonly<{
+  canMutate: boolean
   checkpointId: string
   isOnline: boolean
   label: string
@@ -50,7 +52,7 @@ export function CheckpointBooleanForm({
       className="flex flex-wrap items-end gap-2"
       noValidate
       onSubmit={form.handleSubmit((values) => {
-        void intent.submit(values, isOnline)
+        void intent.submit(values, canMutate)
       })}
     >
       <fieldset className="flex min-w-36 flex-1 flex-wrap items-center gap-3">
@@ -59,7 +61,7 @@ export function CheckpointBooleanForm({
           <input
             type="radio"
             value="done"
-            disabled={locked || !isOnline}
+            disabled={locked || !canMutate}
             {...form.register('result')}
           />
           Выполнено
@@ -68,17 +70,17 @@ export function CheckpointBooleanForm({
           <input
             type="radio"
             value="not_done"
-            disabled={locked || !isOnline}
+            disabled={locked || !canMutate}
             {...form.register('result')}
           />
           Не выполнено
         </label>
       </fieldset>
-      {isOnline && (
+      {canMutate && (
         <Button
           type="submit"
           size="sm"
-          disabled={locked || !isOnline}
+          disabled={locked || !canMutate}
           isLoading={
             intent.status === 'pending' || intent.status === 'reconciling'
           }
@@ -99,8 +101,9 @@ export function CheckpointBooleanForm({
         ]}
         error={intent.error}
         isOnline={isOnline}
+        canMutate={canMutate}
         onAbandon={intent.abandon}
-        onRetry={() => void intent.retry(isOnline)}
+        onRetry={() => void intent.retry(canMutate)}
         problemSchema={ScalarFactControllerRecordCheckpoint422Response}
         status={intent.status}
       />
