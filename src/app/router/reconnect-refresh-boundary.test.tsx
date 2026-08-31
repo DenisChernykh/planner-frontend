@@ -158,7 +158,10 @@ function ProtectedContent({
 
   return (
     <main aria-label="Private shell">
-      <h1 ref={heading} tabIndex={-1}>
+      <button type="button" tabIndex={-1}>
+        Sidebar-like focus target
+      </button>
+      <h1 ref={heading} tabIndex={-1} data-protected-page-heading="true">
         Protected content
       </h1>
       <button type="button" disabled={!isOnline}>
@@ -407,6 +410,201 @@ describe('ReconnectRefreshBoundary', () => {
     })
     await waitFor(() =>
       expect(events).toEqual(['session-1', 'workspace', 'tracking']),
+    )
+    await waitFor(() =>
+      expect(screen.getByRole('button', { name: 'Retry fact' })).toBeEnabled(),
+    )
+    expect(send).toHaveBeenCalledOnce()
+
+    await userEvent.click(screen.getByRole('button', { name: 'Retry fact' }))
+    await waitFor(() => expect(send).toHaveBeenCalledTimes(2))
+    expect(JSON.stringify(send.mock.calls[1]?.[0])).toBe(firstSerializedBody)
+  })
+
+  it('keeps a queued focus refresh hidden until both ordered passes complete', async () => {
+    const events: string[] = []
+    const firstTrackingGate = createDeferred<{ tracking: string }>()
+    const secondSessionGate =
+      createDeferred<AuthenticatedPrincipalResponseDto>()
+    let sessionCalls = 0
+    let workspaceCalls = 0
+    let trackingCalls = 0
+    state.loadCurrentSession.mockImplementation(async () => {
+      sessionCalls += 1
+      events.push(`session-${sessionCalls}`)
+      if (sessionCalls === 2) return secondSessionGate.promise
+      return principalA
+    })
+    state.loadCurrentWorkspace.mockImplementation(async () => {
+      workspaceCalls += 1
+      events.push(`workspace-${workspaceCalls}`)
+      return { workspace: 'current' }
+    })
+    state.loadTrackingToday.mockImplementation(async () => {
+      trackingCalls += 1
+      events.push(`tracking-${trackingCalls}`)
+      if (trackingCalls === 1) return firstTrackingGate.promise
+      return { tracking: 'today' }
+    })
+    const send = vi
+      .fn<
+        (
+          body: Record<string, unknown>,
+        ) => Promise<TrackingFactMutationResponseV1Dto>
+      >()
+      .mockRejectedValueOnce(new ApiNetworkError())
+      .mockResolvedValueOnce({
+        aggregateId: '11111111-1111-4111-8111-111111111111',
+        aggregateRevision: '2',
+        kind: 'tracking.fact-record.v1',
+      })
+    setup({
+      content: (
+        <RecordFactIntentScopeProvider>
+          <FactContent send={send} />
+        </RecordFactIntentScopeProvider>
+      ),
+      onlineAtStart: true,
+    })
+
+    await userEvent.click(screen.getByRole('button', { name: 'Submit fact' }))
+    await waitFor(() =>
+      expect(screen.getByText('Fact status: unknown')).toBeVisible(),
+    )
+    const firstSerializedBody = JSON.stringify(send.mock.calls[0]?.[0])
+
+    await act(async () => {
+      window.dispatchEvent(new Event('focus'))
+      await Promise.resolve()
+    })
+    await waitFor(() =>
+      expect(events).toEqual(['session-1', 'workspace-1', 'tracking-1']),
+    )
+    await act(async () => {
+      window.dispatchEvent(new Event('focus'))
+      await Promise.resolve()
+    })
+    expect(
+      screen.queryByRole('button', { name: 'Retry fact' }),
+    ).not.toBeInTheDocument()
+    expect(
+      screen.getByRole('button', { name: 'Retry fact', hidden: true }),
+    ).toBeDisabled()
+    expect(send).toHaveBeenCalledOnce()
+
+    await act(async () => {
+      firstTrackingGate.resolve({ tracking: 'today' })
+      await firstTrackingGate.promise
+    })
+    await waitFor(() => expect(events).toContain('session-2'))
+    expect(
+      screen.queryByRole('button', { name: 'Retry fact' }),
+    ).not.toBeInTheDocument()
+    expect(
+      screen.getByRole('button', { name: 'Retry fact', hidden: true }),
+    ).toBeDisabled()
+    expect(send).toHaveBeenCalledOnce()
+
+    await act(async () => {
+      secondSessionGate.resolve(principalA)
+      await secondSessionGate.promise
+    })
+    await waitFor(() =>
+      expect(events).toEqual([
+        'session-1',
+        'workspace-1',
+        'tracking-1',
+        'session-2',
+        'workspace-2',
+        'tracking-2',
+      ]),
+    )
+    await waitFor(() =>
+      expect(screen.getByRole('button', { name: 'Retry fact' })).toBeEnabled(),
+    )
+    expect(send).toHaveBeenCalledOnce()
+
+    await userEvent.click(screen.getByRole('button', { name: 'Retry fact' }))
+    await waitFor(() => expect(send).toHaveBeenCalledTimes(2))
+    expect(JSON.stringify(send.mock.calls[1]?.[0])).toBe(firstSerializedBody)
+  })
+
+  it('clears a queued focus refresh when offline aborts the current pass', async () => {
+    const events: string[] = []
+    const trackingGate = createDeferred<{ tracking: string }>()
+    let trackingCalls = 0
+    state.loadCurrentSession.mockImplementation(async () => {
+      events.push('session')
+      return principalA
+    })
+    state.loadCurrentWorkspace.mockImplementation(async () => {
+      events.push('workspace')
+      return { workspace: 'current' }
+    })
+    state.loadTrackingToday.mockImplementation(async () => {
+      trackingCalls += 1
+      events.push(`tracking-${trackingCalls}`)
+      if (trackingCalls === 1) return trackingGate.promise
+      return { tracking: 'today' }
+    })
+    const send = vi
+      .fn<
+        (
+          body: Record<string, unknown>,
+        ) => Promise<TrackingFactMutationResponseV1Dto>
+      >()
+      .mockRejectedValueOnce(new ApiNetworkError())
+      .mockResolvedValueOnce({
+        aggregateId: '11111111-1111-4111-8111-111111111111',
+        aggregateRevision: '2',
+        kind: 'tracking.fact-record.v1',
+      })
+    const harness = setup({
+      content: (
+        <RecordFactIntentScopeProvider>
+          <FactContent send={send} />
+        </RecordFactIntentScopeProvider>
+      ),
+      onlineAtStart: true,
+    })
+
+    await userEvent.click(screen.getByRole('button', { name: 'Submit fact' }))
+    await waitFor(() =>
+      expect(screen.getByText('Fact status: unknown')).toBeVisible(),
+    )
+    const firstSerializedBody = JSON.stringify(send.mock.calls[0]?.[0])
+
+    await act(async () => {
+      window.dispatchEvent(new Event('focus'))
+      await Promise.resolve()
+    })
+    await waitFor(() =>
+      expect(events).toEqual(['session', 'workspace', 'tracking-1']),
+    )
+    await act(async () => {
+      window.dispatchEvent(new Event('focus'))
+      await Promise.resolve()
+    })
+    harness.goOffline()
+    await act(async () => {
+      trackingGate.resolve({ tracking: 'aborted' })
+      await trackingGate.promise
+    })
+    expect(
+      await screen.findByRole('button', { name: 'Retry fact' }),
+    ).toBeDisabled()
+    expect(send).toHaveBeenCalledOnce()
+
+    harness.goOnline()
+    await waitFor(() =>
+      expect(events).toEqual([
+        'session',
+        'workspace',
+        'tracking-1',
+        'session',
+        'workspace',
+        'tracking-2',
+      ]),
     )
     await waitFor(() =>
       expect(screen.getByRole('button', { name: 'Retry fact' })).toBeEnabled(),
