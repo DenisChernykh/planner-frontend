@@ -28,6 +28,10 @@ export {
   getTelegramNavigation,
 } from './generated/telegram/telegram'
 export {
+  compositeFactControllerRecordChecklistItem,
+  compositeFactControllerRecordCompositeOccurrence,
+  compositeFactControllerRecordOrVariant,
+  compositeFactControllerRecordText,
   getTrackingQueryControllerTodayQueryKey,
   scalarFactControllerRecordCheckpoint,
   scalarFactControllerRecordFact,
@@ -52,6 +56,18 @@ export type {
   WorkspaceCurrentResponseV1,
 } from './generated/model'
 export {
+  CompositeFactControllerRecordChecklistItem422Response,
+  CompositeFactControllerRecordCompositeOccurrence422Response,
+  CompositeFactControllerRecordOrVariant422Response,
+  CompositeFactControllerRecordText422Response,
+  CompositeFactControllerRecordChecklistItemBody,
+  CompositeFactControllerRecordCompositeOccurrenceBody,
+  CompositeFactControllerRecordOrVariantBody,
+  CompositeFactControllerRecordTextBody,
+  ScalarFactControllerRecordCheckpoint422Response,
+  ScalarFactControllerRecordFact422Response,
+  ScalarFactControllerRecordRating422Response,
+  ScalarFactControllerRecordTime422Response,
   ScalarFactControllerRecordCheckpointBody,
   ScalarFactControllerRecordFactBody,
   ScalarFactControllerRecordRatingBody,

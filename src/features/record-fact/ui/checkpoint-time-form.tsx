@@ -1,4 +1,7 @@
-import { scalarFactControllerRecordCheckpoint } from '@/shared/api'
+import {
+  ScalarFactControllerRecordCheckpoint422Response,
+  scalarFactControllerRecordCheckpoint,
+} from '@/shared/api'
 import { useZodForm } from '@/shared/lib/form'
 import { Button, TextField } from '@/shared/ui'
 
@@ -9,6 +12,7 @@ import {
 } from '../model/record-fact-mappers'
 import { actualTimeFactFormSchema } from '../model/record-fact-schemas'
 import { useRecordFactIntent } from '../model/use-record-fact-intent'
+import { useRecordFactIntentScope } from '../model/record-fact-intent-scope'
 import { RecordFactFormFeedback } from './record-fact-form-feedback'
 
 export function CheckpointTimeForm({
@@ -34,7 +38,13 @@ export function CheckpointTimeForm({
     refetch,
     send: (body) => scalarFactControllerRecordCheckpoint(body),
   })
+  useRecordFactIntentScope(intent.status, intent.abandon)
   const error = form.formState.errors.value?.message
+  const locked =
+    intent.status === 'pending' ||
+    intent.status === 'reconciling' ||
+    intent.status === 'unknown' ||
+    intent.isTerminal
 
   return (
     <form
@@ -47,24 +57,36 @@ export function CheckpointTimeForm({
       <TextField
         label={label}
         type="time"
-        disabled={intent.status === 'pending' || !isOnline}
+        disabled={locked || !isOnline}
         error={error}
         {...form.register('value')}
       />
-      <Button
-        type="submit"
-        size="sm"
-        disabled={!isOnline}
-        isLoading={
-          intent.status === 'pending' || intent.status === 'reconciling'
-        }
-        loadingLabel="Сохраняем"
-      >
-        Записать
-      </Button>
+      {isOnline && (
+        <Button
+          type="submit"
+          size="sm"
+          disabled={locked || !isOnline}
+          isLoading={
+            intent.status === 'pending' || intent.status === 'reconciling'
+          }
+          loadingLabel="Сохраняем"
+        >
+          Записать
+        </Button>
+      )}
       <RecordFactFormFeedback
+        allowedPointers={[
+          '/checkpointId',
+          '/expectationDate',
+          '/planGoalSnapshotId',
+          '/publicationId',
+          '/value',
+        ]}
+        error={intent.error}
         isOnline={isOnline}
+        onAbandon={intent.abandon}
         onRetry={() => void intent.retry(isOnline)}
+        problemSchema={ScalarFactControllerRecordCheckpoint422Response}
         status={intent.status}
       />
     </form>

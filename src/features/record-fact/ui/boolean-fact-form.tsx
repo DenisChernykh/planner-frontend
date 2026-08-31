@@ -1,5 +1,8 @@
 import { useZodForm } from '@/shared/lib/form'
-import { scalarFactControllerRecordFact } from '@/shared/api'
+import {
+  ScalarFactControllerRecordFact422Response,
+  scalarFactControllerRecordFact,
+} from '@/shared/api'
 import { Button, Field, FieldLabel } from '@/shared/ui'
 
 import {
@@ -9,6 +12,7 @@ import {
 } from '../model/record-fact-mappers'
 import { booleanFactFormSchema } from '../model/record-fact-schemas'
 import { useRecordFactIntent } from '../model/use-record-fact-intent'
+import { useRecordFactIntentScope } from '../model/record-fact-intent-scope'
 import { RecordFactFormFeedback } from './record-fact-form-feedback'
 
 export function BooleanFactForm({
@@ -32,6 +36,12 @@ export function BooleanFactForm({
     refetch,
     send: (body) => scalarFactControllerRecordFact(body),
   })
+  useRecordFactIntentScope(intent.status, intent.abandon)
+  const locked =
+    intent.status === 'pending' ||
+    intent.status === 'reconciling' ||
+    intent.status === 'unknown' ||
+    intent.isTerminal
 
   return (
     <form
@@ -48,7 +58,7 @@ export function BooleanFactForm({
             <input
               type="radio"
               value="done"
-              disabled={intent.status === 'pending' || !isOnline}
+              disabled={locked || !isOnline}
               {...form.register('result')}
             />
             Выполнено
@@ -57,27 +67,40 @@ export function BooleanFactForm({
             <input
               type="radio"
               value="not_done"
-              disabled={intent.status === 'pending' || !isOnline}
+              disabled={locked || !isOnline}
               {...form.register('result')}
             />
             Не выполнено
           </label>
         </div>
       </Field>
-      <Button
-        type="submit"
-        size="sm"
-        disabled={!isOnline}
-        isLoading={
-          intent.status === 'pending' || intent.status === 'reconciling'
-        }
-        loadingLabel="Сохраняем"
-      >
-        Записать
-      </Button>
+      {isOnline && (
+        <Button
+          type="submit"
+          size="sm"
+          disabled={locked || !isOnline}
+          isLoading={
+            intent.status === 'pending' || intent.status === 'reconciling'
+          }
+          loadingLabel="Сохраняем"
+        >
+          Записать
+        </Button>
+      )}
       <RecordFactFormFeedback
+        allowedPointers={[
+          '/localDate',
+          '/planGoalSnapshotId',
+          '/publicationId',
+          '/value',
+          '/value/kind',
+          '/value/result',
+        ]}
+        error={intent.error}
         isOnline={isOnline}
+        onAbandon={intent.abandon}
         onRetry={() => void intent.retry(isOnline)}
+        problemSchema={ScalarFactControllerRecordFact422Response}
         status={intent.status}
       />
     </form>

@@ -1,5 +1,8 @@
 import { useZodForm } from '@/shared/lib/form'
-import { scalarFactControllerRecordTime } from '@/shared/api'
+import {
+  ScalarFactControllerRecordTime422Response,
+  scalarFactControllerRecordTime,
+} from '@/shared/api'
 import { Button, TextField } from '@/shared/ui'
 
 import {
@@ -9,6 +12,7 @@ import {
 } from '../model/record-fact-mappers'
 import { actualTimeFactFormSchema } from '../model/record-fact-schemas'
 import { useRecordFactIntent } from '../model/use-record-fact-intent'
+import { useRecordFactIntentScope } from '../model/record-fact-intent-scope'
 import { RecordFactFormFeedback } from './record-fact-form-feedback'
 
 export function ActualTimeFactForm({
@@ -35,7 +39,13 @@ export function ActualTimeFactForm({
     refetch,
     send: (body) => scalarFactControllerRecordTime(body),
   })
+  useRecordFactIntentScope(intent.status, intent.abandon)
   const error = form.formState.errors.value?.message
+  const locked =
+    intent.status === 'pending' ||
+    intent.status === 'reconciling' ||
+    intent.status === 'unknown' ||
+    intent.isTerminal
 
   return (
     <form
@@ -49,24 +59,35 @@ export function ActualTimeFactForm({
         className="min-w-28 flex-1"
         label={`${label} (${start}–${end})`}
         type="time"
-        disabled={intent.status === 'pending' || !isOnline}
+        disabled={locked || !isOnline}
         error={error}
         {...form.register('value')}
       />
-      <Button
-        type="submit"
-        size="sm"
-        disabled={!isOnline}
-        isLoading={
-          intent.status === 'pending' || intent.status === 'reconciling'
-        }
-        loadingLabel="Сохраняем"
-      >
-        Записать
-      </Button>
+      {isOnline && (
+        <Button
+          type="submit"
+          size="sm"
+          disabled={locked || !isOnline}
+          isLoading={
+            intent.status === 'pending' || intent.status === 'reconciling'
+          }
+          loadingLabel="Сохраняем"
+        >
+          Записать
+        </Button>
+      )}
       <RecordFactFormFeedback
+        allowedPointers={[
+          '/expectationDate',
+          '/planGoalSnapshotId',
+          '/publicationId',
+          '/value',
+        ]}
+        error={intent.error}
         isOnline={isOnline}
+        onAbandon={intent.abandon}
         onRetry={() => void intent.retry(isOnline)}
+        problemSchema={ScalarFactControllerRecordTime422Response}
         status={intent.status}
       />
     </form>

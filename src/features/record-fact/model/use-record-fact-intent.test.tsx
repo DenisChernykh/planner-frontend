@@ -211,4 +211,93 @@ describe('useRecordFactIntent', () => {
     expect(send).not.toHaveBeenCalled()
     expect(hook.result.current.status).toBe('error')
   })
+
+  it('requires explicit abandon before an unknown intent can be discarded', async () => {
+    const send = vi.fn().mockRejectedValue(new ApiNetworkError())
+    const { hook } = setup(send)
+
+    await act(async () => {
+      await hook.result.current.submit({ value: '1' }, true)
+    })
+    expect(hook.result.current.status).toBe('unknown')
+    expect(hook.result.current.abandon).toBeTypeOf('function')
+
+    act(() => hook.result.current.abandon())
+    expect(hook.result.current.status).toBe('idle')
+    await act(async () => {
+      await expect(hook.result.current.retry(true)).rejects.toThrow(
+        'No unknown fact intent to retry',
+      )
+    })
+    expect(send).toHaveBeenCalledOnce()
+  })
+
+  it('keeps an unknown intent intact when retry is attempted offline', async () => {
+    const send = vi.fn().mockRejectedValue(new ApiNetworkError())
+    const { hook } = setup(send)
+
+    await act(async () => {
+      await hook.result.current.submit({ value: '1.20' }, true)
+    })
+    await act(async () => {
+      await hook.result.current.retry(false)
+    })
+
+    expect(hook.result.current.status).toBe('unknown')
+    expect(send).toHaveBeenCalledOnce()
+  })
+
+  it('keeps fingerprint conflicts terminal until the user abandons the intent', async () => {
+    const conflict = new ApiProblemError(
+      {
+        type: 'https://planner.example.test/problems/fingerprint',
+        title: 'Fingerprint conflict',
+        status: 409,
+        detail: 'do not expose',
+        instance: 'urn:request:fingerprint',
+        code: 'COMMAND_FINGERPRINT_CONFLICT',
+        requestId: 'request-fingerprint',
+      },
+      null,
+    )
+    const send = vi.fn().mockRejectedValue(conflict)
+    const { hook } = setup(send)
+
+    await act(async () => {
+      await hook.result.current.submit({ value: '1' }, true)
+      await hook.result.current.submit({ value: '2' }, true)
+    })
+    expect(send).toHaveBeenCalledOnce()
+    expect(hook.result.current.status).toBe('error')
+
+    act(() => hook.result.current.abandon())
+    await act(async () => {
+      await hook.result.current.submit({ value: '2' }, true)
+    })
+    expect(send).toHaveBeenCalledTimes(2)
+  })
+
+  it('terminal-locks any validated 403, including generic authorization denial', async () => {
+    const denied = new ApiProblemError(
+      {
+        type: 'https://planner.example.test/problems/denied',
+        title: 'Forbidden',
+        status: 403,
+        detail: 'private detail',
+        instance: 'urn:request:denied',
+        code: 'AUTHORIZATION_DENIED',
+        requestId: 'request-denied',
+      },
+      null,
+    )
+    const send = vi.fn().mockRejectedValue(denied)
+    const { hook } = setup(send)
+
+    await act(async () => {
+      await hook.result.current.submit({ value: '1' }, true)
+      await hook.result.current.submit({ value: '2' }, true)
+    })
+    expect(send).toHaveBeenCalledOnce()
+    expect(hook.result.current.isTerminal).toBe(true)
+  })
 })
