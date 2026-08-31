@@ -117,6 +117,9 @@ export function ReconnectRefreshBoundary({ children }: PropsWithChildren) {
   const [retryVersion, setRetryVersion] = useState(0)
   const [focusVersion, setFocusVersion] = useState(0)
   const [protectedSurfaceVersion, setProtectedSurfaceVersion] = useState(0)
+  const [focusRequestPending, setFocusRequestPending] = useState(false)
+  const [retryRequestPending, setRetryRequestPending] = useState(false)
+  const [queuedRefreshPending, setQueuedRefreshPending] = useState(false)
   const handledRetryVersion = useRef(0)
   const handledFocusVersion = useRef(0)
   const refreshRunning = useRef(false)
@@ -141,6 +144,12 @@ export function ReconnectRefreshBoundary({ children }: PropsWithChildren) {
 
       refreshRunning.current = true
       setRefreshState('refreshing')
+      setFocusRequestPending(false)
+      setRetryRequestPending(false)
+      // This pass is the queued pass, if any. Clear the render marker as soon
+      // as it starts; a new focus event can set it again while this pass runs.
+      runAgainAfterCurrent.current = false
+      setQueuedRefreshPending(false)
       const controller = new AbortController()
       abortController.current = controller
 
@@ -156,6 +165,8 @@ export function ReconnectRefreshBoundary({ children }: PropsWithChildren) {
         controller.signal.throwIfAborted()
 
         if (isDifferentPrincipal(previousSession, currentSession)) {
+          runAgainAfterCurrent.current = false
+          setQueuedRefreshPending(false)
           beginExit()
           setProtectedSurfaceVersion((version) => version + 1)
           await navigate(rootPath, { replace: true })
@@ -193,6 +204,8 @@ export function ReconnectRefreshBoundary({ children }: PropsWithChildren) {
           return
         }
 
+        runAgainAfterCurrent.current = false
+        setQueuedRefreshPending(false)
         beginExit()
         const returnTo = sanitizeReturnTo(pathname.current)
         clearReturnTo(sessionStorage)
@@ -207,7 +220,6 @@ export function ReconnectRefreshBoundary({ children }: PropsWithChildren) {
         }
         refreshRunning.current = false
         if (runAgainAfterCurrent.current && online.current) {
-          runAgainAfterCurrent.current = false
           setRetryVersion((version) => version + 1)
         }
       }
@@ -221,8 +233,10 @@ export function ReconnectRefreshBoundary({ children }: PropsWithChildren) {
       // event arrived. Queue one additional session-first pass, but never
       // start parallel workspace or tracking reads.
       runAgainAfterCurrent.current = true
+      setQueuedRefreshPending(true)
       return
     }
+    setFocusRequestPending(true)
     setFocusVersion((version) => version + 1)
   })
 
@@ -241,13 +255,20 @@ export function ReconnectRefreshBoundary({ children }: PropsWithChildren) {
 
   useEffect(() => {
     const retryRequested = retryVersion !== handledRetryVersion.current
-    handledRetryVersion.current = retryVersion
     const focusRequested = focusVersion !== handledFocusVersion.current
-    handledFocusVersion.current = focusVersion
+    if (retryRequested) handledRetryVersion.current = retryVersion
+    if (focusRequested) handledFocusVersion.current = focusVersion
 
     if (!isOnline) {
       abortController.current?.abort()
       runAgainAfterCurrent.current = false
+      // These flags mirror requests which are only meaningful while the
+      // browser is online. Clear them together with the aborted external
+      // refresh so a later reconnect cannot inherit an old queued request.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setFocusRequestPending(false)
+      setRetryRequestPending(false)
+      setQueuedRefreshPending(false)
       return
     }
     const reconnectRequested = reconnectVersion > completedReconnectVersion
@@ -255,6 +276,7 @@ export function ReconnectRefreshBoundary({ children }: PropsWithChildren) {
 
     if (refreshRunning.current) {
       runAgainAfterCurrent.current = true
+      setQueuedRefreshPending(true)
       return
     }
     void runRefresh(reconnectVersion)
@@ -275,12 +297,17 @@ export function ReconnectRefreshBoundary({ children }: PropsWithChildren) {
 
   const reconnectEdgePending =
     isOnline && reconnectVersion > completedReconnectVersion
+  const refreshRequestPending =
+    reconnectEdgePending ||
+    focusRequestPending ||
+    retryRequestPending ||
+    queuedRefreshPending
   const protectedRefreshState =
-    reconnectEdgePending || refreshState === 'refreshing'
+    refreshRequestPending || refreshState === 'refreshing'
       ? 'refreshing'
       : refreshState
   const refreshPending =
-    isOnline && (refreshState !== 'idle' || reconnectEdgePending)
+    isOnline && (refreshState !== 'idle' || refreshRequestPending)
 
   useEffect(() => {
     if (refreshPending) {
@@ -291,7 +318,7 @@ export function ReconnectRefreshBoundary({ children }: PropsWithChildren) {
 
     restoreFocusAfterRefresh.current = false
     protectedSurface.current
-      ?.querySelector<HTMLElement>('[tabindex="-1"]')
+      ?.querySelector<HTMLElement>('[data-protected-page-heading="true"]')
       ?.focus()
   }, [refreshPending])
 
@@ -310,9 +337,12 @@ export function ReconnectRefreshBoundary({ children }: PropsWithChildren) {
       {refreshPending && (
         <ReconnectState
           isOnline={isOnline}
-          onRetry={() => setRetryVersion((version) => version + 1)}
+          onRetry={() => {
+            setRetryRequestPending(true)
+            setRetryVersion((version) => version + 1)
+          }}
           state={
-            !reconnectEdgePending && refreshState === 'error'
+            !refreshRequestPending && refreshState === 'error'
               ? 'error'
               : 'refreshing'
           }

@@ -408,6 +408,7 @@ export function AppShell({ workspace }: AppShellProps) {
             <h1
               ref={pageTitleRef}
               tabIndex={-1}
+              data-protected-page-heading="true"
               className="truncate text-sm font-semibold outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
               {pageTitle}
