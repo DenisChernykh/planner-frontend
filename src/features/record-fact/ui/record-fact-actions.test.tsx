@@ -7,6 +7,11 @@ import type {
   TrackingGoalPresentation,
 } from '@/entities/tracking'
 import {
+  ApiNetworkError,
+  compositeFactControllerRecordChecklistItem,
+  compositeFactControllerRecordCompositeOccurrence,
+  compositeFactControllerRecordOrVariant,
+  compositeFactControllerRecordText,
   scalarFactControllerRecordCheckpoint,
   scalarFactControllerRecordFact,
   scalarFactControllerRecordRating,
@@ -19,6 +24,10 @@ vi.mock('@/shared/api', async (importOriginal) => {
   const actual = await importOriginal<typeof import('@/shared/api')>()
   return {
     ...actual,
+    compositeFactControllerRecordChecklistItem: vi.fn(),
+    compositeFactControllerRecordCompositeOccurrence: vi.fn(),
+    compositeFactControllerRecordOrVariant: vi.fn(),
+    compositeFactControllerRecordText: vi.fn(),
     scalarFactControllerRecordCheckpoint: vi.fn(),
     scalarFactControllerRecordFact: vi.fn(),
     scalarFactControllerRecordRating: vi.fn(),
@@ -45,12 +54,18 @@ const today = {
   publicationId: target.publicationId,
 } as unknown as PublishedTodayPresentation
 
-function createGoal(measurement: unknown): TrackingGoalPresentation {
+function createGoal(
+  measurement: unknown,
+  fixedExpectations: readonly unknown[] = [],
+  flexiblePeriods: readonly unknown[] = [],
+  checkpoints: unknown = null,
+): TrackingGoalPresentation {
   return {
-    config: { checkpoints: null, measurement },
+    config: { checkpoints, measurement },
     day: {
       applicable: true,
-      fixedExpectations: [],
+      fixedExpectations,
+      flexiblePeriods,
       state: 'no_data',
       writable: true,
     },
@@ -66,10 +81,24 @@ describe('RecordFactActions', () => {
     vi.mocked(scalarFactControllerRecordFact).mockReset()
     vi.mocked(scalarFactControllerRecordRating).mockReset()
     vi.mocked(scalarFactControllerRecordTime).mockReset()
+    vi.mocked(compositeFactControllerRecordChecklistItem).mockReset()
+    vi.mocked(compositeFactControllerRecordCompositeOccurrence).mockReset()
+    vi.mocked(compositeFactControllerRecordOrVariant).mockReset()
+    vi.mocked(compositeFactControllerRecordText).mockReset()
     vi.mocked(scalarFactControllerRecordCheckpoint).mockResolvedValue(response)
     vi.mocked(scalarFactControllerRecordFact).mockResolvedValue(response)
     vi.mocked(scalarFactControllerRecordRating).mockResolvedValue(response)
     vi.mocked(scalarFactControllerRecordTime).mockResolvedValue(response)
+    vi.mocked(compositeFactControllerRecordChecklistItem).mockResolvedValue(
+      response,
+    )
+    vi.mocked(
+      compositeFactControllerRecordCompositeOccurrence,
+    ).mockResolvedValue(response)
+    vi.mocked(compositeFactControllerRecordOrVariant).mockResolvedValue(
+      response,
+    )
+    vi.mocked(compositeFactControllerRecordText).mockResolvedValue(response)
   })
 
   it('routes boolean input to facts and refreshes Today after success', async () => {
@@ -179,5 +208,295 @@ describe('RecordFactActions', () => {
       />,
     )
     expect(screen.queryByText('Записать')).not.toBeInTheDocument()
+  })
+
+  it('routes text facts through the fixed text operation', async () => {
+    const refetch = vi.fn(async () => undefined)
+    render(
+      <RecordFactActions
+        goal={createGoal({ kind: 'text' }, [
+          { componentId: null, componentKind: 'goal' },
+        ])}
+        isOnline
+        refetch={refetch}
+        today={today}
+      />,
+    )
+
+    fireEvent.change(screen.getByLabelText('Текстовый факт'), {
+      target: { value: 'Итог дня' },
+    })
+    await userEvent.click(screen.getByRole('button', { name: 'Записать' }))
+    await waitFor(() =>
+      expect(compositeFactControllerRecordText).toHaveBeenCalledOnce(),
+    )
+    expect(compositeFactControllerRecordText).toHaveBeenCalledWith(
+      expect.objectContaining({
+        checkpointId: null,
+        expectationDate: target.localDate,
+        result: 'done',
+        text: 'Итог дня',
+      }),
+    )
+    expect(refetch).toHaveBeenCalledOnce()
+  })
+
+  it('exposes only backend-expected checklist item IDs', async () => {
+    const itemId = '33333333-3333-4333-8333-333333333333'
+    const refetch = vi.fn(async () => undefined)
+    render(
+      <RecordFactActions
+        goal={createGoal(
+          {
+            kind: 'checklist',
+            items: [{ itemId, label: 'Прогулка' }],
+          },
+          [{ componentId: itemId, componentKind: 'checklist_item' }],
+        )}
+        isOnline
+        refetch={refetch}
+        today={today}
+      />,
+    )
+
+    await userEvent.click(screen.getByRole('button', { name: 'Записать' }))
+    await waitFor(() =>
+      expect(compositeFactControllerRecordChecklistItem).toHaveBeenCalledOnce(),
+    )
+    expect(compositeFactControllerRecordChecklistItem).toHaveBeenCalledWith(
+      expect.objectContaining({ checklistItemId: itemId, checkpointId: null }),
+    )
+  })
+
+  it('routes fixed OR variants with a server-provided goal expectation', async () => {
+    const variantId = '33333333-3333-4333-8333-333333333333'
+    const refetch = vi.fn(async () => undefined)
+    render(
+      <RecordFactActions
+        goal={createGoal(
+          {
+            kind: 'any_of',
+            variants: [
+              {
+                label: 'Стаканы',
+                precision: 2,
+                target: '2',
+                unit: 'шт',
+                variantId,
+              },
+            ],
+          },
+          [{ componentId: null, componentKind: 'goal' }],
+        )}
+        isOnline
+        refetch={refetch}
+        today={today}
+      />,
+    )
+
+    fireEvent.change(screen.getByLabelText('Стаканы (шт)'), {
+      target: { value: '2.00' },
+    })
+    await userEvent.click(screen.getByRole('button', { name: 'Записать' }))
+    await waitFor(() =>
+      expect(compositeFactControllerRecordOrVariant).toHaveBeenCalledOnce(),
+    )
+    expect(compositeFactControllerRecordOrVariant).toHaveBeenCalledWith(
+      expect.objectContaining({
+        checkpointId: null,
+        value: '2.00',
+        variantId,
+      }),
+    )
+  })
+
+  it('routes eligible flexible OR occurrences with the component discriminant', async () => {
+    const variantId = '33333333-3333-4333-8333-333333333333'
+    const refetch = vi.fn(async () => undefined)
+    render(
+      <RecordFactActions
+        goal={createGoal(
+          {
+            kind: 'any_of',
+            variants: [
+              {
+                label: 'Стаканы',
+                precision: 2,
+                target: '2',
+                unit: 'шт',
+                variantId,
+              },
+            ],
+          },
+          [],
+          [{ eligibleOnDate: true }],
+        )}
+        isOnline
+        refetch={refetch}
+        today={today}
+      />,
+    )
+
+    const input = screen.getByLabelText('Стаканы (шт)')
+    fireEvent.change(input, { target: { value: '1.20' } })
+    await userEvent.click(screen.getByRole('button', { name: 'Записать' }))
+    await waitFor(() =>
+      expect(
+        compositeFactControllerRecordCompositeOccurrence,
+      ).toHaveBeenCalledOnce(),
+    )
+    expect(
+      compositeFactControllerRecordCompositeOccurrence,
+    ).toHaveBeenCalledWith(
+      expect.objectContaining({
+        component: { kind: 'or_variant', value: '1.20', variantId },
+      }),
+    )
+  })
+
+  it('routes checkpoint checklist items with exact checkpoint and item IDs', async () => {
+    const checkpointId = '33333333-3333-4333-8333-333333333333'
+    const itemId = '44444444-4444-4444-8444-444444444444'
+    render(
+      <RecordFactActions
+        goal={createGoal(
+          {
+            kind: 'checklist',
+            items: [{ itemId, label: 'Прогулка' }],
+          },
+          [{ componentId: checkpointId, componentKind: 'checkpoint' }],
+          [],
+          {
+            aggregation: 'all',
+            items: [
+              {
+                checkpointId,
+                deadline: '18:00',
+                name: 'Вечер',
+                satisfaction: { kind: 'checklist' },
+              },
+            ],
+          },
+        )}
+        isOnline
+        refetch={vi.fn(async () => undefined)}
+        today={today}
+      />,
+    )
+
+    await userEvent.click(screen.getByRole('button', { name: 'Записать' }))
+    await waitFor(() =>
+      expect(compositeFactControllerRecordChecklistItem).toHaveBeenCalledOnce(),
+    )
+    expect(compositeFactControllerRecordChecklistItem).toHaveBeenCalledWith(
+      expect.objectContaining({ checklistItemId: itemId, checkpointId }),
+    )
+  })
+
+  it('routes checkpoint OR variants with exact checkpoint and variant IDs', async () => {
+    const checkpointId = '33333333-3333-4333-8333-333333333333'
+    const variantId = '44444444-4444-4444-8444-444444444444'
+    render(
+      <RecordFactActions
+        goal={createGoal(
+          {
+            kind: 'any_of',
+            variants: [
+              {
+                label: 'Стаканы',
+                precision: 2,
+                target: '2',
+                unit: 'шт',
+                variantId,
+              },
+            ],
+          },
+          [{ componentId: checkpointId, componentKind: 'checkpoint' }],
+          [],
+          {
+            aggregation: 'all',
+            items: [
+              {
+                checkpointId,
+                deadline: '18:00',
+                name: 'Вечер',
+                satisfaction: { kind: 'any_of' },
+              },
+            ],
+          },
+        )}
+        isOnline
+        refetch={vi.fn(async () => undefined)}
+        today={today}
+      />,
+    )
+
+    fireEvent.change(screen.getByLabelText('Вечер · Стаканы (шт)'), {
+      target: { value: '1.20' },
+    })
+    await userEvent.click(screen.getByRole('button', { name: 'Записать' }))
+    await waitFor(() =>
+      expect(compositeFactControllerRecordOrVariant).toHaveBeenCalledOnce(),
+    )
+    expect(compositeFactControllerRecordOrVariant).toHaveBeenCalledWith(
+      expect.objectContaining({ checkpointId, value: '1.20', variantId }),
+    )
+  })
+
+  it('keeps an open draft mounted and read-only while offline', () => {
+    const { rerender } = render(
+      <RecordFactActions
+        goal={createGoal({ kind: 'text' }, [
+          { componentId: null, componentKind: 'goal' },
+        ])}
+        isOnline
+        refetch={vi.fn()}
+        today={today}
+      />,
+    )
+    const text = screen.getByLabelText('Текстовый факт')
+    fireEvent.change(text, { target: { value: 'Черновик' } })
+
+    rerender(
+      <RecordFactActions
+        goal={createGoal({ kind: 'text' }, [
+          { componentId: null, componentKind: 'goal' },
+        ])}
+        isOnline={false}
+        refetch={vi.fn()}
+        today={today}
+      />,
+    )
+    expect(screen.getByLabelText('Текстовый факт')).toHaveValue('Черновик')
+    expect(screen.getByLabelText('Текстовый факт')).toBeDisabled()
+    expect(screen.queryByText('Записать')).not.toBeInTheDocument()
+  })
+
+  it('offers explicit abandon for an unknown composite result', async () => {
+    vi.mocked(compositeFactControllerRecordText).mockRejectedValueOnce(
+      new ApiNetworkError(),
+    )
+    render(
+      <RecordFactActions
+        goal={createGoal({ kind: 'text' }, [
+          { componentId: null, componentKind: 'goal' },
+        ])}
+        isOnline
+        refetch={vi.fn()}
+        today={today}
+      />,
+    )
+    fireEvent.change(screen.getByLabelText('Текстовый факт'), {
+      target: { value: 'Неизвестный результат' },
+    })
+    await userEvent.click(screen.getByRole('button', { name: 'Записать' }))
+    await waitFor(() =>
+      expect(screen.getByText(/Результат не подтверждён/)).toBeInTheDocument(),
+    )
+    expect(screen.getByRole('button', { name: 'Повторить' })).toBeEnabled()
+    await userEvent.click(screen.getByRole('button', { name: 'Отменить' }))
+    expect(
+      screen.queryByText(/Результат не подтверждён/),
+    ).not.toBeInTheDocument()
   })
 })

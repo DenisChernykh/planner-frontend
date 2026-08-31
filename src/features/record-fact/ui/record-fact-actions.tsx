@@ -3,7 +3,7 @@ import type {
   TrackingGoalPresentation,
 } from '@/entities/tracking'
 
-import { canRecordFact } from '../model/record-fact-access'
+import { canViewRecordFactSurface } from '../model/record-fact-access'
 import { RecordFactCheckpoints } from './record-fact-checkpoints'
 import { RecordFactMeasurement } from './record-fact-measurement'
 
@@ -18,7 +18,7 @@ export function RecordFactActions({
   refetch: () => Promise<unknown>
   today: PublishedTodayPresentation
 }>) {
-  if (!canRecordFact(today, goal, isOnline)) return null
+  if (!canViewRecordFactSurface(today, goal)) return null
 
   return (
     <section

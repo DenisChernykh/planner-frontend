@@ -1,4 +1,5 @@
 import { useTrackingToday } from '@/entities/tracking'
+import { RecordFactIntentScopeProvider } from '@/features/record-fact'
 import { PRODUCT_TIME_ZONE } from '@/shared/lib/date'
 import { useOnlineStatus } from '@/shared/lib/online-status'
 import { Container, Spinner } from '@/shared/ui'
@@ -8,6 +9,7 @@ import {
   PublishedTodayContent,
   TodayToolbar,
 } from './today-state-surfaces'
+import { TodayRecordFactNavigationGuard } from './today-record-fact-navigation-guard'
 
 export function TodayPage() {
   const tracking = useTrackingToday()
@@ -36,13 +38,16 @@ export function TodayPage() {
         />
         <EmptyTodayState data={tracking.data} />
         {tracking.data.state === 'published' && (
-          <PublishedTodayContent
-            data={tracking.data}
-            isOnline={isOnline}
-            refetch={async () => {
-              await tracking.refetch({ throwOnError: true })
-            }}
-          />
+          <RecordFactIntentScopeProvider>
+            <TodayRecordFactNavigationGuard />
+            <PublishedTodayContent
+              data={tracking.data}
+              isOnline={isOnline}
+              refetch={async () => {
+                await tracking.refetch({ throwOnError: true })
+              }}
+            />
+          </RecordFactIntentScopeProvider>
         )}
         <p className="mt-8 text-xs text-muted-foreground">
           Все даты и локальные времена показываются в {PRODUCT_TIME_ZONE}.

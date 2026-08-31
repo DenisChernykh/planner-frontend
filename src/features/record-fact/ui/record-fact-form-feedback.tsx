@@ -1,14 +1,24 @@
 import { Button } from '@/shared/ui'
+import type { z } from 'zod'
 
+import { formatRecordFactError } from '../model/record-fact-error'
 import type { RecordFactIntentStatus } from '../model/use-record-fact-intent'
 
 export function RecordFactFormFeedback({
   status,
   onRetry,
+  onAbandon,
+  error,
+  allowedPointers,
+  problemSchema,
   isOnline,
 }: Readonly<{
+  allowedPointers?: readonly string[]
+  error?: unknown
   isOnline: boolean
+  onAbandon?: () => void
   onRetry: () => void
+  problemSchema?: z.ZodType
   status: RecordFactIntentStatus
 }>) {
   if (status === 'success') {
@@ -34,6 +44,11 @@ export function RecordFactFormFeedback({
         >
           Повторить
         </Button>
+        {onAbandon && (
+          <Button type="button" variant="ghost" size="sm" onClick={onAbandon}>
+            Отменить
+          </Button>
+        )}
       </div>
     )
   }
@@ -49,7 +64,7 @@ export function RecordFactFormFeedback({
   if (status === 'error') {
     return (
       <p className="text-xs text-destructive" role="alert">
-        Не удалось сохранить значение. Проверьте соединение и данные.
+        {formatRecordFactError(error, allowedPointers, problemSchema)}
       </p>
     )
   }
