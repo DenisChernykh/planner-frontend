@@ -334,10 +334,43 @@ describe('M2 router integration', () => {
       await router.navigate('/')
     })
 
-    expect(await screen.findByText('День уже в общем контексте.')).toBeVisible()
+    expect(await screen.findByText('30 августа 2026')).toBeVisible()
     expect(router.state.location.pathname).toBe('/today')
     expect(events.slice(0, 3)).toEqual(['session', 'workspace', 'tracking'])
     expect(events.filter((event) => event === 'tracking')).toHaveLength(1)
+  })
+
+  it('refreshes Today after an authenticated navigation into the destination', async () => {
+    const events: string[] = []
+    let trackingResponse: TrackingTodayResponseV1 = today
+    server.use(
+      http.get('*/api/auth/me', () => {
+        events.push('session')
+        return HttpResponse.json(session)
+      }),
+      http.get('*/api/workspace/current', () => {
+        events.push('workspace')
+        return HttpResponse.json(workspace)
+      }),
+      http.get('*/api/tracking/today', () => {
+        events.push('tracking')
+        return HttpResponse.json(trackingResponse)
+      }),
+    )
+    const { router } = renderRouter('/plans')
+
+    expect(
+      await screen.findByText('Месяц начинается с ясного плана.'),
+    ).toBeVisible()
+    trackingResponse = activeToday
+    events.length = 0
+
+    await act(async () => {
+      await router.navigate('/today')
+    })
+
+    expect(await screen.findByText('Сохранять ясный темп')).toBeVisible()
+    expect(events).toEqual(['session', 'tracking'])
   })
 
   it('hides and remounts mounted private observers when revalidation replaces the principal', async () => {
@@ -671,7 +704,7 @@ describe('M2 router integration', () => {
   })
 
   it.each([
-    ['/today', 'День уже в общем контексте.'],
+    ['/today', '30 августа 2026'],
     ['/months/2026-08', 'Контекст 2026-08'],
     ['/plans', 'Месяц начинается с ясного плана.'],
     ['/statistics/2026-08', 'Итоги 2026-08'],

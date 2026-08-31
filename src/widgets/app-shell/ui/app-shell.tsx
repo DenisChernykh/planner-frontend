@@ -281,12 +281,14 @@ function AccountMenu({ workspace }: AppShellProps) {
 }
 
 function TrackingState({
+  hasData,
   isPending,
   isError,
   isFetching,
   error,
   onRetry,
 }: Readonly<{
+  hasData: boolean
   isPending: boolean
   isError: boolean
   isFetching: boolean
@@ -304,7 +306,7 @@ function TrackingState({
     )
   }
 
-  if (!isError) return <Outlet />
+  if (!isError || hasData) return <Outlet />
 
   const canRetry = !(error instanceof ApiProblemError) || error.status !== 403
 
@@ -422,6 +424,7 @@ export function AppShell({ workspace }: AppShellProps) {
         </header>
 
         <TrackingState
+          hasData={tracking.data !== undefined}
           isPending={isTrackingDependentDestination && tracking.isPending}
           isError={isTrackingDependentDestination && tracking.isError}
           isFetching={tracking.isFetching}
