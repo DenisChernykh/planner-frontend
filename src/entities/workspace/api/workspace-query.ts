@@ -13,7 +13,6 @@ async function fetchCurrentWorkspace(signal: AbortSignal) {
   signal.throwIfAborted()
   const workspace = await workspaceControllerCurrent(undefined, signal)
   signal.throwIfAborted()
-  selectWorkspacePresentation(workspace)
   return workspace
 }
 
@@ -29,7 +28,7 @@ const workspacePresentationQueryOptions = queryOptions({
   select: selectWorkspacePresentation,
 })
 
-/** Performs a validated authoritative workspace refresh before remount. */
+/** Performs an authoritative workspace refresh before remount. */
 export async function loadCurrentWorkspace(
   queryClient: QueryClient,
   signal: AbortSignal,
@@ -40,7 +39,7 @@ export async function loadCurrentWorkspace(
   return workspace
 }
 
-/** Reads a cross-field-validated, UI-safe workspace projection. */
+/** Reads a UI-safe workspace projection from the authoritative response. */
 export function useWorkspacePresentation() {
   return useQuery(workspacePresentationQueryOptions)
 }

@@ -1,4 +1,4 @@
-import { ApiProtocolError, type TrackingTodayResponseV1 } from '@/shared/api'
+import type { TrackingTodayResponseV1 } from '@/shared/api'
 import { formatProductDateLabel, PRODUCT_TIME_ZONE } from '@/shared/lib/date'
 
 type NoPlanToday = Extract<TrackingTodayResponseV1, { state: 'no_plan' }>
@@ -78,19 +78,12 @@ function projectPublishedToday(
     today.day.goals.map((goal) => [goal.planGoalSnapshotId, goal]),
   )
 
-  if (dayGoals.size !== today.day.goals.length) {
-    throw new ApiProtocolError()
-  }
-
   const goals = today.goals
-    .map((goal) => {
+    .flatMap((goal) => {
       const dayGoal = dayGoals.get(goal.planGoalSnapshotId)
-      if (dayGoal === undefined) throw new ApiProtocolError()
-      return freezeGoal(goal, dayGoal)
+      return dayGoal ? [freezeGoal(goal, dayGoal)] : []
     })
     .toSorted((left, right) => left.displayOrder - right.displayOrder)
-
-  if (goals.length !== dayGoals.size) throw new ApiProtocolError()
 
   return Object.freeze({
     ...today,

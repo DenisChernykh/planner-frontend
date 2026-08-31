@@ -1,7 +1,7 @@
 import axios from 'axios'
 
+import type { CsrfTokenResponseDto } from '../generated/model/csrfTokenResponseDto'
 import { getOrFetchCsrfTokenLease } from './csrf-token'
-import { parseSuccessfulApiResponse } from './success-response'
 
 const unsafeMethods = new Set(['POST', 'PUT', 'PATCH', 'DELETE'])
 const clientDefaults = {
@@ -13,9 +13,8 @@ export const API_AXIOS_INSTANCE = axios.create(clientDefaults)
 const csrfAxios = axios.create(clientDefaults)
 
 async function fetchCsrfToken() {
-  const response = await csrfAxios.get<unknown>('/auth/csrf')
-  return (await parseSuccessfulApiResponse<{ csrfToken: string }>(response))
-    .csrfToken
+  const response = await csrfAxios.get<CsrfTokenResponseDto>('/auth/csrf')
+  return response.data.csrfToken
 }
 
 API_AXIOS_INSTANCE.interceptors.request.use(async (config) => {

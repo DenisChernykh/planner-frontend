@@ -1,7 +1,5 @@
 import { describe, expect, it } from 'vitest'
 
-import { ApiProtocolError } from '@/shared/api'
-
 import {
   selectRootDestination,
   selectTrackingNavigation,
@@ -56,25 +54,6 @@ describe('tracking navigation selectors', () => {
       targetMonth: '2026-08',
     })
   })
-
-  it('rejects a contradictory published phase and month status', () => {
-    expect(() =>
-      selectTrackingNavigation(
-        published({ monthStatus: 'closed', phase: 'active' }),
-      ),
-    ).toThrow(ApiProtocolError)
-  })
-
-  it.each(['future', 'active'] as const)(
-    'rejects reopened lifecycle in the %s phase',
-    (phase) => {
-      expect(() =>
-        selectTrackingNavigation(
-          published({ lifecycleMode: 'reopened', phase }),
-        ),
-      ).toThrow(ApiProtocolError)
-    },
-  )
 
   it('accepts a reclosed reopened lifecycle', () => {
     expect(

@@ -1,26 +1,15 @@
 import { HttpResponse, http, type HttpHandler } from 'msw'
 
 import {
-  CompositeFactControllerRecordChecklistItem201Response,
   CompositeFactControllerRecordChecklistItemBody,
-  CompositeFactControllerRecordCompositeOccurrence201Response,
   CompositeFactControllerRecordCompositeOccurrenceBody,
-  CompositeFactControllerRecordOrVariant201Response,
   CompositeFactControllerRecordOrVariantBody,
-  CompositeFactControllerRecordText201Response,
-  CompositeFactControllerRecordText422Response,
   CompositeFactControllerRecordTextBody,
   OPENAPI_CONTRACT_SOURCE,
-  ScalarFactControllerRecordCheckpoint201Response,
   ScalarFactControllerRecordCheckpointBody,
-  ScalarFactControllerRecordFact201Response,
   ScalarFactControllerRecordFactBody,
-  ScalarFactControllerRecordRating201Response,
   ScalarFactControllerRecordRatingBody,
-  ScalarFactControllerRecordTime201Response,
   ScalarFactControllerRecordTimeBody,
-  ScalarFactControllerRecordFact422Response,
-  TrackingQueryControllerToday200Response,
   type TrackingFactMutationResponseV1Dto,
   type TrackingTodayResponseV1,
 } from '@/shared/api'
@@ -318,7 +307,7 @@ const mixedTodayResponse = {
 
 export const mixedTodayFixture = Object.freeze({
   contract: OPENAPI_CONTRACT_SOURCE,
-  response: TrackingQueryControllerToday200Response.parse(mixedTodayResponse),
+  response: mixedTodayResponse,
 })
 
 const mutationResponse = {
@@ -398,68 +387,55 @@ const compositeOccurrenceRequest =
     },
   })
 
-const scalarResponse =
-  ScalarFactControllerRecordFact201Response.parse(mutationResponse)
-
 export const trackingFactMutationFixtures = Object.freeze({
   scalarBoolean: {
     path: '/tracking/facts',
     request: scalarBooleanRequest,
-    response: scalarResponse,
+    response: mutationResponse,
   },
   scalarQuantity: {
     path: '/tracking/facts',
     request: scalarQuantityRequest,
-    response: scalarResponse,
+    response: mutationResponse,
   },
   actualTime: {
     path: '/tracking/facts/time',
     request: actualTimeRequest,
-    response: ScalarFactControllerRecordTime201Response.parse(mutationResponse),
+    response: mutationResponse,
   },
   rating: {
     path: '/tracking/facts/rating',
     request: ratingRequest,
-    response:
-      ScalarFactControllerRecordRating201Response.parse(mutationResponse),
+    response: mutationResponse,
   },
   checkpoint: {
     path: '/tracking/facts/checkpoint',
     request: checkpointRequest,
-    response:
-      ScalarFactControllerRecordCheckpoint201Response.parse(mutationResponse),
+    response: mutationResponse,
   },
   text: {
     path: '/tracking/facts/text',
     request: textRequest,
-    response:
-      CompositeFactControllerRecordText201Response.parse(mutationResponse),
+    response: mutationResponse,
   },
   checklistItem: {
     path: '/tracking/facts/checklist-item',
     request: checklistItemRequest,
-    response:
-      CompositeFactControllerRecordChecklistItem201Response.parse(
-        mutationResponse,
-      ),
+    response: mutationResponse,
   },
   orVariant: {
     path: '/tracking/facts/or-variant',
     request: orVariantRequest,
-    response:
-      CompositeFactControllerRecordOrVariant201Response.parse(mutationResponse),
+    response: mutationResponse,
   },
   compositeOccurrence: {
     path: '/tracking/facts/composite-occurrence',
     request: compositeOccurrenceRequest,
-    response:
-      CompositeFactControllerRecordCompositeOccurrence201Response.parse(
-        mutationResponse,
-      ),
+    response: mutationResponse,
   },
 })
 
-const scalarValidationError = ScalarFactControllerRecordFact422Response.parse({
+const scalarValidationError = {
   code: 'VALIDATION_FAILED',
   detail: 'Value does not match the published measurement.',
   errors: [
@@ -474,24 +450,23 @@ const scalarValidationError = ScalarFactControllerRecordFact422Response.parse({
   status: 422,
   title: 'Validation failed',
   type: 'https://planner.example.test/problems/validation',
-})
-const compositeValidationError =
-  CompositeFactControllerRecordText422Response.parse({
-    code: 'VALIDATION_FAILED',
-    detail: 'Text is required.',
-    errors: [
-      {
-        code: 'required',
-        detail: 'Enter text.',
-        pointer: '/text',
-      },
-    ],
-    instance: 'urn:fixture:m3-composite-validation',
-    requestId: 'm3-composite-validation',
-    status: 422,
-    title: 'Validation failed',
-    type: 'https://planner.example.test/problems/validation',
-  })
+} as const
+const compositeValidationError = {
+  code: 'VALIDATION_FAILED',
+  detail: 'Text is required.',
+  errors: [
+    {
+      code: 'required',
+      detail: 'Enter text.',
+      pointer: '/text',
+    },
+  ],
+  instance: 'urn:fixture:m3-composite-validation',
+  requestId: 'm3-composite-validation',
+  status: 422,
+  title: 'Validation failed',
+  type: 'https://planner.example.test/problems/validation',
+} as const
 
 export const trackingFactErrorFixtures = Object.freeze({
   scalarValidation: {
@@ -511,7 +486,7 @@ export const trackingFactRecoveryFixtures = Object.freeze({
     path: '/tracking/facts',
     request: scalarBooleanRequest,
     retryRequest: scalarBooleanRequest,
-    response: scalarResponse,
+    response: mutationResponse,
   },
   compositeNetworkRetry: {
     path: '/tracking/facts/text',

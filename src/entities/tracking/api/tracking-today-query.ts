@@ -5,7 +5,6 @@ import {
   trackingQueryControllerToday,
 } from '@/shared/api'
 
-import { selectTrackingNavigation } from '../model/tracking-navigation'
 import { selectTrackingTodayPresentation } from '../model/tracking-today-presentation'
 
 export const trackingTodayQueryKey = getTrackingQueryControllerTodayQueryKey()
@@ -14,7 +13,6 @@ async function fetchTrackingToday(signal: AbortSignal) {
   signal.throwIfAborted()
   const today = await trackingQueryControllerToday(undefined, signal)
   signal.throwIfAborted()
-  selectTrackingNavigation(today)
   return selectTrackingTodayPresentation(today)
 }
 
@@ -28,7 +26,7 @@ const trackingTodayQueryOptions = queryOptions({
   refetchOnWindowFocus: false,
 })
 
-/** Performs a validated authoritative tracking refresh before remount. */
+/** Performs an authoritative tracking refresh before remount. */
 export async function loadTrackingToday(
   queryClient: QueryClient,
   signal: AbortSignal,

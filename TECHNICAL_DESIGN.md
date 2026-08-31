@@ -140,7 +140,7 @@ contracts. Product semantics, routes, permissions и labels из starter не
 | AppShell и navigation  | `SidebarProvider`, Sidebar/Sheet, mobile-close и account-footer composition   | четыре Planner destinations, backend display labels/timezone, route-family active semantics, focus и offline/reconnect presentation      |
 | Today read model        | query/cache identity, route-loader refresh и abort boundaries                 | discriminated `no_plan/draft/published`, server-owned access/progress/order, `Asia/Yekaterinburg`, stale/offline read-only state          |
 | Typed fact entry        | `useZodForm`, generic form/error/UI/MSW lifecycle                              | Planner-owned `CommandIntentController`; 8 generated typed-fact operations; boolean и quantity используют общий `/tracking/facts`; DTO/schema routing, exact values, duplicate/replay/unknown/reconciliation and navigation safety |
-| M3 MSW fixtures         | `setupServer`, handler lifecycle и test isolation                             | mixed Today and typed success/error/recovery payloads parsed by generated schemas at exact `OPENAPI_CONTRACT_SOURCE` pin                 |
+| M3 MSW fixtures         | `setupServer`, handler lifecycle и test isolation                             | mixed Today and typed success/error/recovery payloads tied to generated DTO types and exact `OPENAPI_CONTRACT_SOURCE` pin                 |
 
 Эта стратегия не создаёт runtime dependency или автоматический sync со starter
 HEAD. Каждое новое заимствование требует нового exact source SHA и reviewed
@@ -522,11 +522,13 @@ Generated source коммитится, не редактируется вруч�
 pages. `shared/api/index.ts` экспортирует только используемые operations, DTO,
 query helpers и schemas.
 
-Каждый успешный HTTP response перед записью в Query cache проходит
-operation-specific generated Zod schema. Несоответствие успешного payload
-published contract преобразуется в `ApiProtocolError`; непроверенный response
-не попадает в entity cache и не отображается как partial success. Generated
-TypeScript types не заменяют эту runtime validation.
+Успешный HTTP response перед записью в Query cache доверяется generated
+TypeScript return type и возвращается как `response.data`: frontend не выполняет
+runtime validation успешного payload и не превращает его несоответствие в
+`ApiProtocolError`. Pinned OpenAPI snapshot, generated TypeScript и backend
+contract/CI остаются источником истины. Runtime error handling по-прежнему
+нормализует abort/network failures, Problem Details и документированные
+non-success responses.
 
 ## 10. Error contract
 
@@ -535,7 +537,8 @@ TypeScript types не заменяют эту runtime validation.
 ```text
 Axios error
 ├── response absent             → ApiNetworkError
-├── invalid media/body/status   → ApiProtocolError
+├── documented non-Problem error → ApiDocumentedResponseError
+├── other non-Problem error      → ApiProtocolError
 └── valid application/problem+json
     → ApiProblemError
        ├── status
@@ -624,7 +627,8 @@ Mutations:
 
 Entity cache keys delegate generated query-key helpers where available. UUID в
 key canonical lowercase; HTTP path сохраняет validated route value. Response
-identity проверяется до cache write.
+identity определяется generated operation/query key; payload успешного response
+не проходит дополнительную runtime-проверку до cache write.
 
 ### 11.3. Mutation effects
 
@@ -934,11 +938,12 @@ CI pass фиксируются как разные evidence claims.
 | AppShell integration    | navigation, offline banner, workspace labels, mobile Sheet semantics                                |
 | Manual browser          | actual layout, focus, touch, charts, full W frame checklist                                         |
 
-MSW handlers импортируют generated DTO types/public schemas и не создают
-параллельный production contract. Fixtures содержат exact OpenAPI revision,
-проверяются generated schemas и меняются reviewable вместе с pin. Они
-доказывают frontend request mapping, presentation и recovery, но не backend
-authorization, atomicity, persistence или domain policy.
+MSW handlers импортируют generated DTO types; request/error schemas остаются на
+своих boundary, без создания параллельного production contract. Fixtures
+содержат exact OpenAPI revision и типизированы generated DTO; успешные response
+payloads не проходят отдельный runtime schema parse. Они доказывают frontend
+request mapping, presentation и recovery, но не backend authorization,
+atomicity, persistence или domain policy.
 
 ### 20.3. Обязательные automated scenarios
 
@@ -971,8 +976,9 @@ authorization, atomicity, persistence или domain policy.
     rendered UI/test diagnostics.
 18. Exact OIDC start/callback proxy-руются в backend, `/api/*` теряет только
     первый `/api`, а `/auth/telegram/result` никогда не покидает SPA ownership.
-19. Invalid successful response даёт `ApiProtocolError` и не записывается в
-    Query cache.
+19. Successful response возвращается и записывается в Query cache по generated
+    TypeScript return type; frontend не runtime-отклоняет его payload. Контракт
+    обеспечивается pinned OpenAPI и backend contract/CI.
 
 ### 20.4. Manual browser acceptance
 
@@ -1022,7 +1028,7 @@ OIDC/session/API smoke.
    OpenAPI pin, этот документ и API coverage до feature implementation.
 9. `F10`, frontend regeneration, source gate, browser acceptance и hosted
    deployment являются отдельными claims.
-10. `G0` принят: exact-byte OpenAPI pin, runtime success validation,
-    pathname-only `returnTo`, safe finite OIDC results, normative proxy table,
-    обязательный GitHub source-check и revision-bound MSW fixtures являются
-    частью implementation contract.
+10. `G0` принят: exact-byte OpenAPI pin, generated TypeScript return types
+    (без runtime validation успешных responses), pathname-only `returnTo`, safe
+    finite OIDC results, normative proxy table, обязательный GitHub source-check
+    и revision-bound MSW fixtures являются частью implementation contract.

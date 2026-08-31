@@ -7,10 +7,7 @@ import {
   normalizeApiError,
 } from './api-errors'
 import { API_AXIOS_INSTANCE } from './axios-client'
-import {
-  parseDocumentedApiErrorResponse,
-  parseSuccessfulApiResponse,
-} from './success-response'
+import { parseDocumentedApiErrorResponse } from './documented-response'
 
 type DocumentedErrorData<GeneratedErrorData> =
   GeneratedErrorData extends ProblemDocumentLike | null | void
@@ -47,7 +44,7 @@ export async function apiMutator<T>(
   try {
     if (!/^\/(?![/\\])/u.test(config.url)) throw new ApiProtocolError()
 
-    const response = await API_AXIOS_INSTANCE.request<unknown>({
+    const response = await API_AXIOS_INSTANCE.request<T>({
       data: config.data,
       method: config.method,
       params: config.params,
@@ -55,7 +52,7 @@ export async function apiMutator<T>(
       url: config.url,
       validateStatus: (status) => status >= 200 && status < 300,
     })
-    return await parseSuccessfulApiResponse<T>(response)
+    return response.status === 204 ? (undefined as T) : response.data
   } catch (error) {
     if (axios.isAxiosError(error) && error.response !== undefined) {
       let documentedError

@@ -1,4 +1,4 @@
-import { ApiProtocolError, type TrackingTodayResponseV1 } from '@/shared/api'
+import type { TrackingTodayResponseV1 } from '@/shared/api'
 
 type NoPlanNavigationSource = Pick<
   Extract<TrackingTodayResponseV1, { state: 'no_plan' }>,
@@ -37,28 +37,6 @@ export type RootDestination = Readonly<{
   targetMonth: string
 }>
 
-function assertPublishedLifecycle(
-  today: PublishedNavigationSource,
-): PublishedNavigationSource {
-  const expectedMonthStatus =
-    today.phase === 'future' || today.phase === 'active'
-      ? 'published'
-      : today.phase
-
-  if (today.monthStatus !== expectedMonthStatus) {
-    throw new ApiProtocolError()
-  }
-
-  if (
-    today.lifecycleMode === 'reopened' &&
-    (today.phase === 'future' || today.phase === 'active')
-  ) {
-    throw new ApiProtocolError()
-  }
-
-  return today
-}
-
 /** Removes day, goal and identifier payloads from AppShell navigation context. */
 export function selectTrackingNavigation(
   today: TrackingTodayNavigationSource,
@@ -73,13 +51,12 @@ export function selectTrackingNavigation(
     })
   }
 
-  const published = assertPublishedLifecycle(today)
   return Object.freeze({
-    lifecycleMode: published.lifecycleMode,
-    monthStatus: published.monthStatus,
-    phase: published.phase,
-    state: published.state,
-    targetMonth: published.targetMonth,
+    lifecycleMode: today.lifecycleMode,
+    monthStatus: today.monthStatus,
+    phase: today.phase,
+    state: today.state,
+    targetMonth: today.targetMonth,
   })
 }
 

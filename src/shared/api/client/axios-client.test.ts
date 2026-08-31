@@ -253,7 +253,7 @@ describe('credentialed Planner Axios transport', () => {
     expect(logoutRequests).toBe(0)
   })
 
-  it('turns an invalid CSRF success body into a protocol error without sending mutation', async () => {
+  it('trusts the typed CSRF success body and sends the mutation', async () => {
     let logoutRequests = 0
     server.use(
       http.get(`${apiOrigin}/auth/csrf`, () =>
@@ -267,39 +267,9 @@ describe('credentialed Planner Axios transport', () => {
 
     await expect(
       apiMutator({ url: '/auth/logout', method: 'POST' }),
-    ).rejects.toBeInstanceOf(ApiProtocolError)
-    expect(logoutRequests).toBe(0)
+    ).resolves.toBeUndefined()
+    expect(logoutRequests).toBe(1)
   })
-
-  it.each([
-    [
-      'an undeclared success status',
-      HttpResponse.json({ csrfToken }, { status: 201 }),
-    ],
-    [
-      'the wrong success media type',
-      new HttpResponse(JSON.stringify({ csrfToken }), {
-        headers: { 'Content-Type': 'text/plain' },
-      }),
-    ],
-  ])(
-    'rejects %s from the CSRF endpoint without sending the mutation',
-    async (_case, csrfResponse) => {
-      let logoutRequests = 0
-      server.use(
-        http.get(`${apiOrigin}/auth/csrf`, () => csrfResponse.clone()),
-        http.post(`${apiOrigin}/auth/logout`, () => {
-          logoutRequests += 1
-          return new HttpResponse(null, { status: 204 })
-        }),
-      )
-
-      await expect(
-        apiMutator({ url: '/auth/logout', method: 'POST' }),
-      ).rejects.toBeInstanceOf(ApiProtocolError)
-      expect(logoutRequests).toBe(0)
-    },
-  )
 
   it('normalizes a valid Problem response and hides raw server copy in message', async () => {
     server.use(
@@ -437,14 +407,13 @@ describe('credentialed Planner Axios transport', () => {
     await expect(aborted).rejects.toBeInstanceOf(ApiAbortError)
   })
 
-  it('rejects an invalid success before React Query can cache it', async () => {
+  it('trusts the generated success type when writing React Query cache', async () => {
+    const response = {
+      ...principal,
+      telegramUsername: 'must-enter-cache',
+    }
     server.use(
-      http.get(`${apiOrigin}/auth/me`, () =>
-        HttpResponse.json({
-          ...principal,
-          telegramUsername: 'must-not-enter-cache',
-        }),
-      ),
+      http.get(`${apiOrigin}/auth/me`, () => HttpResponse.json(response)),
     )
     const queryClient = new QueryClient({
       defaultOptions: { queries: { retry: false } },
@@ -452,9 +421,9 @@ describe('credentialed Planner Axios transport', () => {
 
     await expect(
       queryClient.fetchQuery(getAuthControllerMeQueryOptions()),
-    ).rejects.toBeInstanceOf(ApiProtocolError)
-    expect(
-      queryClient.getQueryData(getAuthControllerMeQueryKey()),
-    ).toBeUndefined()
+    ).resolves.toEqual(response)
+    expect(queryClient.getQueryData(getAuthControllerMeQueryKey())).toEqual(
+      response,
+    )
   })
 })
