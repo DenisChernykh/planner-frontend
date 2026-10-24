@@ -35,3 +35,6 @@ yarn-error.log*
 .env.local
 .env.production
 !*.example
+
+# Local planning source documents
+/docs/Апрель.docx
