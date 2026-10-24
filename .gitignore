@@ -31,3 +31,7 @@ yarn-error.log*
 .idea/
 *.swp
 *.swo
+.pnpm-store/
+.env.local
+.env.production
+!*.example
